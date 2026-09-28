@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07040d">
+<title>داشبورد Super Admin | مشاور</title>
+<meta name="description" content="داشبورد مدیریت کل سامانه مشاور">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#07040d;--bg2:#0d0817;--surface:rgba(22,14,37,.62);--surface2:rgba(29,18,48,.82);--surface3:rgba(255,255,255,.045);
+ --text:#fbf9ff;--text2:#bdb4ca;--text3:#82788f;--border:rgba(255,255,255,.09);--border2:rgba(168,85,247,.30);
+ --purple:#a855f7;--purple2:#7c3aed;--cyan:#22d3ee;--green:#34d399;--yellow:#fbbf24;--red:#fb7185;--blue:#60a5fa;
+ --shadow:0 26px 90px rgba(0,0,0,.36);--glow:0 0 46px rgba(168,85,247,.11);--sidebar:280px;--r:25px;--ease:cubic-bezier(.22,1,.36,1)
+}
+html[data-theme=light]{--bg:#f5f1fa;--bg2:#eee8f6;--surface:rgba(255,255,255,.68);--surface2:rgba(255,255,255,.9);--surface3:rgba(88,59,118,.055);--text:#21172c;--text2:#675b73;--text3:#958aa0;--border:rgba(52,28,72,.10);--border2:rgba(124,58,237,.24);--shadow:0 25px 75px rgba(70,42,92,.13)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Vazirmatn,sans-serif;color:var(--text);background:radial-gradient(circle at 7% 3%,rgba(168,85,247,.15),transparent 27%),radial-gradient(circle at 92% 9%,rgba(34,211,238,.07),transparent 24%),radial-gradient(circle at 65% 100%,rgba(124,58,237,.10),transparent 31%),var(--bg);overflow-x:hidden;transition:.4s var(--ease)}
+button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none;color:inherit}::selection{background:rgba(168,85,247,.42);color:#fff}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}.ambient i{position:absolute;width:360px;height:360px;border-radius:50%;filter:blur(90px);opacity:.14}.ambient i:first-child{right:6%;top:-180px;background:var(--purple);animation:orb 16s ease-in-out infinite alternate}.ambient i:last-child{left:-170px;bottom:-150px;background:var(--cyan);animation:orb 20s -7s ease-in-out infinite alternate}@keyframes orb{to{transform:translate(40px,30px) scale(1.12)}}
+.floating-crosses{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}.floating-cross{position:absolute;width:35px;height:35px;display:grid;place-items:center;color:rgba(198,154,255,.62);font-size:29px;font-weight:300;filter:drop-shadow(0 0 12px rgba(168,85,247,.35));animation:crossFloat 9s ease-in-out infinite,crossSpin 12s linear infinite}.floating-cross:before{content:"×"}.floating-cross:nth-child(1){right:8%;top:18%;animation-delay:-2s}.floating-cross:nth-child(2){left:7%;top:58%;font-size:22px;animation-duration:11s,16s;animation-delay:-5s}.floating-cross:nth-child(3){right:36%;bottom:8%;font-size:18px;animation-duration:10s,14s;animation-delay:-3s}.floating-cross:nth-child(4){left:31%;top:9%;font-size:16px;animation-duration:13s,18s;animation-delay:-8s}@keyframes crossFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-12px,0)}}@keyframes crossSpin{to{rotate:360deg}}html[data-theme=light] .floating-cross{color:rgba(124,58,237,.40)}
+.glass{background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--border);box-shadow:var(--shadow),var(--glow);backdrop-filter:blur(25px) saturate(150%);-webkit-backdrop-filter:blur(25px) saturate(150%)}
+.app{min-height:100vh;display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr)}
+.sidebar{position:fixed;right:17px;top:17px;bottom:17px;width:calc(var(--sidebar) - 34px);border-radius:28px;padding:17px 13px;z-index:70;display:flex;flex-direction:column;overflow:hidden}.sidebar:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;left:-80px;top:40px;background:rgba(168,85,247,.13);filter:blur(40px)}
+.brand{display:flex;align-items:center;gap:11px;padding:5px 7px 20px;position:relative;z-index:2}.logo{width:45px;height:45px;border-radius:15px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:18px;background:linear-gradient(145deg,var(--purple),var(--purple2));box-shadow:0 0 34px rgba(168,85,247,.33),inset 0 1px rgba(255,255,255,.3)}.brand strong{display:block;font-size:17px}.brand small{display:block;color:var(--text3);font-size:10px;margin-top:2px}
+.nav-title{font-size:11px;color:var(--text3);font-weight:700;padding:7px 10px}.nav{position:relative;z-index:2;display:flex;flex-direction:column;gap:5px}.nav a{min-height:46px;padding:0 11px;border-radius:15px;display:flex;align-items:center;gap:10px;color:var(--text2);transition:.28s var(--ease);position:relative}.nav a:hover{color:var(--text);background:var(--surface3);transform:translateX(-3px)}.nav a.active{color:var(--text);background:linear-gradient(135deg,rgba(168,85,247,.19),rgba(124,58,237,.05));border:1px solid rgba(168,85,247,.12)}.nav a.active:before{content:"";position:absolute;right:-14px;width:3px;height:25px;border-radius:9px;background:linear-gradient(var(--purple),var(--cyan));box-shadow:0 0 16px rgba(168,85,247,.8)}.nav-icon{width:25px;text-align:center;font-size:16px}.nav-label{font-size:13px;font-weight:600;flex:1}.badge{min-width:21px;height:21px;padding:0 6px;border-radius:99px;display:grid;place-items:center;font-size:10px;background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.2)}
+.sidebar-bottom{margin-top:auto;position:relative;z-index:2}.system-status{padding:11px;border:1px solid var(--border);background:var(--surface3);border-radius:17px;margin-bottom:9px}.status-line{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700}.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 13px rgba(52,211,153,.9)}.status-line span:last-child{margin-right:auto;color:var(--green);font-size:9px}.status-sub{font-size:9px;color:var(--text3);margin-top:5px;line-height:1.7}.profile-mini{display:flex;gap:9px;align-items:center;padding:10px;border:1px solid var(--border);background:var(--surface3);border-radius:17px;margin-bottom:8px}.avatar{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800;background:linear-gradient(145deg,#8b5cf6,#6d28d9);box-shadow:0 0 20px rgba(124,58,237,.25)}.profile-copy{min-width:0}.profile-copy strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-copy span{display:block;color:var(--text3);font-size:10px;margin-top:2px}.logout{width:100%;height:40px;border-radius:13px;background:transparent;border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:.25s}.logout:hover{color:var(--red);border-color:rgba(251,113,133,.28);background:rgba(251,113,133,.05)}
+.main{grid-column:2;min-width:0;padding:17px 17px 40px}.topbar{height:70px;border-radius:22px;display:flex;align-items:center;gap:11px;padding:9px 10px;position:sticky;top:12px;z-index:60}.menu-mobile{display:none;width:42px;height:42px;border-radius:13px;background:var(--surface3);border:1px solid var(--border);color:var(--text);cursor:pointer}.page-context{flex:1;min-width:0}.eyebrow{font-size:10px;color:var(--purple);font-weight:800}.page-context h1{font-size:21px;margin:2px 0 0;letter-spacing:-.6px}.top-actions{display:flex;gap:7px}.icon-btn{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:.28s var(--ease);position:relative}.icon-btn:hover{color:var(--text);border-color:var(--border2);transform:translateY(-2px);box-shadow:0 12px 30px rgba(168,85,247,.12)}.dot{position:absolute;right:8px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px rgba(34,211,238,.8)}
+.content{padding:20px 3px 0}.hero{border-radius:29px;padding:27px 29px;min-height:190px;display:flex;align-items:center;justify-content:space-between;gap:25px;position:relative;overflow:hidden;background:radial-gradient(circle at 7% 100%,rgba(168,85,247,.22),transparent 34%),radial-gradient(circle at 91% 0%,rgba(34,211,238,.11),transparent 25%),linear-gradient(135deg,rgba(38,21,61,.84),rgba(15,9,26,.62))}.hero:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;left:-170px;top:-170px;border:1px solid rgba(255,255,255,.04);box-shadow:0 0 0 35px rgba(255,255,255,.015),0 0 0 70px rgba(255,255,255,.01)}html[data-theme=light] .hero{background:radial-gradient(circle at 7% 100%,rgba(168,85,247,.12),transparent 34%),radial-gradient(circle at 91% 0%,rgba(34,211,238,.07),transparent 25%),linear-gradient(135deg,rgba(255,255,255,.92),rgba(246,240,252,.73))}.hero-copy{position:relative;z-index:2}.live{display:inline-flex;align-items:center;gap:7px;font-size:9px;color:var(--text2);border:1px solid var(--border);background:rgba(255,255,255,.045);border-radius:99px;padding:6px 10px;margin-bottom:11px}.live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 11px rgba(52,211,153,.85)}.hero h2{font-size:30px;margin:0;letter-spacing:-1.2px}.hero p{font-size:11px;color:var(--text2);line-height:2;margin:7px 0 0;max-width:690px}.hero-actions{display:flex;gap:8px;margin-top:17px}.primary{height:41px;padding:0 17px;border-radius:13px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;cursor:pointer;box-shadow:0 0 27px rgba(168,85,247,.2);font-size:11px;font-weight:700;transition:.3s var(--ease)}.primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(168,85,247,.23)}.secondary{height:41px;padding:0 15px;border-radius:13px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:11px;transition:.25s}.secondary:hover{color:var(--text);border-color:var(--border2)}.hero-art{width:245px;height:150px;position:relative;flex:0 0 245px}.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid rgba(168,85,247,.18);border-radius:50%;inset:10px;transform:rotate(-18deg) scaleX(1.55)}.hero-art:after{inset:25px;border-color:rgba(34,211,238,.14);transform:rotate(57deg) scaleX(1.38)}.core-card{position:absolute;left:60px;top:27px;width:126px;height:96px;border-radius:24px;background:linear-gradient(145deg,rgba(168,85,247,.31),rgba(124,58,237,.10));border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;box-shadow:0 20px 50px rgba(0,0,0,.24),0 0 45px rgba(168,85,247,.17);transform:rotate(-3deg);animation:float 4s ease-in-out infinite}.core-card strong{font-size:27px}.core-card span{font-size:9px;color:var(--text2);margin-top:-23px}@keyframes float{50%{transform:translateY(-6px) rotate(2deg)}}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:13px;margin-top:14px}.kpi{grid-column:span 3;min-height:145px;border-radius:22px;padding:18px;position:relative;overflow:hidden;transition:.35s var(--ease)}.kpi:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:var(--shadow),0 0 42px rgba(168,85,247,.13)}.kpi:after{content:"";position:absolute;width:110px;height:110px;border-radius:50%;right:-42px;top:-42px;background:var(--purple);opacity:.08;filter:blur(8px)}.kpi-head{display:flex;align-items:center;justify-content:space-between;color:var(--text2);font-size:11px;font-weight:700}.kpi-icon{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;color:var(--purple);background:rgba(168,85,247,.10);border:1px solid rgba(168,85,247,.13);font-size:17px}.kpi-value{font-size:30px;font-weight:900;letter-spacing:-1px;margin-top:16px}.kpi-foot{display:flex;align-items:center;gap:7px;margin-top:6px;font-size:9px}.up{color:var(--green)}.warn{color:var(--yellow)}.danger-text{color:var(--red)}.muted{color:var(--text3)}
+.panel{border-radius:23px;padding:18px;position:relative;overflow:hidden}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.section-title strong{display:block;font-size:14px}.section-title span{display:block;color:var(--text3);font-size:9px;margin-top:5px;line-height:1.8}.panel-actions{display:flex;gap:6px;align-items:center}.small-btn{height:34px;padding:0 11px;border-radius:11px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:9px;transition:.25s}.small-btn:hover{color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+.overview{grid-column:span 8}.overview-body{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:17px}.chart{height:230px;position:relative;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent);overflow:hidden;border:1px solid rgba(255,255,255,.035)}.chart-grid{position:absolute;inset:20px 18px 35px;display:flex;flex-direction:column;justify-content:space-between}.chart-grid i{display:block;border-top:1px dashed var(--border)}.chart-svg{position:absolute;inset:20px 18px 35px;overflow:visible}.chart-line{fill:none;stroke:url(#lineGradient);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(168,85,247,.22))}.chart-area{fill:url(#areaGradient)}.chart-points circle{fill:var(--bg2);stroke:var(--purple);stroke-width:2}.chart-labels{position:absolute;left:18px;right:18px;bottom:10px;display:flex;justify-content:space-between;color:var(--text3);font-size:8px}.metric-side{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mini-metric{padding:13px;border-radius:16px;background:var(--surface3);border:1px solid var(--border)}.mini-metric span{display:block;color:var(--text3);font-size:9px}.mini-metric strong{display:block;font-size:18px;margin-top:8px}.mini-metric small{display:block;font-size:8px;color:var(--green);margin-top:4px}
+.system{grid-column:span 4}.health-list{display:grid;gap:9px;margin-top:17px}.health{padding:12px 13px;border-radius:15px;background:var(--surface3);border:1px solid var(--border);display:flex;align-items:center;gap:10px}.health-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:rgba(52,211,153,.10);color:var(--green);border:1px solid rgba(52,211,153,.14)}.health-copy{min-width:0;flex:1}.health-copy strong{display:block;font-size:10px}.health-copy span{display:block;color:var(--text3);font-size:8px;margin-top:3px}.health-status{font-size:8px;color:var(--green);font-weight:700}.health-status.warn{color:var(--yellow)}
+.organizations{grid-column:span 8}.org-table{margin-top:16px;overflow:auto;border:1px solid var(--border);border-radius:17px}.org-table table{width:100%;border-collapse:collapse;min-width:680px}.org-table th{font-size:9px;color:var(--text3);font-weight:700;text-align:right;padding:12px 13px;background:rgba(255,255,255,.025);white-space:nowrap}.org-table td{padding:13px;border-top:1px solid var(--border);font-size:10px;white-space:nowrap}.org-table tbody tr{transition:.2s}.org-table tbody tr:hover{background:var(--surface3)}.org-name{display:flex;align-items:center;gap:9px}.org-logo{width:35px;height:35px;border-radius:11px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;background:linear-gradient(145deg,#8b5cf6,#6d28d9)}.org-name strong{display:block;font-size:10px}.org-name span{display:block;color:var(--text3);font-size:8px;margin-top:2px}.pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 8px;font-size:8px;border:1px solid}.pill.green{color:var(--green);background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.16)}.pill.yellow{color:var(--yellow);background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.16)}.pill.red{color:var(--red);background:rgba(251,113,133,.07);border-color:rgba(251,113,133,.16)}.pill.blue{color:var(--blue);background:rgba(96,165,250,.07);border-color:rgba(96,165,250,.16)}.row-action{width:31px;height:31px;border-radius:10px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer}.row-action:hover{color:var(--text);border-color:var(--border2)}
+.activity{grid-column:span 4}.activity-list{display:grid;gap:9px;margin-top:16px}.activity-item{display:flex;gap:10px;padding:11px;border-radius:15px;background:var(--surface3);border:1px solid transparent;transition:.25s}.activity-item:hover{border-color:var(--border)}.activity-icon{width:34px;height:34px;flex:0 0 34px;border-radius:11px;display:grid;place-items:center;background:rgba(168,85,247,.10);color:var(--purple);border:1px solid rgba(168,85,247,.13)}.activity-copy{min-width:0}.activity-copy strong{display:block;font-size:9px;line-height:1.7}.activity-copy span{display:block;color:var(--text3);font-size:8px;margin-top:2px}
+.bottom-a{grid-column:span 4}.bottom-b{grid-column:span 4}.bottom-c{grid-column:span 4}.progress-wrap{margin-top:16px;display:grid;gap:13px}.progress-row{display:grid;gap:6px}.progress-head{display:flex;justify-content:space-between;font-size:9px;color:var(--text2)}.progress-track{height:8px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden;border:1px solid var(--border)}.progress-bar{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple),var(--cyan));box-shadow:0 0 14px rgba(168,85,247,.28)}.revenue-big{margin-top:16px;padding:17px;border-radius:18px;background:linear-gradient(135deg,rgba(168,85,247,.13),rgba(34,211,238,.05));border:1px solid rgba(168,85,247,.12)}.revenue-big span{display:block;color:var(--text3);font-size:9px}.revenue-big strong{display:block;font-size:25px;margin-top:6px}.revenue-big small{display:block;color:var(--green);font-size:8px;margin-top:4px}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.quick{min-height:73px;padding:12px;border-radius:15px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;text-align:right;transition:.25s}.quick:hover{transform:translateY(-3px);color:var(--text);border-color:var(--border2)}.quick b{display:block;font-size:18px;color:var(--purple);font-weight:500}.quick span{display:block;font-size:9px;margin-top:7px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.3s;z-index:65}.overlay.open{opacity:1;pointer-events:auto}.mobile-nav{display:none}
+.notifications{position:fixed;left:22px;top:83px;width:335px;padding:15px;border-radius:22px;z-index:95;opacity:0;transform:translateY(-8px) scale(.98);pointer-events:none;transition:.3s}.notifications.open{opacity:1;transform:none;pointer-events:auto}.notif-head{display:flex;justify-content:space-between;align-items:center}.notif-head strong{font-size:11px}.notif-head button{background:none;color:var(--purple);font-size:9px;cursor:pointer}.notif{margin-top:8px;padding:11px;border-radius:14px;background:var(--surface3);border:1px solid transparent}.notif:hover{border-color:var(--border)}.notif strong{display:block;font-size:9px}.notif span{display:block;font-size:8px;color:var(--text3);margin-top:3px;line-height:1.7}
+.modal{position:fixed;inset:0;display:grid;place-items:center;padding:20px;z-index:120;opacity:0;pointer-events:none;transition:.3s}.modal.open{opacity:1;pointer-events:auto}.modal-card{width:min(650px,100%);max-height:min(760px,calc(100vh - 40px));overflow:auto;border-radius:27px;padding:22px;transform:translateY(14px) scale(.98);transition:.35s var(--ease)}.modal.open .modal-card{transform:none}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.modal-head strong{font-size:15px}.modal-head span{display:block;color:var(--text3);font-size:9px;margin-top:4px}.close{width:37px;height:37px;border-radius:12px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer}.close:hover{color:var(--red);border-color:rgba(251,113,133,.25)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:17px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;color:var(--text2);font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);background:rgba(0,0,0,.12);color:var(--text);border-radius:12px;outline:0;padding:10px 11px;font-size:10px}.field textarea{min-height:90px;resize:vertical}html[data-theme=light] .field input,html[data-theme=light] .field select,html[data-theme=light] .field textarea{background:#fff;color:#2b2035}html[data-theme=light] .field select option{background:#fff;color:#2b2035}.field select option{background:#171021;color:#fff}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(168,85,247,.07)}.modal-actions{display:flex;justify-content:flex-start;gap:7px;margin-top:15px}
+.toast{position:fixed;left:22px;bottom:22px;z-index:140;min-width:280px;max-width:calc(100vw - 44px);padding:13px 14px;border-radius:17px;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(20px);pointer-events:none;transition:.35s var(--ease)}.toast.show{opacity:1;transform:none}.toast-icon{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(52,211,153,.13);border:1px solid rgba(52,211,153,.22);color:var(--green)}.toast strong{font-size:10px;display:block}.toast span{font-size:8px;color:var(--text3);display:block;margin-top:2px}
+@media(max-width:1180px){:root{--sidebar:250px}.kpi{grid-column:span 6}.overview{grid-column:span 8}.system{grid-column:span 4}.organizations{grid-column:span 8}.activity{grid-column:span 4}.bottom-a,.bottom-b,.bottom-c{grid-column:span 4}}
+@media(max-width:900px){.app{display:block}.sidebar{right:12px;top:12px;bottom:12px;width:min(290px,calc(100vw - 24px));transform:translateX(120%);transition:.4s var(--ease)}.sidebar.open{transform:none}.main{padding:12px 12px 91px}.menu-mobile{display:grid;place-items:center}.hero{padding:22px}.hero-art{display:none}.hero h2{font-size:24px}.overview,.system,.organizations,.activity,.bottom-a,.bottom-b,.bottom-c{grid-column:span 12}.overview-body{grid-template-columns:1fr}.metric-side{grid-template-columns:repeat(4,1fr)}.mobile-nav{position:fixed;display:flex;align-items:center;justify-content:space-around;left:10px;right:10px;bottom:10px;min-height:67px;padding:6px;border-radius:22px;z-index:60}.mobile-nav a,.mobile-nav button{min-width:58px;height:52px;border-radius:15px;background:transparent;color:var(--text3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:8px;cursor:pointer}.mobile-nav b{font-size:16px;font-weight:500}.mobile-nav .active{color:var(--text);background:rgba(168,85,247,.12)}}
+@media(max-width:580px){.content{padding-top:15px}.top-actions .profile-btn{display:none}.kpi{grid-column:span 12;min-height:125px}.grid{gap:10px}.panel{padding:15px}.metric-side{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-actions{flex-wrap:wrap}.notifications{left:12px;right:12px;width:auto}.hero-actions{flex-wrap:wrap}.primary,.secondary{flex:1}.toast{left:12px;bottom:85px;right:12px;min-width:0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="ambient"><i></i><i></i></div>
+<div class="floating-crosses" aria-hidden="true"><span class="floating-cross"></span><span class="floating-cross"></span><span class="floating-cross"></span><span class="floating-cross"></span></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+<aside class="sidebar glass" id="sidebar">
+ <div class="brand"><div class="logo">م</div><div><strong>مشاور</strong><small>SUPER ADMIN CONTROL</small></div></div>
+ <div class="nav-title">مرکز کنترل سامانه</div>
+ <nav class="nav">
+  <a class="active" href="dashboard.html"><span class="nav-icon">⌂</span><span class="nav-label">داشبورد</span></a>
+  <a href="organizations.html"><span class="nav-icon">▦</span><span class="nav-label">کلینیک‌ها</span><span class="badge">۲۴</span></a>
+  <a href="users.html"><span class="nav-icon">♙</span><span class="nav-label">کاربران</span></a>
+  <a href="subscriptions.html"><span class="nav-icon">◇</span><span class="nav-label">اشتراک‌ها</span><span class="badge">۳</span></a>
+  <a href="access.html"><span class="nav-icon">⌘</span><span class="nav-label">دسترسی و نقش‌ها</span></a>
+  <a href="reports.html"><span class="nav-icon">◒</span><span class="nav-label">گزارش‌ها</span></a>
+  <a href="settings.html"><span class="nav-icon">⚙</span><span class="nav-label">تنظیمات سامانه</span></a>
+ </nav>
+ <div class="sidebar-bottom">
+  <div class="system-status"><div class="status-line"><i class="status-dot"></i><span>وضعیت سامانه</span><span>ONLINE</span></div><div class="status-sub">تمام سرویس‌های اصلی در حال فعالیت هستند.</div></div>
+  <div class="profile-mini"><div class="avatar">SA</div><div class="profile-copy"><strong id="adminName">مدیر ارشد سامانه</strong><span>SUPER ADMIN</span></div></div>
+  <button class="logout" id="logout">خروج از حساب</button>
+ </div>
+</aside>
+
+<main class="main">
+<header class="topbar glass">
+ <button class="menu-mobile" id="menuMobile">☰</button>
+ <div class="page-context"><div class="eyebrow">SUPER ADMIN CONTROL CENTER</div><h1>داشبورد مدیریت کل سامانه</h1></div>
+ <div class="top-actions"><button class="icon-btn" id="theme" title="تغییر پوسته">☾</button><button class="icon-btn" id="notificationsBtn" title="اعلان‌ها">♢<i class="dot"></i></button><button class="icon-btn profile-btn" id="profileBtn">SA</button></div>
+</header>
+
+<section class="content">
+<section class="hero glass">
+ <div class="hero-copy">
+  <div class="live"><i></i> سیستم مرکزی آنلاین است</div>
+  <h2>مرکز فرماندهی مشاور</h2>
+  <p>از اینجا کل اکوسیستم سامانه را مدیریت کنید؛ کلینیک‌ها، کاربران، اشتراک‌ها، دسترسی‌ها، سلامت سرویس‌ها و شاخص‌های کلیدی کسب‌وکار در یک نمای واحد.</p>
+  <div class="hero-actions"><button class="primary" id="newOrgBtn">＋ ایجاد کلینیک جدید</button><button class="secondary" id="reportsBtn">مشاهده گزارش‌ها</button></div>
+ </div>
+ <div class="hero-art"><div class="core-card"><div><strong>24</strong><span>کلینیک فعال</span></div></div></div>
+</section>
+
+<div class="grid">
+ <article class="kpi glass"><div class="kpi-head"><span>کل کلینیک‌ها</span><span class="kpi-icon">▦</span></div><div class="kpi-value">۲۴</div><div class="kpi-foot"><span class="up">+۳</span><span class="muted">این ماه</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>کاربران فعال</span><span class="kpi-icon">♙</span></div><div class="kpi-value">۱۸۶</div><div class="kpi-foot"><span class="up">+۸.۶٪</span><span class="muted">نسبت به ماه قبل</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>مراجعین کل سامانه</span><span class="kpi-icon">♧</span></div><div class="kpi-value">۱۲.۸K</div><div class="kpi-foot"><span class="up">+۱۴.۲٪</span><span class="muted">رشد ماهانه</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>درآمد اشتراک ماه</span><span class="kpi-icon">◇</span></div><div class="kpi-value">۳۴۸M</div><div class="kpi-foot"><span class="up">+۱۷.۸٪</span><span class="muted">تومان</span></div></article>
+
+ <section class="panel glass overview">
+  <div class="panel-head"><div class="section-title"><strong>رشد سامانه</strong><span>روند کل کلینیک‌ها و درآمد اشتراک در شش ماه اخیر</span></div><div class="panel-actions"><button class="small-btn" id="rangeBtn">۶ ماه اخیر</button></div></div>
+  <div class="overview-body">
+   <div class="chart">
+    <div class="chart-grid"><i></i><i></i><i></i><i></i><i></i></div>
+    <svg class="chart-svg" viewBox="0 0 620 170" preserveAspectRatio="none" aria-label="نمودار رشد"><defs><linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#22d3ee"/></linearGradient><linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7" stop-opacity=".22"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></linearGradient></defs><path class="chart-area" d="M0 139 C55 132 78 121 120 125 S190 108 240 112 S310 80 360 92 S430 61 480 69 S550 37 620 25 L620 170 L0 170 Z"/><path class="chart-line" d="M0 139 C55 132 78 121 120 125 S190 108 240 112 S310 80 360 92 S430 61 480 69 S550 37 620 25"/><g class="chart-points"><circle cx="0" cy="139" r="4"/><circle cx="120" cy="125" r="4"/><circle cx="240" cy="112" r="4"/><circle cx="360" cy="92" r="4"/><circle cx="480" cy="69" r="4"/><circle cx="620" cy="25" r="4"/></g></svg>
+    <div class="chart-labels"><span>فروردین</span><span>اردیبهشت</span><span>خرداد</span><span>تیر</span><span>مرداد</span><span>شهریور</span></div>
+   </div>
+   <div class="metric-side"><div class="mini-metric"><span>کلینیک‌ها</span><strong>۲۴</strong><small>+۳ این ماه</small></div><div class="mini-metric"><span>اشتراک فعال</span><strong>۲۱</strong><small>۸۷٪ فعال</small></div><div class="mini-metric"><span>کاربران</span><strong>۱۸۶</strong><small>+۱۵ کاربر</small></div><div class="mini-metric"><span>درآمد</span><strong>۳۴۸M</strong><small>+۱۷.۸٪</small></div></div>
+  </div>
+ </section>
+
+ <section class="panel glass system">
+  <div class="panel-head"><div class="section-title"><strong>سلامت زیرساخت</strong><span>وضعیت سرویس‌های کلیدی</span></div><button class="small-btn" id="refreshHealth">↻ بروزرسانی</button></div>
+  <div class="health-list"><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>API Gateway</strong><span>پاسخ‌گویی ۱۲۴ms</span></div><b class="health-status">Operational</b></div><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>Database</strong><span>اتصال پایدار · ۲۴ اتصال</span></div><b class="health-status">Healthy</b></div><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>File Storage</strong><span>Google Drive connector</span></div><b class="health-status">Connected</b></div><div class="health"><div class="health-icon">!</div><div class="health-copy"><strong>Backup</strong><span>آخرین نسخه پشتیبان ۳ ساعت قبل</span></div><b class="health-status warn">Review</b></div></div>
+ </section>
+
+ <section class="panel glass organizations">
+  <div class="panel-head"><div class="section-title"><strong>کلینیک‌های اخیر</strong><span>آخرین سازمان‌های ایجاد یا بروزرسانی‌شده</span></div><div class="panel-actions"><button class="small-btn" id="allOrgsBtn">مشاهده همه</button><button class="small-btn" id="addOrgInline">＋ کلینیک</button></div></div>
+  <div class="org-table"><table><thead><tr><th>کلینیک</th><th>مدیر</th><th>اشتراک</th><th>کاربران</th><th>وضعیت</th><th></th></tr></thead><tbody id="orgRows"></tbody></table></div>
+ </section>
+
+ <section class="panel glass activity">
+  <div class="panel-head"><div class="section-title"><strong>فعالیت‌های اخیر</strong><span>رویدادهای مهم مدیریتی</span></div><button class="small-btn" id="auditBtn">Audit Log</button></div>
+  <div class="activity-list" id="activityList"></div>
+ </section>
+
+ <section class="panel glass bottom-a">
+  <div class="panel-head"><div class="section-title"><strong>وضعیت اشتراک‌ها</strong><span>توزیع اشتراک کلینیک‌ها</span></div></div>
+  <div class="progress-wrap"><div class="progress-row"><div class="progress-head"><span>Pro</span><b>۱۲ کلینیک · ۵۰٪</b></div><div class="progress-track"><div class="progress-bar" style="width:50%"></div></div></div><div class="progress-row"><div class="progress-head"><span>Business</span><b>۶ کلینیک · ۲۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:25%"></div></div></div><div class="progress-row"><div class="progress-head"><span>Starter</span><b>۳ کلینیک · ۱۲.۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:12.5%"></div></div></div><div class="progress-row"><div class="progress-head"><span>Trial</span><b>۳ کلینیک · ۱۲.۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:12.5%"></div></div></div></div>
+ </section>
+
+ <section class="panel glass bottom-b">
+  <div class="panel-head"><div class="section-title"><strong>درآمد اشتراک</strong><span>مجموع دریافتی ماه جاری</span></div></div>
+  <div class="revenue-big"><span>درآمد ثبت‌شده</span><strong>۳۴۸,۶۰۰,۰۰۰</strong><small>▲ ۱۷.۸٪ نسبت به ماه قبل</small></div>
+  <div class="quick-grid"><button class="quick" id="invoiceBtn"><b>◇</b><span>گزارش مالی</span></button><button class="quick" id="subscriptionBtn"><b>↗</b><span>مدیریت اشتراک</span></button></div>
+ </section>
+
+ <section class="panel glass bottom-c">
+  <div class="panel-head"><div class="section-title"><strong>اقدامات سریع</strong><span>دسترسی مستقیم به عملیات مدیریتی</span></div></div>
+  <div class="quick-grid"><button class="quick" id="quickOrg"><b>＋</b><span>ایجاد کلینیک</span></button><button class="quick" id="quickUser"><b>♙</b><span>ایجاد کاربر</span></button><button class="quick" id="quickAccess"><b>⌘</b><span>دسترسی‌ها</span></button><button class="quick" id="quickReport"><b>◒</b><span>گزارش سامانه</span></button></div>
+ </section>
+</div>
+</section>
+</main>
+</div>
+
+<nav class="mobile-nav glass"><a class="active" href="dashboard.html"><b>⌂</b>خانه</a><a href="organizations.html"><b>▦</b>کلینیک‌ها</a><a href="users.html"><b>♙</b>کاربران</a><a href="subscriptions.html"><b>◇</b>اشتراک</a><button id="mobileMore"><b>☰</b>منو</button></nav>
+
+<div class="notifications glass" id="notifications"><div class="notif-head"><strong>اعلان‌های مدیریتی</strong><button id="clearNotifications">خوانده شد</button></div><div class="notif"><strong>۳ اشتراک در آستانه انقضا</strong><span>سه کلینیک طی ۷ روز آینده نیاز به تمدید دارند.</span></div><div class="notif"><strong>Backup نیازمند بررسی</strong><span>آخرین نسخه پشتیبان ۳ ساعت قبل ایجاد شده است.</span></div><div class="notif"><strong>کلینیک جدید ایجاد شد</strong><span>کلینیک «آریا زیبایی» امروز به سامانه اضافه شد.</span></div></div>
+
+<div class="modal" id="orgModal"><div class="modal-card glass"><div class="modal-head"><div><strong>ایجاد کلینیک جدید</strong><span>سازمان جدید را برای استفاده در سامانه ثبت کنید.</span></div><button class="close" id="closeOrg">×</button></div><form id="orgForm"><div class="form-grid"><div class="field"><label>نام کلینیک</label><input id="orgName" required placeholder="مثلاً کلینیک آریا"></div><div class="field"><label>نام مدیر کلینیک</label><input id="managerName" required placeholder="نام و نام خانوادگی"></div><div class="field"><label>شماره تماس</label><input id="orgPhone" inputmode="tel" placeholder="۰۹۱۲..." required></div><div class="field"><label>پلن اشتراک</label><select id="orgPlan"><option value="starter">Starter</option><option value="pro" selected>Pro</option><option value="business">Business</option><option value="trial">Trial</option></select></div><div class="field"><label>شناسه سازمان</label><input id="orgSlug" placeholder="clinic-aria" required></div><div class="field"><label>وضعیت</label><select id="orgStatus"><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="suspended">معلق</option></select></div><div class="field full"><label>یادداشت مدیریتی</label><textarea id="orgNote" placeholder="یادداشت داخلی برای تیم مدیریت..."></textarea></div></div><div class="modal-actions"><button class="primary" type="submit">ایجاد کلینیک</button><button class="secondary" type="button" id="cancelOrg">انصراف</button></div></form></div></div>
+
+<div class="modal" id="profileModal"><div class="modal-card glass"><div class="modal-head"><div><strong>پروفایل مدیر ارشد</strong><span>اطلاعات حساب فعلی</span></div><button class="close" id="closeProfile">×</button></div><div class="form-grid"><div class="field"><label>نام</label><input value="مدیر ارشد سامانه" readonly></div><div class="field"><label>نقش</label><input value="SUPER ADMIN" readonly></div><div class="field"><label>امنیت حساب</label><input value="احراز هویت فعال" readonly></div><div class="field"><label>آخرین ورود</label><input value="امروز · ۰۹:۴۲" readonly></div></div><div class="modal-actions"><button class="secondary" type="button" id="closeProfile2">بستن</button></div></div></div>
+
+<div class="toast glass" id="toast"><div class="toast-icon">✓</div><div><strong id="toastTitle">عملیات انجام شد</strong><span id="toastText">تغییرات با موفقیت ثبت شد.</span></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const html=document.documentElement;
+const overlay=$('#overlay');
+const sidebar=$('#sidebar');
+const toast=$('#toast');
+const orgModal=$('#orgModal');
+const profileModal=$('#profileModal');
+const notifications=$('#notifications');
+
+function fa(n){return Number(n).toLocaleString('fa-IR')}
+function showToast(title,text){$('#toastTitle').textContent=title;$('#toastText').textContent=text;toast.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>toast.classList.remove('show'),3200)}
+function openModal(modal){modal.classList.add('open');overlay.classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(modal){modal.classList.remove('open');if(!document.querySelector('.modal.open')){overlay.classList.remove('open');document.body.style.overflow=''}}
+function setTheme(theme){html.dataset.theme=theme;localStorage.setItem('moshaver-theme',theme);$('#theme').textContent=theme==='light'?'☀':'☾'}
+setTheme(localStorage.getItem('moshaver-theme')||'dark');
+$('#theme').addEventListener('click',()=>setTheme(html.dataset.theme==='light'?'dark':'light'));
+
+$('#menuMobile').addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('open')});
+$('#mobileMore').addEventListener('click',()=>{sidebar.classList.add('open');overlay.classList.add('open')});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');notifications.classList.remove('open');closeModal(orgModal);closeModal(profileModal);overlay.classList.remove('open')});
+$('#notificationsBtn').addEventListener('click',e=>{e.stopPropagation();notifications.classList.toggle('open')});
+document.addEventListener('click',e=>{if(!notifications.contains(e.target)&&e.target!==$('#notificationsBtn'))notifications.classList.remove('open')});
+$('#clearNotifications').addEventListener('click',()=>{notifications.classList.remove('open');showToast('اعلان‌ها','همه اعلان‌های مدیریتی خوانده شدند.')});
+
+const orgs=[
+ {name:'کلینیک زیبایی آناهید',code:'ANA-2048',manager:'سارا احمدی',plan:'Business',users:'۱۸',status:'active',initial:'آ'},
+ {name:'مرکز پوست و مو آریا',code:'ARY-1182',manager:'محمد رضایی',plan:'Pro',users:'۱۲',status:'active',initial:'آ'},
+ {name:'کلینیک هیراد',code:'HIR-0934',manager:'نگار کریمی',plan:'Pro',users:'۹',status:'trial',initial:'ه'},
+ {name:'مرکز زیبایی نیکا',code:'NIK-0821',manager:'علی مرادی',plan:'Starter',users:'۵',status:'active',initial:'ن'},
+ {name:'کلینیک دکتر پارسا',code:'PAR-0716',manager:'مریم پارسا',plan:'Pro',users:'۸',status:'suspended',initial:'پ'}
+];
+function planClass(p){return p==='Business'?'blue':p==='Pro'?'green':p==='Trial'?'yellow':'yellow'}
+function statusPill(s){return s==='active'?'<span class="pill green">● فعال</span>':s==='trial'?'<span class="pill yellow">● آزمایشی</span>':'<span class="pill red">● معلق</span>'}
+function renderOrgs(){
+ $('#orgRows').innerHTML=orgs.map((o,i)=>`<tr><td><div class="org-name"><div class="org-logo">${o.initial}</div><div><strong>${o.name}</strong><span>${o.code}</span></div></div></td><td>${o.manager}</td><td><span class="pill ${planClass(o.plan)}">${o.plan}</span></td><td>${o.users}</td><td>${statusPill(o.status)}</td><td><button class="row-action" data-org="${i}" title="نمایش جزئیات">⋯</button></td></tr>`).join('');
+ $$('#orgRows [data-org]').forEach(btn=>btn.addEventListener('click',()=>{const o=orgs[Number(btn.dataset.org)];showToast(o.name,'جزئیات این کلینیک در نسخه متصل به API از صفحه organizations مدیریت خواهد شد.')}));
+}
+renderOrgs();
+
+const activities=[
+ ['▦','کلینیک جدید ایجاد شد','آریا زیبایی · ۱۲ دقیقه قبل'],['♙','کاربر جدید ساخته شد','مشاور «نگار کریمی» · ۳۵ دقیقه قبل'],['◇','اشتراک تمدید شد','کلینیک آناهید · ۱ ساعت قبل'],['⌘','سطح دسترسی تغییر کرد','مدیر کلینیک پارسا · ۲ ساعت قبل'],['↻','نسخه پشتیبان اجرا شد','Database backup · ۳ ساعت قبل']
+];
+$('#activityList').innerHTML=activities.map(a=>`<div class="activity-item"><div class="activity-icon">${a[0]}</div><div class="activity-copy"><strong>${a[1]}</strong><span>${a[2]}</span></div></div>`).join('');
+
+function openOrg(){openModal(orgModal);setTimeout(()=>$('#orgName').focus(),80)}
+['newOrgBtn','addOrgInline','quickOrg'].forEach(id=>$('#'+id).addEventListener('click',openOrg));
+$('#closeOrg').addEventListener('click',()=>closeModal(orgModal));$('#cancelOrg').addEventListener('click',()=>closeModal(orgModal));
+$('#orgForm').addEventListener('submit',e=>{e.preventDefault();const name=$('#orgName').value.trim();if(!name)return;orgs.unshift({name,code:($('#orgSlug').value.trim()||'NEW').toUpperCase().slice(0,10),manager:$('#managerName').value.trim()||'—',plan:$('#orgPlan').value==='business'?'Business':$('#orgPlan').value==='starter'?'Starter':$('#orgPlan').value==='trial'?'Trial':'Pro',users:'۱',status:$('#orgStatus').value==='trial'?'trial':$('#orgStatus').value==='suspended'?'suspended':'active',initial:name[0]||'م'});renderOrgs();closeModal(orgModal);e.target.reset();showToast('کلینیک ایجاد شد','رکورد در حالت نمایشی به لیست اضافه شد؛ اتصال واقعی در API انجام می‌شود.')});
+
+$('#profileBtn').addEventListener('click',()=>openModal(profileModal));$('#closeProfile').addEventListener('click',()=>closeModal(profileModal));$('#closeProfile2').addEventListener('click',()=>closeModal(profileModal));
+$('#reportsBtn').addEventListener('click',()=>location.href='reports.html');$('#allOrgsBtn').addEventListener('click',()=>location.href='organizations.html');$('#auditBtn').addEventListener('click',()=>showToast('Audit Log','صفحه گزارش فعالیت‌ها در مرحله بعد به صورت مستقل پیاده‌سازی می‌شود.'));$('#invoiceBtn').addEventListener('click',()=>location.href='reports.html');$('#subscriptionBtn').addEventListener('click',()=>location.href='subscriptions.html');$('#quickUser').addEventListener('click',()=>location.href='users.html');$('#quickAccess').addEventListener('click',()=>location.href='access.html');$('#quickReport').addEventListener('click',()=>location.href='reports.html');
+$('#rangeBtn').addEventListener('click',()=>showToast('بازه نمودار','در نسخه API امکان انتخاب بازه‌های ۷ روز، ۳۰ روز، ۶ ماه و ۱۲ ماه فعال خواهد شد.'));
+$('#refreshHealth').addEventListener('click',()=>{showToast('سلامت سامانه','وضعیت سرویس‌ها بررسی شد.');const b=$('#refreshHealth');b.textContent='✓ بروزرسانی شد';setTimeout(()=>b.textContent='↻ بروزرسانی',1600)});
+$('#logout').addEventListener('click',()=>{showToast('خروج از حساب','در نسخه متصل به Backend نشست امن کاربر خاتمه داده می‌شود.');setTimeout(()=>location.href='../login.html',900)});
+
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){notifications.classList.remove('open');closeModal(orgModal);closeModal(profileModal);sidebar.classList.remove('open')}});
+</script>
+
+</body>
+</html>
