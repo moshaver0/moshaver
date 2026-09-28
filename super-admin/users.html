@@ -3,246 +3,333 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>مدیریت کاربران | مشاور</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090712">
+<title>کاربران | Moshaver Super Admin</title>
 <style>
 :root{
-  --bg:#07111f;--bg2:#0b1728;--panel:rgba(16,29,48,.72);--panel2:rgba(19,35,58,.82);
-  --line:rgba(255,255,255,.09);--text:#edf5ff;--muted:#8fa4bd;--accent:#65d7ff;
-  --accent2:#8b7cff;--success:#43e0a2;--warning:#ffc96b;--danger:#ff7185;
-  --shadow:0 24px 70px rgba(0,0,0,.34);--radius:24px;
+  --bg:#080711;--bg2:#100d1c;--panel:rgba(24,18,39,.74);--panel2:rgba(30,22,48,.88);
+  --line:rgba(167,112,255,.16);--line2:rgba(177,124,255,.30);
+  --text:#f7f3ff;--muted:#a59bb8;--primary:#8b5cf6;--primary2:#b16cff;--violet:#a855f7;
+  --pink:#d946ef;--cyan:#67e8f9;--green:#35d39a;--orange:#ffb85c;--red:#ff667d;
+  --shadow:0 28px 90px rgba(0,0,0,.48);--radius:25px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:Tahoma,"Segoe UI",sans-serif;background:
-radial-gradient(circle at 8% 8%,rgba(101,215,255,.10),transparent 28%),
-radial-gradient(circle at 90% 15%,rgba(139,124,255,.12),transparent 30%),
-linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text);min-height:100vh;overflow-x:hidden}
-body.light{--bg:#edf4fb;--bg2:#f8fbff;--panel:rgba(255,255,255,.72);--panel2:rgba(255,255,255,.9);--line:rgba(18,40,65,.10);--text:#132238;--muted:#65758b;--shadow:0 24px 65px rgba(37,73,111,.13)}
-button,input,select{font:inherit}
-button{cursor:pointer;border:0}
-a{color:inherit;text-decoration:none}
-.bg-orb{position:fixed;width:360px;height:360px;border-radius:50%;filter:blur(55px);opacity:.12;pointer-events:none;z-index:-1}
-.o1{background:#46d8ff;top:-120px;right:-100px}.o2{background:#8c74ff;bottom:-150px;left:-100px}
-.app{display:flex;min-height:100vh}
-.sidebar{width:275px;position:fixed;inset:0 0 0 auto;padding:22px 16px;background:rgba(7,17,31,.68);backdrop-filter:blur(25px);border-left:1px solid var(--line);z-index:20;transition:.35s}
-.light .sidebar{background:rgba(248,251,255,.82)}
-.brand{display:flex;align-items:center;gap:12px;padding:10px 10px 24px;border-bottom:1px solid var(--line)}
-.logo{width:48px;height:48px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(101,215,255,.22),rgba(139,124,255,.28));border:1px solid rgba(101,215,255,.24);box-shadow:0 12px 35px rgba(101,215,255,.12);font-size:22px}
-.brand strong{display:block;font-size:17px}.brand small{color:var(--muted);font-size:11px}
-.nav{padding-top:20px;display:grid;gap:7px}
-.nav a{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;color:var(--muted);transition:.25s;position:relative;overflow:hidden}
-.nav a:hover,.nav a.active{color:var(--text);background:linear-gradient(90deg,rgba(101,215,255,.13),rgba(139,124,255,.09));box-shadow:inset 0 0 0 1px var(--line)}
-.nav a.active:before{content:"";position:absolute;right:0;top:10px;bottom:10px;width:3px;border-radius:8px;background:linear-gradient(#65d7ff,#8b7cff)}
-.nav i{width:24px;text-align:center;font-style:normal;font-size:18px}
-.side-bottom{position:absolute;left:16px;right:16px;bottom:18px}
-.manager-card{padding:15px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow);display:flex;align-items:center;gap:11px}
-.avatar{width:39px;height:39px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#65d7ff,#8b7cff);color:#07111f;font-weight:900}
-.manager-card div:last-child{overflow:hidden}.manager-card strong{font-size:13px;display:block}.manager-card span{font-size:10px;color:var(--muted)}
-.main{width:calc(100% - 275px);margin-right:275px;padding:24px 28px 45px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}
-.title h1{margin:0;font-size:28px;letter-spacing:-.5px}.title p{margin:8px 0 0;color:var(--muted);font-size:12px}
-.actions{display:flex;gap:9px;align-items:center}
-.icon-btn,.theme-btn{width:45px;height:45px;border-radius:15px;background:var(--panel);border:1px solid var(--line);color:var(--text);box-shadow:var(--shadow);position:relative;overflow:hidden}
-.icon-btn:hover,.theme-btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(0,0,0,.24)}
-.primary{height:46px;padding:0 18px;border-radius:15px;color:#06111c;font-weight:800;background:linear-gradient(135deg,#65d7ff,#8b7cff);box-shadow:0 13px 35px rgba(101,215,255,.16);position:relative;overflow:hidden}
-.primary:after{content:"";position:absolute;top:-80%;right:-20%;width:35%;height:260%;background:rgba(255,255,255,.25);transform:rotate(25deg);animation:shine 3.8s infinite}
-@keyframes shine{0%,65%{right:-45%}100%{right:125%}}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:18px}
-.kpi{padding:19px;border:1px solid var(--line);border-radius:22px;background:var(--panel);backdrop-filter:blur(22px);box-shadow:var(--shadow);position:relative;overflow:hidden}
-.kpi:before{content:"";position:absolute;width:95px;height:95px;border-radius:50%;left:-38px;bottom:-45px;background:rgba(101,215,255,.07);filter:blur(2px)}
-.kpi-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
-.kpi-icon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:rgba(101,215,255,.11);border:1px solid rgba(101,215,255,.12);animation:float 4s ease-in-out infinite}
-.kpi:nth-child(2) .kpi-icon{animation-delay:.5s}.kpi:nth-child(3) .kpi-icon{animation-delay:1s}.kpi:nth-child(4) .kpi-icon{animation-delay:1.5s}
-.kpi strong{display:block;font-size:27px;margin-top:14px}.trend{font-size:10px;color:var(--success);margin-top:7px}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(4deg)}}
-.toolbar{padding:14px;border:1px solid var(--line);border-radius:22px;background:var(--panel);box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;margin-bottom:15px}
-.search{flex:1;position:relative}.search span{position:absolute;right:13px;top:12px;color:var(--muted)}.search input{width:100%;height:43px;border-radius:14px;border:1px solid var(--line);outline:0;background:rgba(255,255,255,.035);color:var(--text);padding:0 40px 0 13px}
-.select{height:43px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035);color:var(--text);padding:0 13px;outline:0;min-width:145px}
-select option{background:#122239;color:#fff}.light select option{background:#fff;color:#17263b}
-.table-card{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
-.table-head{padding:17px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-.table-head strong{font-size:14px}.table-head span{font-size:11px;color:var(--muted)}
-.table-wrap{overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:930px}
-th,td{text-align:right;padding:15px 18px;border-bottom:1px solid var(--line);font-size:12px;white-space:nowrap}
-th{font-size:10px;color:var(--muted);font-weight:700;background:rgba(255,255,255,.018)}
-tr{transition:.2s}tbody tr:hover{background:rgba(101,215,255,.035)}
-.user-cell{display:flex;align-items:center;gap:10px}.user-mini{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,rgba(101,215,255,.22),rgba(139,124,255,.25));border:1px solid var(--line)}
-.user-name strong{display:block;font-size:12px}.user-name small{color:var(--muted);font-size:9px}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:9px;border:1px solid var(--line)}
-.badge:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 9px currentColor}
-.active{color:var(--success);background:rgba(67,224,162,.07)}.pending{color:var(--warning);background:rgba(255,201,107,.07)}.blocked{color:var(--danger);background:rgba(255,113,133,.07)}
-.role{color:var(--accent)}.muted{color:var(--muted)}
-.row-actions{display:flex;gap:6px}.row-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.045);border:1px solid var(--line);color:var(--text);transition:.2s}.row-btn:hover{transform:translateY(-2px);background:rgba(101,215,255,.1)}
-.pagination{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}.pages{display:flex;gap:6px}.page{min-width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted)}.page.active{background:linear-gradient(135deg,#65d7ff,#8b7cff);color:#07111f;border:0;font-weight:800}
-.lower{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:16px}.panel{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow);padding:20px}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.panel-title strong{font-size:14px}.panel-title span{font-size:10px;color:var(--muted)}
-.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.role-box{padding:15px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025);position:relative;overflow:hidden}.role-box b{display:block;font-size:22px}.role-box span{color:var(--muted);font-size:10px}.role-bar{height:5px;background:rgba(255,255,255,.06);border-radius:20px;margin-top:13px;overflow:hidden}.role-bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#65d7ff,#8b7cff)}
-.activity{display:grid;gap:12px}.activity-item{display:flex;gap:10px;align-items:flex-start}.dot{width:9px;height:9px;border-radius:50%;background:#65d7ff;box-shadow:0 0 14px #65d7ff;margin-top:4px;flex:none}.activity-item strong{display:block;font-size:11px}.activity-item span{font-size:9px;color:var(--muted)}
-.modal-back{position:fixed;inset:0;background:rgba(2,8,16,.68);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
-.modal-back.show{display:flex}.modal{width:min(720px,100%);max-height:90vh;overflow:auto;border:1px solid var(--line);border-radius:28px;background:var(--panel2);box-shadow:0 35px 110px rgba(0,0,0,.45);animation:modalIn .3s ease;position:relative}
-@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-.modal-head{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.modal-head h2{margin:0;font-size:17px}.close{width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--line);font-size:20px;transition:.3s}.close:hover{transform:rotate(90deg)}
-.form{padding:21px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field label{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}.field input,.field select{width:100%;height:43px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text);padding:0 12px;outline:0}.field.full{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.secondary{height:43px;padding:0 17px;border-radius:13px;background:transparent;border:1px solid var(--line);color:var(--text)}
-.toast{position:fixed;left:24px;bottom:24px;z-index:120;transform:translateY(120px);opacity:0;transition:.35s;padding:13px 17px;border-radius:16px;border:1px solid var(--line);background:rgba(14,28,46,.92);backdrop-filter:blur(20px);box-shadow:var(--shadow);font-size:11px}.toast.show{transform:none;opacity:1}
-.mobile-menu{display:none}
-@media(max-width:1050px){.kpis{grid-template-columns:repeat(2,1fr)}.lower{grid-template-columns:1fr}.main{padding:22px}.roles{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.sidebar{transform:translateX(110%);width:280px}.sidebar.open{transform:none}.main{width:100%;margin-right:0;padding:17px 14px 35px}.mobile-menu{display:grid}.topbar{align-items:flex-start}.title h1{font-size:23px}.actions .primary{padding:0 12px;font-size:11px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:14px}.kpi strong{font-size:22px}.toolbar{flex-wrap:wrap}.search{flex-basis:100%}.select{flex:1;min-width:0}.roles{grid-template-columns:1fr}.panel{padding:15px}}
-@media(max-width:460px){.kpis{grid-template-columns:1fr}.actions .primary span{display:none}.title p{font-size:10px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+body{margin:0;min-height:100vh;font-family:Tahoma,"Segoe UI",sans-serif;color:var(--text);background:
+radial-gradient(circle at 8% 5%,rgba(139,92,246,.20),transparent 28%),
+radial-gradient(circle at 92% 25%,rgba(217,70,239,.10),transparent 25%),
+radial-gradient(circle at 65% 95%,rgba(111,76,255,.10),transparent 30%),var(--bg);overflow-x:hidden}
+body.light{
+ --bg:#f7f4fb;--bg2:#ffffff;--panel:rgba(255,255,255,.78);--panel2:rgba(255,255,255,.94);
+ --line:rgba(113,63,181,.14);--line2:rgba(113,63,181,.28);--text:#21182e;--muted:#776d83;
+ --shadow:0 28px 70px rgba(86,48,130,.13)
+}
+button,input,select{font:inherit}button{cursor:pointer;border:0}a{text-decoration:none;color:inherit}
+.app{display:grid;grid-template-columns:278px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:20px 16px;z-index:20;background:rgba(8,7,17,.82);backdrop-filter:blur(28px);border-left:1px solid var(--line)}
+.light .sidebar{background:rgba(255,255,255,.82)}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 8px 22px}
+.brand-mark{width:47px;height:47px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#c026d3);box-shadow:0 12px 34px rgba(139,92,246,.36);font-weight:900;position:relative}
+.brand-mark:before,.brand-mark:after{content:"";position:absolute;inset:-6px;border:1px solid rgba(177,108,255,.23);border-radius:20px}
+.brand-mark:before{animation:spin 11s linear infinite}.brand-mark:after{inset:-11px;border-style:dashed;animation:spin 17s linear infinite reverse}
+.brand strong{display:block;font-size:15px}.brand span{font-size:10px;color:var(--muted)}
+.nav{display:grid;gap:7px}
+.nav a{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:17px;color:var(--muted);border:1px solid transparent;transition:.28s;position:relative;overflow:hidden}
+.nav a:hover,.nav a.active{color:var(--text);background:linear-gradient(135deg,rgba(139,92,246,.17),rgba(217,70,239,.06));border-color:var(--line)}
+.nav a.active:before{content:"";position:absolute;right:0;top:8px;bottom:8px;width:3px;border-radius:8px;background:linear-gradient(var(--primary),var(--pink));box-shadow:0 0 14px rgba(139,92,246,.8)}
+.nav i{width:32px;height:32px;display:grid;place-items:center;border-radius:11px;background:rgba(139,92,246,.09);border:1px solid var(--line);font-style:normal;transition:.4s}
+.nav a:hover i,.nav a.active i{transform:rotate(12deg) scale(1.06);color:#d9c5ff}
+.sidebar-bottom{position:absolute;bottom:18px;left:16px;right:16px}
+.profile-mini{padding:14px;border:1px solid var(--line);background:var(--panel);border-radius:21px;display:flex;align-items:center;gap:10px;box-shadow:0 15px 40px rgba(0,0,0,.16)}
+.avatar{width:41px;height:41px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#d946ef);font-weight:900}
+.profile-mini strong{display:block;font-size:11px}.profile-mini small{color:var(--muted);font-size:9px}
+.main{min-width:0;padding:24px 28px 50px;position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.crumb{color:var(--muted);font-size:11px}.crumb b{color:var(--text)}
+.actions{display:flex;gap:8px}
+.icon-btn{width:43px;height:43px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--text);display:grid;place-items:center;backdrop-filter:blur(18px);transition:.25s;box-shadow:0 10px 28px rgba(0,0,0,.12)}
+.icon-btn:hover{border-color:var(--line2);transform:translateY(-3px)}
+.spin:hover{animation:spin .8s linear infinite}
+.glass{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(24px);border-radius:var(--radius)}
+.hero{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,.75fr);gap:17px;margin-bottom:17px}
+.hero-main{padding:25px;position:relative;overflow:hidden}
+.hero-main:before{content:"";position:absolute;width:300px;height:300px;left:-120px;top:-160px;background:rgba(139,92,246,.18);filter:blur(70px);border-radius:50%}
+.hero-content{position:relative}
+.eyebrow{font-size:10px;letter-spacing:1.4px;color:#bd9bff;margin-bottom:9px}
+.hero-title{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.hero h1{font-size:26px;margin:0 0 9px}.hero p{font-size:11px;line-height:1.9;color:var(--muted);margin:0;max-width:680px}
+.live{padding:8px 11px;border-radius:999px;color:#cdb7ff;background:rgba(139,92,246,.09);border:1px solid var(--line);font-size:9px;white-space:nowrap}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:21px}
+.metric{padding:14px;border-radius:17px;border:1px solid var(--line);background:rgba(139,92,246,.045);position:relative;overflow:hidden}
+.metric:after{content:"×";position:absolute;left:-3px;bottom:-22px;font-size:60px;color:rgba(177,108,255,.08);animation:spin 12s linear infinite}
+.metric span{font-size:9px;color:var(--muted)}.metric strong{display:block;font-size:22px;margin-top:7px}.metric em{font-size:9px;color:var(--green);font-style:normal}
+.quick{padding:20px;position:relative;overflow:hidden}.quick:after{content:"";position:absolute;left:-35px;bottom:-35px;width:120px;height:120px;border:1px dashed rgba(217,70,239,.22);border-radius:50%;animation:spin 15s linear infinite}
+.quick-head{display:flex;justify-content:space-between;align-items:center}.quick-head strong{font-size:12px}.quick-head span{font-size:9px;color:var(--muted)}
+.ring{width:104px;height:104px;border-radius:50%;margin:18px auto 13px;display:grid;place-items:center;background:conic-gradient(var(--primary) 0 82%,rgba(139,92,246,.10) 82% 100%);position:relative;box-shadow:0 0 35px rgba(139,92,246,.13)}
+.ring:before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--bg2);border:1px solid var(--line)}
+.ring div{position:relative;text-align:center}.ring strong{display:block;font-size:21px}.ring small{font-size:8px;color:var(--muted)}
+.quick-foot{text-align:center;color:var(--muted);font-size:9px}.quick-foot b{color:var(--green)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}
+.kpi{padding:18px;position:relative;overflow:hidden;border-radius:22px}.kpi:after{content:"×";position:absolute;left:8px;bottom:-20px;font-size:72px;color:rgba(177,108,255,.045);animation:spin 17s linear infinite}
+.kpi-icon{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:rgba(139,92,246,.11);border:1px solid var(--line);margin-bottom:14px;font-size:18px;transition:.4s}.kpi:hover .kpi-icon{transform:rotate(15deg) translateY(-4px);box-shadow:0 8px 25px rgba(139,92,246,.18)}
+.kpi strong{font-size:23px}.kpi p{margin:6px 0 0;font-size:10px;color:var(--muted)}.kpi .trend{position:absolute;left:16px;top:18px;color:var(--green);font-size:9px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}
+.filters{display:flex;gap:8px;flex:1;flex-wrap:wrap}.input,.select{height:44px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);padding:0 13px;outline:none;backdrop-filter:blur(16px)}.input{min-width:270px;flex:1}.select{min-width:145px}.input:focus,.select:focus{border-color:var(--line2);box-shadow:0 0 0 4px rgba(139,92,246,.08)}
+select option{background:#171125;color:#fff}.light select option{background:#fff;color:#21182e}
+.primary{height:44px;padding:0 18px;border-radius:14px;color:#fff;background:linear-gradient(135deg,#7c3aed,#a855f7 55%,#d946ef);box-shadow:0 12px 30px rgba(139,92,246,.28);position:relative;overflow:hidden;white-space:nowrap}.primary:before{content:"";position:absolute;top:0;bottom:0;width:42px;right:-65px;background:rgba(255,255,255,.35);transform:skewX(-20deg);animation:shine 3.1s infinite}.primary span{position:relative}
+.table-wrap{overflow:auto;border-radius:22px}
+table{width:100%;border-collapse:collapse;min-width:1050px}
+th,td{padding:14px 12px;text-align:right;border-bottom:1px solid var(--line);font-size:10px;white-space:nowrap}th{font-size:9px;color:var(--muted);font-weight:500;background:rgba(139,92,246,.035)}tbody tr{transition:.22s}tbody tr:hover{background:rgba(139,92,246,.055)}
+.user{display:flex;align-items:center;gap:10px}.user-avatar{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(124,58,237,.72),rgba(217,70,239,.55));border:1px solid rgba(255,255,255,.10);font-weight:900}.user strong{display:block;font-size:10px}.user small{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+.role{display:inline-flex;padding:6px 9px;border-radius:9px;background:rgba(139,92,246,.09);border:1px solid var(--line);color:#cebaff;font-size:8px}
+.badge{display:inline-flex;padding:6px 9px;border-radius:999px;font-size:8px;border:1px solid transparent}.active{color:var(--green);background:rgba(53,211,154,.08);border-color:rgba(53,211,154,.16)}.pending{color:var(--orange);background:rgba(255,184,92,.08);border-color:rgba(255,184,92,.16)}.blocked{color:var(--red);background:rgba(255,102,125,.08);border-color:rgba(255,102,125,.16)}
+.org-chip{color:var(--muted);font-size:9px}.row-actions{display:flex;gap:5px}.tiny{width:33px;height:33px;border-radius:10px;background:rgba(139,92,246,.055);border:1px solid var(--line);color:var(--text);transition:.25s}.tiny:hover{transform:translateY(-2px) rotate(7deg);border-color:var(--line2);color:#d9c5ff}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:14px 3px 0;color:var(--muted);font-size:9px}.pages{display:flex;gap:5px}.page{width:31px;height:31px;border-radius:9px;background:var(--panel);color:var(--text);border:1px solid var(--line)}.page.active{background:linear-gradient(135deg,#7c3aed,#b14cff);border-color:transparent;color:#fff}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:16px}.section{padding:20px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.section-head h3{margin:0;font-size:13px}.section-head span{font-size:9px;color:var(--muted)}
+.roles{display:grid;gap:12px}.role-line{display:grid;grid-template-columns:105px 1fr 40px;align-items:center;gap:10px;font-size:9px}.role-line>span{color:var(--muted)}.bar{height:7px;background:rgba(139,92,246,.08);border-radius:9px;overflow:hidden}.bar i{height:100%;display:block;border-radius:inherit;background:linear-gradient(90deg,#7c3aed,#d946ef)}
+.activity{display:grid;gap:11px}.activity-item{display:flex;gap:10px}.activity-icon{width:31px;height:31px;border-radius:10px;background:rgba(139,92,246,.10);border:1px solid var(--line);display:grid;place-items:center;flex:0 0 auto}.activity-item strong{font-size:9px}.activity-item p{font-size:8px;color:var(--muted);margin:4px 0 0}
+.floating-x{position:fixed;width:80px;height:80px;opacity:.065;pointer-events:none;z-index:0}.floating-x:before,.floating-x:after{content:"";position:absolute;left:50%;top:50%;width:100%;height:1px;background:var(--primary2)}.floating-x:before{transform:translate(-50%,-50%) rotate(45deg)}.floating-x:after{transform:translate(-50%,-50%) rotate(-45deg)}.x1{left:4%;top:24%;animation:float1 7s ease-in-out infinite,spin 14s linear infinite}.x2{right:5%;top:16%;animation:float2 9s ease-in-out infinite,spin 18s linear infinite reverse}.x3{right:13%;bottom:8%;animation:float1 8s ease-in-out infinite reverse,spin 16s linear infinite}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.68);backdrop-filter:blur(12px);z-index:100}.modal.show{display:flex}.modal-box{width:min(760px,100%);max-height:94vh;overflow:auto;padding:24px;position:relative;animation:modalIn .35s ease}.modal-box h2{margin:0;font-size:19px}.modal-box>p{font-size:10px;color:var(--muted);line-height:1.8;margin:8px 0 20px}.close{position:absolute;left:18px;top:17px;width:40px;height:40px;border-radius:50%;background:rgba(217,70,239,.08);border:1px solid rgba(217,70,239,.20);color:#e18aff;font-size:21px;transition:.4s}.close:hover{transform:rotate(180deg) scale(1.08);box-shadow:0 0 25px rgba(217,70,239,.2)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:9px;color:var(--muted)}.field input,.field select{height:43px;width:100%;border-radius:13px;border:1px solid var(--line);background:rgba(139,92,246,.035);color:var(--text);padding:0 12px;outline:none}.field input:focus,.field select:focus{border-color:var(--line2);box-shadow:0 0 0 4px rgba(139,92,246,.06)}
+.password-wrap{position:relative}.password-wrap input{padding-left:84px}.pass-tools{position:absolute;left:7px;top:6px;display:flex;gap:4px}.pass-tool{height:31px;padding:0 8px;border-radius:9px;background:rgba(139,92,246,.09);border:1px solid var(--line);color:var(--muted);font-size:9px}.pass-tool:hover{color:var(--text);border-color:var(--line2)}
+.password-strength{height:5px;border-radius:9px;background:rgba(139,92,246,.08);overflow:hidden;margin-top:6px}.password-strength i{display:block;height:100%;width:0;border-radius:inherit;transition:.3s}.password-note{font-size:8px;color:var(--muted);margin-top:3px}
+.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:19px}.secondary{height:43px;padding:0 16px;border-radius:13px;background:transparent;color:var(--text);border:1px solid var(--line)}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:17px}.detail{padding:13px;border-radius:15px;background:rgba(139,92,246,.035);border:1px solid var(--line)}.detail span{display:block;color:var(--muted);font-size:8px;margin-bottom:6px}.detail strong{font-size:10px}
+.toast{position:fixed;left:24px;bottom:24px;padding:13px 16px;border:1px solid var(--line2);background:rgba(18,12,31,.94);backdrop-filter:blur(20px);border-radius:15px;box-shadow:var(--shadow);font-size:10px;transform:translateY(25px);opacity:0;pointer-events:none;transition:.3s;z-index:200}.light .toast{background:rgba(255,255,255,.96)}.toast.show{opacity:1;transform:none}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}@keyframes float2{0%,100%{transform:translate(0)}50%{transform:translate(-12px,13px)}}@keyframes shine{0%{right:-65px}55%,100%{right:130%}}@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:1100px){.app{grid-template-columns:82px 1fr}.sidebar{padding:18px 10px}.brand{justify-content:center}.brand>div:not(.brand-mark),.nav span,.profile-mini .meta{display:none}.nav a{justify-content:center}.sidebar-bottom{left:10px;right:10px}.profile-mini{justify-content:center}.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.app{display:block}.sidebar{position:fixed;top:auto;bottom:0;right:0;left:0;width:100%;height:70px;padding:7px 10px;border:0;border-top:1px solid var(--line)}.brand,.sidebar-bottom{display:none}.nav{display:flex;justify-content:space-around}.nav a{width:52px;height:54px;padding:5px}.nav a.active:before{right:8px;left:8px;top:auto;bottom:3px;width:auto;height:2px}.main{padding:17px 13px 88px}.hero-main,.quick,.section{padding:17px}.hero-metrics{grid-template-columns:1fr}.kpis{gap:9px}.kpi{padding:14px}.kpi strong{font-size:19px}.toolbar{flex-direction:column;align-items:stretch}.filters{display:grid;grid-template-columns:1fr 1fr}.input{grid-column:1/-1;min-width:0}.select{min-width:0}.primary{width:100%}.bottom-grid{grid-template-columns:1fr}.form-grid,.detail-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.floating-x{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="bg-orb o1"></div><div class="bg-orb o2"></div>
+<div class="floating-x x1"></div><div class="floating-x x2"></div><div class="floating-x x3"></div>
 <div class="app">
-<aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="logo">✦</div><div><strong>مشاور</strong><small>SUPER ADMIN PANEL</small></div></div>
-  <nav class="nav">
-    <a href="dashboard.html"><i>⌂</i>داشبورد</a>
-    <a href="organizations.html"><i>◫</i>سازمان‌ها</a>
-    <a class="active" href="users.html"><i>♙</i>کاربران</a>
-    <a href="subscriptions.html"><i>◈</i>اشتراک‌ها</a>
-    <a href="reports.html"><i>▥</i>گزارش‌ها</a>
-  </nav>
-  <div class="side-bottom"><div class="manager-card"><div class="avatar">م</div><div><strong>مدیر ارشد سیستم</strong><span>Super Administrator</span></div></div></div>
+<aside class="sidebar">
+<div class="brand"><div class="brand-mark">M</div><div><strong>Moshaver</strong><span>Super Admin Center</span></div></div>
+<nav class="nav">
+<a href="dashboard.html"><i>⌂</i><span>داشبورد</span></a>
+<a href="organizations.html"><i>▦</i><span>سازمان‌ها</span></a>
+<a class="active" href="users.html"><i>♙</i><span>کاربران</span></a>
+<a href="subscriptions.html"><i>◈</i><span>اشتراک‌ها</span></a>
+<a href="reports.html"><i>◫</i><span>گزارش‌ها</span></a>
+</nav>
+<div class="sidebar-bottom"><div class="profile-mini"><div class="avatar">SA</div><div><strong>مدیر ارشد سیستم</strong><small>Super Administrator</small></div></div></div>
 </aside>
 
 <main class="main">
 <header class="topbar">
-  <div class="title"><h1>مدیریت کاربران</h1><p>کنترل کاربران، نقش‌ها، وضعیت دسترسی و فعالیت حساب‌ها در کل سامانه</p></div>
-  <div class="actions">
-    <button class="icon-btn mobile-menu" id="menuBtn">☰</button>
-    <button class="theme-btn" id="themeBtn">☾</button>
-    <button class="icon-btn" id="bellBtn">♧</button>
-    <button class="primary" id="addBtn">＋ <span>افزودن کاربر</span></button>
-  </div>
+<div class="crumb">مدیریت مرکزی / <b>کاربران</b></div>
+<div class="actions">
+<button class="icon-btn spin" id="themeBtn" title="تغییر تم">☼</button>
+<button class="icon-btn spin" id="refreshBtn" title="بروزرسانی">↻</button>
+<button class="icon-btn" onclick="location.href='../index.html'" title="خروج">↪</button>
+</div>
 </header>
 
+<section class="hero">
+<div class="glass hero-main">
+<div class="hero-content">
+<div class="hero-title"><div><div class="eyebrow">USER & ACCESS CONTROL CENTER</div><h1>مدیریت کاربران</h1><p>مدیریت هویت، نام کاربری، دسترسی، نقش و وضعیت حساب تمام کاربران سامانه در یک مرکز کنترل یکپارچه.</p></div><span class="live">● SYSTEM ACTIVE</span></div>
+<div class="hero-metrics">
+<div class="metric"><span>کاربران فعال</span><strong id="activeHero">۰</strong><em>حساب‌های قابل ورود</em></div>
+<div class="metric"><span>مشاوران</span><strong id="consultantHero">۰</strong><em>در سازمان‌ها</em></div>
+<div class="metric"><span>مدیران</span><strong id="managerHero">۰</strong><em>دسترسی مدیریتی</em></div>
+</div>
+</div>
+</div>
+<div class="glass quick">
+<div class="quick-head"><strong>امنیت حساب‌ها</strong><span>ACCESS HEALTH</span></div>
+<div class="ring"><div><strong>۸۲٪</strong><small>وضعیت مطلوب</small></div></div>
+<div class="quick-foot"><b>●</b> حساب‌های دارای وضعیت معتبر و فعال</div>
+</div>
+</section>
+
 <section class="kpis">
-  <div class="kpi"><div class="kpi-head"><span>کل کاربران</span><div class="kpi-icon">♙</div></div><strong id="totalKpi">0</strong><div class="trend">↗ 12.4٪ نسبت به ماه قبل</div></div>
-  <div class="kpi"><div class="kpi-head"><span>کاربران فعال</span><div class="kpi-icon">✓</div></div><strong id="activeKpi">0</strong><div class="trend">● فعالیت پایدار</div></div>
-  <div class="kpi"><div class="kpi-head"><span>در انتظار تأیید</span><div class="kpi-icon">◌</div></div><strong id="pendingKpi">0</strong><div class="trend" style="color:var(--warning)">نیازمند بررسی</div></div>
-  <div class="kpi"><div class="kpi-head"><span>مسدود شده</span><div class="kpi-icon">×</div></div><strong id="blockedKpi">0</strong><div class="trend" style="color:var(--danger)">کنترل دسترسی</div></div>
+<div class="glass kpi"><div class="trend">+8.2%</div><div class="kpi-icon">♙</div><strong id="totalKpi">۰</strong><p>کل کاربران</p></div>
+<div class="glass kpi"><div class="trend">+6.7%</div><div class="kpi-icon">✓</div><strong id="activeKpi">۰</strong><p>کاربران فعال</p></div>
+<div class="glass kpi"><div class="trend">+4.3%</div><div class="kpi-icon">◉</div><strong id="consultantKpi">۰</strong><p>مشاوران</p></div>
+<div class="glass kpi"><div class="trend" style="color:var(--orange)">نیازمند بررسی</div><div class="kpi-icon">!</div><strong id="pendingKpi">۰</strong><p>در انتظار / مسدود</p></div>
 </section>
 
-<section class="toolbar">
-  <div class="search"><span>⌕</span><input id="search" placeholder="جستجو نام، ایمیل، موبایل یا سازمان..."></div>
-  <select class="select" id="roleFilter"><option value="">همه نقش‌ها</option><option value="SUPER_ADMIN">مدیر ارشد</option><option value="MANAGER">مدیر کلینیک</option><option value="CONSULTANT">مشاور</option></select>
-  <select class="select" id="statusFilter"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="pending">در انتظار</option><option value="blocked">مسدود</option></select>
-  <select class="select" id="orgFilter"><option value="">همه سازمان‌ها</option></select>
+<div class="toolbar">
+<div class="filters">
+<input class="input" id="search" placeholder="جستجو با نام، نام کاربری، موبایل یا ایمیل...">
+<select class="select" id="roleFilter"><option value="">همه نقش‌ها</option><option value="super">Super Admin</option><option value="manager">مدیر کلینیک</option><option value="consultant">مشاور</option></select>
+<select class="select" id="statusFilter"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="pending">در انتظار</option><option value="blocked">مسدود</option></select>
+<select class="select" id="orgFilter"><option value="">همه سازمان‌ها</option></select>
+</div>
+<button class="primary" id="addBtn"><span>＋ ایجاد کاربر جدید</span></button>
+</div>
+
+<section class="glass table-wrap">
+<table>
+<thead><tr><th>کاربر</th><th>نام کاربری</th><th>نقش</th><th>سازمان</th><th>موبایل</th><th>وضعیت</th><th>آخرین ورود</th><th>عملیات</th></tr></thead>
+<tbody id="userBody"></tbody>
+</table>
+<div class="pagination"><span id="resultCount">۰ کاربر</span><div class="pages" id="pages"></div></div>
 </section>
 
-<section class="table-card">
-  <div class="table-head"><strong>فهرست کاربران</strong><span id="resultCount">0 کاربر</span></div>
-  <div class="table-wrap">
-  <table>
-    <thead><tr><th>کاربر</th><th>نقش</th><th>سازمان</th><th>آخرین ورود</th><th>وضعیت</th><th>عملیات</th></tr></thead>
-    <tbody id="tbody"></tbody>
-  </table>
-  </div>
-  <div class="pagination"><span class="muted" id="pageInfo">صفحه ۱</span><div class="pages" id="pages"></div></div>
-</section>
-
-<section class="lower">
-  <div class="panel">
-    <div class="panel-title"><strong>توزیع نقش‌ها</strong><span>نمای کلی کاربران</span></div>
-    <div class="roles" id="roles"></div>
-  </div>
-  <div class="panel">
-    <div class="panel-title"><strong>فعالیت اخیر</strong><span>آخرین رویدادها</span></div>
-    <div class="activity">
-      <div class="activity-item"><i class="dot"></i><div><strong>ورود موفق مدیر کلینیک</strong><span>کلینیک آرامش · ۸ دقیقه پیش</span></div></div>
-      <div class="activity-item"><i class="dot"></i><div><strong>کاربر جدید ایجاد شد</strong><span>مشاور جدید · ۲۶ دقیقه پیش</span></div></div>
-      <div class="activity-item"><i class="dot"></i><div><strong>وضعیت یک حساب تغییر کرد</strong><span>کلینیک زندگی نو · ۵۴ دقیقه پیش</span></div></div>
-      <div class="activity-item"><i class="dot"></i><div><strong>رمز عبور بازیابی شد</strong><span>حساب مدیر · ۱ ساعت پیش</span></div></div>
-    </div>
-  </div>
+<section class="bottom-grid">
+<div class="glass section">
+<div class="section-head"><h3>توزیع نقش‌ها</h3><span>ROLE DISTRIBUTION</span></div>
+<div class="roles">
+<div class="role-line"><span>مشاور</span><div class="bar"><i id="consultantBar"></i></div><b id="consultantCount">۰</b></div>
+<div class="role-line"><span>مدیر کلینیک</span><div class="bar"><i id="managerBar"></i></div><b id="managerCount">۰</b></div>
+<div class="role-line"><span>Super Admin</span><div class="bar"><i id="superBar"></i></div><b id="superCount">۰</b></div>
+</div>
+</div>
+<div class="glass section">
+<div class="section-head"><h3>آخرین فعالیت‌ها</h3><span>RECENT ACTIVITY</span></div>
+<div class="activity">
+<div class="activity-item"><div class="activity-icon">＋</div><div><strong>کاربر جدید ایجاد شد</strong><p>کلینیک آریا · ۸ دقیقه پیش</p></div></div>
+<div class="activity-item"><div class="activity-icon">✓</div><div><strong>وضعیت یک حساب فعال شد</strong><p>مرکز آرامش · ۲۷ دقیقه پیش</p></div></div>
+<div class="activity-item"><div class="activity-icon">↻</div><div><strong>رمز عبور کاربر تغییر کرد</strong><p>مدیر کلینیک مهر · ۵۵ دقیقه پیش</p></div></div>
+<div class="activity-item"><div class="activity-icon">!</div><div><strong>ورود ناموفق شناسایی شد</strong><p>سیستم احراز هویت · ۱ ساعت پیش</p></div></div>
+</div>
+</div>
 </section>
 </main>
 </div>
 
-<div class="modal-back" id="modalBack">
-<div class="modal">
-  <div class="modal-head"><h2 id="modalTitle">افزودن کاربر جدید</h2><button class="close" id="closeModal">×</button></div>
-  <form class="form" id="userForm">
-    <div class="grid">
-      <div class="field"><label>نام و نام خانوادگی</label><input id="fName" required placeholder="مثلاً سارا احمدی"></div>
-      <div class="field"><label>ایمیل</label><input id="fEmail" type="email" required placeholder="name@example.com"></div>
-      <div class="field"><label>شماره موبایل</label><input id="fPhone" placeholder="09xxxxxxxxx"></div>
-      <div class="field"><label>نقش</label><select id="fRole"><option value="CONSULTANT">مشاور</option><option value="MANAGER">مدیر کلینیک</option><option value="SUPER_ADMIN">مدیر ارشد</option></select></div>
-      <div class="field"><label>سازمان</label><select id="fOrg"></select></div>
-      <div class="field"><label>وضعیت</label><select id="fStatus"><option value="active">فعال</option><option value="pending">در انتظار</option><option value="blocked">مسدود</option></select></div>
-      <div class="field full"><label>توضیح داخلی</label><input id="fNote" placeholder="یادداشت مدیریتی اختیاری"></div>
-    </div>
-    <div class="modal-actions"><button type="button" class="secondary" id="cancelBtn">انصراف</button><button class="primary" type="submit">ذخیره کاربر</button></div>
-  </form>
+<div class="modal" id="userModal">
+<div class="modal-box glass">
+<button class="close" id="closeModal">×</button>
+<h2 id="modalTitle">ایجاد کاربر جدید</h2>
+<p>اطلاعات هویتی و دسترسی کاربر را ثبت کنید. نام کاربری باید یکتا باشد. در اتصال به بک‌اند، رمز عبور باید فقط به‌صورت امن در سرور Hash شود.</p>
+<form id="userForm">
+<input type="hidden" id="editId">
+<div class="form-grid">
+<div class="field"><label>نام</label><input id="firstName" required placeholder="مثلاً علی"></div>
+<div class="field"><label>نام خانوادگی</label><input id="lastName" required placeholder="مثلاً رضایی"></div>
+<div class="field"><label>نام کاربری</label><input id="username" required autocomplete="off" placeholder="مثلاً ali.rezaei"></div>
+<div class="field"><label>شماره موبایل</label><input id="phone" required placeholder="09xxxxxxxxx"></div>
+<div class="field full"><label>ایمیل</label><input id="email" type="email" required placeholder="user@clinic.ir"></div>
+<div class="field"><label>نقش</label><select id="role" required><option value="consultant">مشاور</option><option value="manager">مدیر کلینیک</option><option value="super">Super Admin</option></select></div>
+<div class="field"><label>سازمان</label><select id="organization" required></select></div>
+<div class="field"><label>رمز عبور</label><div class="password-wrap"><input id="password" type="password" autocomplete="new-password" placeholder="حداقل ۸ کاراکتر"><div class="pass-tools"><button type="button" class="pass-tool" id="togglePass">نمایش</button><button type="button" class="pass-tool" id="generatePass">تولید</button></div></div><div class="password-strength"><i id="strengthBar"></i></div><div class="password-note" id="strengthText">رمز عبور وارد نشده است</div></div>
+<div class="field"><label>تکرار رمز عبور</label><input id="passwordConfirm" type="password" autocomplete="new-password" placeholder="تکرار رمز عبور"></div>
+<div class="field"><label>وضعیت حساب</label><select id="status" required><option value="active">فعال</option><option value="pending">در انتظار</option><option value="blocked">مسدود</option></select></div>
+</div>
+<div class="form-actions"><button type="button" class="secondary" id="cancelBtn">انصراف</button><button class="primary"><span>ذخیره کاربر</span></button></div>
+</form>
+</div>
+</div>
+
+<div class="modal" id="viewModal">
+<div class="modal-box glass">
+<button class="close" onclick="closeView()">×</button>
+<h2>جزئیات کاربر</h2><p>اطلاعات حساب، نقش و دسترسی کاربر انتخاب‌شده.</p>
+<div class="detail-grid" id="details"></div>
+<div class="form-actions"><button class="secondary" onclick="closeView()">بستن</button></div>
 </div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-const orgs=["کلینیک آرامش","مرکز زندگی نو","کلینیک آفتاب","مجموعه مسیر نو","کلینیک امید","مرکز تندرستی"];
-const names=["سارا احمدی","محمد رضایی","نگار کریمی","علی مرادی","مریم حسینی","پارسا نادری","الهام موسوی","امیرحسین کاظمی","نازنین شریفی","رضا اکبری","کیانا صادقی","حسین محمدی","آرزو رحیمی","سامان نوری","مهسا یوسفی","شایان حیدری","سمیه رستمی","آرمان جعفری","ترانه فلاح","پویان امینی","سپیده توکلی","نیما قاسمی","یگانه صالحی","بردیا محمودی"];
-const roles=["CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","CONSULTANT","MANAGER"];
-let users=JSON.parse(localStorage.getItem("moshaver-super-users")||"null")||names.map((name,i)=>({
- id:i+1,name,email:"user"+(i+1)+"@moshaver.ir",phone:"09"+String(120000000+i).slice(-9),
- role:roles[i],org:orgs[i%orgs.length],status:i===5||i===16?"pending":(i===11?"blocked":"active"),
- last:i===11?"—":(i+1)+" دقیقه پیش"
-}));
-let page=1,editing=null,perPage=8;
+const fa=n=>new Intl.NumberFormat('fa-IR').format(n);
+const roleNames={super:'Super Admin',manager:'مدیر کلینیک',consultant:'مشاور'};
+const statusNames={active:'فعال',pending:'در انتظار',blocked:'مسدود'};
+const seed=[
+['علی رضایی','ali.rezaei','ali@aria.ir','09121234567','consultant','کلینیک آریا','active','امروز، 09:42'],
+['سارا محمدی','sara.mohammadi','sara@aria.ir','09122345678','manager','کلینیک آریا','active','امروز، 09:18'],
+['امیر حسینی','amir.hosseini','amir@aram.ir','09123456789','consultant','مرکز آرامش','active','امروز، 08:57'],
+['نگار احمدی','negar.ahmadi','negar@mehr.ir','09124567890','manager','کلینیک مهر','pending','دیروز، 18:31'],
+['محمد کریمی','m.karimi','m@aftab.ir','09125678901','consultant','کلینیک آفتاب','active','امروز، 10:04'],
+['الهام اکبری','elham.akbari','elham@novin.ir','09126789012','manager','مرکز سلامت نوین','active','امروز، 09:03'],
+['رضا مرادی','reza.moradi','reza@sepid.ir','09127890123','consultant','کلینیک سپید','blocked','۳ روز پیش، 14:22'],
+['مریم کاظمی','maryam.kazemi','maryam@zendegi.ir','09128901234','consultant','کلینیک زندگی','active','امروز، 08:44'],
+['حسین موسوی','hossein.mousavi','hossein@baran.ir','09129012345','manager','مرکز باران','active','دیروز، 21:11'],
+['پریسا نادری','parisa.naderi','parisa@pegah.ir','09120123456','consultant','کلینیک پگاه','pending','امروز، 07:52'],
+['آرمان صادقی','arman.sadeghi','arman@moshaver.ir','09121239876','super','Moshaver HQ','active','همین حالا'],
+['مدیر سیستم','super.admin','admin@moshaver.ir','09000000000','super','Moshaver HQ','active','همین حالا']
+].map((x,i)=>({id:i+1,first:x[0].split(' ')[0],last:x[0].split(' ').slice(1).join(' '),username:x[1],email:x[2],phone:x[3],role:x[4],org:x[5],status:x[6],lastLogin:x[7],password:'Moshaver@123'}));
+let data=JSON.parse(localStorage.getItem('moshaver-users-v2')||'null')||seed;
+let page=1,perPage=8;
 const $=id=>document.getElementById(id);
-function save(){localStorage.setItem("moshaver-super-users",JSON.stringify(users))}
-function roleText(r){return r==="SUPER_ADMIN"?"مدیر ارشد":r==="MANAGER"?"مدیر کلینیک":"مشاور"}
-function initials(n){return n.split(" ").map(x=>x[0]).slice(0,2).join("")}
-function toast(t){$("toast").textContent=t;$("toast").classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>$("toast").classList.remove("show"),2600)}
-function refreshFilters(){
-  $("orgFilter").innerHTML='<option value="">همه سازمان‌ها</option>'+orgs.map(o=>`<option>${o}</option>`).join("");
-  $("fOrg").innerHTML=orgs.map(o=>`<option>${o}</option>`).join("");
-}
-function filtered(){
-  const q=$("search").value.trim().toLowerCase(),r=$("roleFilter").value,s=$("statusFilter").value,o=$("orgFilter").value;
-  return users.filter(u=>(!q||[u.name,u.email,u.phone,u.org].join(" ").toLowerCase().includes(q))&&(!r||u.role===r)&&(!s||u.status===s)&&(!o||u.org===o))
+function save(){localStorage.setItem('moshaver-users-v2',JSON.stringify(data))}
+function initials(u){return (u.first[0]||'')+(u.last[0]||'')}
+function badge(s){return `<span class="badge ${s}">${statusNames[s]}</span>`}
+function fillOrgOptions(){
+ const orgs=[...new Set(data.map(x=>x.org))];
+ $('orgFilter').innerHTML='<option value="">همه سازمان‌ها</option>'+orgs.map(x=>`<option>${x}</option>`).join('');
+ $('organization').innerHTML=orgs.map(x=>`<option>${x}</option>`).join('');
 }
 function render(){
-  $("totalKpi").textContent=users.length;
-  $("activeKpi").textContent=users.filter(u=>u.status==="active").length;
-  $("pendingKpi").textContent=users.filter(u=>u.status==="pending").length;
-  $("blockedKpi").textContent=users.filter(u=>u.status==="blocked").length;
-  const arr=filtered(),pages=Math.max(1,Math.ceil(arr.length/perPage));if(page>pages)page=pages;
-  const slice=arr.slice((page-1)*perPage,page*perPage);
-  $("resultCount").textContent=arr.length+" کاربر";
-  $("tbody").innerHTML=slice.map(u=>`<tr>
-    <td><div class="user-cell"><div class="user-mini">${initials(u.name)}</div><div class="user-name"><strong>${u.name}</strong><small>${u.email}</small></div></div></td>
-    <td><span class="role">${roleText(u.role)}</span></td><td>${u.org}</td><td class="muted">${u.last}</td>
-    <td><span class="badge ${u.status}">${u.status==="active"?"فعال":u.status==="pending"?"در انتظار":"مسدود"}</span></td>
-    <td><div class="row-actions"><button class="row-btn" onclick="editUser(${u.id})">✎</button><button class="row-btn" onclick="viewUser(${u.id})">◉</button><button class="row-btn" onclick="removeUser(${u.id})">×</button></div></td>
-  </tr>`).join("");
-  $("pageInfo").textContent=`صفحه ${page} از ${pages}`;
-  $("pages").innerHTML=Array.from({length:pages},(_,i)=>`<button class="page ${i+1===page?"active":""}" onclick="goPage(${i+1})">${i+1}</button>`).join("");
-  const rc={CONSULTANT:users.filter(u=>u.role==="CONSULTANT").length,MANAGER:users.filter(u=>u.role==="MANAGER").length,SUPER_ADMIN:users.filter(u=>u.role==="SUPER_ADMIN").length};
-  const max=Math.max(...Object.values(rc),1);
-  $("roles").innerHTML=[["CONSULTANT","مشاور",rc.CONSULTANT],["MANAGER","مدیر کلینیک",rc.MANAGER],["SUPER_ADMIN","مدیر ارشد",rc.SUPER_ADMIN]].map(x=>`<div class="role-box"><b>${x[2]}</b><span>${x[1]}</span><div class="role-bar"><i style="width:${Math.max(5,x[2]/max*100)}%"></i></div></div>`).join("");
+ fillOrgOptions();
+ const q=$('search').value.trim().toLowerCase(),rf=$('roleFilter').value,sf=$('statusFilter').value,of=$('orgFilter').value;
+ const filtered=data.filter(x=>
+ (!q||[x.first,x.last,x.username,x.phone,x.email].join(' ').toLowerCase().includes(q))&&
+ (!rf||x.role===rf)&&(!sf||x.status===sf)&&(!of||x.org===of));
+ const totalPages=Math.max(1,Math.ceil(filtered.length/perPage));if(page>totalPages)page=totalPages;
+ const rows=filtered.slice((page-1)*perPage,page*perPage);
+ $('userBody').innerHTML=rows.map(x=>`<tr>
+<td><div class="user"><div class="user-avatar">${initials(x)}</div><div><strong>${x.first} ${x.last}</strong><small>${x.email}</small></div></div></td>
+<td><span style="font-size:9px;color:#cdb7ff">@${x.username}</span></td>
+<td><span class="role">${roleNames[x.role]}</span></td>
+<td><span class="org-chip">${x.org}</span></td>
+<td>${x.phone}</td>
+<td>${badge(x.status)}</td>
+<td>${x.lastLogin}</td>
+<td><div class="row-actions"><button class="tiny" onclick="viewUser(${x.id})">◉</button><button class="tiny" onclick="editUser(${x.id})">✎</button><button class="tiny" onclick="deleteUser(${x.id})">×</button></div></td>
+</tr>`).join('');
+$('resultCount').textContent=`${fa(filtered.length)} کاربر`;
+$('pages').innerHTML=Array.from({length:totalPages},(_,i)=>`<button class="page ${i+1===page?'active':''}" onclick="page=${i+1};render()">${fa(i+1)}</button>`).join('');
+updateStats();
 }
-function goPage(p){page=p;render()}
-function openModal(u=null){
-  editing=u?.id||null;$("modalTitle").textContent=u?"ویرایش کاربر":"افزودن کاربر جدید";
-  $("fName").value=u?.name||"";$("fEmail").value=u?.email||"";$("fPhone").value=u?.phone||"";
-  $("fRole").value=u?.role||"CONSULTANT";$("fOrg").value=u?.org||orgs[0];$("fStatus").value=u?.status||"active";$("fNote").value=u?.note||"";
-  $("modalBack").classList.add("show");setTimeout(()=>$("fName").focus(),80)
+function updateStats(){
+ const active=data.filter(x=>x.status==='active').length,consultants=data.filter(x=>x.role==='consultant').length,managers=data.filter(x=>x.role==='manager').length,pending=data.filter(x=>x.status!=='active').length;
+ $('activeHero').textContent=fa(active);$('consultantHero').textContent=fa(consultants);$('managerHero').textContent=fa(managers);
+ $('totalKpi').textContent=fa(data.length);$('activeKpi').textContent=fa(active);$('consultantKpi').textContent=fa(consultants);$('pendingKpi').textContent=fa(pending);
+ const total=data.length||1;
+ [['consultant',consultants],['manager',managers],['super',data.filter(x=>x.role==='super').length]].forEach(([r,n])=>{$(r+'Bar').style.width=(n/total*100)+'%';$(r+'Count').textContent=fa(n)});
 }
-function closeModal(){$("modalBack").classList.remove("show")}
-window.editUser=id=>openModal(users.find(u=>u.id===id));
-window.viewUser=id=>{const u=users.find(x=>x.id===id);toast(`${u.name} · ${roleText(u.role)} · ${u.org}`)}
-window.removeUser=id=>{const u=users.find(x=>x.id===id);if(confirm(`کاربر «${u.name}» حذف شود؟`)){users=users.filter(x=>x.id!==id);save();render();toast("کاربر حذف شد")}}
-$("userForm").onsubmit=e=>{e.preventDefault();const data={id:editing||Date.now(),name:$("fName").value.trim(),email:$("fEmail").value.trim(),phone:$("fPhone").value.trim(),role:$("fRole").value,org:$("fOrg").value,status:$("fStatus").value,last:"همین الان",note:$("fNote").value.trim()};if(editing)users=users.map(u=>u.id===editing?{...u,...data}:u);else users.unshift(data);save();closeModal();render();toast(editing?"اطلاعات کاربر به‌روزرسانی شد":"کاربر جدید ایجاد شد");}
-$("addBtn").onclick=()=>openModal();$("closeModal").onclick=closeModal;$("cancelBtn").onclick=closeModal;
-$("modalBack").onclick=e=>{if(e.target===$("modalBack"))closeModal()};
-["search","roleFilter","statusFilter","orgFilter"].forEach(id=>$(id).addEventListener("input",()=>{page=1;render()}));
-$("themeBtn").onclick=()=>{document.body.classList.toggle("light");localStorage.setItem("moshaver-theme",document.body.classList.contains("light")?"light":"dark");$("themeBtn").textContent=document.body.classList.contains("light")?"☀":"☾"};
-if(localStorage.getItem("moshaver-theme")==="light"){document.body.classList.add("light");$("themeBtn").textContent="☀"}
-$("menuBtn").onclick=()=>$("sidebar").classList.toggle("open");
-$("bellBtn").onclick=()=>toast("اعلان جدیدی برای بررسی وجود ندارد");
-refreshFilters();render();
+function openModal(user=null){
+ fillOrgOptions();$('userModal').classList.add('show');$('modalTitle').textContent=user?'ویرایش کاربر':'ایجاد کاربر جدید';
+ $('editId').value=user?.id||'';$('firstName').value=user?.first||'';$('lastName').value=user?.last||'';$('username').value=user?.username||'';$('email').value=user?.email||'';$('phone').value=user?.phone||'';
+ $('role').value=user?.role||'consultant';$('organization').value=user?.org||data[0]?.org||'';$('status').value=user?.status||'active';
+ $('password').value='';$('passwordConfirm').value='';strength();
+ $('password').placeholder=user?'برای تغییر رمز وارد کنید':'حداقل ۸ کاراکتر';
+}
+function closeModal(){$('userModal').classList.remove('show')}
+function editUser(id){openModal(data.find(x=>x.id===id))}
+function viewUser(id){
+ const x=data.find(v=>v.id===id);
+ $('details').innerHTML=`<div class="detail"><span>نام و نام خانوادگی</span><strong>${x.first} ${x.last}</strong></div><div class="detail"><span>نام کاربری</span><strong>@${x.username}</strong></div><div class="detail"><span>نقش</span><strong>${roleNames[x.role]}</strong></div><div class="detail"><span>سازمان</span><strong>${x.org}</strong></div><div class="detail"><span>موبایل</span><strong>${x.phone}</strong></div><div class="detail"><span>ایمیل</span><strong>${x.email}</strong></div><div class="detail"><span>وضعیت</span><strong>${statusNames[x.status]}</strong></div><div class="detail"><span>آخرین ورود</span><strong>${x.lastLogin}</strong></div>`;
+ $('viewModal').classList.add('show');
+}
+function closeView(){$('viewModal').classList.remove('show')}
+function deleteUser(id){const x=data.find(v=>v.id===id);if(x.role==='super'&&data.filter(v=>v.role==='super').length===1){toast('حداقل یک Super Admin باید باقی بماند');return}if(confirm(`کاربر «${x.first} ${x.last}» حذف شود؟`)){data=data.filter(v=>v.id!==id);save();render();toast('کاربر حذف شد')}}
+function strength(){
+ const v=$('password').value,b=$('strengthBar'),t=$('strengthText');let score=0;
+ if(v.length>=8)score++;if(/[A-Z]/.test(v))score++;if(/[a-z]/.test(v))score++;if(/\d/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+ const widths=[0,20,40,60,80,100],texts=['رمز عبور وارد نشده است','ضعیف','متوسط','قابل قبول','قوی','بسیار قوی'];b.style.width=widths[score]+'%';b.style.background=score<2?'var(--red)':score<4?'var(--orange)':'var(--green)';t.textContent=texts[score];
+}
+function generatePassword(){
+ const chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%';
+ let p='';for(let i=0;i<12;i++)p+=chars[Math.floor(Math.random()*chars.length)];
+ $('password').value=p;$('passwordConfirm').value=p;$('password').type='text';setTimeout(()=>$('password').type='password',1800);strength();toast('رمز قوی تولید شد')}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2700)}
+$('userForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const id=Number($('editId').value),pass=$('password').value,confirmPass=$('passwordConfirm').value,username=$('username').value.trim().toLowerCase();
+ if(!/^[a-z0-9._-]{4,32}$/.test(username)){toast('نام کاربری باید ۴ تا ۳۲ کاراکتر انگلیسی باشد');return}
+ if(!id&&pass.length<8){toast('رمز عبور باید حداقل ۸ کاراکتر باشد');return}
+ if(pass&&pass!==confirmPass){toast('رمز عبور و تکرار آن یکسان نیستند');return}
+ if(data.some(x=>x.username===username&&x.id!==id)){toast('این نام کاربری قبلاً استفاده شده است');return}
+ const old=id?data.find(x=>x.id===id):null;
+ const obj={id:id||Date.now(),first:$('firstName').value.trim(),last:$('lastName').value.trim(),username,email:$('email').value.trim(),phone:$('phone').value.trim(),role:$('role').value,org:$('organization').value,status:$('status').value,lastLogin:old?.lastLogin||'هنوز وارد نشده',password:pass||old?.password||''};
+ if(id)data=data.map(x=>x.id===id?obj:x);else data.unshift(obj);
+ save();closeModal();render();toast(id?'اطلاعات کاربر بروزرسانی شد':'کاربر جدید با موفقیت ایجاد شد');
+});
+$('addBtn').onclick=()=>openModal();$('closeModal').onclick=closeModal;$('cancelBtn').onclick=closeModal;$('togglePass').onclick=()=>{$('password').type=$('password').type==='password'?'text':'password';$('togglePass').textContent=$('password').type==='password'?'نمایش':'مخفی'};
+$('generatePass').onclick=generatePassword;$('password').addEventListener('input',strength);
+['search','roleFilter','statusFilter','orgFilter'].forEach(id=>$(id).addEventListener('input',()=>{page=1;render()}));
+$('refreshBtn').onclick=()=>{render();toast('اطلاعات کاربران بروزرسانی شد')};
+$('themeBtn').onclick=()=>{document.body.classList.toggle('light');localStorage.setItem('moshaver-theme',document.body.classList.contains('light')?'light':'dark')};
+if(localStorage.getItem('moshaver-theme')==='light')document.body.classList.add('light');
+$('userModal').addEventListener('click',e=>{if(e.target.id==='userModal')closeModal()});$('viewModal').addEventListener('click',e=>{if(e.target.id==='viewModal')closeView()});
+render();
 </script>
 
 </body>
