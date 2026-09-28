@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>مدیریت کاربران | مشاور</title>
+<style>
+:root{
+  --bg:#07111f;--bg2:#0b1728;--panel:rgba(16,29,48,.72);--panel2:rgba(19,35,58,.82);
+  --line:rgba(255,255,255,.09);--text:#edf5ff;--muted:#8fa4bd;--accent:#65d7ff;
+  --accent2:#8b7cff;--success:#43e0a2;--warning:#ffc96b;--danger:#ff7185;
+  --shadow:0 24px 70px rgba(0,0,0,.34);--radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Tahoma,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 8% 8%,rgba(101,215,255,.10),transparent 28%),
+radial-gradient(circle at 90% 15%,rgba(139,124,255,.12),transparent 30%),
+linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text);min-height:100vh;overflow-x:hidden}
+body.light{--bg:#edf4fb;--bg2:#f8fbff;--panel:rgba(255,255,255,.72);--panel2:rgba(255,255,255,.9);--line:rgba(18,40,65,.10);--text:#132238;--muted:#65758b;--shadow:0 24px 65px rgba(37,73,111,.13)}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+a{color:inherit;text-decoration:none}
+.bg-orb{position:fixed;width:360px;height:360px;border-radius:50%;filter:blur(55px);opacity:.12;pointer-events:none;z-index:-1}
+.o1{background:#46d8ff;top:-120px;right:-100px}.o2{background:#8c74ff;bottom:-150px;left:-100px}
+.app{display:flex;min-height:100vh}
+.sidebar{width:275px;position:fixed;inset:0 0 0 auto;padding:22px 16px;background:rgba(7,17,31,.68);backdrop-filter:blur(25px);border-left:1px solid var(--line);z-index:20;transition:.35s}
+.light .sidebar{background:rgba(248,251,255,.82)}
+.brand{display:flex;align-items:center;gap:12px;padding:10px 10px 24px;border-bottom:1px solid var(--line)}
+.logo{width:48px;height:48px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(101,215,255,.22),rgba(139,124,255,.28));border:1px solid rgba(101,215,255,.24);box-shadow:0 12px 35px rgba(101,215,255,.12);font-size:22px}
+.brand strong{display:block;font-size:17px}.brand small{color:var(--muted);font-size:11px}
+.nav{padding-top:20px;display:grid;gap:7px}
+.nav a{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;color:var(--muted);transition:.25s;position:relative;overflow:hidden}
+.nav a:hover,.nav a.active{color:var(--text);background:linear-gradient(90deg,rgba(101,215,255,.13),rgba(139,124,255,.09));box-shadow:inset 0 0 0 1px var(--line)}
+.nav a.active:before{content:"";position:absolute;right:0;top:10px;bottom:10px;width:3px;border-radius:8px;background:linear-gradient(#65d7ff,#8b7cff)}
+.nav i{width:24px;text-align:center;font-style:normal;font-size:18px}
+.side-bottom{position:absolute;left:16px;right:16px;bottom:18px}
+.manager-card{padding:15px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow);display:flex;align-items:center;gap:11px}
+.avatar{width:39px;height:39px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#65d7ff,#8b7cff);color:#07111f;font-weight:900}
+.manager-card div:last-child{overflow:hidden}.manager-card strong{font-size:13px;display:block}.manager-card span{font-size:10px;color:var(--muted)}
+.main{width:calc(100% - 275px);margin-right:275px;padding:24px 28px 45px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}
+.title h1{margin:0;font-size:28px;letter-spacing:-.5px}.title p{margin:8px 0 0;color:var(--muted);font-size:12px}
+.actions{display:flex;gap:9px;align-items:center}
+.icon-btn,.theme-btn{width:45px;height:45px;border-radius:15px;background:var(--panel);border:1px solid var(--line);color:var(--text);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.icon-btn:hover,.theme-btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(0,0,0,.24)}
+.primary{height:46px;padding:0 18px;border-radius:15px;color:#06111c;font-weight:800;background:linear-gradient(135deg,#65d7ff,#8b7cff);box-shadow:0 13px 35px rgba(101,215,255,.16);position:relative;overflow:hidden}
+.primary:after{content:"";position:absolute;top:-80%;right:-20%;width:35%;height:260%;background:rgba(255,255,255,.25);transform:rotate(25deg);animation:shine 3.8s infinite}
+@keyframes shine{0%,65%{right:-45%}100%{right:125%}}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:18px}
+.kpi{padding:19px;border:1px solid var(--line);border-radius:22px;background:var(--panel);backdrop-filter:blur(22px);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi:before{content:"";position:absolute;width:95px;height:95px;border-radius:50%;left:-38px;bottom:-45px;background:rgba(101,215,255,.07);filter:blur(2px)}
+.kpi-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
+.kpi-icon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:rgba(101,215,255,.11);border:1px solid rgba(101,215,255,.12);animation:float 4s ease-in-out infinite}
+.kpi:nth-child(2) .kpi-icon{animation-delay:.5s}.kpi:nth-child(3) .kpi-icon{animation-delay:1s}.kpi:nth-child(4) .kpi-icon{animation-delay:1.5s}
+.kpi strong{display:block;font-size:27px;margin-top:14px}.trend{font-size:10px;color:var(--success);margin-top:7px}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(4deg)}}
+.toolbar{padding:14px;border:1px solid var(--line);border-radius:22px;background:var(--panel);box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;margin-bottom:15px}
+.search{flex:1;position:relative}.search span{position:absolute;right:13px;top:12px;color:var(--muted)}.search input{width:100%;height:43px;border-radius:14px;border:1px solid var(--line);outline:0;background:rgba(255,255,255,.035);color:var(--text);padding:0 40px 0 13px}
+.select{height:43px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035);color:var(--text);padding:0 13px;outline:0;min-width:145px}
+select option{background:#122239;color:#fff}.light select option{background:#fff;color:#17263b}
+.table-card{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
+.table-head{padding:17px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.table-head strong{font-size:14px}.table-head span{font-size:11px;color:var(--muted)}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:930px}
+th,td{text-align:right;padding:15px 18px;border-bottom:1px solid var(--line);font-size:12px;white-space:nowrap}
+th{font-size:10px;color:var(--muted);font-weight:700;background:rgba(255,255,255,.018)}
+tr{transition:.2s}tbody tr:hover{background:rgba(101,215,255,.035)}
+.user-cell{display:flex;align-items:center;gap:10px}.user-mini{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,rgba(101,215,255,.22),rgba(139,124,255,.25));border:1px solid var(--line)}
+.user-name strong{display:block;font-size:12px}.user-name small{color:var(--muted);font-size:9px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:9px;border:1px solid var(--line)}
+.badge:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 9px currentColor}
+.active{color:var(--success);background:rgba(67,224,162,.07)}.pending{color:var(--warning);background:rgba(255,201,107,.07)}.blocked{color:var(--danger);background:rgba(255,113,133,.07)}
+.role{color:var(--accent)}.muted{color:var(--muted)}
+.row-actions{display:flex;gap:6px}.row-btn{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.045);border:1px solid var(--line);color:var(--text);transition:.2s}.row-btn:hover{transform:translateY(-2px);background:rgba(101,215,255,.1)}
+.pagination{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}.pages{display:flex;gap:6px}.page{min-width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted)}.page.active{background:linear-gradient(135deg,#65d7ff,#8b7cff);color:#07111f;border:0;font-weight:800}
+.lower{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:16px}.panel{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow);padding:20px}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.panel-title strong{font-size:14px}.panel-title span{font-size:10px;color:var(--muted)}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.role-box{padding:15px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025);position:relative;overflow:hidden}.role-box b{display:block;font-size:22px}.role-box span{color:var(--muted);font-size:10px}.role-bar{height:5px;background:rgba(255,255,255,.06);border-radius:20px;margin-top:13px;overflow:hidden}.role-bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#65d7ff,#8b7cff)}
+.activity{display:grid;gap:12px}.activity-item{display:flex;gap:10px;align-items:flex-start}.dot{width:9px;height:9px;border-radius:50%;background:#65d7ff;box-shadow:0 0 14px #65d7ff;margin-top:4px;flex:none}.activity-item strong{display:block;font-size:11px}.activity-item span{font-size:9px;color:var(--muted)}
+.modal-back{position:fixed;inset:0;background:rgba(2,8,16,.68);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
+.modal-back.show{display:flex}.modal{width:min(720px,100%);max-height:90vh;overflow:auto;border:1px solid var(--line);border-radius:28px;background:var(--panel2);box-shadow:0 35px 110px rgba(0,0,0,.45);animation:modalIn .3s ease;position:relative}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.modal-head h2{margin:0;font-size:17px}.close{width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--line);font-size:20px;transition:.3s}.close:hover{transform:rotate(90deg)}
+.form{padding:21px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field label{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}.field input,.field select{width:100%;height:43px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text);padding:0 12px;outline:0}.field.full{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.secondary{height:43px;padding:0 17px;border-radius:13px;background:transparent;border:1px solid var(--line);color:var(--text)}
+.toast{position:fixed;left:24px;bottom:24px;z-index:120;transform:translateY(120px);opacity:0;transition:.35s;padding:13px 17px;border-radius:16px;border:1px solid var(--line);background:rgba(14,28,46,.92);backdrop-filter:blur(20px);box-shadow:var(--shadow);font-size:11px}.toast.show{transform:none;opacity:1}
+.mobile-menu{display:none}
+@media(max-width:1050px){.kpis{grid-template-columns:repeat(2,1fr)}.lower{grid-template-columns:1fr}.main{padding:22px}.roles{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.sidebar{transform:translateX(110%);width:280px}.sidebar.open{transform:none}.main{width:100%;margin-right:0;padding:17px 14px 35px}.mobile-menu{display:grid}.topbar{align-items:flex-start}.title h1{font-size:23px}.actions .primary{padding:0 12px;font-size:11px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:14px}.kpi strong{font-size:22px}.toolbar{flex-wrap:wrap}.search{flex-basis:100%}.select{flex:1;min-width:0}.roles{grid-template-columns:1fr}.panel{padding:15px}}
+@media(max-width:460px){.kpis{grid-template-columns:1fr}.actions .primary span{display:none}.title p{font-size:10px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg-orb o1"></div><div class="bg-orb o2"></div>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">✦</div><div><strong>مشاور</strong><small>SUPER ADMIN PANEL</small></div></div>
+  <nav class="nav">
+    <a href="dashboard.html"><i>⌂</i>داشبورد</a>
+    <a href="organizations.html"><i>◫</i>سازمان‌ها</a>
+    <a class="active" href="users.html"><i>♙</i>کاربران</a>
+    <a href="subscriptions.html"><i>◈</i>اشتراک‌ها</a>
+    <a href="reports.html"><i>▥</i>گزارش‌ها</a>
+  </nav>
+  <div class="side-bottom"><div class="manager-card"><div class="avatar">م</div><div><strong>مدیر ارشد سیستم</strong><span>Super Administrator</span></div></div></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="title"><h1>مدیریت کاربران</h1><p>کنترل کاربران، نقش‌ها، وضعیت دسترسی و فعالیت حساب‌ها در کل سامانه</p></div>
+  <div class="actions">
+    <button class="icon-btn mobile-menu" id="menuBtn">☰</button>
+    <button class="theme-btn" id="themeBtn">☾</button>
+    <button class="icon-btn" id="bellBtn">♧</button>
+    <button class="primary" id="addBtn">＋ <span>افزودن کاربر</span></button>
+  </div>
+</header>
+
+<section class="kpis">
+  <div class="kpi"><div class="kpi-head"><span>کل کاربران</span><div class="kpi-icon">♙</div></div><strong id="totalKpi">0</strong><div class="trend">↗ 12.4٪ نسبت به ماه قبل</div></div>
+  <div class="kpi"><div class="kpi-head"><span>کاربران فعال</span><div class="kpi-icon">✓</div></div><strong id="activeKpi">0</strong><div class="trend">● فعالیت پایدار</div></div>
+  <div class="kpi"><div class="kpi-head"><span>در انتظار تأیید</span><div class="kpi-icon">◌</div></div><strong id="pendingKpi">0</strong><div class="trend" style="color:var(--warning)">نیازمند بررسی</div></div>
+  <div class="kpi"><div class="kpi-head"><span>مسدود شده</span><div class="kpi-icon">×</div></div><strong id="blockedKpi">0</strong><div class="trend" style="color:var(--danger)">کنترل دسترسی</div></div>
+</section>
+
+<section class="toolbar">
+  <div class="search"><span>⌕</span><input id="search" placeholder="جستجو نام، ایمیل، موبایل یا سازمان..."></div>
+  <select class="select" id="roleFilter"><option value="">همه نقش‌ها</option><option value="SUPER_ADMIN">مدیر ارشد</option><option value="MANAGER">مدیر کلینیک</option><option value="CONSULTANT">مشاور</option></select>
+  <select class="select" id="statusFilter"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="pending">در انتظار</option><option value="blocked">مسدود</option></select>
+  <select class="select" id="orgFilter"><option value="">همه سازمان‌ها</option></select>
+</section>
+
+<section class="table-card">
+  <div class="table-head"><strong>فهرست کاربران</strong><span id="resultCount">0 کاربر</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>کاربر</th><th>نقش</th><th>سازمان</th><th>آخرین ورود</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  </div>
+  <div class="pagination"><span class="muted" id="pageInfo">صفحه ۱</span><div class="pages" id="pages"></div></div>
+</section>
+
+<section class="lower">
+  <div class="panel">
+    <div class="panel-title"><strong>توزیع نقش‌ها</strong><span>نمای کلی کاربران</span></div>
+    <div class="roles" id="roles"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title"><strong>فعالیت اخیر</strong><span>آخرین رویدادها</span></div>
+    <div class="activity">
+      <div class="activity-item"><i class="dot"></i><div><strong>ورود موفق مدیر کلینیک</strong><span>کلینیک آرامش · ۸ دقیقه پیش</span></div></div>
+      <div class="activity-item"><i class="dot"></i><div><strong>کاربر جدید ایجاد شد</strong><span>مشاور جدید · ۲۶ دقیقه پیش</span></div></div>
+      <div class="activity-item"><i class="dot"></i><div><strong>وضعیت یک حساب تغییر کرد</strong><span>کلینیک زندگی نو · ۵۴ دقیقه پیش</span></div></div>
+      <div class="activity-item"><i class="dot"></i><div><strong>رمز عبور بازیابی شد</strong><span>حساب مدیر · ۱ ساعت پیش</span></div></div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<div class="modal-back" id="modalBack">
+<div class="modal">
+  <div class="modal-head"><h2 id="modalTitle">افزودن کاربر جدید</h2><button class="close" id="closeModal">×</button></div>
+  <form class="form" id="userForm">
+    <div class="grid">
+      <div class="field"><label>نام و نام خانوادگی</label><input id="fName" required placeholder="مثلاً سارا احمدی"></div>
+      <div class="field"><label>ایمیل</label><input id="fEmail" type="email" required placeholder="name@example.com"></div>
+      <div class="field"><label>شماره موبایل</label><input id="fPhone" placeholder="09xxxxxxxxx"></div>
+      <div class="field"><label>نقش</label><select id="fRole"><option value="CONSULTANT">مشاور</option><option value="MANAGER">مدیر کلینیک</option><option value="SUPER_ADMIN">مدیر ارشد</option></select></div>
+      <div class="field"><label>سازمان</label><select id="fOrg"></select></div>
+      <div class="field"><label>وضعیت</label><select id="fStatus"><option value="active">فعال</option><option value="pending">در انتظار</option><option value="blocked">مسدود</option></select></div>
+      <div class="field full"><label>توضیح داخلی</label><input id="fNote" placeholder="یادداشت مدیریتی اختیاری"></div>
+    </div>
+    <div class="modal-actions"><button type="button" class="secondary" id="cancelBtn">انصراف</button><button class="primary" type="submit">ذخیره کاربر</button></div>
+  </form>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const orgs=["کلینیک آرامش","مرکز زندگی نو","کلینیک آفتاب","مجموعه مسیر نو","کلینیک امید","مرکز تندرستی"];
+const names=["سارا احمدی","محمد رضایی","نگار کریمی","علی مرادی","مریم حسینی","پارسا نادری","الهام موسوی","امیرحسین کاظمی","نازنین شریفی","رضا اکبری","کیانا صادقی","حسین محمدی","آرزو رحیمی","سامان نوری","مهسا یوسفی","شایان حیدری","سمیه رستمی","آرمان جعفری","ترانه فلاح","پویان امینی","سپیده توکلی","نیما قاسمی","یگانه صالحی","بردیا محمودی"];
+const roles=["CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","MANAGER","CONSULTANT","CONSULTANT","CONSULTANT","MANAGER"];
+let users=JSON.parse(localStorage.getItem("moshaver-super-users")||"null")||names.map((name,i)=>({
+ id:i+1,name,email:"user"+(i+1)+"@moshaver.ir",phone:"09"+String(120000000+i).slice(-9),
+ role:roles[i],org:orgs[i%orgs.length],status:i===5||i===16?"pending":(i===11?"blocked":"active"),
+ last:i===11?"—":(i+1)+" دقیقه پیش"
+}));
+let page=1,editing=null,perPage=8;
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem("moshaver-super-users",JSON.stringify(users))}
+function roleText(r){return r==="SUPER_ADMIN"?"مدیر ارشد":r==="MANAGER"?"مدیر کلینیک":"مشاور"}
+function initials(n){return n.split(" ").map(x=>x[0]).slice(0,2).join("")}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>$("toast").classList.remove("show"),2600)}
+function refreshFilters(){
+  $("orgFilter").innerHTML='<option value="">همه سازمان‌ها</option>'+orgs.map(o=>`<option>${o}</option>`).join("");
+  $("fOrg").innerHTML=orgs.map(o=>`<option>${o}</option>`).join("");
+}
+function filtered(){
+  const q=$("search").value.trim().toLowerCase(),r=$("roleFilter").value,s=$("statusFilter").value,o=$("orgFilter").value;
+  return users.filter(u=>(!q||[u.name,u.email,u.phone,u.org].join(" ").toLowerCase().includes(q))&&(!r||u.role===r)&&(!s||u.status===s)&&(!o||u.org===o))
+}
+function render(){
+  $("totalKpi").textContent=users.length;
+  $("activeKpi").textContent=users.filter(u=>u.status==="active").length;
+  $("pendingKpi").textContent=users.filter(u=>u.status==="pending").length;
+  $("blockedKpi").textContent=users.filter(u=>u.status==="blocked").length;
+  const arr=filtered(),pages=Math.max(1,Math.ceil(arr.length/perPage));if(page>pages)page=pages;
+  const slice=arr.slice((page-1)*perPage,page*perPage);
+  $("resultCount").textContent=arr.length+" کاربر";
+  $("tbody").innerHTML=slice.map(u=>`<tr>
+    <td><div class="user-cell"><div class="user-mini">${initials(u.name)}</div><div class="user-name"><strong>${u.name}</strong><small>${u.email}</small></div></div></td>
+    <td><span class="role">${roleText(u.role)}</span></td><td>${u.org}</td><td class="muted">${u.last}</td>
+    <td><span class="badge ${u.status}">${u.status==="active"?"فعال":u.status==="pending"?"در انتظار":"مسدود"}</span></td>
+    <td><div class="row-actions"><button class="row-btn" onclick="editUser(${u.id})">✎</button><button class="row-btn" onclick="viewUser(${u.id})">◉</button><button class="row-btn" onclick="removeUser(${u.id})">×</button></div></td>
+  </tr>`).join("");
+  $("pageInfo").textContent=`صفحه ${page} از ${pages}`;
+  $("pages").innerHTML=Array.from({length:pages},(_,i)=>`<button class="page ${i+1===page?"active":""}" onclick="goPage(${i+1})">${i+1}</button>`).join("");
+  const rc={CONSULTANT:users.filter(u=>u.role==="CONSULTANT").length,MANAGER:users.filter(u=>u.role==="MANAGER").length,SUPER_ADMIN:users.filter(u=>u.role==="SUPER_ADMIN").length};
+  const max=Math.max(...Object.values(rc),1);
+  $("roles").innerHTML=[["CONSULTANT","مشاور",rc.CONSULTANT],["MANAGER","مدیر کلینیک",rc.MANAGER],["SUPER_ADMIN","مدیر ارشد",rc.SUPER_ADMIN]].map(x=>`<div class="role-box"><b>${x[2]}</b><span>${x[1]}</span><div class="role-bar"><i style="width:${Math.max(5,x[2]/max*100)}%"></i></div></div>`).join("");
+}
+function goPage(p){page=p;render()}
+function openModal(u=null){
+  editing=u?.id||null;$("modalTitle").textContent=u?"ویرایش کاربر":"افزودن کاربر جدید";
+  $("fName").value=u?.name||"";$("fEmail").value=u?.email||"";$("fPhone").value=u?.phone||"";
+  $("fRole").value=u?.role||"CONSULTANT";$("fOrg").value=u?.org||orgs[0];$("fStatus").value=u?.status||"active";$("fNote").value=u?.note||"";
+  $("modalBack").classList.add("show");setTimeout(()=>$("fName").focus(),80)
+}
+function closeModal(){$("modalBack").classList.remove("show")}
+window.editUser=id=>openModal(users.find(u=>u.id===id));
+window.viewUser=id=>{const u=users.find(x=>x.id===id);toast(`${u.name} · ${roleText(u.role)} · ${u.org}`)}
+window.removeUser=id=>{const u=users.find(x=>x.id===id);if(confirm(`کاربر «${u.name}» حذف شود؟`)){users=users.filter(x=>x.id!==id);save();render();toast("کاربر حذف شد")}}
+$("userForm").onsubmit=e=>{e.preventDefault();const data={id:editing||Date.now(),name:$("fName").value.trim(),email:$("fEmail").value.trim(),phone:$("fPhone").value.trim(),role:$("fRole").value,org:$("fOrg").value,status:$("fStatus").value,last:"همین الان",note:$("fNote").value.trim()};if(editing)users=users.map(u=>u.id===editing?{...u,...data}:u);else users.unshift(data);save();closeModal();render();toast(editing?"اطلاعات کاربر به‌روزرسانی شد":"کاربر جدید ایجاد شد");}
+$("addBtn").onclick=()=>openModal();$("closeModal").onclick=closeModal;$("cancelBtn").onclick=closeModal;
+$("modalBack").onclick=e=>{if(e.target===$("modalBack"))closeModal()};
+["search","roleFilter","statusFilter","orgFilter"].forEach(id=>$(id).addEventListener("input",()=>{page=1;render()}));
+$("themeBtn").onclick=()=>{document.body.classList.toggle("light");localStorage.setItem("moshaver-theme",document.body.classList.contains("light")?"light":"dark");$("themeBtn").textContent=document.body.classList.contains("light")?"☀":"☾"};
+if(localStorage.getItem("moshaver-theme")==="light"){document.body.classList.add("light");$("themeBtn").textContent="☀"}
+$("menuBtn").onclick=()=>$("sidebar").classList.toggle("open");
+$("bellBtn").onclick=()=>toast("اعلان جدیدی برای بررسی وجود ندارد");
+refreshFilters();render();
+</script>
+
+</body>
+</html>
