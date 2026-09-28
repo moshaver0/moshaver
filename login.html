@@ -2,1174 +2,996 @@
 
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09070f">
-  <meta name="description" content="ورود امن به سامانه مشاور">
-  <title>ورود | مشاور</title>
-
-  <style>
-    :root {
-      --bg: #08060d;
-      --bg-2: #0d0914;
-      --surface: rgba(255,255,255,.065);
-      --surface-hover: rgba(255,255,255,.09);
-      --border: rgba(255,255,255,.12);
-      --border-strong: rgba(255,255,255,.18);
-      --text: #f8f5fc;
-      --muted: #a9a0b2;
-      --muted-2: #7f7688;
-      --primary: #9d5cff;
-      --primary-2: #c28cff;
-      --danger: #ff7e9d;
-      --success: #91efb7;
-      --shadow: 0 35px 100px rgba(0,0,0,.48);
-      --ease: cubic-bezier(.2,.8,.2,1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      min-height: 100%;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      font-family: Tahoma, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 50% 35%, rgba(131,64,224,.16), transparent 29%),
-        radial-gradient(circle at 90% 100%, rgba(88,39,175,.12), transparent 27%),
-        var(--bg);
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .page {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      isolation: isolate;
-      overflow: hidden;
-    }
-
-    .noise {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      pointer-events: none;
-      opacity: .025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    .grid {
-      position: absolute;
-      inset: 0;
-      z-index: -4;
-      opacity: .22;
-      background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 70px 70px;
-      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 73%);
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -3;
-      filter: blur(3px);
-      will-change: transform;
-    }
-
-    .orb-a {
-      width: 480px;
-      height: 480px;
-      top: -230px;
-      right: -130px;
-      background: radial-gradient(circle, rgba(157,92,255,.18), transparent 68%);
-    }
-
-    .orb-b {
-      width: 540px;
-      height: 540px;
-      bottom: -330px;
-      left: -200px;
-      background: radial-gradient(circle, rgba(105,49,212,.15), transparent 68%);
-    }
-
-    .orb-c {
-      width: 300px;
-      height: 300px;
-      top: 35%;
-      left: 37%;
-      background: radial-gradient(circle, rgba(194,140,255,.065), transparent 70%);
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 0;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      border: 1px solid rgba(194,140,255,.22);
-      background: linear-gradient(145deg, rgba(194,140,255,.22), rgba(155,92,255,.055));
-      box-shadow:
-        0 12px 35px rgba(113,52,204,.2),
-        inset 0 1px rgba(255,255,255,.16);
-      backdrop-filter: blur(20px);
-      color: #fff;
-      font-size: 20px;
-    }
-
-    .brand-mark::before {
-      content: "✦";
-    }
-
-    .brand-name {
-      font-size: 17px;
-      font-weight: 900;
-      letter-spacing: -.4px;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 11px;
-      padding: 10px 13px;
-      border-radius: 13px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.035);
-      backdrop-filter: blur(16px);
-      transition: .3s var(--ease);
-    }
-
-    .back-link:hover {
-      color: #e8dcf1;
-      border-color: rgba(194,140,255,.24);
-      background: rgba(255,255,255,.055);
-      transform: translateX(2px);
-    }
-
-    .main {
-      flex: 1;
-      display: grid;
-      place-items: center;
-      padding: 35px 0 80px;
-    }
-
-    .login-layout {
-      width: min(980px, 100%);
-      display: grid;
-      grid-template-columns: 1fr 1.08fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .showcase {
-      position: relative;
-      min-height: 570px;
-      padding: 42px;
-      border: 1px solid rgba(255,255,255,.095);
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 70% 20%, rgba(155,92,255,.11), transparent 28%),
-        linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
-      backdrop-filter: blur(25px);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .showcase::before {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      top: -110px;
-      left: -90px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(194,140,255,.13), transparent 68%);
-      pointer-events: none;
-    }
-
-    .showcase-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 999px;
-      background: rgba(255,255,255,.035);
-      color: #aaa0b3;
-      font-size: 10px;
-    }
-
-    .eyebrow-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #a6ffca;
-      box-shadow: 0 0 13px #a6ffca;
-    }
-
-    .showcase h1 {
-      margin-top: 25px;
-      max-width: 430px;
-      font-size: clamp(31px, 4vw, 48px);
-      line-height: 1.25;
-      letter-spacing: -2px;
-    }
-
-    .gradient {
-      background: linear-gradient(105deg, #fff 10%, #d6b6ff 58%, #9855ff 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .showcase-text {
-      max-width: 410px;
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 2.05;
-    }
-
-    .mini-dashboard {
-      position: absolute;
-      left: 34px;
-      right: 34px;
-      bottom: 35px;
-      height: 185px;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 24px;
-      background: rgba(255,255,255,.035);
-      backdrop-filter: blur(20px);
-      padding: 15px;
-      transform: perspective(800px) rotateX(5deg) rotateY(4deg);
-      box-shadow: 0 25px 60px rgba(0,0,0,.25);
-    }
-
-    .mini-top {
-      height: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .mini-dots {
-      display: flex;
-      gap: 4px;
-    }
-
-    .mini-dots i {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.2);
-    }
-
-    .mini-line {
-      width: 60px;
-      height: 5px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.08);
-    }
-
-    .mini-body {
-      display: grid;
-      grid-template-columns: 85px 1fr;
-      gap: 10px;
-      margin-top: 11px;
-      height: 125px;
-    }
-
-    .mini-stats {
-      display: grid;
-      gap: 6px;
-    }
-
-    .mini-stat {
-      border: 1px solid rgba(255,255,255,.055);
-      border-radius: 9px;
-      background: rgba(255,255,255,.03);
-      padding: 7px;
-    }
-
-    .mini-stat small {
-      display: block;
-      color: #766d80;
-      font-size: 6px;
-    }
-
-    .mini-stat b {
-      display: block;
-      margin-top: 3px;
-      color: #ceb0ef;
-      font-size: 10px;
-    }
-
-    .mini-chart {
-      position: relative;
-      border: 1px solid rgba(255,255,255,.055);
-      border-radius: 12px;
-      background: rgba(255,255,255,.025);
-      overflow: hidden;
-    }
-
-    .mini-chart::before {
-      content: "";
-      position: absolute;
-      left: 10%;
-      right: 10%;
-      bottom: 18%;
-      height: 1px;
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 -35px rgba(255,255,255,.045), 0 -70px rgba(255,255,255,.035);
-    }
-
-    .line-chart {
-      position: absolute;
-      left: 8%;
-      right: 8%;
-      bottom: 18%;
-      height: 70%;
-    }
-
-    .line-chart svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    .line-path {
-      fill: none;
-      stroke: #b782ff;
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 8px rgba(155,92,255,.35));
-    }
-
-    .line-area {
-      fill: url(#areaGradient);
-      opacity: .25;
-    }
-
-    .login-card {
-      position: relative;
-      min-height: 570px;
-      padding: 42px;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 34px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
-      backdrop-filter: blur(30px);
-      box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.07);
-      overflow: hidden;
-    }
-
-    .login-card::after {
-      content: "";
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      top: -150px;
-      right: -130px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(155,92,255,.12), transparent 68%);
-      pointer-events: none;
-    }
-
-    .login-head {
-      position: relative;
-      z-index: 2;
-      margin-bottom: 31px;
-    }
-
-    .login-head h2 {
-      font-size: 26px;
-      letter-spacing: -.8px;
-    }
-
-    .login-head p {
-      margin-top: 9px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.9;
-    }
-
-    .form {
-      position: relative;
-      z-index: 2;
-    }
-
-    .field {
-      margin-bottom: 18px;
-    }
-
-    .field-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .field label {
-      color: #c0b7c8;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .field-wrap {
-      position: relative;
-    }
-
-    .field-icon {
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      transform: translateY(-50%);
-      color: #766c80;
-      font-size: 14px;
-      pointer-events: none;
-      transition: color .25s ease;
-    }
-
-    .field input {
-      width: 100%;
-      height: 51px;
-      padding: 0 44px 0 15px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 15px;
-      outline: none;
-      background: rgba(255,255,255,.04);
-      color: #fff;
-      direction: rtl;
-      transition:
-        border-color .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
-    }
-
-    .field input::placeholder {
-      color: #62596a;
-    }
-
-    .field input:hover {
-      background: rgba(255,255,255,.052);
-    }
-
-    .field input:focus {
-      border-color: rgba(194,140,255,.48);
-      background: rgba(255,255,255,.055);
-      box-shadow: 0 0 0 4px rgba(155,92,255,.075);
-    }
-
-    .field:focus-within .field-icon {
-      color: #c497ff;
-    }
-
-    .password-toggle {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 34px;
-      height: 34px;
-      border: 0;
-      border-radius: 10px;
-      background: transparent;
-      color: #807689;
-      cursor: pointer;
-      transition: .25s ease;
-    }
-
-    .password-toggle:hover {
-      color: #d2b7f0;
-      background: rgba(255,255,255,.055);
-    }
-
-    .options {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 2px 0 22px;
-    }
-
-    .remember {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #918799;
-      font-size: 10px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .remember input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .check {
-      width: 16px;
-      height: 16px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 5px;
-      background: rgba(255,255,255,.035);
-      transition: .25s ease;
-    }
-
-    .remember input:checked + .check {
-      background: #8c4de9;
-      border-color: #a96cff;
-      box-shadow: 0 0 15px rgba(155,92,255,.22);
-    }
-
-    .remember input:checked + .check::before {
-      content: "✓";
-      color: white;
-      font-size: 10px;
-    }
-
-    .forgot {
-      border: 0;
-      background: transparent;
-      color: #ae83dc;
-      font-size: 10px;
-      cursor: pointer;
-    }
-
-    .submit {
-      position: relative;
-      width: 100%;
-      height: 53px;
-      border: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      color: #fff;
-      background: linear-gradient(135deg, #a762ff, #7338c8);
-      box-shadow: 0 17px 42px rgba(111,48,203,.27);
-      cursor: pointer;
-      font-weight: 900;
-      font-size: 12px;
-      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-    }
-
-    .submit::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      background: linear-gradient(110deg, transparent 18%, rgba(255,255,255,.25), transparent 56%);
-      transform: translateX(-120%);
-      transition: transform .7s var(--ease);
-    }
-
-    .submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 55px rgba(111,48,203,.4);
-    }
-
-    .submit:hover::before {
-      transform: translateX(120%);
-    }
-
-    .submit:active {
-      transform: translateY(0) scale(.99);
-    }
-
-    .submit-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .submit.loading .submit-text {
-      opacity: 0;
-    }
-
-    .spinner {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 18px;
-      height: 18px;
-      margin: -9px;
-      border: 2px solid rgba(255,255,255,.35);
-      border-top-color: #fff;
-      border-radius: 50%;
-      opacity: 0;
-      animation: spin .7s linear infinite;
-    }
-
-    .submit.loading .spinner {
-      opacity: 1;
-    }
-
-    .error {
-      display: none;
-      margin: 0 0 16px;
-      padding: 11px 13px;
-      border: 1px solid rgba(255,126,157,.2);
-      border-radius: 13px;
-      background: rgba(255,70,115,.055);
-      color: #ffafc2;
-      font-size: 10px;
-      line-height: 1.8;
-    }
-
-    .error.show {
-      display: block;
-    }
-
-    .security-note {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      margin-top: 22px;
-      color: #716879;
-      font-size: 9px;
-    }
-
-    .security-note span {
-      color: #9ae6b7;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 25px 0 20px;
-      color: #655c6e;
-      font-size: 9px;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: rgba(255,255,255,.07);
-    }
-
-    .support {
-      text-align: center;
-      color: #766d80;
-      font-size: 9px;
-      line-height: 1.9;
-    }
-
-    .support b {
-      color: #a98bc7;
-      font-weight: 700;
-    }
-
-    .footer {
-      position: relative;
-      z-index: 5;
-      padding: 0 0 25px;
-      text-align: center;
-      color: #625968;
-      font-size: 9px;
-    }
-
-    .toast {
-      position: fixed;
-      left: 24px;
-      bottom: 24px;
-      z-index: 200;
-      max-width: 330px;
-      padding: 13px 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      background: rgba(24,18,32,.86);
-      backdrop-filter: blur(22px);
-      color: #ddd5e4;
-      font-size: 10px;
-      box-shadow: 0 20px 55px rgba(0,0,0,.35);
-      opacity: 0;
-      transform: translateY(18px);
-      pointer-events: none;
-      transition: .35s var(--ease);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 900px) {
-      .login-layout {
-        grid-template-columns: 1fr;
-        width: min(520px, 100%);
-      }
-
-      .showcase {
-        display: none;
-      }
-
-      .login-card {
-        min-height: auto;
-      }
-
-      .main {
-        padding-top: 25px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        width: min(100% - 28px, 520px);
-      }
-
-      .topbar {
-        padding: 17px 0;
-      }
-
-      .brand-mark {
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
-      }
-
-      .brand-name {
-        font-size: 15px;
-      }
-
-      .back-link {
-        font-size: 10px;
-        padding: 9px 11px;
-      }
-
-      .main {
-        padding: 26px 0 45px;
-      }
-
-      .login-card {
-        padding: 28px 21px;
-        border-radius: 26px;
-      }
-
-      .login-head h2 {
-        font-size: 23px;
-      }
-
-      .footer {
-        padding-bottom: 18px;
-      }
-
-      .toast {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        max-width: none;
-        text-align: center;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09070f">
+<meta name="description" content="ورود به سامانه مشاور">
+<title>ورود | مشاور</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+
+:root{
+  --bg:#08070d;
+  --bg2:#0e0b17;
+  --surface:rgba(255,255,255,.055);
+  --surface2:rgba(255,255,255,.085);
+  --border:rgba(255,255,255,.105);
+  --text:#f8f5ff;
+  --muted:#aaa4b8;
+  --muted2:#756e82;
+  --accent:#a855f7;
+  --accent2:#7c3aed;
+  --accent3:#d8b4fe;
+  --danger:#fb7185;
+  --success:#6ee7b7;
+  --shadow:rgba(0,0,0,.42);
+  --input:rgba(255,255,255,.045);
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+html[data-theme="light"]{
+  --bg:#f7f5fb;
+  --bg2:#eee9f7;
+  --surface:rgba(255,255,255,.64);
+  --surface2:rgba(255,255,255,.86);
+  --border:rgba(61,40,85,.12);
+  --text:#18121f;
+  --muted:#665d71;
+  --muted2:#8b8295;
+  --accent:#7c3aed;
+  --accent2:#6d28d9;
+  --accent3:#a855f7;
+  --shadow:rgba(63,39,89,.18);
+  --input:rgba(255,255,255,.68);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;font-family:"Vazirmatn",Tahoma,sans-serif}
+body{
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 24% 30%,rgba(124,58,237,.14),transparent 29%),
+    radial-gradient(circle at 78% 70%,rgba(168,85,247,.08),transparent 27%),
+    var(--bg);
+  overflow-x:hidden;
+  transition:background .4s ease,color .3s ease;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:62px 62px;
+  opacity:.25;
+  mask-image:linear-gradient(to bottom,black,transparent 82%);
+}
+body:after{
+  content:"";
+  position:fixed;
+  width:520px;height:520px;
+  left:-250px;top:-260px;
+  border-radius:50%;
+  border:1px solid rgba(168,85,247,.1);
+  box-shadow:0 0 100px rgba(124,58,237,.09);
+  pointer-events:none;
+}
+
+.page{
+  width:min(1280px,calc(100% - 48px));
+  min-height:100vh;
+  margin:auto;
+  position:relative;
+  display:grid;
+  grid-template-rows:78px 1fr;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  z-index:20;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-size:18px;
+  font-weight:850;
+}
+.logo{
+  width:39px;height:39px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  background:linear-gradient(145deg,#c084fc,#7c3aed);
+  box-shadow:0 10px 28px rgba(124,58,237,.3);
+}
+.logo span{font-size:18px;transform:rotate(-9deg)}
+.top-actions{display:flex;align-items:center;gap:9px}
+.top-btn{
+  height:42px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  color:var(--muted);
+  background:var(--surface);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:0 13px;
+  backdrop-filter:blur(16px);
+  transition:.3s var(--ease);
+}
+.top-btn.icon{width:42px;padding:0}
+.top-btn:hover{
+  color:var(--text);
+  background:var(--surface2);
+  transform:translateY(-2px);
+}
+.theme-icon{font-size:17px}
+
+.main{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  direction:ltr;
+  align-items:center;
+  gap:80px;
+  padding:55px 0 75px;
+}
+.left{
+  direction:rtl;
+  position:relative;
+  min-height:620px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.glow{
+  position:absolute;
+  width:430px;height:430px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.22),transparent 67%);
+  filter:blur(5px);
+}
+.orbit{
+  position:absolute;
+  width:420px;height:420px;
+  border:1px solid rgba(168,85,247,.15);
+  border-radius:50%;
+  animation:spin 28s linear infinite;
+}
+.orbit.o2{
+  width:320px;height:320px;
+  border-color:rgba(216,180,254,.1);
+  animation-direction:reverse;
+  animation-duration:20s;
+}
+.orbit:before,.orbit:after{
+  content:"";
+  position:absolute;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#c084fc;
+  box-shadow:0 0 18px #a855f7;
+}
+.orbit:before{top:38px;left:73px}
+.orbit:after{bottom:44px;right:50px}
+
+.cross{
+  position:absolute;
+  color:#c084fc;
+  font-size:25px;
+  text-shadow:0 0 20px rgba(168,85,247,.8);
+  animation:cross 7s linear infinite;
+}
+.c1{top:15%;right:10%}
+.c2{top:34%;left:3%;font-size:16px;animation-direction:reverse;animation-duration:5s}
+.c3{bottom:18%;right:8%;font-size:18px;animation-duration:9s}
+.c4{bottom:28%;left:17%;font-size:12px;animation-direction:reverse}
+
+.visual-card{
+  position:relative;
+  z-index:3;
+  width:335px;
+  min-height:385px;
+  padding:27px;
+  border-radius:32px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  backdrop-filter:blur(25px);
+  box-shadow:0 35px 90px var(--shadow),inset 0 1px rgba(255,255,255,.07);
+  transform:rotate(-3deg);
+  transition:.5s var(--ease);
+}
+.visual-card:hover{transform:rotate(0) translateY(-8px)}
+.v-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:26px;
+}
+.v-title{font-size:12px;color:var(--muted)}
+.v-live{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:9px;
+  color:var(--success);
+}
+.v-live i{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--success);
+  box-shadow:0 0 12px var(--success);
+}
+.avatar-row{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.avatar{
+  width:48px;height:48px;
+  border-radius:16px;
+  display:grid;place-items:center;
+  color:#fff;
+  background:linear-gradient(145deg,#a855f7,#6d28d9);
+  font-size:18px;font-weight:900;
+}
+.avatar-name{font-size:13px;font-weight:750}
+.avatar-role{font-size:9px;color:var(--muted);margin-top:4px}
+.metric{
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--surface);
+  margin-bottom:10px;
+}
+.metric-top{display:flex;justify-content:space-between;align-items:center}
+.metric-label{font-size:9px;color:var(--muted)}
+.metric-number{font-size:22px;font-weight:900}
+.metric-foot{font-size:8px;color:var(--muted2);margin-top:6px}
+.chart{
+  height:58px;
+  display:flex;
+  align-items:flex-end;
+  gap:5px;
+  margin-top:11px;
+}
+.chart i{
+  flex:1;
+  border-radius:5px 5px 2px 2px;
+  background:linear-gradient(to top,#6d28d9,#d8b4fe);
+  opacity:.8;
+}
+.chart i:nth-child(1){height:34%}.chart i:nth-child(2){height:49%}
+.chart i:nth-child(3){height:42%}.chart i:nth-child(4){height:68%}
+.chart i:nth-child(5){height:55%}.chart i:nth-child(6){height:83%}
+.chart i:nth-child(7){height:73%}.chart i:nth-child(8){height:94%}
+
+.mini-floating{
+  position:absolute;
+  z-index:5;
+  padding:13px 15px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--surface2);
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 45px var(--shadow);
+  font-size:9px;
+  color:var(--muted);
+}
+.mini-floating b{display:block;color:var(--text);font-size:15px;margin-top:4px}
+.mf1{top:21%;left:4%;animation:float 5.5s ease-in-out infinite}
+.mf2{bottom:18%;right:5%;animation:float 6.5s ease-in-out infinite reverse}
+
+.right{
+  direction:rtl;
+  max-width:510px;
+  width:100%;
+  margin:auto;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:#c9a5f6;
+  background:rgba(168,85,247,.07);
+  border:1px solid rgba(168,85,247,.17);
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:22px;
+}
+.eyebrow i{
+  width:6px;height:6px;border-radius:50%;
+  background:#c084fc;box-shadow:0 0 12px #a855f7;
+}
+h1{
+  font-size:clamp(40px,4.6vw,64px);
+  line-height:1.1;
+  letter-spacing:-3px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+h1 span{
+  display:block;
+  color:#a855f7;
+}
+.subtitle{
+  font-size:13px;
+  line-height:2;
+  color:var(--muted);
+  margin-bottom:28px;
+}
+
+.login-card{
+  padding:28px;
+  border:1px solid var(--border);
+  border-radius:27px;
+  background:var(--surface);
+  backdrop-filter:blur(25px);
+  box-shadow:0 28px 80px var(--shadow),inset 0 1px rgba(255,255,255,.06);
+}
+.card-head{margin-bottom:22px}
+.card-head strong{font-size:16px;font-weight:850}
+.card-head p{font-size:9px;color:var(--muted);margin-top:6px}
+
+.field{margin-bottom:14px}
+.label-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:7px;
+}
+label{font-size:10px;color:var(--muted)}
+.field-hint{font-size:8px;color:var(--muted2)}
+.input-wrap{position:relative}
+.input{
+  width:100%;
+  height:51px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  outline:none;
+  background:var(--input);
+  color:var(--text);
+  padding:0 14px;
+  transition:.25s ease;
+  font-size:12px;
+}
+.input.password{padding-left:47px}
+.input::placeholder{color:var(--muted2)}
+.input:focus{
+  border-color:rgba(168,85,247,.55);
+  box-shadow:0 0 0 4px rgba(168,85,247,.08),0 10px 25px rgba(124,58,237,.08);
+}
+.input.invalid{
+  border-color:rgba(251,113,133,.62);
+  box-shadow:0 0 0 4px rgba(251,113,133,.07);
+}
+.input.valid{
+  border-color:rgba(110,231,183,.45);
+}
+.toggle-password{
+  position:absolute;
+  left:8px;
+  top:7px;
+  width:37px;height:37px;
+  border:0;
+  border-radius:10px;
+  color:var(--muted);
+  background:transparent;
+}
+.toggle-password:hover{background:var(--surface2);color:var(--text)}
+
+.options{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:4px 0 18px;
+}
+.remember{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:var(--muted);
+  font-size:9px;
+  cursor:pointer;
+}
+.remember input{accent-color:var(--accent)}
+.forgot{
+  color:#bd91ed;
+  font-size:9px;
+  border:0;
+  background:none;
+}
+.forgot:hover{text-decoration:underline}
+
+.submit{
+  width:100%;
+  height:52px;
+  border:0;
+  border-radius:15px;
+  color:#fff;
+  background:linear-gradient(135deg,#a855f7,#6d28d9);
+  font-size:12px;
+  font-weight:850;
+  box-shadow:0 15px 35px rgba(124,58,237,.24);
+  position:relative;
+  overflow:hidden;
+  transition:.35s var(--ease);
+}
+.submit:before{
+  content:"";
+  position:absolute;
+  top:0;bottom:0;
+  width:80px;
+  right:-100px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);
+  transform:skewX(-20deg);
+  transition:right .6s ease;
+}
+.submit:hover{transform:translateY(-3px);box-shadow:0 20px 42px rgba(124,58,237,.34)}
+.submit:hover:before{right:120%}
+.submit:disabled{cursor:not-allowed;opacity:.78;transform:none}
+.submit-content{display:flex;align-items:center;justify-content:center;gap:9px}
+.spinner{
+  width:16px;height:16px;
+  border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  display:none;
+}
+.loading .spinner{display:block}
+.loading .submit-text{opacity:.85}
+
+.security{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin-top:16px;
+  color:var(--muted2);
+  font-size:8px;
+}
+.security-icon{
+  width:19px;height:19px;
+  border-radius:7px;
+  display:grid;place-items:center;
+  color:var(--success);
+  background:rgba(110,231,183,.08);
+}
+
+.message{
+  display:none;
+  padding:11px 12px;
+  border-radius:12px;
+  font-size:9px;
+  line-height:1.8;
+  margin-bottom:13px;
+}
+.message.show{display:block}
+.message.error{
+  color:#fda4af;
+  background:rgba(251,113,133,.07);
+  border:1px solid rgba(251,113,133,.15);
+}
+.message.success{
+  color:#86efac;
+  background:rgba(110,231,183,.07);
+  border:1px solid rgba(110,231,183,.15);
+}
+
+.back{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:19px;
+  transition:.25s;
+}
+.back:hover{color:var(--text);transform:translateX(3px)}
+
+.toast{
+  position:fixed;
+  left:22px;
+  bottom:22px;
+  z-index:100;
+  max-width:320px;
+  padding:12px 15px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--surface2);
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 50px var(--shadow);
+  color:var(--text);
+  font-size:9px;
+  opacity:0;
+  transform:translateY(20px);
+  pointer-events:none;
+  transition:.35s var(--ease);
+}
+.toast.show{opacity:1;transform:none}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes cross{to{transform:rotate(360deg) scale(1.08)}}
+@keyframes float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(7px,-12px,0)}}
+
+@media(max-width:1000px){
+  .main{grid-template-columns:1fr;gap:10px;padding-top:35px}
+  .right{order:1;max-width:620px}
+  .left{order:2;min-height:510px}
+  .login-card{max-width:620px}
+}
+@media(max-width:620px){
+  .page{width:calc(100% - 28px);grid-template-rows:68px 1fr}
+  .top-btn.back-text{display:none}
+  .main{padding:28px 0 50px}
+  h1{font-size:42px;letter-spacing:-2px}
+  .subtitle{font-size:12px}
+  .login-card{padding:21px;border-radius:23px}
+  .left{min-height:430px;transform:scale(.82);margin:-40px 0 -65px}
+  .visual-card{width:315px}
+  .orbit{width:380px;height:380px}
+  .orbit.o2{width:290px;height:290px}
+  .mf1{left:0}.mf2{right:0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
 
 </head>
 
 <body>
-  <div class="page">
-    <div class="noise"></div>
-    <div class="grid"></div>
-    <div class="orb orb-a"></div>
-    <div class="orb orb-b"></div>
-    <div class="orb orb-c"></div>
+<div class="page">
 
-<header class="container topbar">
-  <a class="brand" href="../index/index.html" aria-label="بازگشت به صفحه اصلی">
-    <span class="brand-mark"></span>
-    <span class="brand-name">مشاور</span>
+<header class="topbar">
+  <a href="index.html" class="brand">
+    <div class="logo"><span>م</span></div>
+    <span>مشاور</span>
   </a>
 
-  <a class="back-link" href="../index/index.html">
-    بازگشت به صفحه اصلی
-    <span>←</span>
-  </a>
+  <div class="top-actions">
+    <a class="top-btn back-text" href="index.html">بازگشت به صفحه اصلی</a>
+    <button class="top-btn icon" id="themeToggle" aria-label="تغییر حالت نمایش">
+      <span class="theme-icon" id="themeIcon">☾</span>
+    </button>
+  </div>
 </header>
 
-<main class="container main">
-  <div class="login-layout">
+<main class="main">
 
-    <section class="showcase">
-      <div class="showcase-content">
-        <div class="eyebrow">
-          <span class="eyebrow-dot"></span>
-          سامانه امن مدیریت کلینیک
-        </div>
+<section class="left" id="visual">
+  <div class="glow"></div>
+  <div class="orbit"></div>
+  <div class="orbit o2"></div>
 
-        <h1>
-          مدیریت حرفه‌ای،
-          <span class="gradient">ساده و یکپارچه</span>
-        </h1>
+<span class="cross c1">×</span>
+<span class="cross c2">×</span>
+<span class="cross c3">×</span>
+<span class="cross c4">×</span>
 
-        <p class="showcase-text">
-          به فضای کاری خود وارد شوید و مراجعین، نوبت‌ها،
-          پیگیری‌ها و عملکرد روزانه را از یک محیط حرفه‌ای مدیریت کنید.
-        </p>
-      </div>
+  <div class="visual-card">
+    <div class="v-head">
+      <span class="v-title">نمای کلی سامانه</span>
+      <span class="v-live"><i></i> ONLINE</span>
+    </div>
 
-      <div class="mini-dashboard">
-        <div class="mini-top">
-          <div class="mini-dots">
-            <i></i><i></i><i></i>
-          </div>
-          <div class="mini-line"></div>
-        </div>
+<div class="avatar-row">
+  <div class="avatar">م</div>
+  <div>
+    <div class="avatar-name">داشبورد مشاور</div>
+    <div class="avatar-role">مدیریت هوشمند کلینیک</div>
+  </div>
+</div>
 
-        <div class="mini-body">
-          <div class="mini-stats">
-            <div class="mini-stat">
-              <small>مراجعین</small>
-              <b>۲۴۸</b>
-            </div>
+<div class="metric">
+  <div class="metric-top">
+    <span class="metric-label">مراجعین فعال</span>
+    <span class="metric-number">۲۴۸</span>
+  </div>
+  <div class="metric-foot">۲۴ مورد جدید در این ماه</div>
+</div>
 
-            <div class="mini-stat">
-              <small>نوبت‌ها</small>
-              <b>۱۸۶</b>
-            </div>
-
-            <div class="mini-stat">
-              <small>عملکرد</small>
-              <b>۸۷٪</b>
-            </div>
-          </div>
-
-          <div class="mini-chart">
-            <div class="line-chart">
-              <svg viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
-                <defs>
-                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#b782ff" stop-opacity=".4"/>
-                    <stop offset="100%" stop-color="#b782ff" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-
-                <path
-                  class="line-area"
-                  d="M0 95 L48 82 L95 88 L145 55 L192 67 L242 37 L290 48 L340 20 L400 30 L400 120 L0 120 Z"
-                />
-
-                <path
-                  class="line-path"
-                  d="M0 95 L48 82 L95 88 L145 55 L192 67 L242 37 L290 48 L340 20 L400 30"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="login-card">
-      <div class="login-head">
-        <h2>ورود به سامانه</h2>
-        <p>
-          نام کاربری و رمز عبور خود را وارد کنید تا به پنل اختصاصی
-          خود دسترسی پیدا کنید.
-        </p>
-      </div>
-
-      <form class="form" id="loginForm" novalidate>
-        <div class="field">
-          <div class="field-head">
-            <label for="username">نام کاربری</label>
-          </div>
-
-          <div class="field-wrap">
-            <span class="field-icon">◉</span>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              inputmode="text"
-              autocomplete="username"
-              placeholder="نام کاربری خود را وارد کنید"
-              maxlength="100"
-              required
-            >
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="field-head">
-            <label for="password">رمز عبور</label>
-          </div>
-
-          <div class="field-wrap">
-            <span class="field-icon">◆</span>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="رمز عبور خود را وارد کنید"
-              maxlength="200"
-              required
-            >
-
-            <button
-              class="password-toggle"
-              id="passwordToggle"
-              type="button"
-              aria-label="نمایش رمز عبور"
-              aria-pressed="false"
-            >◉</button>
-          </div>
-        </div>
-
-        <div class="options">
-          <label class="remember">
-            <input id="remember" type="checkbox">
-            <span class="check"></span>
-            مرا به خاطر بسپار
-          </label>
-
-          <button class="forgot" id="forgotPassword" type="button">
-            رمز عبور را فراموش کرده‌اید؟
-          </button>
-        </div>
-
-        <div class="error" id="errorBox" role="alert"></div>
-
-        <button class="submit" id="submitButton" type="submit">
-          <span class="submit-content submit-text">ورود به حساب</span>
-          <span class="spinner" aria-hidden="true"></span>
-        </button>
-
-        <div class="security-note">
-          <span>●</span>
-          اتصال امن و محافظت‌شده
-        </div>
-      </form>
-
-      <div class="divider">دسترسی اختصاصی</div>
-
-      <div class="support">
-        حساب کاربری توسط مدیر سامانه ایجاد می‌شود.
-        <br>
-        برای دریافت یا بازیابی دسترسی با <b>مدیریت سامانه</b> تماس بگیرید.
-      </div>
-    </section>
+<div class="metric">
+  <div class="metric-top">
+    <span class="metric-label">روند عملکرد</span>
+    <span class="metric-number">۸۷٪</span>
+  </div>
+  <div class="chart">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+</div>
 
   </div>
-</main>
 
-<footer class="footer">
-  © 2026 مشاور — تمامی حقوق محفوظ است.
-</footer>
+  <div class="mini-floating mf1">
+    نوبت‌های امروز
+    <b>۱۸</b>
+  </div>
+
+  <div class="mini-floating mf2">
+    پیگیری موفق
+    <b>۷۴٪</b>
+  </div>
+</section>
+
+<section class="right">
+
+  <div class="eyebrow">
+    <i></i>
+    دسترسی امن به سامانه
+  </div>
+
+  <h1>
+    خوش اومدی به
+    <span>مشاور.</span>
+  </h1>
+
+  <p class="subtitle">
+    برای ورود به فضای مدیریت کلینیک، نام کاربری و رمز عبور خودت را وارد کن.
+    سطح دسترسی و اطلاعات نمایش‌داده‌شده بر اساس حساب کاربری تعیین می‌شود.
+  </p>
+
+  <div class="login-card">
+    <div class="card-head">
+      <strong>ورود به حساب</strong>
+      <p>اطلاعات ورود خود را وارد کنید.</p>
+    </div>
+
+<div class="message error" id="errorMessage"></div>
+<div class="message success" id="successMessage"></div>
+
+<form id="loginForm" novalidate>
+  <div class="field">
+    <div class="label-row">
+      <label for="username">نام کاربری</label>
+      <span class="field-hint">اجباری</span>
+    </div>
+    <input
+      class="input"
+      id="username"
+      name="username"
+      type="text"
+      inputmode="text"
+      autocomplete="username"
+      placeholder="نام کاربری خود را وارد کنید"
+      required
+    >
+  </div>
+
+  <div class="field">
+    <div class="label-row">
+      <label for="password">رمز عبور</label>
+      <span class="field-hint">اجباری</span>
+    </div>
+    <div class="input-wrap">
+      <input
+        class="input password"
+        id="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="رمز عبور خود را وارد کنید"
+        required
+      >
+      <button type="button" class="toggle-password" id="togglePassword" aria-label="نمایش رمز عبور">◉</button>
+    </div>
+  </div>
+
+  <div class="options">
+    <label class="remember">
+      <input type="checkbox" id="remember">
+      مرا به خاطر بسپار
+    </label>
+    <button type="button" class="forgot" id="forgot">رمز عبور را فراموش کرده‌اید؟</button>
+  </div>
+
+  <button class="submit" id="submitButton" type="submit">
+    <span class="submit-content">
+      <span class="spinner"></span>
+      <span class="submit-text">ورود به سامانه</span>
+      <span class="submit-arrow">←</span>
+    </span>
+  </button>
+</form>
+
+<div class="security">
+  <span class="security-icon">✓</span>
+  اتصال امن • دسترسی بر اساس نقش کاربری
+</div>
+
+  </div>
+
+  <a class="back" href="index.html">
+    <span>→</span>
+    بازگشت به صفحه اصلی
+  </a>
+
+</section>
+
+</main>
 
 <div class="toast" id="toast"></div>
 
-  </div>
+<script>
+(function(){
+  "use strict";
 
-  <script>
-    const loginForm = document.getElementById("loginForm");
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const remember = document.getElementById("remember");
-    const passwordToggle = document.getElementById("passwordToggle");
-    const submitButton = document.getElementById("submitButton");
-    const errorBox = document.getElementById("errorBox");
-    const forgotPassword = document.getElementById("forgotPassword");
-    const toast = document.getElementById("toast");
+  const root = document.documentElement;
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+  const form = document.getElementById("loginForm");
+  const username = document.getElementById("username");
+  const password = document.getElementById("password");
+  const remember = document.getElementById("remember");
+  const togglePassword = document.getElementById("togglePassword");
+  const submitButton = document.getElementById("submitButton");
+  const errorMessage = document.getElementById("errorMessage");
+  const successMessage = document.getElementById("successMessage");
+  const forgot = document.getElementById("forgot");
+  const toast = document.getElementById("toast");
+  const visual = document.getElementById("visual");
 
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
+  function setTheme(theme){
+    root.setAttribute("data-theme", theme);
+    localStorage.setItem("moshaver-theme", theme);
+    themeIcon.textContent = theme === "dark" ? "☀" : "☾";
+  }
 
-      clearTimeout(window.__toastTimer);
+  const savedTheme = localStorage.getItem("moshaver-theme");
+  const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  setTheme(savedTheme || systemTheme);
 
-      window.__toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3200);
-    }
+  themeToggle.addEventListener("click", function(){
+    setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  });
 
-    function showError(message) {
-      errorBox.textContent = message;
-      errorBox.classList.add("show");
-    }
+  const savedUsername = localStorage.getItem("moshaver-remembered-username");
+  if(savedUsername){
+    username.value = savedUsername;
+    remember.checked = true;
+  }
 
-    function clearError() {
-      errorBox.textContent = "";
-      errorBox.classList.remove("show");
-    }
+  togglePassword.addEventListener("click", function(){
+    const visible = password.type === "text";
+    password.type = visible ? "password" : "text";
+    togglePassword.textContent = visible ? "◉" : "◌";
+    togglePassword.setAttribute("aria-label", visible ? "نمایش رمز عبور" : "پنهان کردن رمز عبور");
+  });
 
-    passwordToggle.addEventListener("click", () => {
-      const isPassword = password.type === "password";
-
-      password.type = isPassword ? "text" : "password";
-      passwordToggle.setAttribute("aria-pressed", String(isPassword));
-      passwordToggle.setAttribute(
-        "aria-label",
-        isPassword ? "مخفی کردن رمز عبور" : "نمایش رمز عبور"
-      );
-      passwordToggle.textContent = isPassword ? "◌" : "◉";
+  [username,password].forEach(function(input){
+    input.addEventListener("input", function(){
+      input.classList.remove("invalid");
+      hideMessages();
     });
 
-    [username, password].forEach((input) => {
-      input.addEventListener("input", clearError);
-    });
-
-    forgotPassword.addEventListener("click", () => {
-      showToast("برای بازیابی رمز عبور با مدیریت سامانه تماس بگیرید.");
-    });
-
-    loginForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      clearError();
-
-      const usernameValue = username.value.trim();
-      const passwordValue = password.value;
-
-      if (!usernameValue) {
-        showError("لطفاً نام کاربری را وارد کنید.");
-        username.focus();
-        return;
-      }
-
-      if (!passwordValue) {
-        showError("لطفاً رمز عبور را وارد کنید.");
+    input.addEventListener("keydown", function(event){
+      if(event.key === "Enter" && input === username){
         password.focus();
-        return;
-      }
-
-      if (passwordValue.length < 4) {
-        showError("اطلاعات ورود صحیح نیست.");
-        password.focus();
-        return;
-      }
-
-      submitButton.disabled = true;
-      submitButton.classList.add("loading");
-
-      /*
-        اتصال واقعی به Backend در این بخش انجام می‌شود.
-
-        نمونه ساختار درخواست:
-
-        const response = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            username: usernameValue,
-            password: passwordValue,
-            remember: remember.checked
-          })
-        });
-
-        const result = await response.json();
-
-        Backend باید بعد از احراز هویت، نقش کاربر را مشخص کند
-        و کاربر را به پنل مربوطه هدایت کند:
-
-        SUPER_ADMIN  -> /super-admin/
-        MANAGER      -> /manager/
-        CONSULTANT   -> /consultant/
-
-        همچنین وضعیت Subscription باید در Backend بررسی شود.
-        اگر اشتراک منقضی یا حساب غیرفعال باشد، Login نباید انجام شود.
-      */
-
-      try {
-        await new Promise(resolve => setTimeout(resolve, 850));
-
-        showError(
-          "اتصال احراز هویت هنوز به Backend متصل نشده است. این صفحه آماده اتصال به API واقعی سامانه است."
-        );
-      } finally {
-        submitButton.disabled = false;
-        submitButton.classList.remove("loading");
       }
     });
+  });
 
-    const prefersReducedMotion =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function hideMessages(){
+    errorMessage.classList.remove("show");
+    successMessage.classList.remove("show");
+  }
 
-    if (!prefersReducedMotion) {
-      document.addEventListener("mousemove", (event) => {
-        const x = event.clientX / window.innerWidth - .5;
-        const y = event.clientY / window.innerHeight - .5;
+  function showError(message){
+    errorMessage.textContent = message;
+    errorMessage.classList.add("show");
+    successMessage.classList.remove("show");
+  }
 
-        document.querySelector(".orb-a").style.transform =
-          `translate(${x * -18}px, ${y * -14}px)`;
+  function showSuccess(message){
+    successMessage.textContent = message;
+    successMessage.classList.add("show");
+    errorMessage.classList.remove("show");
+  }
 
-        document.querySelector(".orb-b").style.transform =
-          `translate(${x * 12}px, ${y * 10}px)`;
+  function validate(){
+    let valid = true;
 
-        document.querySelector(".orb-c").style.transform =
-          `translate(${x * 8}px, ${y * -8}px)`;
+    if(!username.value.trim()){
+      username.classList.add("invalid");
+      valid = false;
+    }
+
+    if(!password.value){
+      password.classList.add("invalid");
+      valid = false;
+    }
+
+    if(!valid){
+      showError("لطفاً نام کاربری و رمز عبور را کامل وارد کنید.");
+      if(!username.value.trim()) username.focus();
+    }
+
+    return valid;
+  }
+
+  function setLoading(state){
+    submitButton.disabled = state;
+    submitButton.classList.toggle("loading", state);
+    submitButton.querySelector(".submit-text").textContent = state ? "در حال بررسی..." : "ورود به سامانه";
+    submitButton.querySelector(".submit-arrow").style.display = state ? "none" : "inline";
+  }
+
+  function showToast(message){
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(window.__toast);
+    window.__toast = setTimeout(function(){
+      toast.classList.remove("show");
+    },3200);
+  }
+
+  /*
+    Production API contract:
+    POST /api/auth/login
+    body: { username, password, remember }
+    response:
+    {
+      success: true,
+      data: {
+        accessToken,
+        user: {
+          id,
+          username,
+          role,
+          organizationId,
+          subscriptionStatus
+        }
+      }
+    }
+
+    بعد از اتصال Backend:
+    SUPER_ADMIN  -> /super-admin/dashboard.html
+    ADMIN        -> /manager/dashboard.html
+    CONSULTANT   -> /consultant/dashboard.html
+
+    در نسخه فعلی GitHub Pages، برای جلوگیری از جعل ورود،
+    هیچ credential واقعی داخل Frontend قرار داده نشده است.
+  */
+
+  async function loginRequest(payload){
+    const apiBase = window.MOSHAVER_API_BASE || "";
+
+    if(!apiBase){
+      await new Promise(resolve => setTimeout(resolve, 850));
+      return {
+        success:false,
+        code:"BACKEND_NOT_CONNECTED",
+        message:"سامانه احراز هویت هنوز به Backend متصل نشده است."
+      };
+    }
+
+    const response = await fetch(apiBase + "/api/auth/login",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      credentials:"include",
+      body:JSON.stringify(payload)
+    });
+
+    let data = null;
+    try{ data = await response.json(); }catch(_){}
+
+    if(!response.ok){
+      return {
+        success:false,
+        code:data && data.code ? data.code : "AUTH_FAILED",
+        message:data && data.message ? data.message : "نام کاربری یا رمز عبور صحیح نیست."
+      };
+    }
+
+    return data;
+  }
+
+  function redirectByRole(role){
+    const routes = {
+      SUPER_ADMIN:"super-admin/dashboard.html",
+      ADMIN:"manager/dashboard.html",
+      CONSULTANT:"consultant/dashboard.html"
+    };
+
+    const destination = routes[String(role || "").toUpperCase()];
+    if(!destination) throw new Error("UNKNOWN_ROLE");
+    window.location.href = destination;
+  }
+
+  form.addEventListener("submit", async function(event){
+    event.preventDefault();
+    hideMessages();
+
+    if(!validate()) return;
+
+    if(remember.checked){
+      localStorage.setItem("moshaver-remembered-username", username.value.trim());
+    }else{
+      localStorage.removeItem("moshaver-remembered-username");
+    }
+
+    setLoading(true);
+
+    try{
+      const result = await loginRequest({
+        username:username.value.trim(),
+        password:password.value,
+        remember:remember.checked
       });
+
+      if(!result || !result.success){
+        if(result && result.code === "BACKEND_NOT_CONNECTED"){
+          showError("Backend احراز هویت هنوز متصل نشده است. صفحه آماده اتصال به API واقعی است.");
+        }else{
+          showError((result && result.message) || "ورود انجام نشد. اطلاعات ورود را بررسی کنید.");
+        }
+        return;
+      }
+
+      const authData = result.data || {};
+      const user = authData.user || {};
+
+      if(authData.accessToken){
+        sessionStorage.setItem("moshaver-access-token", authData.accessToken);
+      }
+
+      if(authData.refreshToken){
+        sessionStorage.setItem("moshaver-refresh-token", authData.refreshToken);
+      }
+
+      sessionStorage.setItem("moshaver-user", JSON.stringify({
+        id:user.id || null,
+        username:user.username || username.value.trim(),
+        role:user.role || null,
+        organizationId:user.organizationId || null,
+        subscriptionStatus:user.subscriptionStatus || null
+      }));
+
+      showSuccess("ورود با موفقیت انجام شد. در حال انتقال...");
+      await new Promise(resolve => setTimeout(resolve, 450));
+      redirectByRole(user.role);
+
+    }catch(error){
+      console.error(error);
+      showError("ارتباط با سرور برقرار نشد. لطفاً دوباره تلاش کنید.");
+    }finally{
+      setLoading(false);
     }
-  </script>
+  });
+
+  forgot.addEventListener("click", function(){
+    showToast("بازیابی رمز عبور از طریق پنل مدیریت و Backend فعال خواهد شد.");
+  });
+
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    window.addEventListener("pointermove", function(event){
+      const x = event.clientX / window.innerWidth - .5;
+      const y = event.clientY / window.innerHeight - .5;
+      visual.style.transform = "translate3d(" + (x * -6) + "px," + (y * -5) + "px,0)";
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
