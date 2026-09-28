@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07040d">
+<meta name="description" content="مدیریت حرفه‌ای کلینیک‌ها و سازمان‌های سامانه مشاور">
+<title>کلینیک‌ها | Super Admin | مشاور</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#07040d;--bg2:#0d0817;--surface:rgba(22,14,37,.62);--surface2:rgba(29,18,48,.82);--surface3:rgba(255,255,255,.045);
+ --text:#fbf9ff;--text2:#bdb4ca;--text3:#82788f;--border:rgba(255,255,255,.09);--border2:rgba(168,85,247,.30);
+ --purple:#a855f7;--purple2:#7c3aed;--cyan:#22d3ee;--green:#34d399;--yellow:#fbbf24;--red:#fb7185;--blue:#60a5fa;
+ --shadow:0 26px 90px rgba(0,0,0,.36);--glow:0 0 46px rgba(168,85,247,.11);--sidebar:280px;--r:25px;--ease:cubic-bezier(.22,1,.36,1)
+}
+html[data-theme=light]{
+ --bg:#f5f1fa;--bg2:#eee8f6;--surface:rgba(255,255,255,.68);--surface2:rgba(255,255,255,.9);
+ --surface3:rgba(88,59,118,.055);--text:#21172c;--text2:#675b73;--text3:#958aa0;
+ --border:rgba(52,28,72,.10);--border2:rgba(124,58,237,.24);--shadow:0 25px 75px rgba(70,42,92,.13)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;min-height:100vh;font-family:Vazirmatn,sans-serif;color:var(--text);
+ background:radial-gradient(circle at 7% 3%,rgba(168,85,247,.15),transparent 27%),
+ radial-gradient(circle at 92% 9%,rgba(34,211,238,.07),transparent 24%),
+ radial-gradient(circle at 65% 100%,rgba(124,58,237,.10),transparent 31%),var(--bg);
+ overflow-x:hidden;transition:.4s var(--ease)
+}
+button,input,select,textarea{font:inherit}
+button{border:0}
+a{text-decoration:none;color:inherit}
+::selection{background:rgba(168,85,247,.42);color:#fff}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+.ambient i{position:absolute;width:360px;height:360px;border-radius:50%;filter:blur(90px);opacity:.14}
+.ambient i:first-child{right:6%;top:-180px;background:var(--purple);animation:orb 16s ease-in-out infinite alternate}
+.ambient i:last-child{left:-170px;bottom:-150px;background:var(--cyan);animation:orb 20s -7s ease-in-out infinite alternate}
+@keyframes orb{to{transform:translate(40px,30px) scale(1.12)}}
+.floating-crosses{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.floating-cross{position:absolute;width:35px;height:35px;display:grid;place-items:center;color:rgba(198,154,255,.62);font-size:29px;font-weight:300;filter:drop-shadow(0 0 12px rgba(168,85,247,.35));animation:crossFloat 9s ease-in-out infinite,crossSpin 12s linear infinite}
+.floating-cross:before{content:"×"}
+.floating-cross:nth-child(1){right:8%;top:18%;animation-delay:-2s}
+.floating-cross:nth-child(2){left:7%;top:58%;font-size:22px;animation-duration:11s,16s;animation-delay:-5s}
+.floating-cross:nth-child(3){right:36%;bottom:8%;font-size:18px;animation-duration:10s,14s;animation-delay:-3s}
+.floating-cross:nth-child(4){left:31%;top:9%;font-size:16px;animation-duration:13s,18s;animation-delay:-8s}
+@keyframes crossFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-12px,0)}}
+@keyframes crossSpin{to{rotate:360deg}}
+html[data-theme=light] .floating-cross{color:rgba(124,58,237,.40)}
+.glass{
+ background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--border);
+ box-shadow:var(--shadow),var(--glow);backdrop-filter:blur(25px) saturate(150%);-webkit-backdrop-filter:blur(25px) saturate(150%)
+}
+.app{min-height:100vh;display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr)}
+.sidebar{
+ position:fixed;right:17px;top:17px;bottom:17px;width:calc(var(--sidebar) - 34px);border-radius:28px;
+ padding:17px 13px;z-index:70;display:flex;flex-direction:column;overflow:hidden
+}
+.sidebar:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;left:-80px;top:40px;background:rgba(168,85,247,.13);filter:blur(40px)}
+.brand{display:flex;align-items:center;gap:11px;padding:5px 7px 20px;position:relative;z-index:2}
+.logo{width:45px;height:45px;border-radius:15px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:18px;background:linear-gradient(145deg,var(--purple),var(--purple2));box-shadow:0 0 34px rgba(168,85,247,.33),inset 0 1px rgba(255,255,255,.3)}
+.brand strong{display:block;font-size:17px}.brand small{display:block;color:var(--text3);font-size:10px;margin-top:2px}
+.nav-title{font-size:11px;color:var(--text3);font-weight:700;padding:7px 10px}
+.nav{position:relative;z-index:2;display:flex;flex-direction:column;gap:5px}
+.nav a{min-height:46px;padding:0 11px;border-radius:15px;display:flex;align-items:center;gap:10px;color:var(--text2);transition:.28s var(--ease);position:relative}
+.nav a:hover{color:var(--text);background:var(--surface3);transform:translateX(-3px)}
+.nav a.active{color:var(--text);background:linear-gradient(135deg,rgba(168,85,247,.19),rgba(124,58,237,.05));border:1px solid rgba(168,85,247,.12)}
+.nav a.active:before{content:"";position:absolute;right:-14px;width:3px;height:25px;border-radius:9px;background:linear-gradient(var(--purple),var(--cyan));box-shadow:0 0 16px rgba(168,85,247,.8)}
+.nav-icon{width:25px;text-align:center;font-size:16px}.nav-label{font-size:13px;font-weight:600;flex:1}
+.badge{min-width:21px;height:21px;padding:0 6px;border-radius:99px;display:grid;place-items:center;font-size:10px;background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.2)}
+.sidebar-bottom{margin-top:auto;position:relative;z-index:2}
+.system-status{padding:11px;border:1px solid var(--border);background:var(--surface3);border-radius:17px;margin-bottom:9px}
+.status-line{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700}.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 13px rgba(52,211,153,.9)}
+.status-line span:last-child{margin-right:auto;color:var(--green);font-size:9px}.status-sub{font-size:9px;color:var(--text3);margin-top:5px;line-height:1.7}
+.profile-mini{display:flex;gap:9px;align-items:center;padding:10px;border:1px solid var(--border);background:var(--surface3);border-radius:17px;margin-bottom:8px}
+.avatar{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800;background:linear-gradient(145deg,#8b5cf6,#6d28d9);box-shadow:0 0 20px rgba(124,58,237,.25)}
+.profile-copy{min-width:0}.profile-copy strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-copy span{display:block;color:var(--text3);font-size:10px;margin-top:2px}
+.logout{width:100%;height:40px;border-radius:13px;background:transparent;border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:.25s}
+.logout:hover{color:var(--red);border-color:rgba(251,113,133,.28);background:rgba(251,113,133,.05)}
+.main{grid-column:2;min-width:0;padding:17px 17px 40px}
+.topbar{height:70px;border-radius:22px;display:flex;align-items:center;gap:11px;padding:9px 10px;position:sticky;top:12px;z-index:60}
+.menu-mobile{display:none;width:42px;height:42px;border-radius:13px;background:var(--surface3);border:1px solid var(--border);color:var(--text);cursor:pointer}
+.page-context{flex:1;min-width:0}.eyebrow{font-size:10px;color:var(--purple);font-weight:800}.page-context h1{font-size:21px;margin:2px 0 0;letter-spacing:-.6px}
+.top-actions{display:flex;gap:7px}.icon-btn{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:.28s var(--ease);position:relative}
+.icon-btn:hover{color:var(--text);border-color:var(--border2);transform:translateY(-2px);box-shadow:0 12px 30px rgba(168,85,247,.12)}
+.dot{position:absolute;right:8px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px rgba(34,211,238,.8)}
+.content{padding:20px 3px 0}
+.page-hero{
+ border-radius:29px;padding:26px 29px;position:relative;overflow:hidden;
+ background:radial-gradient(circle at 7% 100%,rgba(168,85,247,.22),transparent 34%),
+ radial-gradient(circle at 91% 0%,rgba(34,211,238,.11),transparent 25%),
+ linear-gradient(135deg,rgba(38,21,61,.84),rgba(15,9,26,.62))
+}
+html[data-theme=light] .page-hero{
+ background:radial-gradient(circle at 7% 100%,rgba(168,85,247,.12),transparent 34%),
+ radial-gradient(circle at 91% 0%,rgba(34,211,238,.07),transparent 25%),
+ linear-gradient(135deg,rgba(255,255,255,.92),rgba(246,240,252,.73))
+}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2}
+.hero-copy{max-width:720px}.live{display:inline-flex;align-items:center;gap:7px;font-size:9px;color:var(--text2);border:1px solid var(--border);background:rgba(255,255,255,.045);border-radius:99px;padding:6px 10px;margin-bottom:11px}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 11px rgba(52,211,153,.85)}
+.page-hero h2{font-size:28px;margin:0;letter-spacing:-1px}.page-hero p{font-size:11px;color:var(--text2);line-height:2;margin:7px 0 0}
+.hero-art{width:165px;height:125px;position:relative;flex:none}.hero-orbit{position:absolute;inset:8px 8px 0;border:1px solid rgba(168,85,247,.22);border-radius:50%;transform:rotate(-18deg)}
+.hero-orbit:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--purple);box-shadow:0 0 22px var(--purple);top:5px;right:25px}
+.hero-card{position:absolute;right:26px;top:18px;width:105px;height:74px;border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(168,85,247,.10));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px);box-shadow:0 20px 50px rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-5deg)}
+.hero-card strong{font-size:22px}.hero-card span{font-size:8px;color:var(--text2);margin-top:2px}
+.toolbar{margin-top:14px;padding:13px;border-radius:22px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:220px}.search-wrap span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:15px}
+.search{width:100%;height:43px;padding:0 39px 0 13px;border-radius:13px;border:1px solid var(--border);outline:none;background:var(--surface3);color:var(--text);transition:.25s}
+.search::placeholder{color:var(--text3)}.search:focus{border-color:var(--border2);box-shadow:0 0 0 4px rgba(168,85,247,.07)}
+.filter{height:43px;min-width:145px;padding:0 12px;border-radius:13px;border:1px solid var(--border);outline:none;background:var(--surface3);color:var(--text2);cursor:pointer}
+.filter option{background:#171022;color:#fff}.filter:focus{border-color:var(--border2)}
+.toolbar-actions{display:flex;gap:7px}
+.primary,.secondary,.danger{
+ height:43px;padding:0 15px;border-radius:13px;cursor:pointer;font-size:10px;font-weight:700;transition:.28s var(--ease);display:inline-flex;align-items:center;justify-content:center;gap:7px
+}
+.primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 0 27px rgba(168,85,247,.2)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(168,85,247,.23)}
+.secondary{background:var(--surface3);border:1px solid var(--border);color:var(--text2)}.secondary:hover{color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+.danger{background:rgba(251,113,133,.07);border:1px solid rgba(251,113,133,.18);color:var(--red)}.danger:hover{background:rgba(251,113,133,.12)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:14px}
+.kpi{padding:17px;border-radius:22px;position:relative;overflow:hidden;transition:.35s var(--ease)}
+.kpi:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:var(--shadow),0 0 42px rgba(168,85,247,.12)}
+.kpi:after{content:"";position:absolute;width:105px;height:105px;border-radius:50%;right:-45px;top:-45px;background:var(--purple);opacity:.08;filter:blur(8px)}
+.kpi-head{display:flex;align-items:center;justify-content:space-between;color:var(--text2);font-size:10px;font-weight:700}
+.kpi-icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(168,85,247,.10);border:1px solid rgba(168,85,247,.14);color:var(--purple);font-size:16px}
+.kpi-value{font-size:28px;font-weight:900;margin-top:13px;letter-spacing:-1px}.kpi-foot{font-size:9px;margin-top:5px;color:var(--text3)}
+.up{color:var(--green)}.warn{color:var(--yellow)}.danger-text{color:var(--red)}
+.panel{border-radius:24px;padding:18px;position:relative;overflow:hidden}
+.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.section-title strong{display:block;font-size:14px}.section-title span{display:block;color:var(--text3);font-size:9px;margin-top:5px;line-height:1.8}
+.panel-actions{display:flex;gap:6px;align-items:center}.small-btn{height:34px;padding:0 11px;border-radius:11px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:9px;transition:.25s}
+.small-btn:hover{color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+.table-panel{margin-top:14px}.table-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:15px;color:var(--text3);font-size:9px}
+.table-scroll{overflow:auto;margin-top:11px;border:1px solid var(--border);border-radius:18px}
+table{width:100%;border-collapse:collapse;min-width:940px}
+thead th{padding:13px 14px;text-align:right;background:rgba(255,255,255,.025);color:var(--text3);font-size:9px;font-weight:700;white-space:nowrap}
+tbody td{padding:12px 14px;border-top:1px solid var(--border);font-size:10px;white-space:nowrap}
+tbody tr{transition:.22s}tbody tr:hover{background:var(--surface3)}
+.org-cell{display:flex;align-items:center;gap:10px}.org-logo{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;background:linear-gradient(145deg,#8b5cf6,#6d28d9);box-shadow:0 0 18px rgba(124,58,237,.16)}
+.org-copy strong{display:block;font-size:10px}.org-copy span{display:block;color:var(--text3);font-size:8px;margin-top:3px}
+.manager-cell strong{display:block;font-size:10px}.manager-cell span{display:block;color:var(--text3);font-size:8px;margin-top:3px}
+.pill{display:inline-flex;align-items:center;gap:5px;min-height:25px;padding:0 9px;border-radius:999px;font-size:8px;font-weight:700;border:1px solid transparent}
+.pill.green{color:var(--green);background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.14)}
+.pill.yellow{color:var(--yellow);background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.14)}
+.pill.red{color:var(--red);background:rgba(251,113,133,.08);border-color:rgba(251,113,133,.14)}
+.pill.blue{color:var(--blue);background:rgba(96,165,250,.08);border-color:rgba(96,165,250,.14)}
+.pill.purple{color:#d8b4fe;background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.14)}
+.row-actions{display:flex;justify-content:flex-start;gap:5px}
+.row-action{width:32px;height:32px;border-radius:10px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:.22s}
+.row-action:hover{color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+.empty{padding:55px 20px;text-align:center;color:var(--text3);display:none}.empty strong{display:block;color:var(--text2);font-size:13px;margin-bottom:7px}.empty span{font-size:9px}
+.pagination{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}
+.page-info{color:var(--text3);font-size:9px}.pages{display:flex;gap:5px}.page-btn{width:33px;height:33px;border-radius:10px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:9px}.page-btn.active{background:rgba(168,85,247,.16);border-color:rgba(168,85,247,.25);color:var(--text)}.page-btn:disabled{opacity:.35;cursor:not-allowed}
+.bottom-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}
+.insight{padding:18px}.insight-list{display:grid;gap:9px;margin-top:15px}.insight-item{display:flex;align-items:center;gap:10px;padding:11px;border-radius:15px;background:var(--surface3);border:1px solid var(--border)}
+.insight-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:rgba(168,85,247,.10);color:var(--purple);font-size:15px}.insight-copy{min-width:0;flex:1}.insight-copy strong{display:block;font-size:10px}.insight-copy span{display:block;color:var(--text3);font-size:8px;margin-top:3px}
+.insight-value{font-size:12px;font-weight:800}
+.progress-list{display:grid;gap:14px;margin-top:17px}.progress-row{display:grid;gap:7px}.progress-head{display:flex;justify-content:space-between;font-size:9px}.progress-head span{color:var(--text2)}.progress-head b{color:var(--text3);font-weight:600}
+.progress-track{height:7px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}.progress-bar{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple2),#d8b4fe);box-shadow:0 0 15px rgba(168,85,247,.28)}
+.overlay{position:fixed;inset:0;background:rgba(3,2,7,.60);backdrop-filter:blur(9px);z-index:80;opacity:0;visibility:hidden;transition:.3s}.overlay.open{opacity:1;visibility:visible}
+.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;opacity:0;visibility:hidden;transition:.3s;pointer-events:none}.modal.open{opacity:1;visibility:visible;pointer-events:auto}
+.modal-card{width:min(720px,100%);max-height:calc(100vh - 40px);overflow:auto;border-radius:28px;padding:22px;transform:translateY(20px) scale(.97);transition:.4s var(--ease)}
+.modal.open .modal-card{transform:none}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px}.modal-head strong{display:block;font-size:17px}.modal-head span{display:block;color:var(--text3);font-size:9px;margin-top:5px;line-height:1.8}
+.close{width:35px;height:35px;border-radius:11px;background:var(--surface3);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:18px}.close:hover{color:var(--text);border-color:var(--border2)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:9px;color:var(--text3)}.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);background:var(--surface3);color:var(--text);outline:none;border-radius:13px;padding:0 12px;transition:.25s}
+.field input,.field select{height:44px}.field textarea{min-height:90px;padding-top:11px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--border2);box-shadow:0 0 0 4px rgba(168,85,247,.06)}
+.field select option{background:#171022;color:#fff}.form-note{font-size:8px;color:var(--text3);line-height:1.9;padding:10px 11px;border-radius:12px;background:rgba(34,211,238,.045);border:1px solid rgba(34,211,238,.10);margin-top:12px}
+.modal-actions{display:flex;justify-content:flex-start;gap:7px;margin-top:18px}.modal-actions .primary,.modal-actions .secondary{min-width:125px}
+.details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.detail-box{padding:12px;border-radius:15px;background:var(--surface3);border:1px solid var(--border)}.detail-box span{display:block;color:var(--text3);font-size:8px}.detail-box strong{display:block;font-size:11px;margin-top:6px}
+.details-hero{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:linear-gradient(135deg,rgba(168,85,247,.10),rgba(255,255,255,.025));border:1px solid var(--border)}.details-logo{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:16px;background:linear-gradient(145deg,var(--purple),var(--purple2))}
+.details-hero strong{display:block;font-size:15px}.details-hero span{display:block;color:var(--text3);font-size:9px;margin-top:4px}
+.toast{position:fixed;left:24px;bottom:24px;z-index:120;min-width:270px;max-width:390px;padding:12px 14px;border-radius:16px;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(20px);pointer-events:none;transition:.35s var(--ease)}
+.toast.show{opacity:1;transform:none}.toast-icon{width:33px;height:33px;border-radius:11px;display:grid;place-items:center;color:var(--green);background:rgba(52,211,153,.09);border:1px solid rgba(52,211,153,.13)}
+.toast strong{display:block;font-size:10px}.toast span{display:block;color:var(--text3);font-size:8px;margin-top:3px;line-height:1.7}
+.notifications{position:fixed;left:88px;top:88px;width:350px;border-radius:20px;padding:14px;z-index:75;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.25s}
+.notifications.open{opacity:1;visibility:visible;transform:none}.notif-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.notif-head strong{font-size:11px}.notif-head button{background:none;color:var(--purple);cursor:pointer;font-size:8px}
+.notif{padding:11px;border-radius:14px;background:var(--surface3);border:1px solid var(--border);margin-top:7px}.notif strong{display:block;font-size:9px}.notif span{display:block;color:var(--text3);font-size:8px;margin-top:4px;line-height:1.7}
+.mobile-nav{display:none}
+@media(max-width:1180px){.kpis{grid-template-columns:repeat(2,1fr)}.hero-art{display:none}.bottom-grid{grid-template-columns:1fr}}
+@media(max-width:980px){
+ :root{--sidebar:280px}.app{display:block}.sidebar{transform:translateX(120%);transition:.4s var(--ease);width:calc(var(--sidebar) - 24px);right:12px;top:12px;bottom:12px}.sidebar.open{transform:none}.main{padding:12px 12px 88px}.menu-mobile{display:grid;place-items:center}.hero-top{align-items:flex-start}.notifications{left:12px;right:12px;width:auto}
+}
+@media(max-width:680px){
+ .topbar{top:7px}.page-context h1{font-size:18px}.top-actions .profile-btn{display:none}.content{padding-top:14px}.page-hero{padding:21px}.page-hero h2{font-size:23px}.toolbar{align-items:stretch}.search-wrap{min-width:100%}.filter{flex:1;min-width:0}.toolbar-actions{width:100%}.toolbar-actions button{flex:1}.kpis{grid-template-columns:1fr}.panel{padding:14px}.panel-head{align-items:center}.table-meta{align-items:flex-start;flex-direction:column}.pagination{flex-direction:column;align-items:stretch}.pages{justify-content:center}.form-grid{grid-template-columns:1fr}.details-grid{grid-template-columns:1fr 1fr}.modal-card{padding:17px}.modal-actions{flex-wrap:wrap}.modal-actions button{flex:1}.mobile-nav{position:fixed;display:flex;align-items:center;justify-content:space-around;left:10px;right:10px;bottom:10px;min-height:67px;padding:6px;border-radius:22px;z-index:60}.mobile-nav a,.mobile-nav button{min-width:58px;height:52px;border-radius:15px;background:transparent;color:var(--text3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:8px;cursor:pointer}.mobile-nav b{font-size:16px;font-weight:500}.mobile-nav .active{color:var(--text);background:rgba(168,85,247,.12)}
+}
+@media(max-width:430px){.details-grid{grid-template-columns:1fr}.main{padding-left:8px;padding-right:8px}.topbar{padding:8px}.hero-art{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="ambient"><i></i><i></i></div>
+<div class="floating-crosses" aria-hidden="true"><span class="floating-cross"></span><span class="floating-cross"></span><span class="floating-cross"></span><span class="floating-cross"></span></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+<aside class="sidebar glass" id="sidebar">
+ <div class="brand"><div class="logo">م</div><div><strong>مشاور</strong><small>SUPER ADMIN CONTROL</small></div></div>
+ <div class="nav-title">مرکز کنترل سامانه</div>
+ <nav class="nav">
+  <a href="dashboard.html"><span class="nav-icon">⌂</span><span class="nav-label">داشبورد</span></a>
+  <a class="active" href="organizations.html"><span class="nav-icon">▦</span><span class="nav-label">کلینیک‌ها</span><span class="badge">۲۴</span></a>
+  <a href="users.html"><span class="nav-icon">♙</span><span class="nav-label">کاربران</span></a>
+  <a href="subscriptions.html"><span class="nav-icon">◇</span><span class="nav-label">اشتراک‌ها</span><span class="badge">۳</span></a>
+  <a href="reports.html"><span class="nav-icon">◒</span><span class="nav-label">گزارش‌ها</span></a>
+ </nav>
+ <div class="sidebar-bottom">
+  <div class="system-status"><div class="status-line"><i class="status-dot"></i><span>وضعیت سامانه</span><span>ONLINE</span></div><div class="status-sub">تمام سرویس‌های اصلی در حال فعالیت هستند.</div></div>
+  <div class="profile-mini"><div class="avatar">SA</div><div class="profile-copy"><strong>مدیر ارشد سامانه</strong><span>SUPER ADMIN</span></div></div>
+  <button class="logout" id="logout">خروج از حساب</button>
+ </div>
+</aside>
+
+<main class="main">
+ <header class="topbar glass">
+  <button class="menu-mobile" id="menuMobile" aria-label="منو">☰</button>
+  <div class="page-context"><div class="eyebrow">SUPER ADMIN / ORGANIZATIONS</div><h1>مدیریت کلینیک‌ها</h1></div>
+  <div class="top-actions">
+   <button class="icon-btn" id="theme" title="تغییر پوسته">☾</button>
+   <button class="icon-btn" id="notificationsBtn" title="اعلان‌ها">♢<i class="dot"></i></button>
+   <button class="icon-btn profile-btn" id="profileBtn" title="پروفایل">SA</button>
+  </div>
+ </header>
+
+ <div class="content">
+  <section class="page-hero glass">
+   <div class="hero-top">
+    <div class="hero-copy">
+     <div class="live"><i></i> CONTROL CENTER · LIVE</div>
+     <h2>کلینیک‌ها و سازمان‌ها</h2>
+     <p>ایجاد، جست‌وجو، مدیریت وضعیت، پلن اشتراک و اطلاعات مدیریتی تمام کلینیک‌های ثبت‌شده در سامانه از یک فضای یکپارچه.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-card"><strong id="heroCount">۲۴</strong><span>سازمان فعال</span></div></div>
+   </div>
+  </section>
+
+  <section class="kpis">
+   <article class="kpi glass"><div class="kpi-head"><span>کل کلینیک‌ها</span><b class="kpi-icon">▦</b></div><div class="kpi-value" id="totalCount">۲۴</div><div class="kpi-foot up">+۳ سازمان در این ماه</div></article>
+   <article class="kpi glass"><div class="kpi-head"><span>فعال</span><b class="kpi-icon">✓</b></div><div class="kpi-value" id="activeCount">۲۱</div><div class="kpi-foot up">۸۷٪ از کل سازمان‌ها</div></article>
+   <article class="kpi glass"><div class="kpi-head"><span>دوره آزمایشی</span><b class="kpi-icon">◷</b></div><div class="kpi-value" id="trialCount">۳</div><div class="kpi-foot warn">نیازمند پیگیری</div></article>
+   <article class="kpi glass"><div class="kpi-head"><span>معلق</span><b class="kpi-icon">!</b></div><div class="kpi-value" id="suspendedCount">۰</div><div class="kpi-foot danger-text">وضعیت قابل بررسی</div></article>
+  </section>
+
+  <section class="toolbar glass">
+   <div class="search-wrap"><span>⌕</span><input class="search" id="search" type="search" placeholder="جست‌وجوی نام کلینیک، کد، مدیر یا شماره تماس..." autocomplete="off"></div>
+   <select class="filter" id="statusFilter" aria-label="فیلتر وضعیت"><option value="all">همه وضعیت‌ها</option><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="suspended">معلق</option></select>
+   <select class="filter" id="planFilter" aria-label="فیلتر اشتراک"><option value="all">همه پلن‌ها</option><option value="Business">Business</option><option value="Pro">Pro</option><option value="Starter">Starter</option><option value="Trial">Trial</option></select>
+   <div class="toolbar-actions"><button class="secondary" id="exportBtn">⇩ خروجی</button><button class="primary" id="newOrgBtn">＋ کلینیک جدید</button></div>
+  </section>
+
+  <section class="panel glass table-panel">
+   <div class="panel-head">
+    <div class="section-title"><strong>فهرست کلینیک‌ها</strong><span>مدیریت سازمان‌ها، مدیران و وضعیت اشتراک</span></div>
+    <div class="panel-actions"><button class="small-btn" id="resetFilters">پاک‌سازی فیلتر</button></div>
+   </div>
+   <div class="table-meta"><span id="resultText">۲۴ سازمان نمایش داده می‌شود</span><span>آخرین بروزرسانی: امروز · ۱۰:۱۲</span></div>
+   <div class="table-scroll">
+    <table>
+     <thead><tr><th>کلینیک</th><th>مدیر کلینیک</th><th>تماس</th><th>اشتراک</th><th>کاربران</th><th>وضعیت</th><th>آخرین فعالیت</th><th>عملیات</th></tr></thead>
+     <tbody id="orgRows"></tbody>
+    </table>
+    <div class="empty" id="emptyState"><strong>کلینیکی پیدا نشد</strong><span>عبارت جست‌وجو یا فیلترهای انتخاب‌شده را تغییر دهید.</span></div>
+   </div>
+   <div class="pagination"><div class="page-info" id="pageInfo">نمایش ۱ تا ۶ از ۲۴ سازمان</div><div class="pages" id="pages"></div></div>
+  </section>
+
+  <section class="bottom-grid">
+   <article class="panel glass insight">
+    <div class="panel-head"><div class="section-title"><strong>آخرین تغییرات سازمانی</strong><span>رویدادهای مهم مربوط به کلینیک‌ها</span></div><button class="small-btn" id="auditBtn">Audit Log</button></div>
+    <div class="insight-list">
+     <div class="insight-item"><div class="insight-icon">＋</div><div class="insight-copy"><strong>کلینیک جدید ثبت شد</strong><span>آریا زیبایی · ۱۲ دقیقه قبل</span></div><b class="insight-value up">جدید</b></div>
+     <div class="insight-item"><div class="insight-icon">◇</div><div class="insight-copy"><strong>اشتراک تمدید شد</strong><span>آناهید · ۱ ساعت قبل</span></div><b class="insight-value">Pro</b></div>
+     <div class="insight-item"><div class="insight-icon">♙</div><div class="insight-copy"><strong>مدیر سازمان تغییر کرد</strong><span>کلینیک پارسا · ۲ ساعت قبل</span></div><b class="insight-value">ثبت شد</b></div>
+    </div>
+   </article>
+   <article class="panel glass insight">
+    <div class="panel-head"><div class="section-title"><strong>توزیع پلن‌ها</strong><span>توزیع فعلی اشتراک کلینیک‌ها</span></div></div>
+    <div class="progress-list">
+     <div class="progress-row"><div class="progress-head"><span>Pro</span><b>۱۲ کلینیک · ۵۰٪</b></div><div class="progress-track"><div class="progress-bar" style="width:50%"></div></div></div>
+     <div class="progress-row"><div class="progress-head"><span>Business</span><b>۶ کلینیک · ۲۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:25%"></div></div></div>
+     <div class="progress-row"><div class="progress-head"><span>Starter</span><b>۳ کلینیک · ۱۲.۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:12.5%"></div></div></div>
+     <div class="progress-row"><div class="progress-head"><span>Trial</span><b>۳ کلینیک · ۱۲.۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:12.5%"></div></div></div>
+    </div>
+   </article>
+  </section>
+ </div>
+</main>
+</div>
+
+<nav class="mobile-nav glass">
+ <a href="dashboard.html"><b>⌂</b>خانه</a><a class="active" href="organizations.html"><b>▦</b>کلینیک‌ها</a><a href="users.html"><b>♙</b>کاربران</a><a href="subscriptions.html"><b>◇</b>اشتراک</a><button id="mobileMore"><b>☰</b>منو</button>
+</nav>
+
+<div class="notifications glass" id="notifications">
+ <div class="notif-head"><strong>اعلان‌های مدیریتی</strong><button id="clearNotifications">خوانده شد</button></div>
+ <div class="notif"><strong>۳ اشتراک در آستانه انقضا</strong><span>سه کلینیک طی ۷ روز آینده نیاز به تمدید دارند.</span></div>
+ <div class="notif"><strong>کلینیک جدید ایجاد شد</strong><span>کلینیک «آریا زیبایی» امروز به سامانه اضافه شد.</span></div>
+ <div class="notif"><strong>یک سازمان نیازمند بررسی</strong><span>وضعیت کلینیک «پارسا» در انتظار بررسی مدیریتی است.</span></div>
+</div>
+
+<div class="modal" id="orgModal">
+ <div class="modal-card glass">
+  <div class="modal-head"><div><strong id="modalTitle">ایجاد کلینیک جدید</strong><span>اطلاعات سازمان را ثبت کنید تا در مرکز کنترل سامانه قرار بگیرد.</span></div><button class="close" id="closeOrg">×</button></div>
+  <form id="orgForm">
+   <div class="form-grid">
+    <div class="field"><label for="orgName">نام کلینیک</label><input id="orgName" required placeholder="مثلاً کلینیک آریا"></div>
+    <div class="field"><label for="managerName">مدیر کلینیک</label><input id="managerName" required placeholder="نام و نام خانوادگی"></div>
+    <div class="field"><label for="orgPhone">شماره تماس</label><input id="orgPhone" inputmode="tel" required placeholder="۰۹۱۲..."></div>
+    <div class="field"><label for="orgEmail">ایمیل سازمان</label><input id="orgEmail" type="email" placeholder="info@clinic.ir"></div>
+    <div class="field"><label for="orgCode">شناسه سازمان</label><input id="orgCode" required placeholder="CLN-2048"></div>
+    <div class="field"><label for="orgPlan">پلن اشتراک</label><select id="orgPlan"><option value="Starter">Starter</option><option value="Pro" selected>Pro</option><option value="Business">Business</option><option value="Trial">Trial</option></select></div>
+    <div class="field"><label for="orgStatus">وضعیت</label><select id="orgStatus"><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="suspended">معلق</option></select></div>
+    <div class="field"><label for="orgUsers">تعداد کاربران</label><input id="orgUsers" type="number" min="1" value="1"></div>
+    <div class="field full"><label for="orgNote">یادداشت مدیریتی</label><textarea id="orgNote" placeholder="یادداشت داخلی برای تیم مدیریت..."></textarea></div>
+   </div>
+   <div class="form-note">این نسخه برای تست رابط کاربری است؛ ذخیره‌سازی واقعی سازمان‌ها بعداً به API و پایگاه داده متصل خواهد شد.</div>
+   <div class="modal-actions"><button class="primary" type="submit" id="submitOrg">ایجاد کلینیک</button><button class="secondary" type="button" id="cancelOrg">انصراف</button></div>
+  </form>
+ </div>
+</div>
+
+<div class="modal" id="detailsModal">
+ <div class="modal-card glass">
+  <div class="modal-head"><div><strong>جزئیات کلینیک</strong><span>نمای کلی اطلاعات سازمان و وضعیت فعلی</span></div><button class="close" id="closeDetails">×</button></div>
+  <div id="detailsContent"></div>
+  <div class="modal-actions"><button class="primary" id="editFromDetails">ویرایش کلینیک</button><button class="secondary" id="closeDetails2">بستن</button></div>
+ </div>
+</div>
+
+<div class="modal" id="profileModal">
+ <div class="modal-card glass">
+  <div class="modal-head"><div><strong>پروفایل مدیر ارشد</strong><span>اطلاعات حساب فعلی</span></div><button class="close" id="closeProfile">×</button></div>
+  <div class="form-grid">
+   <div class="field"><label>نام</label><input value="مدیر ارشد سامانه" readonly></div>
+   <div class="field"><label>نقش</label><input value="SUPER ADMIN" readonly></div>
+   <div class="field"><label>وضعیت حساب</label><input value="فعال" readonly></div>
+   <div class="field"><label>سطح دسترسی</label><input value="دسترسی کامل سامانه" readonly></div>
+  </div>
+  <div class="modal-actions"><button class="secondary" id="closeProfile2">بستن</button></div>
+ </div>
+</div>
+
+<div class="toast glass" id="toast"><div class="toast-icon">✓</div><div><strong id="toastTitle">عملیات انجام شد</strong><span id="toastText">تغییرات ثبت شد.</span></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const html=document.documentElement;
+const sidebar=$('#sidebar');
+const overlay=$('#overlay');
+const toast=$('#toast');
+const orgModal=$('#orgModal');
+const detailsModal=$('#detailsModal');
+const profileModal=$('#profileModal');
+const notifications=$('#notifications');
+const STORAGE='moshaver-superadmin-organizations';
+
+const seed=[
+ {id:'org-01',name:'کلینیک زیبایی آناهید',code:'ANA-2048',manager:'سارا احمدی',phone:'۰۹۱۲۳۴۵۶۷۸۹',email:'info@anahid.ir',plan:'Business',users:18,status:'active',activity:'۱۲ دقیقه قبل',initial:'آ',note:'سازمان فعال با اشتراک Business.'},
+ {id:'org-02',name:'مرکز پوست و مو آریا',code:'ARY-1182',manager:'محمد رضایی',phone:'۰۹۱۰۱۲۳۴۵۶۷',email:'admin@arya.ir',plan:'Pro',users:12,status:'active',activity:'۳۵ دقیقه قبل',initial:'آ',note:'مدیریت روزانه فعال.'},
+ {id:'org-03',name:'کلینیک هیراد',code:'HIR-0934',manager:'نگار کریمی',phone:'۰۹۱۹۸۷۶۵۴۳۲',email:'hello@hirad.ir',plan:'Pro',users:9,status:'trial',activity:'۱ ساعت قبل',initial:'ه',note:'دوره آزمایشی در حال بررسی.'},
+ {id:'org-04',name:'مرکز زیبایی نیکا',code:'NIK-0821',manager:'علی مرادی',phone:'۰۹۱۳۳۴۴۵۵۶۶',email:'info@nika.ir',plan:'Starter',users:5,status:'active',activity:'۲ ساعت قبل',initial:'ن',note:'اشتراک Starter.'},
+ {id:'org-05',name:'کلینیک دکتر پارسا',code:'PAR-0716',manager:'مریم پارسا',phone:'۰۹۱۱۱۲۲۳۳۴۴',email:'admin@parsa.ir',plan:'Pro',users:8,status:'active',activity:'۳ ساعت قبل',initial:'پ',note:'سازمان پزشکی.'},
+ {id:'org-06',name:'کلینیک آوینا',code:'AVI-0630',manager:'مهسا نوروزی',phone:'۰۹۱۴۴۵۵۶۶۷۷',email:'info@avina.ir',plan:'Business',users:14,status:'active',activity:'۴ ساعت قبل',initial:'آ',note:'سازمان با تیم چندمشاوره‌ای.'},
+ {id:'org-07',name:'مرکز سلامت رویال',code:'ROY-0588',manager:'امیر حسینی',phone:'۰۹۱۵۵۶۶۷۷۸۸',email:'admin@royal.ir',plan:'Pro',users:11,status:'active',activity:'امروز · ۰۸:۵۵',initial:'ر',note:''},
+ {id:'org-08',name:'کلینیک سپیدار',code:'SEP-0511',manager:'سحر محمدی',phone:'۰۹۱۶۶۷۷۸۸۹۹',email:'info@sepidar.ir',plan:'Trial',users:4,status:'trial',activity:'امروز · ۰۸:۲۱',initial:'س',note:''},
+ {id:'org-09',name:'مرکز مشاوره آرام',code:'ARA-0490',manager:'رضا اکبری',phone:'۰۹۱۷۷۸۸۹۹۰۰',email:'hello@aram.ir',plan:'Starter',users:6,status:'active',activity:'دیروز',initial:'آ',note:''},
+ {id:'org-10',name:'کلینیک ماهور',code:'MAH-0418',manager:'الهام رستمی',phone:'۰۹۱۸۸۹۹۰۰۱۱',email:'info@mahor.ir',plan:'Pro',users:10,status:'active',activity:'دیروز',initial:'م',note:''},
+ {id:'org-11',name:'مرکز نوین',code:'NOV-0397',manager:'پویان مرادی',phone:'۰۹۲۰۱۱۲۲۳۳۴',email:'admin@novin.ir',plan:'Business',users:16,status:'active',activity:'۲ روز قبل',initial:'ن',note:''},
+ {id:'org-12',name:'کلینیک باران',code:'BAR-0342',manager:'ندا احمدی',phone:'۰۹۲۱۱۲۲۳۳۴۴',email:'info@baran.ir',plan:'Pro',users:7,status:'active',activity:'۲ روز قبل',initial:'ب',note:''},
+ {id:'org-13',name:'مرکز سلامت آفتاب',code:'AFT-0311',manager:'کیان صادقی',phone:'۰۹۲۲۲۳۳۴۴۵۵',email:'info@aftab.ir',plan:'Starter',users:5,status:'active',activity:'۳ روز قبل',initial:'آ',note:''},
+ {id:'org-14',name:'کلینیک ویستا',code:'VIS-0288',manager:'ترانه کریمی',phone:'۰۹۲۳۳۴۴۵۵۶۶',email:'admin@vista.ir',plan:'Pro',users:8,status:'active',activity:'۳ روز قبل',initial:'و',note:''},
+ {id:'org-15',name:'مرکز سلامت مانا',code:'MAN-0254',manager:'سینا رضایی',phone:'۰۹۲۴۴۵۵۶۶۷۷',email:'info@mana.ir',plan:'Business',users:13,status:'active',activity:'۴ روز قبل',initial:'م',note:''},
+ {id:'org-16',name:'کلینیک هلیا',code:'HEL-0221',manager:'شبنم رحیمی',phone:'۰۹۲۵۵۶۶۷۷۸۸',email:'hello@helia.ir',plan:'Pro',users:9,status:'active',activity:'۵ روز قبل',initial:'ه',note:''},
+ {id:'org-17',name:'مرکز آرامش',code:'ASA-0189',manager:'حامد مرادی',phone:'۰۹۲۶۶۷۷۸۸۹۹',email:'info@aramesh.ir',plan:'Trial',users:3,status:'trial',activity:'۵ روز قبل',initial:'آ',note:''},
+ {id:'org-18',name:'کلینیک نیک‌آوا',code:'NIK-0165',manager:'مونا شریفی',phone:'۰۹۲۷۷۸۸۹۹۰۰',email:'admin@nikava.ir',plan:'Pro',users:7,status:'active',activity:'۶ روز قبل',initial:'ن',note:''},
+ {id:'org-19',name:'مرکز زیبایی درسا',code:'DAR-0144',manager:'آرمان یوسفی',phone:'۰۹۲۸۸۹۹۰۰۱۱',email:'info@dorsa.ir',plan:'Business',users:15,status:'active',activity:'۶ روز قبل',initial:'د',note:''},
+ {id:'org-20',name:'کلینیک مهر',code:'MEH-0120',manager:'مریم کاظمی',phone:'۰۹۲۹۰۰۱۱۲۲۳۳',email:'info@mehr.ir',plan:'Pro',users:6,status:'active',activity:'۷ روز قبل',initial:'م',note:''},
+ {id:'org-21',name:'مرکز سپهر',code:'SEP-0108',manager:'فرزاد موسوی',phone:'۰۹۳۰۱۱۲۲۳۳۴',email:'admin@sepehr.ir',plan:'Pro',users:8,status:'active',activity:'۷ روز قبل',initial:'س',note:''},
+ {id:'org-22',name:'کلینیک روشن',code:'ROS-0097',manager:'آوا نادری',phone:'۰۹۳۱۱۲۲۳۳۴۴',email:'info@roshan.ir',plan:'Starter',users:4,status:'active',activity:'۸ روز قبل',initial:'ر',note:''},
+ {id:'org-23',name:'مرکز نیکان',code:'NIK-0081',manager:'سعید جلالی',phone:'۰۹۳۲۲۳۳۴۴۵۵',email:'admin@nikan.ir',plan:'Business',users:12,status:'active',activity:'۹ روز قبل',initial:'ن',note:''},
+ {id:'org-24',name:'کلینیک پویش',code:'POY-0064',manager:'هانیه مرادی',phone:'۰۹۳۳۳۴۴۵۵۶۶',email:'info@pouyesh.ir',plan:'Trial',users:2,status:'trial',activity:'۱۰ روز قبل',initial:'پ',note:''}
+];
+
+let organizations=load();
+let editingId=null;
+let selectedOrg=null;
+let page=1;
+const pageSize=6;
+
+function load(){
+ try{
+  const saved=localStorage.getItem(STORAGE);
+  return saved?JSON.parse(saved):seed;
+ }catch(e){return seed}
+}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(organizations))}
+function fa(value){return Number(value).toLocaleString('fa-IR')}
+function statusPill(status){
+ if(status==='active') return '<span class="pill green">● فعال</span>';
+ if(status==='trial') return '<span class="pill yellow">● آزمایشی</span>';
+ return '<span class="pill red">● معلق</span>';
+}
+function planPill(plan){
+ const cls=plan==='Business'?'blue':plan==='Pro'?'green':plan==='Starter'?'purple':'yellow';
+ return `<span class="pill ${cls}">${plan}</span>`;
+}
+function showToast(title,text){
+ $('#toastTitle').textContent=title;
+ $('#toastText').textContent=text;
+ toast.classList.add('show');
+ clearTimeout(window.__toast);
+ window.__toast=setTimeout(()=>toast.classList.remove('show'),3200);
+}
+function openModal(modal){
+ modal.classList.add('open');
+ overlay.classList.add('open');
+ document.body.style.overflow='hidden';
+}
+function closeModal(modal){
+ modal.classList.remove('open');
+ if(!document.querySelector('.modal.open')){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+ }
+}
+function setTheme(theme){
+ html.dataset.theme=theme;
+ localStorage.setItem('moshaver-theme',theme);
+ $('#theme').textContent=theme==='light'?'☀':'☾';
+}
+setTheme(localStorage.getItem('moshaver-theme')||'dark');
+$('#theme').addEventListener('click',()=>setTheme(html.dataset.theme==='light'?'dark':'light'));
+
+function filtered(){
+ const q=$('#search').value.trim().toLowerCase();
+ const status=$('#statusFilter').value;
+ const plan=$('#planFilter').value;
+ return organizations.filter(o=>{
+  const hay=[o.name,o.code,o.manager,o.phone,o.email].join(' ').toLowerCase();
+  return (!q||hay.includes(q)) && (status==='all'||o.status===status) && (plan==='all'||o.plan===plan);
+ });
+}
+function renderKPIs(){
+ const total=organizations.length;
+ const active=organizations.filter(o=>o.status==='active').length;
+ const trial=organizations.filter(o=>o.status==='trial').length;
+ const suspended=organizations.filter(o=>o.status==='suspended').length;
+ $('#totalCount').textContent=fa(total);
+ $('#activeCount').textContent=fa(active);
+ $('#trialCount').textContent=fa(trial);
+ $('#suspendedCount').textContent=fa(suspended);
+ $('#heroCount').textContent=fa(active);
+}
+function renderTable(){
+ const list=filtered();
+ const totalPages=Math.max(1,Math.ceil(list.length/pageSize));
+ if(page>totalPages) page=totalPages;
+ const start=(page-1)*pageSize;
+ const rows=list.slice(start,start+pageSize);
+ $('#orgRows').innerHTML=rows.map(o=>`
+ <tr>
+  <td><div class="org-cell"><div class="org-logo">${o.initial}</div><div class="org-copy"><strong>${o.name}</strong><span>${o.code}</span></div></div></td>
+  <td><div class="manager-cell"><strong>${o.manager}</strong><span>${o.email||'ایمیل ثبت نشده'}</span></div></td>
+  <td>${o.phone}</td>
+  <td>${planPill(o.plan)}</td>
+  <td>${fa(o.users)}</td>
+  <td>${statusPill(o.status)}</td>
+  <td>${o.activity}</td>
+  <td><div class="row-actions"><button class="row-action" data-action="view" data-id="${o.id}" title="جزئیات">◉</button><button class="row-action" data-action="edit" data-id="${o.id}" title="ویرایش">✎</button><button class="row-action" data-action="delete" data-id="${o.id}" title="حذف">×</button></div></td>
+ </tr>`).join('');
+ $('#emptyState').style.display=rows.length?'none':'block';
+ $('#resultText').textContent=rows.length?`${fa(list.length)} سازمان نمایش داده می‌شود`:'نتیجه‌ای مطابق فیلترها پیدا نشد';
+ $('#pageInfo').textContent=list.length?`نمایش ${fa(start+1)} تا ${fa(Math.min(start+pageSize,list.length))} از ${fa(list.length)} سازمان`:'بدون نتیجه';
+ renderPages(totalPages);
+ renderKPIs();
+}
+function renderPages(totalPages){
+ const wrap=$('#pages');
+ let out=`<button class="page-btn" data-page="${page-1}" ${page<=1?'disabled':''}>‹</button>`;
+ for(let i=1;i<=totalPages;i++){
+  if(totalPages>7 && i>2 && i<totalPages-1 && Math.abs(i-page)>1){
+   if(i===3||i===totalPages-2) out+='<span style="padding:8px;color:var(--text3)">…</span>';
+   continue;
+  }
+  out+=`<button class="page-btn ${i===page?'active':''}" data-page="${i}">${fa(i)}</button>`;
+ }
+ out+=`<button class="page-btn" data-page="${page+1}" ${page>=totalPages?'disabled':''}>›</button>`;
+ wrap.innerHTML=out;
+ $$('#pages .page-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  const p=Number(btn.dataset.page);
+  if(p>=1&&p<=totalPages){page=p;renderTable();window.scrollTo({top:300,behavior:'smooth'})}
+ }));
+}
+function resetFilters(){
+ $('#search').value='';
+ $('#statusFilter').value='all';
+ $('#planFilter').value='all';
+ page=1;
+ renderTable();
+}
+function openCreate(){
+ editingId=null;
+ $('#modalTitle').textContent='ایجاد کلینیک جدید';
+ $('#submitOrg').textContent='ایجاد کلینیک';
+ $('#orgForm').reset();
+ $('#orgPlan').value='Pro';
+ $('#orgStatus').value='active';
+ $('#orgUsers').value=1;
+ openModal(orgModal);
+ setTimeout(()=>$('#orgName').focus(),80);
+}
+function openEdit(id){
+ const o=organizations.find(x=>x.id===id);
+ if(!o)return;
+ editingId=id;
+ $('#modalTitle').textContent='ویرایش اطلاعات کلینیک';
+ $('#submitOrg').textContent='ذخیره تغییرات';
+ $('#orgName').value=o.name;
+ $('#managerName').value=o.manager;
+ $('#orgPhone').value=o.phone;
+ $('#orgEmail').value=o.email||'';
+ $('#orgCode').value=o.code;
+ $('#orgPlan').value=o.plan;
+ $('#orgStatus').value=o.status;
+ $('#orgUsers').value=o.users;
+ $('#orgNote').value=o.note||'';
+ openModal(orgModal);
+ setTimeout(()=>$('#orgName').focus(),80);
+}
+function openDetails(id){
+ const o=organizations.find(x=>x.id===id);
+ if(!o)return;
+ selectedOrg=o;
+ $('#detailsContent').innerHTML=`
+  <div class="details-hero"><div class="details-logo">${o.initial}</div><div><strong>${o.name}</strong><span>${o.code} · ${statusPill(o.status)}</span></div></div>
+  <div class="details-grid">
+   <div class="detail-box"><span>مدیر کلینیک</span><strong>${o.manager}</strong></div>
+   <div class="detail-box"><span>شماره تماس</span><strong>${o.phone}</strong></div>
+   <div class="detail-box"><span>ایمیل</span><strong>${o.email||'ثبت نشده'}</strong></div>
+   <div class="detail-box"><span>پلن اشتراک</span><strong>${o.plan}</strong></div>
+   <div class="detail-box"><span>کاربران</span><strong>${fa(o.users)} کاربر</strong></div>
+   <div class="detail-box"><span>آخرین فعالیت</span><strong>${o.activity}</strong></div>
+  </div>
+  <div class="form-note">${o.note||'برای این سازمان یادداشت مدیریتی ثبت نشده است.'}</div>`;
+ openModal(detailsModal);
+}
+function deleteOrg(id){
+ const o=organizations.find(x=>x.id===id);
+ if(!o)return;
+ if(!confirm(`آیا از حذف «${o.name}» مطمئن هستید؟`))return;
+ organizations=organizations.filter(x=>x.id!==id);
+ save();
+ page=1;
+ renderTable();
+ showToast('کلینیک حذف شد',`${o.name} از لیست نمایشی حذف شد.`);
+}
+$('#search').addEventListener('input',()=>{page=1;renderTable()});
+$('#statusFilter').addEventListener('change',()=>{page=1;renderTable()});
+$('#planFilter').addEventListener('change',()=>{page=1;renderTable()});
+$('#resetFilters').addEventListener('click',resetFilters);
+$('#newOrgBtn').addEventListener('click',openCreate);
+$('#closeOrg').addEventListener('click',()=>closeModal(orgModal));
+$('#cancelOrg').addEventListener('click',()=>closeModal(orgModal));
+$('#closeDetails').addEventListener('click',()=>closeModal(detailsModal));
+$('#closeDetails2').addEventListener('click',()=>closeModal(detailsModal));
+$('#closeProfile').addEventListener('click',()=>closeModal(profileModal));
+$('#closeProfile2').addEventListener('click',()=>closeModal(profileModal));
+$('#profileBtn').addEventListener('click',()=>openModal(profileModal));
+$('#orgRows').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-action]');
+ if(!btn)return;
+ const id=btn.dataset.id;
+ if(btn.dataset.action==='view')openDetails(id);
+ if(btn.dataset.action==='edit')openEdit(id);
+ if(btn.dataset.action==='delete')deleteOrg(id);
+});
+$('#editFromDetails').addEventListener('click',()=>{
+ if(!selectedOrg)return;
+ closeModal(detailsModal);
+ setTimeout(()=>openEdit(selectedOrg.id),180);
+});
+$('#orgForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data={
+  name:$('#orgName').value.trim(),
+  manager:$('#managerName').value.trim(),
+  phone:$('#orgPhone').value.trim(),
+  email:$('#orgEmail').value.trim(),
+  code:$('#orgCode').value.trim().toUpperCase(),
+  plan:$('#orgPlan').value,
+  status:$('#orgStatus').value,
+  users:Math.max(1,Number($('#orgUsers').value)||1),
+  note:$('#orgNote').value.trim()
+ };
+ if(editingId){
+  const idx=organizations.findIndex(x=>x.id===editingId);
+  if(idx>-1) organizations[idx]={...organizations[idx],...data,activity:'همین الان'};
+  showToast('تغییرات ذخیره شد','اطلاعات کلینیک با موفقیت بروزرسانی شد.');
+ }else{
+  organizations.unshift({...data,id:'org-'+Date.now(),initial:data.name.charAt(0)||'م',activity:'همین الان'});
+  showToast('کلینیک ایجاد شد','سازمان جدید به لیست اضافه شد.');
+ }
+ save();
+ closeModal(orgModal);
+ page=1;
+ renderTable();
+});
+$('#exportBtn').addEventListener('click',()=>{
+ const list=filtered();
+ const header=['نام کلینیک','کد','مدیر','تماس','ایمیل','پلن','کاربران','وضعیت'];
+ const statusMap={active:'فعال',trial:'آزمایشی',suspended:'معلق'};
+ const csv=[header,...list.map(o=>[o.name,o.code,o.manager,o.phone,o.email||'',o.plan,o.users,statusMap[o.status]])]
+  .map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\\n');
+ const blob=new Blob(['\\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download='moshaver-organizations.csv';a.click();URL.revokeObjectURL(url);
+ showToast('خروجی آماده شد',`${fa(list.length)} سازمان در فایل CSV قرار گرفت.`);
+});
+$('#auditBtn').addEventListener('click',()=>showToast('Audit Log','لاگ کامل فعالیت‌ها در ماژول گزارش‌ها مدیریت خواهد شد.'));
+$('#notificationsBtn').addEventListener('click',e=>{e.stopPropagation();notifications.classList.toggle('open')});
+$('#clearNotifications').addEventListener('click',()=>{notifications.classList.remove('open');showToast('اعلان‌ها','همه اعلان‌های مدیریتی خوانده شدند.')});
+document.addEventListener('click',e=>{
+ if(!notifications.contains(e.target)&&e.target!==$('#notificationsBtn'))notifications.classList.remove('open');
+});
+$('#menuMobile').addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('open')});
+$('#mobileMore').addEventListener('click',()=>{sidebar.classList.add('open');overlay.classList.add('open')});
+overlay.addEventListener('click',()=>{
+ sidebar.classList.remove('open');
+ notifications.classList.remove('open');
+ closeModal(orgModal);closeModal(detailsModal);closeModal(profileModal);
+ overlay.classList.remove('open');
+});
+$('#logout').addEventListener('click',()=>{
+ showToast('خروج از حساب','در نسخه متصل به Backend نشست امن کاربر خاتمه داده می‌شود.');
+ setTimeout(()=>location.href='../index.html',900);
+});
+window.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){
+  notifications.classList.remove('open');
+  closeModal(orgModal);closeModal(detailsModal);closeModal(profileModal);
+  sidebar.classList.remove('open');
+ }
+});
+renderTable();
+</script>
+
+</body>
+</html>
