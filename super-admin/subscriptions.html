@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08111f">
+<title>مدیریت اشتراک‌ها | Moshaver Super Admin</title>
+<style>
+:root{
+  --bg:#07101d;--bg2:#0c1727;--panel:rgba(16,29,47,.72);--panel2:rgba(21,37,59,.82);
+  --line:rgba(255,255,255,.10);--line2:rgba(255,255,255,.16);--text:#f5f8ff;--muted:#94a4bb;
+  --primary:#6d7cff;--primary2:#8c6cff;--cyan:#37d7ff;--green:#2ed39a;--orange:#ffb45c;--red:#ff6578;
+  --shadow:0 25px 70px rgba(0,0,0,.34);--radius:24px;--radius2:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:Tahoma,"Segoe UI",sans-serif;color:var(--text);background:
+radial-gradient(circle at 10% 10%,rgba(109,124,255,.13),transparent 30%),
+radial-gradient(circle at 90% 85%,rgba(55,215,255,.08),transparent 28%),var(--bg);overflow-x:hidden}
+body.light{--bg:#eef3fb;--bg2:#f7f9fd;--panel:rgba(255,255,255,.72);--panel2:rgba(255,255,255,.9);--line:rgba(25,42,67,.10);--line2:rgba(25,42,67,.16);--text:#152238;--muted:#66758b;--shadow:0 25px 65px rgba(45,65,95,.15)}
+button,input,select{font:inherit}
+button{border:0;cursor:pointer}
+a{text-decoration:none;color:inherit}
+.app{display:grid;grid-template-columns:278px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:20px 16px;z-index:20;background:rgba(6,15,27,.76);backdrop-filter:blur(25px);border-left:1px solid var(--line)}
+.light .sidebar{background:rgba(248,250,255,.78)}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 8px 20px}
+.brand-mark{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 10px 30px rgba(109,124,255,.28);font-weight:900;position:relative}
+.brand-mark:after{content:"";position:absolute;inset:-5px;border:1px solid rgba(109,124,255,.25);border-radius:18px;animation:spin 9s linear infinite}
+.brand strong{display:block;font-size:15px}.brand span{font-size:11px;color:var(--muted)}
+.nav{display:grid;gap:7px;margin-top:10px}
+.nav a{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;color:var(--muted);transition:.25s;position:relative;overflow:hidden}
+.nav a:hover,.nav a.active{color:var(--text);background:linear-gradient(135deg,rgba(109,124,255,.16),rgba(55,215,255,.06));border:1px solid var(--line)}
+.nav a.active:before{content:"";position:absolute;right:0;top:8px;bottom:8px;width:3px;border-radius:8px;background:var(--cyan)}
+.nav i{width:31px;height:31px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.06);font-style:normal}
+.sidebar-bottom{position:absolute;bottom:18px;left:16px;right:16px}
+.profile-mini{padding:14px;border:1px solid var(--line);background:var(--panel);border-radius:20px;display:flex;align-items:center;gap:10px}
+.avatar{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#20c997,#198cff);font-weight:900}
+.profile-mini .meta{min-width:0}.profile-mini strong{display:block;font-size:12px}.profile-mini small{color:var(--muted);font-size:10px}
+.main{min-width:0;padding:24px 28px 45px;position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:22px}
+.crumb{color:var(--muted);font-size:12px}.crumb b{color:var(--text)}
+.actions{display:flex;align-items:center;gap:9px}
+.icon-btn{width:43px;height:43px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--text);display:grid;place-items:center;position:relative;transition:.25s;backdrop-filter:blur(16px)}
+.icon-btn:hover{transform:translateY(-3px) rotate(-4deg);border-color:rgba(109,124,255,.35)}
+.icon-btn.spin:hover{animation:spin .8s linear infinite}
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.7fr);gap:18px;margin-bottom:20px}
+.glass{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(22px);border-radius:var(--radius)}
+.hero-card{padding:25px;position:relative;overflow:hidden}
+.hero-card:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(109,124,255,.13);filter:blur(45px);left:-80px;top:-100px}
+.hero-title{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.eyebrow{font-size:11px;color:var(--cyan);letter-spacing:1.3px;margin-bottom:10px}.hero h1{margin:0 0 10px;font-size:26px}.hero p{margin:0;color:var(--muted);line-height:1.9;font-size:12px}
+.live{padding:8px 11px;border-radius:999px;background:rgba(46,211,154,.1);color:var(--green);font-size:10px;border:1px solid rgba(46,211,154,.18);white-space:nowrap}
+.plan-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.summary{padding:15px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line);position:relative;overflow:hidden}
+.summary:after{content:"";position:absolute;width:70px;height:70px;border:1px dashed rgba(109,124,255,.25);border-radius:50%;left:-25px;bottom:-35px;animation:spin 12s linear infinite}
+.summary span{font-size:10px;color:var(--muted)}.summary strong{display:block;font-size:22px;margin-top:7px}
+.summary em{font-style:normal;font-size:10px;color:var(--green)}
+.revenue-card{padding:20px;position:relative;overflow:hidden}
+.revenue-head{display:flex;justify-content:space-between;align-items:center}.revenue-head small{color:var(--muted)}.revenue{font-size:30px;font-weight:900;margin:13px 0 4px}.revenue-sub{font-size:10px;color:var(--green)}
+.mini-chart{height:70px;margin-top:14px;display:flex;align-items:end;gap:7px}
+.mini-chart span{flex:1;border-radius:7px 7px 2px 2px;background:linear-gradient(to top,var(--primary),var(--cyan));opacity:.72;animation:rise .8s ease both}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.kpi{padding:19px;border-radius:22px;position:relative;overflow:hidden}
+.kpi-icon{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:rgba(109,124,255,.13);font-size:18px;margin-bottom:15px;transition:.4s}
+.kpi:hover .kpi-icon{transform:rotate(12deg) translateY(-3px)}
+.kpi strong{font-size:24px}.kpi p{margin:7px 0 0;color:var(--muted);font-size:11px}.trend{position:absolute;left:16px;top:17px;font-size:10px;color:var(--green)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.input,.select{height:44px;padding:0 13px;border:1px solid var(--line);background:var(--panel);color:var(--text);outline:none;border-radius:14px;min-width:150px}
+.input{min-width:230px}.input:focus,.select:focus{border-color:rgba(109,124,255,.55);box-shadow:0 0 0 4px rgba(109,124,255,.08)}
+select option{background:#132033;color:#fff}.light select option{background:#fff;color:#152238}
+.primary{height:44px;padding:0 18px;border-radius:14px;color:#fff;background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 10px 28px rgba(109,124,255,.22);position:relative;overflow:hidden;white-space:nowrap}
+.primary:before{content:"";position:absolute;top:0;bottom:0;width:45px;right:-70px;background:rgba(255,255,255,.3);transform:skewX(-20deg);animation:shine 3.2s infinite}
+.primary span{position:relative}
+.table-wrap{overflow:auto;border-radius:22px}
+table{width:100%;border-collapse:collapse;min-width:920px}
+th,td{padding:15px 13px;text-align:right;border-bottom:1px solid var(--line);font-size:11px;white-space:nowrap}
+th{font-size:10px;color:var(--muted);font-weight:500;background:rgba(255,255,255,.025)}
+tbody tr{transition:.2s}tbody tr:hover{background:rgba(109,124,255,.045)}
+.org{display:flex;align-items:center;gap:10px}.org-logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(109,124,255,.28),rgba(55,215,255,.13));border:1px solid var(--line);font-weight:900}.org strong{display:block;font-size:11px}.org small{color:var(--muted);font-size:9px}
+.badge{display:inline-flex;padding:6px 9px;border-radius:999px;font-size:9px;border:1px solid transparent}.active-b{color:var(--green);background:rgba(46,211,154,.09);border-color:rgba(46,211,154,.17)}.trial{color:var(--cyan);background:rgba(55,215,255,.08);border-color:rgba(55,215,255,.17)}.expired{color:var(--red);background:rgba(255,101,120,.08);border-color:rgba(255,101,120,.17)}.pending{color:var(--orange);background:rgba(255,180,92,.08);border-color:rgba(255,180,92,.17)}
+.plan-chip{display:inline-flex;padding:6px 9px;border-radius:9px;background:rgba(109,124,255,.09);color:#b9c1ff;font-size:9px;border:1px solid rgba(109,124,255,.16)}
+.row-actions{display:flex;gap:5px}.tiny{width:33px;height:33px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text);transition:.25s}.tiny:hover{transform:translateY(-2px) rotate(5deg);border-color:rgba(109,124,255,.35)}
+.bottom-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}
+.section-card{padding:20px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.section-head h3{margin:0;font-size:14px}.section-head span{font-size:10px;color:var(--muted)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.plan{padding:15px;border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:17px;position:relative;overflow:hidden;transition:.25s}.plan:hover{transform:translateY(-4px);border-color:rgba(109,124,255,.3)}
+.plan .circle{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;background:rgba(109,124,255,.13);margin-bottom:12px}.plan strong{font-size:13px}.plan p{font-size:10px;color:var(--muted);line-height:1.7;margin:6px 0 12px}.price{font-size:18px;font-weight:900}.price small{font-size:9px;color:var(--muted);font-weight:400}
+.progress{height:6px;background:rgba(255,255,255,.07);border-radius:9px;overflow:hidden;margin-top:10px}.progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--primary),var(--cyan))}
+.activity{display:grid;gap:12px}.activity-item{display:flex;gap:10px;align-items:flex-start}.activity-dot{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(109,124,255,.12);flex:0 0 auto}.activity-item strong{font-size:10px}.activity-item p{margin:3px 0 0;color:var(--muted);font-size:9px;line-height:1.6}
+.pagination{display:flex;justify-content:space-between;align-items:center;padding-top:15px;color:var(--muted);font-size:10px}.pages{display:flex;gap:5px}.page{width:31px;height:31px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--text)}.page.active{background:var(--primary);border-color:transparent}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.58);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}.modal.show{display:flex}
+.modal-box{width:min(680px,100%);max-height:92vh;overflow:auto;padding:24px;position:relative;animation:modalIn .35s ease}.modal-box h2{margin:0;font-size:19px}.modal-box>p{color:var(--muted);font-size:11px;line-height:1.8}.close{position:absolute;left:18px;top:17px;width:39px;height:39px;border-radius:50%;background:rgba(255,101,120,.08);color:var(--red);border:1px solid rgba(255,101,120,.18);font-size:19px;transition:.35s}.close:hover{transform:rotate(180deg) scale(1.05)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:var(--muted)}.field input,.field select{width:100%;height:43px;padding:0 12px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--primary)}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.secondary{height:43px;padding:0 16px;border-radius:13px;border:1px solid var(--line);background:transparent;color:var(--text)}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.detail{padding:13px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.025)}.detail span{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.detail strong{font-size:11px}
+.toast{position:fixed;left:24px;bottom:24px;padding:13px 16px;border:1px solid var(--line);background:rgba(13,25,42,.92);backdrop-filter:blur(18px);border-radius:15px;box-shadow:var(--shadow);transform:translateY(30px);opacity:0;pointer-events:none;transition:.3s;z-index:200;font-size:11px}.toast.show{transform:none;opacity:1}
+.floating-x{position:fixed;z-index:0;width:75px;height:75px;opacity:.07;pointer-events:none}.floating-x:before,.floating-x:after{content:"";position:absolute;left:50%;top:50%;width:100%;height:1px;background:var(--cyan)}.floating-x:before{transform:translate(-50%,-50%) rotate(45deg)}.floating-x:after{transform:translate(-50%,-50%) rotate(-45deg)}.x1{left:4%;top:28%;animation:float 7s ease-in-out infinite,spin 14s linear infinite}.x2{right:4%;top:18%;animation:float 9s ease-in-out infinite reverse,spin 18s linear infinite reverse}.x3{right:12%;bottom:8%;animation:float 8s ease-in-out infinite,spin 16s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}@keyframes rise{from{height:0}to{height:var(--h)}}@keyframes shine{0%{right:-70px}55%,100%{right:130%}}@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:1100px){.app{grid-template-columns:82px 1fr}.sidebar{padding:18px 10px}.brand{justify-content:center}.brand>div:not(.brand-mark),.nav span,.profile-mini .meta{display:none}.nav a{justify-content:center}.sidebar-bottom{left:10px;right:10px}.profile-mini{justify-content:center}.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.app{display:block}.sidebar{position:fixed;bottom:0;top:auto;right:0;left:0;width:100%;height:70px;padding:7px 10px;border-left:0;border-top:1px solid var(--line);z-index:50}.brand,.sidebar-bottom{display:none}.nav{display:flex;justify-content:space-around;margin:0}.nav a{width:52px;height:54px;padding:5px}.nav a.active:before{right:8px;left:8px;top:auto;bottom:3px;width:auto;height:2px}.main{padding:17px 13px 88px}.topbar{margin-bottom:15px}.crumb{font-size:10px}.hero-card,.revenue-card,.section-card{padding:17px}.plan-summary,.plans{grid-template-columns:1fr}.kpis{gap:9px}.kpi{padding:15px}.kpi strong{font-size:19px}.toolbar{align-items:stretch;flex-direction:column}.filters{display:grid;grid-template-columns:1fr 1fr}.input{min-width:0;width:100%;grid-column:1/-1}.select{min-width:0;width:100%}.primary{width:100%}.bottom-grid{grid-template-columns:1fr}.form-grid,.detail-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.floating-x{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="floating-x x1"></div><div class="floating-x x2"></div><div class="floating-x x3"></div>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">M</div><div><strong>Moshaver</strong><span>Super Admin Center</span></div></div>
+  <nav class="nav">
+    <a href="dashboard.html"><i>⌂</i><span>داشبورد</span></a>
+    <a href="organizations.html"><i>▦</i><span>سازمان‌ها</span></a>
+    <a href="users.html"><i>♙</i><span>کاربران</span></a>
+    <a class="active" href="subscriptions.html"><i>◈</i><span>اشتراک‌ها</span></a>
+    <a href="reports.html"><i>◫</i><span>گزارش‌ها</span></a>
+  </nav>
+  <div class="sidebar-bottom"><div class="profile-mini"><div class="avatar">MA</div><div class="meta"><strong>مدیر ارشد سیستم</strong><small>Super Administrator</small></div></div></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="crumb">مدیریت مرکزی / <b>اشتراک‌ها و درآمد</b></div>
+  <div class="actions">
+    <button class="icon-btn spin" id="themeBtn" title="تغییر تم">☼</button>
+    <button class="icon-btn spin" id="refreshBtn" title="بروزرسانی">↻</button>
+    <button class="icon-btn" onclick="location.href='../index.html'" title="خروج">↪</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="glass hero-card">
+    <div class="hero-title">
+      <div><div class="eyebrow">SUBSCRIPTION CONTROL CENTER</div><h1>مدیریت اشتراک‌ها</h1><p>کنترل پلن‌ها، وضعیت پرداخت، تاریخ تمدید و جریان درآمد سازمان‌های فعال در سامانه.</p></div>
+      <span class="live">● LIVE DATA</span>
+    </div>
+    <div class="plan-summary">
+      <div class="summary"><span>اشتراک‌های فعال</span><strong id="activeSummary">0</strong><em>↑ 8.4%</em></div>
+      <div class="summary"><span>تمدید این ماه</span><strong id="renewSummary">0</strong><em>↑ 12.1%</em></div>
+      <div class="summary"><span>اشتراک‌های منقضی</span><strong id="expiredSummary">0</strong><em style="color:var(--orange)">نیازمند پیگیری</em></div>
+    </div>
+  </div>
+  <div class="glass revenue-card">
+    <div class="revenue-head"><strong>درآمد ماه جاری</strong><small>مهر ۱۴۰۵</small></div>
+    <div class="revenue" id="revenue">۰</div><div class="revenue-sub">↑ ۱۴.۸٪ نسبت به ماه قبل</div>
+    <div class="mini-chart" id="miniChart"></div>
+  </div>
+</section>
+
+<section class="kpis">
+  <div class="glass kpi"><div class="trend">+6.2%</div><div class="kpi-icon">◈</div><strong id="totalKpi">۰</strong><p>کل اشتراک‌ها</p></div>
+  <div class="glass kpi"><div class="trend">+9.7%</div><div class="kpi-icon">✓</div><strong id="paidKpi">۰</strong><p>پرداخت‌های تکمیل‌شده</p></div>
+  <div class="glass kpi"><div class="trend">+4.1%</div><div class="kpi-icon">◷</div><strong id="trialKpi">۰</strong><p>دوره‌های آزمایشی</p></div>
+  <div class="glass kpi"><div class="trend" style="color:var(--orange)">12 مورد</div><div class="kpi-icon">!</div><strong id="dueKpi">۰</strong><p>سررسید در ۷ روز آینده</p></div>
+</section>
+
+<div class="toolbar">
+  <div class="filters">
+    <input class="input" id="search" placeholder="جستجوی سازمان، کد اشتراک یا پلن...">
+    <select class="select" id="statusFilter"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="pending">در انتظار پرداخت</option><option value="expired">منقضی</option></select>
+    <select class="select" id="planFilter"><option value="">همه پلن‌ها</option><option value="enterprise">Enterprise</option><option value="professional">Professional</option><option value="starter">Starter</option></select>
+  </div>
+  <button class="primary" id="addBtn"><span>＋ افزودن اشتراک</span></button>
+</div>
+
+<section class="glass table-wrap">
+<table>
+<thead><tr><th>سازمان</th><th>پلن</th><th>وضعیت</th><th>شروع</th><th>تمدید</th><th>مبلغ</th><th>پرداخت</th><th>عملیات</th></tr></thead>
+<tbody id="subscriptionBody"></tbody>
+</table>
+<div class="pagination"><span id="resultCount">۰ اشتراک</span><div class="pages" id="pages"></div></div>
+</section>
+
+<section class="bottom-grid">
+  <div class="glass section-card">
+    <div class="section-head"><h3>پلن‌های فعال سامانه</h3><span>Plan Distribution</span></div>
+    <div class="plans">
+      <div class="plan"><div class="circle">◆</div><strong>Enterprise</strong><p>برای کلینیک‌ها و سازمان‌های بزرگ با امکانات کامل.</p><div class="price">۴۹,۰۰۰,۰۰۰ <small>تومان / ماه</small></div><div class="progress"><i style="width:78%"></i></div></div>
+      <div class="plan"><div class="circle">◇</div><strong>Professional</strong><p>مناسب مجموعه‌های متوسط با ابزارهای مدیریتی کامل.</p><div class="price">۲۴,۰۰۰,۰۰۰ <small>تومان / ماه</small></div><div class="progress"><i style="width:61%"></i></div></div>
+      <div class="plan"><div class="circle">○</div><strong>Starter</strong><p>شروع سریع برای تیم‌های کوچک و مشاوران مستقل.</p><div class="price">۹,۹۰۰,۰۰۰ <small>تومان / ماه</small></div><div class="progress"><i style="width:42%"></i></div></div>
+    </div>
+  </div>
+  <div class="glass section-card">
+    <div class="section-head"><h3>آخرین رویدادها</h3><span>Recent Activity</span></div>
+    <div class="activity">
+      <div class="activity-item"><div class="activity-dot">✓</div><div><strong>پرداخت موفق اشتراک کلینیک آریا</strong><p>پلن Professional · ۸ دقیقه پیش</p></div></div>
+      <div class="activity-item"><div class="activity-dot">↻</div><div><strong>تمدید خودکار مرکز آرامش</strong><p>پلن Enterprise · ۲۷ دقیقه پیش</p></div></div>
+      <div class="activity-item"><div class="activity-dot">!</div><div><strong>اشتراک کلینیک مهر نیازمند پیگیری</strong><p>پرداخت ناموفق · ۱ ساعت پیش</p></div></div>
+      <div class="activity-item"><div class="activity-dot">＋</div><div><strong>اشتراک جدید برای کلینیک آفتاب</strong><p>پلن Starter · ۲ ساعت پیش</p></div></div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<div class="modal" id="modal">
+<div class="modal-box glass">
+<button class="close" id="closeModal">×</button>
+<h2 id="modalTitle">افزودن اشتراک جدید</h2><p>اطلاعات اشتراک را ثبت کنید. این نسخه اطلاعات را در مرورگر ذخیره می‌کند و برای اتصال به API آماده است.</p>
+<form id="form">
+<input type="hidden" id="editId">
+<div class="form-grid">
+<div class="field"><label>نام سازمان</label><input id="org" required></div>
+<div class="field"><label>کد اشتراک</label><input id="code" required></div>
+<div class="field"><label>پلن</label><select id="plan" required><option value="enterprise">Enterprise</option><option value="professional">Professional</option><option value="starter">Starter</option></select></div>
+<div class="field"><label>وضعیت</label><select id="status" required><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="pending">در انتظار پرداخت</option><option value="expired">منقضی</option></select></div>
+<div class="field"><label>تاریخ شروع</label><input id="start" type="date" required></div>
+<div class="field"><label>تاریخ تمدید</label><input id="renew" type="date" required></div>
+<div class="field"><label>مبلغ (تومان)</label><input id="amount" type="number" required></div>
+<div class="field"><label>وضعیت پرداخت</label><select id="payment"><option>پرداخت شده</option><option>در انتظار</option><option>ناموفق</option></select></div>
+</div>
+<div class="modal-actions"><button type="button" class="secondary" id="cancelBtn">انصراف</button><button class="primary"><span>ذخیره اشتراک</span></button></div>
+</form>
+</div></div>
+
+<div class="modal" id="viewModal">
+<div class="modal-box glass">
+<button class="close" onclick="closeView()">×</button><h2>جزئیات اشتراک</h2><p>نمای کامل اطلاعات اشتراک انتخاب‌شده.</p>
+<div class="detail-grid" id="details"></div>
+<div class="modal-actions"><button class="secondary" onclick="closeView()">بستن</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const fa=n=>new Intl.NumberFormat('fa-IR').format(n);
+const seed=[
+['کلینیک آریا','SUB-10482','professional','active','2026-01-12','2026-10-12',24000000,'پرداخت شده'],
+['مرکز آرامش','SUB-10477','enterprise','active','2025-10-02','2026-10-02',49000000,'پرداخت شده'],
+['کلینیک مهر','SUB-10471','professional','pending','2026-03-18','2026-10-18',24000000,'ناموفق'],
+['کلینیک آفتاب','SUB-10469','starter','trial','2026-09-12','2026-10-12',9900000,'در انتظار'],
+['مرکز سلامت نوین','SUB-10455','enterprise','active','2025-12-20','2026-12-20',49000000,'پرداخت شده'],
+['کلینیک سپید','SUB-10441','professional','active','2026-02-05','2026-11-05',24000000,'پرداخت شده'],
+['مرکز امید','SUB-10418','starter','expired','2025-09-01','2026-09-01',9900000,'ناموفق'],
+['کلینیک زندگی','SUB-10399','professional','active','2026-04-14','2026-10-14',24000000,'پرداخت شده'],
+['مرکز باران','SUB-10372','enterprise','active','2025-11-09','2026-11-09',49000000,'پرداخت شده'],
+['کلینیک پگاه','SUB-10355','starter','trial','2026-09-20','2026-10-20',9900000,'در انتظار'],
+['مرکز آوای سلامت','SUB-10341','professional','active','2026-01-28','2026-10-28',24000000,'پرداخت شده'],
+['کلینیک آرام','SUB-10322','starter','pending','2026-05-07','2026-10-07',9900000,'در انتظار']
+].map((x,i)=>({id:i+1,org:x[0],code:x[1],plan:x[2],status:x[3],start:x[4],renew:x[5],amount:x[6],payment:x[7]}));
+let data=JSON.parse(localStorage.getItem('moshaver-subscriptions')||'null')||seed;
+let page=1,perPage=8;
+const $=id=>document.getElementById(id);
+const planNames={enterprise:'Enterprise',professional:'Professional',starter:'Starter'};
+const statusNames={active:'فعال',trial:'آزمایشی',pending:'در انتظار پرداخت',expired:'منقضی'};
+function save(){localStorage.setItem('moshaver-subscriptions',JSON.stringify(data))}
+function statusBadge(s){return `<span class="badge ${s==='active'?'active-b':s==='trial'?'trial':s==='pending'?'pending':'expired'}">${statusNames[s]}</span>`}
+function render(){
+ const q=$('search').value.trim().toLowerCase(), sf=$('statusFilter').value,pf=$('planFilter').value;
+ let filtered=data.filter(x=>(!q||[x.org,x.code,planNames[x.plan]].join(' ').toLowerCase().includes(q))&&(!sf||x.status===sf)&&(!pf||x.plan===pf));
+ const pages=Math.max(1,Math.ceil(filtered.length/perPage));if(page>pages)page=pages;
+ const slice=filtered.slice((page-1)*perPage,page*perPage);
+ $('subscriptionBody').innerHTML=slice.map(x=>`<tr>
+<td><div class="org"><div class="org-logo">${x.org.slice(0,1)}</div><div><strong>${x.org}</strong><small>${x.code}</small></div></div></td>
+<td><span class="plan-chip">${planNames[x.plan]}</span></td><td>${statusBadge(x.status)}</td>
+<td>${new Date(x.start).toLocaleDateString('fa-IR')}</td><td>${new Date(x.renew).toLocaleDateString('fa-IR')}</td>
+<td>${fa(x.amount)} تومان</td><td>${x.payment}</td>
+<td><div class="row-actions"><button class="tiny" onclick="viewSub(${x.id})">◉</button><button class="tiny" onclick="editSub(${x.id})">✎</button><button class="tiny" onclick="deleteSub(${x.id})">×</button></div></td></tr>`).join('');
+$('resultCount').textContent=`${fa(filtered.length)} اشتراک`;
+$('pages').innerHTML=Array.from({length:pages},(_,i)=>`<button class="page ${i+1===page?'active':''}" onclick="page=${i+1};render()">${fa(i+1)}</button>`).join('');
+updateStats();buildChart();
+}
+function updateStats(){
+ const active=data.filter(x=>x.status==='active').length,trial=data.filter(x=>x.status==='trial').length,expired=data.filter(x=>x.status==='expired').length;
+ $('activeSummary').textContent=fa(active);$('renewSummary').textContent=fa(data.filter(x=>new Date(x.renew)<=new Date('2026-10-31')).length);$('expiredSummary').textContent=fa(expired);
+ $('totalKpi').textContent=fa(data.length);$('paidKpi').textContent=fa(data.filter(x=>x.payment==='پرداخت شده').length);$('trialKpi').textContent=fa(trial);$('dueKpi').textContent=fa(data.filter(x=>x.status!=='expired').length);
+ $('revenue').textContent=fa(data.filter(x=>x.status==='active').reduce((a,x)=>a+x.amount,0))+' تومان';
+}
+function buildChart(){
+ const vals=[42,55,49,70,62,84,76,92], max=Math.max(...vals);$('miniChart').innerHTML=vals.map(v=>`<span style="--h:${v/max*100}% ;height:${v/max*100}%"></span>`).join('');
+}
+function openModal(edit=null){
+ $('modal').classList.add('show');$('modalTitle').textContent=edit?'ویرایش اشتراک':'افزودن اشتراک جدید';
+ $('editId').value=edit?.id||'';$('org').value=edit?.org||'';$('code').value=edit?.code||'SUB-'+Math.floor(10000+Math.random()*89999);
+ $('plan').value=edit?.plan||'professional';$('status').value=edit?.status||'active';$('start').value=edit?.start||'2026-10-01';$('renew').value=edit?.renew||'2027-10-01';$('amount').value=edit?.amount||24000000;$('payment').value=edit?.payment||'پرداخت شده';
+}
+function closeModal(){$('modal').classList.remove('show')}
+function editSub(id){openModal(data.find(x=>x.id===id))}
+function viewSub(id){const x=data.find(x=>x.id===id);$('details').innerHTML=`<div class="detail"><span>سازمان</span><strong>${x.org}</strong></div><div class="detail"><span>کد اشتراک</span><strong>${x.code}</strong></div><div class="detail"><span>پلن</span><strong>${planNames[x.plan]}</strong></div><div class="detail"><span>وضعیت</span><strong>${statusNames[x.status]}</strong></div><div class="detail"><span>شروع</span><strong>${new Date(x.start).toLocaleDateString('fa-IR')}</strong></div><div class="detail"><span>تمدید</span><strong>${new Date(x.renew).toLocaleDateString('fa-IR')}</strong></div><div class="detail"><span>مبلغ</span><strong>${fa(x.amount)} تومان</strong></div><div class="detail"><span>پرداخت</span><strong>${x.payment}</strong></div>`;$('viewModal').classList.add('show')}
+function closeView(){$('viewModal').classList.remove('show')}
+function deleteSub(id){const x=data.find(v=>v.id===id);if(confirm(`اشتراک «${x.org}» حذف شود؟`)){data=data.filter(v=>v.id!==id);save();render();toast('اشتراک با موفقیت حذف شد')}}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600)}
+$('form').addEventListener('submit',e=>{e.preventDefault();const id=Number($('editId').value),obj={id:id||Date.now(),org:$('org').value.trim(),code:$('code').value.trim(),plan:$('plan').value,status:$('status').value,start:$('start').value,renew:$('renew').value,amount:Number($('amount').value),payment:$('payment').value};if(id)data=data.map(x=>x.id===id?obj:x);else data.unshift(obj);save();closeModal();render();toast(id?'اشتراک ویرایش شد':'اشتراک جدید ثبت شد')});
+$('addBtn').onclick=()=>openModal();$('closeModal').onclick=closeModal;$('cancelBtn').onclick=closeModal;
+['search','statusFilter','planFilter'].forEach(id=>$(id).addEventListener('input',()=>{page=1;render()}));
+$('refreshBtn').onclick=()=>{render();toast('اطلاعات با موفقیت بروزرسانی شد')};
+$('themeBtn').onclick=()=>{document.body.classList.toggle('light');localStorage.setItem('moshaver-theme',document.body.classList.contains('light')?'light':'dark')};
+if(localStorage.getItem('moshaver-theme')==='light')document.body.classList.add('light');
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});$('viewModal').addEventListener('click',e=>{if(e.target.id==='viewModal')closeView()});
+render();
+</script>
+
+</body>
+</html>
