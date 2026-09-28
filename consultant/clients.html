@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0d12">
+<title>مراجعین | MOSHAVER</title>
+<style>
+:root{
+  --bg:#080b10;
+  --bg-2:#0d1118;
+  --surface:rgba(20,25,34,.68);
+  --surface-strong:rgba(24,30,41,.88);
+  --surface-soft:rgba(255,255,255,.045);
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.15);
+  --text:#f4f7fb;
+  --muted:#8f99a9;
+  --muted-2:#657082;
+  --accent:#8b7cff;
+  --accent-2:#5f9dff;
+  --success:#40d99a;
+  --warning:#f5b95c;
+  --danger:#ff6f82;
+  --info:#64b5ff;
+  --shadow:0 22px 70px rgba(0,0,0,.32);
+  --radius:24px;
+  --sidebar:272px;
+}
+:root.light{
+  --bg:#eef2f8;
+  --bg-2:#f7f9fc;
+  --surface:rgba(255,255,255,.68);
+  --surface-strong:rgba(255,255,255,.92);
+  --surface-soft:rgba(24,33,48,.045);
+  --line:rgba(24,33,48,.09);
+  --line-strong:rgba(24,33,48,.15);
+  --text:#182130;
+  --muted:#687386;
+  --muted-2:#8993a4;
+  --shadow:0 22px 70px rgba(40,52,75,.13);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 8% 12%,rgba(139,124,255,.13),transparent 27%),
+    radial-gradient(circle at 88% 8%,rgba(95,157,255,.10),transparent 25%),
+    radial-gradient(circle at 70% 90%,rgba(64,217,154,.06),transparent 25%),
+    var(--bg);
+  overflow-x:hidden;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+::selection{background:rgba(139,124,255,.28)}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:-1}
+.bg-orb.one{width:260px;height:260px;background:rgba(139,124,255,.09);top:12%;left:-100px}
+.bg-orb.two{width:300px;height:300px;background:rgba(95,157,255,.07);right:-130px;bottom:8%}
+
+.app{min-height:100vh}
+.sidebar{
+position;
+top:18px;
+right:18px;
+bottom:18px;
+width(--sidebar);
+padding:20px 16px;
+border:1px solid var(--line);
+background(--surface);
+backdrop-filter(24px);
+-webkit-backdrop-filter(24px);
+border-radius:28px;
+box-shadow(--shadow);
+z-index:50;
+display;
+flex-direction;
+}
+.brand{display;align-items;gap:12px;padding:4px 8px 24px}
+.brand-mark{
+width:46px;height:46px;border-radius:15px;
+display;place-items;
+background(145deg,rgba(139,124,255,.95),rgba(95,157,255,.72));
+box-shadow:0 12px 30px rgba(108,91,230,.25);
+font-size:20px;font-weight:900;color;
+}
+.brand strong{display;font-size:15px;letter-spacing:.3px}
+.brand span{display;color(--muted);font-size:11px;margin-top:4px}
+.nav-label{font-size:10px;color(--muted-2);padding:7px 10px 9px}
+.nav{display;flex-direction;gap:5px}
+.nav a{
+min-height:46px;padding:0 13px;border-radius:14px;
+display;align-items;gap:11px;
+color(--muted);font-size:13px;
+border:1px solid transparent;
+transition:.22s ease;
+}
+.nav a{background(--surface-soft);color(--text);transform(-2px)}
+.nav a.active{
+color(--text);
+background(135deg,rgba(139,124,255,.18),rgba(95,157,255,.08));
+border-color(139,124,255,.18);
+box-shadow 0 1px rgba(255,255,255,.06);
+}
+.nav-icon{width:21px;text-align;font-size:16px}
+.sidebar-bottom{margin-top}
+.profile-mini{
+display;align-items;gap:10px;padding:12px;
+border:1px solid var(--line);border-radius:18px;background(--surface-soft)
+}
+.avatar{width:38px;height:38px;border-radius:13px;display;place-items;font-weight:800;background(145deg,#7768ef,#4e8fe9);color:#fff}
+.profile-mini .name{font-size:12px;font-weight:700}
+.profile-mini .role{font-size:10px;color(--muted);margin-top:3px}
+.main{margin-right(var(--sidebar) + 36px);padding:28px 34px 90px;max-width:1700px}
+.topbar{display;align-items;justify-content;gap:20px;margin-bottom:26px}
+.eyebrow{font-size:11px;color(--accent);font-weight:700;margin-bottom:8px}
+h1{font-size:30px;line-height:1.2;margin:0;font-weight:800;letter-spacing:-.8px}
+.subtitle{font-size:12px;color(--muted);margin-top:9px}
+.top-actions{display;align-items;gap:10px}
+.icon-btn,.theme-btn{
+width:43px;height:43px;border-radius:14px;border:1px solid var(--line);
+background(--surface);color(--text);display;place-items;
+backdrop-filter(18px);transition:.2s ease;
+}
+.icon-btn,.theme-btn{transform(-2px);border-color(--line-strong)}
+.primary{
+border:0;border-radius:15px;padding:0 18px;height:45px;
+color:#fff;font-weight:700;font-size:12px;
+background(135deg,#8575ff,#5d9cff);
+box-shadow:0 12px 28px rgba(105,88,229,.24);
+transition:.22s ease;
+}
+.primary{transform(-2px);box-shadow:0 16px 34px rgba(105,88,229,.32)}
+.glass{
+border:1px solid var(--line);
+background(--surface);
+backdrop-filter(22px);
+-webkit-backdrop-filter(22px);
+box-shadow(--shadow);
+border-radius(--radius);
+}
+.stats{display;grid-template-columns(4,1fr);gap:14px;margin-bottom:18px}
+.stat{padding:20px;position;overflow}
+.stat{
+content:"";position;width:100px;height:100px;border-radius:50%;
+background(139,124,255,.08);left:-30px;bottom:-55px;filter(5px)
+}
+.stat-top{display;justify-content;align-items}
+.stat-label{font-size:11px;color(--muted)}
+.stat-icon{width:36px;height:36px;border-radius:12px;display;place-items;background(--surface-soft);font-size:15px}
+.stat-value{font-size:28px;font-weight:800;margin-top:13px;letter-spacing:-.6px}
+.stat-foot{display;align-items;gap:6px;margin-top:9px;font-size:10px;color(--muted)}
+.up{color(--success)}
+.warn{color(--warning)}
+.down{color(--danger)}
+.toolbar{padding:15px;display;align-items;gap:10px;margin-bottom:16px;flex-wrap}
+.search{
+flex:1;min-width:230px;height:45px;border:1px solid var(--line);border-radius:14px;
+background(--surface-soft);color(--text);outline;padding:0 14px 0 42px;
+}
+.search-wrap{position;flex:1;min-width:230px}
+.search-wrap span{position;left:14px;top:50%;transform(-50%);color(--muted)}
+.select{
+height:45px;min-width:145px;padding:0 13px;border-radius:14px;
+border:1px solid var(--line);background(--surface-soft);color(--text);outline
+}
+select option{background:#151a23;color:#fff}
+.light select option{background:#fff;color:#182130}
+.filter-btn{height:45px;padding:0 15px;border-radius:14px;border:1px solid var(--line);background(--surface-soft);color(--muted)}
+.filter-btn.active{color(--text);border-color(139,124,255,.28);background(139,124,255,.10)}
+.table-card{overflow}
+.table-head{padding:19px 20px;display;align-items;justify-content;border-bottom:1px solid var(--line)}
+.table-head h2{font-size:14px;margin:0}
+.table-head span{font-size:10px;color(--muted)}
+.table-wrap{overflow}
+table{width:100%;border-collapse;min-width:920px}
+th{text-align;padding:14px 18px;color(--muted-2);font-size:10px;font-weight:600;border-bottom:1px solid var(--line);white-space}
+td{padding:15px 18px;border-bottom:1px solid var(--line);font-size:11px;white-space}
+tbody tr{transition:.18s ease}
+tbody tr{background(--surface-soft)}
+.client-cell{display;align-items;gap:11px;min-width:200px}
+.client-avatar{width:42px;height:42px;border-radius:14px;display;place-items;font-weight:800;font-size:12px;color:#fff;background(145deg,#7165e9,#4b91e9);flex}
+.client-name{font-weight:700;font-size:12px}
+.client-meta{color(--muted);font-size:9px;margin-top:4px}
+.service{color(--text)}
+.phone{direction;text-align;color(--muted)}
+.badge{display;align-items;gap:5px;padding:6px 9px;border-radius:9px;font-size:9px;font-weight:700}
+.badge{content:"";width:5px;height:5px;border-radius:50%;background}
+.badge.active{color(--success);background(64,217,154,.09)}
+.badge.pending{color(--warning);background(245,185,92,.09)}
+.badge.inactive{color(--danger);background(255,111,130,.09)}
+.actions{display;gap:6px}
+.row-btn{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background(--surface-soft);color(--muted);transition:.18s}
+.row-btn{color(--text);transform(-1px);border-color(--line-strong)}
+.empty{display;text-align;padding:60px 20px;color(--muted);font-size:12px}
+.pagination{display;align-items;justify-content;padding:14px 18px}
+.page-info{font-size:10px;color(--muted)}
+.pages{display;gap:5px}
+.page{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background(--surface-soft);color(--muted)}
+.page.active{color:#fff;border-color;background(135deg,#8171f4,#5d9cff)}
+.mobile-nav{display}
+.modal-backdrop{
+position;inset:0;background(3,5,9,.66);backdrop-filter(12px);
+display;align-items;justify-content;padding:20px;z-index:100;
+}
+.modal-backdrop.show{display}
+.modal{
+width(720px,100%);max-height:90vh;overflow;
+border:1px solid var(--line-strong);background(--surface-strong);
+backdrop-filter(28px);border-radius:28px;box-shadow:0 35px 100px rgba(0,0,0,.45);
+}
+.modal-head{display;align-items;justify-content;padding:22px;border-bottom:1px solid var(--line)}
+.modal-head h3{margin:0;font-size:16px}
+.close{width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background(--surface-soft);color(--muted)}
+.form{padding:22px;display;grid-template-columns(2,1fr);gap:14px}
+.field{display;flex-direction;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:10px;color(--muted)}
+.field input,.field select,.field textarea{
+width:100%;border:1px solid var(--line);background(--surface-soft);color(--text);
+border-radius:13px;outline;padding:0 13px;height:44px;
+}
+.field textarea{height:90px;padding-top:12px;resize}
+.field input,.field select,.field textarea{border-color(139,124,255,.45);box-shadow:0 0 0 3px rgba(139,124,255,.08)}
+.modal-foot{padding:16px 22px;border-top:1px solid var(--line);display;justify-content;gap:9px}
+.secondary{height:43px;padding:0 16px;border-radius:13px;border:1px solid var(--line);background(--surface-soft);color(--muted)}
+.toast{
+position;left:24px;bottom:24px;z-index:150;min-width:250px;max-width:360px;
+padding:14px 16px;border:1px solid var(--line);border-radius:16px;background(--surface-strong);
+box-shadow(--shadow);transform(20px);opacity:0;pointer-events;transition:.25s
+}
+.toast.show{transform(0);opacity:1}
+.toast strong{display;font-size:11px;margin-bottom:4px}
+.toast span{font-size:10px;color(--muted)}
+@media(max-width:1150px){
+{--sidebar:235px}
+.main{margin-right(var(--sidebar) + 25px);padding-left:22px;padding-right:22px}
+.stats{grid-template-columns(2,1fr)}
+}
+@media(max-width:850px){
+.sidebar{display}
+.main{margin-right:0;padding:20px 16px 100px}
+.topbar{align-items}
+h1{font-size:25px}
+.top-actions .primary{display}
+.mobile-nav{
+display;position;bottom:12px;left:12px;right:12px;height:68px;
+border:1px solid var(--line);background(--surface-strong);backdrop-filter(25px);
+border-radius:22px;z-index:70;box-shadow(--shadow);justify-content;align-items
+}
+.mobile-nav a{font-size:18px;color(--muted);display;place-items;gap:3px}
+.mobile-nav a.active{color(--accent)}
+.mobile-nav small{font-size:8px}
+}
+@media(max-width:620px){
+.stats{grid-template-columns:1fr 1fr;gap:9px}
+.stat{padding:15px}
+.stat-value{font-size:22px}
+.toolbar{padding:11px}
+.search-wrap{min-width:100%}
+.select{flex:1;min-width:120px}
+.form{grid-template-columns:1fr}
+.field.full{grid-column}
+.modal-foot{justify-content}
+.modal-foot button{flex:1}
+.toast{left:14px;right:14px;bottom:90px}
+}
+@media(prefers-reduced-motion){
+,::before,*::after{scroll-behavior!important;transition!important}
+}
+</style>
+
+</head>
+<body>
+<div class="bg-orb one"></div>
+<div class="bg-orb two"></div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div>
+        <strong>MOSHAVER</strong>
+        <span>پنل مشاور</span>
+      </div>
+    </div>
+
+<div class="nav-label">مدیریت</div>
+<nav class="nav">
+  <a href="dashboard.html"><span class="nav-icon">⌂</span>داشبورد</a>
+  <a class="active" href="clients.html"><span class="nav-icon">♙</span>مراجعین</a>
+  <a href="appointments.html"><span class="nav-icon">◫</span>نوبت‌ها</a>
+  <a href="follow-ups.html"><span class="nav-icon">↻</span>پیگیری‌ها</a>
+  <a href="notes.html"><span class="nav-icon">▤</span>یادداشت‌ها</a>
+  <a href="reports.html"><span class="nav-icon">◌</span>گزارش‌ها</a>
+</nav>
+
+<div class="nav-label" style="margin-top:12px">حساب</div>
+<nav class="nav">
+  <a href="#"><span class="nav-icon">⚙</span>تنظیمات</a>
+</nav>
+
+<div class="sidebar-bottom">
+  <div class="profile-mini">
+    <div class="avatar">م</div>
+    <div>
+      <div class="name">مشاور سیستم</div>
+      <div class="role">حساب مشاور</div>
+    </div>
+  </div>
+</div>
+
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">CLIENT MANAGEMENT</div>
+        <h1>مراجعین</h1>
+        <div class="subtitle">تمام مراجعین خود را از یک محیط حرفه‌ای مدیریت و پیگیری کنید.</div>
+      </div>
+      <div class="top-actions">
+        <button class="theme-btn" id="themeBtn" title="تغییر تم">☾</button>
+        <button class="icon-btn" id="notifyBtn" title="اعلان‌ها">♢</button>
+        <button class="primary" id="addBtn">＋ افزودن مراجع جدید</button>
+      </div>
+    </header>
+
+<section class="stats">
+  <article class="glass stat">
+    <div class="stat-top"><span class="stat-label">کل مراجعین</span><span class="stat-icon">♙</span></div>
+    <div class="stat-value" id="totalCount">248</div>
+    <div class="stat-foot"><span class="up">+12</span><span>نسبت به ماه قبل</span></div>
+  </article>
+  <article class="glass stat">
+    <div class="stat-top"><span class="stat-label">مراجع فعال</span><span class="stat-icon">●</span></div>
+    <div class="stat-value" id="activeCount">186</div>
+    <div class="stat-foot"><span class="up">75%</span><span>از کل مراجعین</span></div>
+  </article>
+  <article class="glass stat">
+    <div class="stat-top"><span class="stat-label">مراجع جدید این ماه</span><span class="stat-icon">＋</span></div>
+    <div class="stat-value">24</div>
+    <div class="stat-foot"><span class="up">+18%</span><span>رشد ماهانه</span></div>
+  </article>
+  <article class="glass stat">
+    <div class="stat-top"><span class="stat-label">نیازمند پیگیری</span><span class="stat-icon">↻</span></div>
+    <div class="stat-value">17</div>
+    <div class="stat-foot"><span class="warn">نیاز به اقدام</span><span>در ۷ روز آینده</span></div>
+  </article>
+</section>
+
+<section class="glass toolbar">
+  <div class="search-wrap">
+    <span>⌕</span>
+    <input class="search" id="searchInput" type="search" placeholder="جستجو بر اساس نام، شماره یا خدمت...">
+  </div>
+  <select class="select" id="statusFilter">
+    <option value="all">همه وضعیت‌ها</option>
+    <option value="active">فعال</option>
+    <option value="pending">در انتظار</option>
+    <option value="inactive">غیرفعال</option>
+  </select>
+  <select class="select" id="serviceFilter">
+    <option value="all">همه خدمات</option>
+    <option value="مشاوره">مشاوره</option>
+    <option value="پیگیری">پیگیری</option>
+    <option value="ارزیابی">ارزیابی</option>
+    <option value="جلسه تخصصی">جلسه تخصصی</option>
+  </select>
+  <button class="filter-btn" id="resetBtn">پاک کردن فیلتر</button>
+</section>
+
+<section class="glass table-card">
+  <div class="table-head">
+    <div>
+      <h2>فهرست مراجعین</h2>
+      <span id="resultCount">نمایش ۶ مراجع</span>
+    </div>
+    <span>آخرین بروزرسانی: امروز</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>مراجع</th>
+          <th>شماره تماس</th>
+          <th>خدمت</th>
+          <th>آخرین مراجعه</th>
+          <th>پیگیری بعدی</th>
+          <th>وضعیت</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      <tbody id="clientBody"></tbody>
+    </table>
+    <div class="empty" id="emptyState">مراجعی با این مشخصات پیدا نشد.</div>
+  </div>
+
+  <div class="pagination">
+    <div class="page-info" id="pageInfo">۶ مراجع نمایش داده می‌شود</div>
+    <div class="pages">
+      <button class="page active">۱</button>
+      <button class="page">۲</button>
+      <button class="page">۳</button>
+      <button class="page">›</button>
+    </div>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<nav class="mobile-nav">
+  <a href="dashboard.html">⌂<small>داشبورد</small></a>
+  <a class="active" href="clients.html">♙<small>مراجعین</small></a>
+  <a href="appointments.html">◫<small>نوبت‌ها</small></a>
+  <a href="follow-ups.html">↻<small>پیگیری</small></a>
+  <a href="notes.html">▤<small>یادداشت</small></a>
+</nav>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">افزودن مراجع جدید</h3>
+      <button class="close" id="closeModal">×</button>
+    </div>
+    <form class="form" id="clientForm">
+      <input type="hidden" id="editId">
+      <div class="field">
+        <label>نام و نام خانوادگی</label>
+        <input id="name" required placeholder="مثلاً سارا احمدی">
+      </div>
+      <div class="field">
+        <label>شماره تماس</label>
+        <input id="phone" required inputmode="tel" placeholder="09xxxxxxxxx">
+      </div>
+      <div class="field">
+        <label>نوع خدمت</label>
+        <select id="service" required>
+          <option value="مشاوره">مشاوره</option>
+          <option value="پیگیری">پیگیری</option>
+          <option value="ارزیابی">ارزیابی</option>
+          <option value="جلسه تخصصی">جلسه تخصصی</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>وضعیت</label>
+        <select id="status" required>
+          <option value="active">فعال</option>
+          <option value="pending">در انتظار</option>
+          <option value="inactive">غیرفعال</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>آخرین مراجعه</label>
+        <input id="lastVisit" type="text" placeholder="۱۴۰۵/۰۶/۲۸">
+      </div>
+      <div class="field">
+        <label>پیگیری بعدی</label>
+        <input id="nextFollow" type="text" placeholder="۱۴۰۵/۰۷/۰۵">
+      </div>
+      <div class="field full">
+        <label>یادداشت اولیه</label>
+        <textarea id="note" placeholder="توضیحات کوتاه درباره مراجع..."></textarea>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="secondary" id="cancelBtn">انصراف</button>
+        <button type="submit" class="primary">ذخیره مراجع</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <strong id="toastTitle">انجام شد</strong>
+  <span id="toastText"></span>
+</div>
+
+<script>
+const seedClients = [
+  {id:1,name:"سارا احمدی",phone:"09121234567",service:"مشاوره",lastVisit:"۱۴۰۵/۰۶/۲۸",nextFollow:"۱۴۰۵/۰۷/۰۵",status:"active",note:"پیگیری منظم"},
+  {id:2,name:"محمد رضایی",phone:"09129876543",service:"جلسه تخصصی",lastVisit:"۱۴۰۵/۰۶/۲۷",nextFollow:"۱۴۰۵/۰۷/۰۲",status:"active",note:"جلسه بعدی رزرو شده"},
+  {id:3,name:"نگار کریمی",phone:"09351234567",service:"ارزیابی",lastVisit:"۱۴۰۵/۰۶/۲۵",nextFollow:"۱۴۰۵/۰۷/۰۸",status:"pending",note:"نیازمند بررسی نتیجه"},
+  {id:4,name:"علی مرادی",phone:"09104567891",service:"پیگیری",lastVisit:"۱۴۰۵/۰۶/۲۴",nextFollow:"۱۴۰۵/۰۷/۰۱",status:"active",note:""},
+  {id:5,name:"مریم اکبری",phone:"09364567891",service:"مشاوره",lastVisit:"۱۴۰۵/۰۶/۲۲",nextFollow:"—",status:"inactive",note:"فعلاً ادامه جلسات متوقف شده"},
+  {id:6,name:"کیان نادری",phone:"09901234567",service:"مشاوره",lastVisit:"۱۴۰۵/۰۶/۲۰",nextFollow:"۱۴۰۵/۰۷/۰۴",status:"active",note:"پیگیری هفتگی"}
+];
+
+let clients = JSON.parse(localStorage.getItem("moshaver-clients") || "null") || seedClients;
+
+const body = document.getElementById("clientBody");
+const searchInput = document.getElementById("searchInput");
+const statusFilter = document.getElementById("statusFilter");
+const serviceFilter = document.getElementById("serviceFilter");
+const resultCount = document.getElementById("resultCount");
+const pageInfo = document.getElementById("pageInfo");
+const emptyState = document.getElementById("emptyState");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const clientForm = document.getElementById("clientForm");
+
+const statusMap = {
+  active:{label:"فعال",cls:"active"},
+  pending:{label:"در انتظار",cls:"pending"},
+  inactive:{label:"غیرفعال",cls:"inactive"}
+};
+
+function initials(name){
+  return name.trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").slice(0,2);
+}
+function save(){ localStorage.setItem("moshaver-clients",JSON.stringify(clients)); }
+function render(){
+  const q = searchInput.value.trim().toLowerCase();
+  const st = statusFilter.value;
+  const sv = serviceFilter.value;
+
+  const filtered = clients.filter(c=>{
+    const text = `${c.name} ${c.phone} ${c.service}`.toLowerCase();
+    return (!q || text.includes(q)) &&
+           (st==="all" || c.status===st) &&
+           (sv==="all" || c.service===sv);
+  });
+
+  body.innerHTML = filtered.map(c=>{
+    const s = statusMap[c.status] || statusMap.active;
+    return `
+      <tr>
+        <td>
+          <div class="client-cell">
+            <div class="client-avatar">${initials(c.name)}</div>
+            <div>
+              <div class="client-name">${escapeHtml(c.name)}</div>
+              <div class="client-meta">شناسه مراجع #${String(c.id).padStart(4,"0")}</div>
+            </div>
+          </div>
+        </td>
+        <td><span class="phone">${escapeHtml(c.phone)}</span></td>
+        <td><span class="service">${escapeHtml(c.service)}</span></td>
+        <td>${escapeHtml(c.lastVisit || "—")}</td>
+        <td>${escapeHtml(c.nextFollow || "—")}</td>
+        <td><span class="badge ${s.cls}">${s.label}</span></td>
+        <td>
+          <div class="actions">
+            <button class="row-btn" title="مشاهده" onclick="viewClient(${c.id})">⌕</button>
+            <button class="row-btn" title="ویرایش" onclick="editClient(${c.id})">✎</button>
+            <button class="row-btn" title="حذف" onclick="deleteClient(${c.id})">×</button>
+          </div>
+        </td>
+      </tr>`;
+  }).join("");
+
+  emptyState.style.display = filtered.length ? "none" : "block";
+  resultCount.textContent = `نمایش ${toFa(filtered.length)} مراجع`;
+  pageInfo.textContent = `${toFa(filtered.length)} مراجع نمایش داده می‌شود`;
+  document.getElementById("totalCount").textContent = toFa(clients.length);
+  document.getElementById("activeCount").textContent = toFa(clients.filter(x=>x.status==="active").length);
+}
+function toFa(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])}
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function showModal(editId=null){
+  clientForm.reset();
+  document.getElementById("editId").value="";
+  document.getElementById("modalTitle").textContent="افزودن مراجع جدید";
+  if(editId){
+    const c=clients.find(x=>x.id===editId);
+    if(!c)return;
+    document.getElementById("modalTitle").textContent="ویرایش اطلاعات مراجع";
+    document.getElementById("editId").value=c.id;
+    document.getElementById("name").value=c.name;
+    document.getElementById("phone").value=c.phone;
+    document.getElementById("service").value=c.service;
+    document.getElementById("status").value=c.status;
+    document.getElementById("lastVisit").value=c.lastVisit || "";
+    document.getElementById("nextFollow").value=c.nextFollow || "";
+    document.getElementById("note").value=c.note || "";
+  }
+  modalBackdrop.classList.add("show");
+  setTimeout(()=>document.getElementById("name").focus(),80);
+}
+function closeModal(){modalBackdrop.classList.remove("show")}
+function editClient(id){showModal(id)}
+function viewClient(id){
+  const c=clients.find(x=>x.id===id);
+  if(!c)return;
+  showToast(c.name,`${c.service} · آخرین مراجعه ${c.lastVisit || "ثبت نشده"}`);
+}
+function deleteClient(id){
+  const c=clients.find(x=>x.id===id);
+  if(!c)return;
+  if(!confirm(`آیا از حذف «${c.name}» مطمئن هستید؟`))return;
+  clients=clients.filter(x=>x.id!==id);
+  save();render();
+  showToast("مراجع حذف شد","اطلاعات مراجع از فهرست این دستگاه حذف شد.");
+}
+function showToast(title,text){
+  document.getElementById("toastTitle").textContent=title;
+  document.getElementById("toastText").textContent=text;
+  const t=document.getElementById("toast");
+  t.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>t.classList.remove("show"),3000);
+}
+
+document.getElementById("addBtn").addEventListener("click",()=>showModal());
+document.getElementById("closeModal").addEventListener("click",closeModal);
+document.getElementById("cancelBtn").addEventListener("click",closeModal);
+modalBackdrop.addEventListener("click",e=>{if(e.target===modalBackdrop)closeModal()});
+
+clientForm.addEventListener("submit",e=>{
+  e.preventDefault();
+  const editId=Number(document.getElementById("editId").value);
+  const item={
+    name:document.getElementById("name").value.trim(),
+    phone:document.getElementById("phone").value.trim(),
+    service:document.getElementById("service").value,
+    status:document.getElementById("status").value,
+    lastVisit:document.getElementById("lastVisit").value.trim() || "—",
+    nextFollow:document.getElementById("nextFollow").value.trim() || "—",
+    note:document.getElementById("note").value.trim()
+  };
+  if(editId){
+    const index=clients.findIndex(x=>x.id===editId);
+    clients[index]={...clients[index],...item};
+    showToast("اطلاعات بروزرسانی شد","اطلاعات مراجع با موفقیت ذخیره شد.");
+  }else{
+    clients.unshift({id:Date.now(),...item});
+    showToast("مراجع اضافه شد","مراجع جدید به فهرست شما اضافه شد.");
+  }
+  save();render();closeModal();
+});
+
+[searchInput,statusFilter,serviceFilter].forEach(el=>el.addEventListener("input",render));
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  searchInput.value="";statusFilter.value="all";serviceFilter.value="all";render();
+});
+
+document.getElementById("themeBtn").addEventListener("click",()=>{
+  document.documentElement.classList.toggle("light");
+  localStorage.setItem("moshaver-theme",document.documentElement.classList.contains("light")?"light":"dark");
+  document.getElementById("themeBtn").textContent=document.documentElement.classList.contains("light")?"☀":"☾";
+});
+if(localStorage.getItem("moshaver-theme")==="light"){
+  document.documentElement.classList.add("light");
+  document.getElementById("themeBtn").textContent="☀";
+}
+document.getElementById("notifyBtn").addEventListener("click",()=>showToast("اعلان‌ها","۳ اعلان جدید برای بررسی دارید."));
+
+render();
+</script>
+
+</body>
+</html>
