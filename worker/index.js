@@ -8,7 +8,7 @@ const CONSULTANT_ROUTES = {
   reports: "/consultant/reports.html"
 };
 
-function getCleanRoute(pathname) {
+function getConsultantRoute(pathname) {
   const parts = pathname.split("/").filter(Boolean);
 
   if (parts.length !== 2) {
@@ -22,11 +22,18 @@ function getCleanRoute(pathname) {
     return null;
   }
 
-  return {
-    organizationId,
-    page,
-    target: CONSULTANT_ROUTES[page]
-  };
+  return CONSULTANT_ROUTES[page];
+}
+
+function getAssetRequest(request, path) {
+  const url = new URL(request.url);
+
+  url.pathname = path;
+
+  return new Request(url.toString(), {
+    method: "GET",
+    headers: request.headers
+  });
 }
 
 export default {
@@ -34,48 +41,35 @@ export default {
     const url = new URL(request.url);
 
     /*
-     * Clean consultant routes
-     *
-     * /{organizationId}/home
-     * /{organizationId}/clients
-     * /{organizationId}/client-profile
-     * /{organizationId}/appointments
-     * /{organizationId}/follow-ups
-     * /{organizationId}/notes
-     * /{organizationId}/reports
-     */
-    const route = getCleanRoute(url.pathname);
-
-    if (route) {
-      const targetUrl = new URL(route.target, url.origin);
-
-      targetUrl.search = url.search;
-
-      const targetRequest = new Request(
-        targetUrl.toString(),
-        request
-      );
-
-      return env.ASSETS.fetch(targetRequest);
-    }
-
-    /*
-     * Clean login route
+     * /login
+     * /login/
      */
     if (url.pathname === "/login" || url.pathname === "/login/") {
-      const targetUrl = new URL("/login.html", url.origin);
-      targetUrl.search = url.search;
-
-      const targetRequest = new Request(
-        targetUrl.toString(),
-        request
+      return env.ASSETS.fetch(
+        getAssetRequest(request, "/login.html")
       );
-
-      return env.ASSETS.fetch(targetRequest);
     }
 
     /*
-     * Everything else goes directly to Static Assets.
+     * Consultant clean routes
+     */
+    const consultantTarget = getConsultantRoute(url.pathname);
+
+    if (consultantTarget) {
+      return env.ASSETS.fetch(
+        getAssetRequest(request, consultantTarget)
+      );
+    }
+
+    /*
+     * Existing static files
+     *
+     * /index.html
+     * /login.html
+     * /assets/*
+     * /consultant/*
+     * /manager/*
+     * /super-admin/*
      */
     return env.ASSETS.fetch(request);
   }
