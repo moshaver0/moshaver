@@ -185,6 +185,28 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
 @keyframes shimmer{0%{transform:rotate(-35deg) translateX(-80px)}45%,100%{transform:rotate(-35deg) translateX(230px)}}
 @keyframes heroRing{to{transform:rotate(360deg)}}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
 @keyframes buttonShine{0%,45%{transform:skewX(-25deg) translateX(-180%)}70%,100%{transform:skewX(-25deg) translateX(420%)}}
+
+/* ===== Advanced Clients UX / Glass Controls ===== */
+html{scroll-padding-top:90px}
+button,a,select,input,textarea{touch-action:manipulation}
+.kpi,.overview-card{cursor:pointer}
+.kpi.is-selected,.overview-card.is-selected{border-color:rgba(168,85,247,.42);box-shadow:var(--shadow),0 0 0 1px rgba(168,85,247,.10),0 24px 70px rgba(124,58,237,.16);transform:translateY(-4px)}
+.interactive-hint{display:flex;align-items:center;gap:7px;color:var(--muted-2);font-size:9px;margin-top:10px}.interactive-hint i{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--purple)}
+.preview-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.preview-chip{min-height:44px;padding:8px 10px;border-radius:13px;border:1px solid var(--border);background:var(--surface-3);cursor:pointer;text-align:right;transition:.2s var(--ease)}.preview-chip:hover{transform:translateY(-2px);border-color:rgba(168,85,247,.28);background:rgba(168,85,247,.07)}.preview-chip b{display:block;font-size:10px}.preview-chip span{display:block;color:var(--muted-2);font-size:8px;margin-top:2px}
+.status-click{border:1px solid var(--border);background:var(--surface-3);border-radius:10px;padding:7px;text-align:right;cursor:pointer;color:var(--text);transition:.2s}.status-click:hover{transform:translateY(-2px);border-color:rgba(168,85,247,.3)}.status-click b{display:block;font-size:12px}.status-click span{display:block;color:var(--muted-2);font-size:8px}
+.notice-panel{margin-top:16px;padding:13px 15px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(110deg,rgba(168,85,247,.09),rgba(34,211,238,.035),var(--surface));display:flex;align-items:center;justify-content:space-between;gap:12px}.notice-main{display:flex;align-items:center;gap:11px;min-width:0}.notice-icon{width:40px;height:40px;flex:0 0 auto;border-radius:13px;display:grid;place-items:center;color:var(--yellow);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.17)}.notice-main b{display:block;font-size:12px}.notice-main span{display:block;color:var(--muted-2);font-size:9px;margin-top:3px}.notice-actions{display:flex;gap:7px}.notice-actions button{height:38px;padding:0 12px;border-radius:11px;border:1px solid var(--border);background:var(--surface-3);color:var(--text);cursor:pointer;font-size:9px;font-weight:800}.notice-actions .primary{background:linear-gradient(135deg,var(--purple),var(--purple-2));color:#fff;border-color:transparent}
+.advanced-filters{grid-template-columns:repeat(4,1fr)}.field-divider{grid-column:1/-1;height:1px;background:var(--border);margin:5px 0}.section-title{grid-column:1/-1;font-size:12px;font-weight:900;color:var(--purple-3);margin-top:2px}.choice-row{display:flex;gap:8px;flex-wrap:wrap}.choice{min-height:43px;padding:0 12px;border-radius:12px;border:1px solid var(--border);background:var(--surface-3);color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:7px;font-size:10px;font-weight:800}.choice input{accent-color:var(--purple);width:17px;height:17px}.choice:has(input:checked){color:var(--text);border-color:rgba(168,85,247,.38);background:rgba(168,85,247,.10)}
+.upload-box{min-height:112px;border:1px dashed rgba(168,85,247,.28);border-radius:16px;background:var(--surface-3);display:grid;place-items:center;text-align:center;padding:12px;cursor:pointer;position:relative;overflow:hidden}.upload-box:hover{border-color:rgba(168,85,247,.52);background:rgba(168,85,247,.06)}.upload-box input{position:absolute;inset:0;opacity:0;cursor:pointer}.upload-box b{display:block;font-size:11px}.upload-box span{display:block;color:var(--muted-2);font-size:8px;margin-top:4px}.upload-preview{position:absolute;inset:0;display:none;background:var(--surface-2)}.upload-preview img{width:100%;height:100%;object-fit:cover}.upload-box.has-image .upload-preview{display:block}.upload-box.has-image .upload-copy{opacity:0}
+.textarea{width:100%;min-height:120px;padding:12px 13px;border-radius:14px;border:1px solid var(--border);background:var(--surface-3);color:var(--text);outline:none;resize:vertical;line-height:1.9}.textarea:focus{border-color:rgba(168,85,247,.45);box-shadow:0 0 0 4px rgba(168,85,247,.07)}
+.contact-badge{display:inline-flex;align-items:center;gap:5px;min-height:27px;padding:0 8px;border-radius:999px;font-size:8px;font-weight:900}.contact-badge.done{color:#86efac;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.18)}.contact-badge.missing{color:#fde68a;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.18)}
+.call-history{margin-top:13px;border-top:1px solid var(--border);padding-top:13px}.call-history-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.call-history-head strong{font-size:12px}.call-history-head span{font-size:8px;color:var(--muted-2)}.call-history-list{display:grid;gap:6px;margin-top:9px;max-height:130px;overflow:auto}.call-row{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface-3);font-size:9px}.call-row span{color:var(--muted-2)}
+.scroll-top{position:fixed;left:22px;bottom:24px;width:56px;height:56px;border-radius:50%;z-index:140;display:grid;place-items:center;color:#fff;background:linear-gradient(145deg,rgba(168,85,247,.88),rgba(124,58,237,.88));border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);box-shadow:0 18px 45px rgba(0,0,0,.30),0 0 35px rgba(168,85,247,.23);cursor:pointer;opacity:0;transform:translateY(35px) scale(.72) rotate(-18deg);pointer-events:none;transition:.35s var(--ease);overflow:hidden}.scroll-top:before{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.28);border-radius:50%;animation:spinFloat 5s linear infinite}.scroll-top.show{opacity:1;transform:translateY(0) scale(1) rotate(0);pointer-events:auto}.scroll-top:hover{transform:translateY(-4px) scale(1.04)}.scroll-top span{font-size:23px;line-height:1}
+.sidebar-scroll{position:absolute;right:7px;top:96px;bottom:96px;width:4px;border-radius:999px;background:rgba(255,255,255,.045);overflow:hidden;opacity:.75}.sidebar-scroll-thumb{position:absolute;right:0;top:0;width:100%;min-height:34px;border-radius:inherit;background:linear-gradient(var(--purple),var(--cyan));box-shadow:0 0 12px rgba(168,85,247,.35)}
+.preview-list{display:grid;gap:7px;max-height:330px;overflow:auto;padding-right:2px}.preview-client{display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:13px;background:var(--surface-3);cursor:pointer;text-align:right;transition:.2s}.preview-client:hover{transform:translateX(-3px);border-color:rgba(168,85,247,.32)}.preview-client .client-avatar{width:38px;height:38px;font-size:11px}.preview-client-main{min-width:0;flex:1}.preview-client-main b{display:block;font-size:10px}.preview-client-main span{display:block;color:var(--muted-2);font-size:8px;margin-top:2px}.preview-client time{color:var(--muted-2);font-size:8px;white-space:nowrap}
+.modal.large{width:min(940px,100%)}.modal.xlarge{width:min(1120px,100%)}.detail-hero{display:flex;align-items:center;gap:12px;padding:13px;border-radius:17px;border:1px solid var(--border);background:var(--surface-3);margin-bottom:12px}.detail-hero .client-avatar{width:54px;height:54px}.detail-hero h3{margin:0;font-size:17px}.detail-hero p{margin:3px 0 0;color:var(--muted-2);font-size:9px}.detail-columns{display:grid;grid-template-columns:1.25fr .75fr;gap:10px}
+@media(max-width:980px){.advanced-filters{grid-template-columns:repeat(3,1fr)}.notice-panel{align-items:flex-start;flex-direction:column}.notice-actions{width:100%}.notice-actions button{flex:1}}
+@media(max-width:620px){.scroll-top{left:14px;bottom:86px;width:50px;height:50px}.advanced-filters{grid-template-columns:1fr 1fr}.detail-columns{grid-template-columns:1fr}.notice-panel{padding:11px}.notice-actions{display:grid;grid-template-columns:1fr 1fr}}
+
 </style>
 
 </head>
@@ -197,7 +219,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
   </div>
 
   <div class="shell">
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar"><div class="sidebar-scroll" aria-hidden="true"><span class="sidebar-scroll-thumb" id="sidebarScrollThumb"></span></div>
       <div class="brand"><div class="brand-mark">م</div><div><strong>مشاور</strong><small>Clinic Management System</small></div></div>
       <div class="sidebar-label">منوی اصلی</div>
       <nav class="nav">
@@ -244,31 +266,35 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
   </section>
 
   <section class="kpis">
-    <article class="card kpi"><div class="kpi-top"><span>کل مراجعین</span><span class="kpi-icon">♙</span></div><strong id="totalCount">۱۲</strong><small><b class="up">+۱۲٪</b> نسبت به ماه قبل</small></article>
-    <article class="card kpi"><div class="kpi-top"><span>مراجعین فعال</span><span class="kpi-icon">✓</span></div><strong id="activeCount">۹</strong><small><b class="up">فعال</b> در پرونده‌های جاری</small></article>
-    <article class="card kpi"><div class="kpi-top"><span>پیگیری امروز</span><span class="kpi-icon">↻</span></div><strong id="followCount">۴</strong><small><b class="warn">نیازمند اقدام</b> امروز</small></article>
-    <article class="card kpi"><div class="kpi-top"><span>جلسه این هفته</span><span class="kpi-icon">◫</span></div><strong id="weekCount">۱۸</strong><small><b class="up">۷۴٪</b> تکمیل موفق</small></article>
+    <article class="card kpi" data-kpi="all" tabindex="0"><div class="kpi-top"><span>کل مراجعین</span><span class="kpi-icon">♙</span></div><strong id="totalCount">۱۲</strong><small><b class="up">+۱۲٪</b> نسبت به ماه قبل</small></article>
+    <article class="card kpi" data-kpi="active" tabindex="0"><div class="kpi-top"><span>مراجعین فعال</span><span class="kpi-icon">✓</span></div><strong id="activeCount">۹</strong><small><b class="up">فعال</b> در پرونده‌های جاری</small></article>
+    <article class="card kpi" data-kpi="follow" tabindex="0"><div class="kpi-top"><span>پیگیری امروز</span><span class="kpi-icon">↻</span></div><strong id="followCount">۴</strong><small><b class="warn">نیازمند اقدام</b> امروز</small></article>
+    <article class="card kpi" data-kpi="week" tabindex="0"><div class="kpi-top"><span>جلسه این هفته</span><span class="kpi-icon">◫</span></div><strong id="weekCount">۱۸</strong><small><b class="up">۷۴٪</b> تکمیل موفق</small></article>
   </section>
 
 
   <section class="overview-grid">
-    <article class="card overview-card overview-primary">
+    <article class="card overview-card overview-primary" id="statusOverview">
       <div class="overview-head"><div><span class="section-kicker">نمای کلی پرونده‌ها</span><strong>وضعیت مراجعین</strong></div><span class="overview-icon">◉</span></div>
       <div class="overview-body">
         <div class="donut" id="clientDonut"><div><b id="activePercent">۷۵٪</b><span>فعال</span></div></div>
         <div class="overview-stats">
-          <div><span>فعال</span><b id="activeSummary">۹</b></div>
-          <div><span>در انتظار</span><b id="pendingSummary">۲</b></div>
-          <div><span>غیرفعال</span><b id="inactiveSummary">۱</b></div>
+          <button class="status-click" data-status="active"><span>فعال</span><b id="activeSummary">۹</b></button>
+          <button class="status-click" data-status="pending"><span>در انتظار</span><b id="pendingSummary">۲</b></button>
+          <button class="status-click" data-status="inactive"><span>غیرفعال</span><b id="inactiveSummary">۱</b></button>
         </div>
       </div>
+      <div class="interactive-hint"><i></i> روی هر وضعیت بزن تا همان پرونده‌ها نمایش داده شوند.</div>
     </article>
-    <article class="card overview-card">
+    <article class="card overview-card" id="todayActivityCard">
       <div class="overview-head"><div><span class="section-kicker">فعالیت امروز</span><strong>تمرکز کاری</strong></div><span class="overview-icon cyan-icon">◫</span></div>
-      <div class="activity-progress"><div><span style="width:78%"></span></div><b>۷۸٪</b></div>
+      <div class="activity-progress"><div><span id="activityProgressBar" style="width:78%"></span></div><b id="activityProgressText">۷۸٪</b></div>
       <div class="activity-grid">
-        <div><span>جلسات</span><b>۶</b></div><div><span>پیگیری</span><b>۴</b></div><div><span>پیامک</span><b>۸</b></div>
+        <button class="preview-chip" data-activity="session"><b id="todaySessions">۰</b><span>جلسات امروز</span></button>
+        <button class="preview-chip" data-activity="follow"><b id="todayFollowups">۰</b><span>پیگیری امروز</span></button>
+        <button class="preview-chip" data-activity="sms"><b id="todaySms">۰</b><span>پیامک</span></button>
       </div>
+      <div class="interactive-hint"><i></i> برای دیدن موارد واقعی روی هر شاخص بزن.</div>
     </article>
     <article class="card overview-card">
       <div class="overview-head"><div><span class="section-kicker">اقدام سریع</span><strong>شروع از اینجا</strong></div><span class="overview-icon green-icon">✦</span></div>
@@ -281,16 +307,29 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
     </article>
   </section>
 
+  <section class="notice-panel" id="dailyNotice">
+    <div class="notice-main"><div class="notice-icon">!</div><div><b id="noticeTitle">بررسی روزانه</b><span id="noticeText">در حال بررسی تماس‌ها و پیگیری‌های سررسیدشده...</span></div></div>
+    <div class="notice-actions"><button id="showNoContact">بدون تماس</button><button class="primary" id="showTodayFollow">پیگیری‌های امروز</button></div>
+  </section>
+
   <section class="card toolbar">
     <div class="toolbar-row">
       <div class="search-wrap"><span>⌕</span><input class="input" id="search" type="search" placeholder="جستجو بر اساس نام، موبایل یا کد پرونده..." autocomplete="off"></div>
       <button class="clear-btn" id="clear">پاک‌سازی فیلترها</button>
     </div>
-    <div class="filters">
+    <div class="filters advanced-filters">
       <select class="select" id="statusFilter"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="pending">در انتظار</option><option value="inactive">غیرفعال</option></select>
-      <select class="select" id="serviceFilter"><option value="">همه خدمات</option><option value="individual">مشاوره فردی</option><option value="family">مشاوره خانواده</option><option value="couple">زوج‌درمانی</option></select>
-      <select class="select" id="sortFilter"><option value="newest">جدیدترین</option><option value="oldest">قدیمی‌ترین</option><option value="name">نام</option><option value="next">نزدیک‌ترین نوبت</option></select>
+      <select class="select" id="serviceFilter"><option value="">همه خدمات</option></select>
+      <select class="select" id="contactFilter"><option value="">تماس: همه</option><option value="done">تماس گرفته شده</option><option value="missing">تماس گرفته نشده</option></select>
+      <select class="select" id="visitTypeFilter"><option value="">نوع حضور: همه</option><option value="inperson">حضوری</option><option value="remote">غیرحضوری</option></select>
+      <select class="select" id="paymentFilter"><option value="">پرداخت: همه</option><option value="cash">نقدی</option><option value="installment">اقساط</option></select>
+      <select class="select" id="labFilter"><option value="">آزمایش: همه</option><option value="yes">دارد</option><option value="no">ندارد</option></select>
+      <select class="select" id="diseaseFilter"><option value="">بیماری خاص: همه</option><option value="yes">دارد</option><option value="no">ندارد</option></select>
+      <select class="select" id="sensitivityFilter"><option value="">حساسیت: همه</option><option value="yes">دارد</option><option value="no">ندارد</option></select>
+      <select class="select" id="sortFilter"><option value="newest">جدیدترین</option><option value="oldest">قدیمی‌ترین</option><option value="name">نام</option><option value="next">نزدیک‌ترین پیگیری</option></select>
+      <select class="select" id="pageSizeFilter"><option value="6">۶ در صفحه</option><option value="12">۱۲ در صفحه</option><option value="24">۲۴ در صفحه</option></select>
     </div>
+    <div class="filter-summary"><span id="filterSummary">فیلترهای پیشرفته آماده است.</span><button class="clear-btn" id="clearAdvanced" type="button">پاک‌سازی همه</button></div>
   </section>
 
   <section class="card list-panel">
@@ -298,7 +337,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
 
     <div class="table-wrap">
       <table class="table">
-        <thead><tr><th>مراجع</th><th>شماره تماس</th><th>خدمت</th><th>آخرین جلسه</th><th>پیگیری بعدی</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+        <thead><tr><th># / مراجع</th><th>شماره تماس</th><th>کد پرونده</th><th>خدمت</th><th>آخرین جلسه</th><th>پیگیری بعدی</th><th>تماس</th><th>وضعیت</th><th>عملیات</th></tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
@@ -339,35 +378,50 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
   </div>
 
   <div class="modal-layer" id="clientModal">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modal-head"><div><strong id="modalTitle">ثبت مراجع جدید</strong><span id="modalSubtitle">اطلاعات پایه پرونده را وارد کنید.</span></div><button class="close-btn" data-close="clientModal">×</button></div>
+    <div class="modal large" role="dialog" aria-modal="true">
+      <div class="modal-head"><div><strong id="modalTitle">ثبت مراجع جدید</strong><span id="modalSubtitle">پرونده کامل مراجع را ثبت کنید.</span></div><button class="close-btn" data-close="clientModal">×</button></div>
       <form id="clientForm">
         <input type="hidden" id="clientId">
         <div class="form-grid">
+          <div class="section-title">اطلاعات هویتی و پرونده</div>
           <div class="field"><label>نام</label><input class="input" id="firstName" required placeholder="مثلاً سارا"></div>
           <div class="field"><label>نام خانوادگی</label><input class="input" id="lastName" required placeholder="مثلاً محمدی"></div>
           <div class="field"><label>شماره موبایل</label><input class="input" id="phone" inputmode="tel" required placeholder="09xxxxxxxxx"></div>
-          <div class="field"><label>کد پرونده</label><input class="input" id="caseCode" placeholder="مثلاً CL-0013"></div>
-          <div class="field"><label>نوع خدمت</label><select class="select" id="service"><option value="individual">مشاوره فردی</option><option value="family">مشاوره خانواده</option><option value="couple">زوج‌درمانی</option></select></div>
+          <div class="field"><label>کد پرونده <small>(اختیاری)</small></label><input class="input" id="caseCode" placeholder="مثلاً CL-0013"></div>
+          <div class="field"><label>سن</label><input class="input" id="age" inputmode="numeric" placeholder="مثلاً ۳۲"></div>
+          <div class="field"><label>شهر</label><input class="input" id="city" placeholder="مثلاً تهران"></div>
+          <div class="field full"><label>آدرس</label><input class="input" id="address" placeholder="آدرس کامل در صورت نیاز"></div>
+          <div class="field"><label>نوع خدمت</label><input class="input" id="service" list="serviceOptions" placeholder="جستجو یا وارد کردن خدمت..."><datalist id="serviceOptions"><option value="عمل بینی"><option value="کاشت ابرو"><option value="کاشت مو"><option value="لیفت صورت"><option value="تزریق ژل"><option value="تزریق بوتاکس"><option value="فیلر"><option value="جوانسازی پوست"><option value="لیزر"><option value="کانتورینگ"><option value="مشاوره زیبایی"></datalist></div>
           <div class="field"><label>وضعیت</label><select class="select" id="status"><option value="active">فعال</option><option value="pending">در انتظار</option><option value="inactive">غیرفعال</option></select></div>
-          <div class="field"><label>آخرین جلسه</label><input class="input" id="lastVisit" placeholder="۱۴۰۵/۰۷/۰۸"></div>
-          <div class="field"><label>پیگیری بعدی</label><input class="input" id="nextFollow" placeholder="۱۴۰۵/۰۷/۱۵"></div>
+          <div class="field full"><label>نوع مراجعه</label><div class="choice-row"><label class="choice"><input type="radio" name="visitType" value="inperson" checked> حضوری</label><label class="choice"><input type="radio" name="visitType" value="remote"> غیرحضوری</label></div></div>
+          <div class="section-title">زمان‌بندی و پیگیری</div>
+          <div class="field"><label>آخرین جلسه — تاریخ و ساعت</label><input class="input" id="lastVisit" type="datetime-local"></div>
+          <div class="field"><label>پیگیری بعدی — تاریخ و ساعت</label><input class="input" id="nextFollow" type="datetime-local"></div>
+          <div class="field"><label>شرایط پرداخت</label><select class="select" id="payment"><option value="cash">نقدی</option><option value="installment">اقساط</option></select></div>
+          <div class="field"><label>مبلغ بیعانه</label><input class="input" id="deposit" inputmode="decimal" placeholder="مثلاً ۵۰۰۰۰۰۰"></div>
+          <div class="section-title">اطلاعات پزشکی</div>
+          <div class="field"><label>حساسیت</label><div class="choice-row"><label class="choice"><input type="checkbox" id="sensitivity"> حساسیت دارد</label></div></div>
+          <div class="field"><label>آزمایش</label><div class="choice-row"><label class="choice"><input type="checkbox" id="lab"> آزمایش دارد</label></div></div>
+          <div class="field full"><label>بیماری خاص</label><div class="choice-row"><label class="choice"><input type="checkbox" id="disease"> بیماری دارد</label></div></div>
+          <div class="field full" id="diseaseWrap" hidden><label>توضیحات بیماری</label><textarea class="textarea" id="diseaseDescription" placeholder="شرح بیماری، دارو یا نکته مهم پزشکی..."></textarea></div>
+          <div class="section-title">مدارک و تصاویر پرونده</div>
+          <div class="field"><label>عکس واریزی بیعانه</label><label class="upload-box" id="depositUpload"><input type="file" id="depositImage" accept="image/*"><div class="upload-copy"><b>＋ انتخاب عکس</b><span>تصویر واریزی</span></div><div class="upload-preview"><img alt=""></div></label></div>
+          <div class="field"><label>عکس قبل</label><label class="upload-box" id="beforeUpload"><input type="file" id="beforeImage" accept="image/*"><div class="upload-copy"><b>＋ انتخاب عکس</b><span>قبل از خدمت</span></div><div class="upload-preview"><img alt=""></div></label></div>
+          <div class="field"><label>عکس بعد</label><label class="upload-box" id="afterUpload"><input type="file" id="afterImage" accept="image/*"><div class="upload-copy"><b>＋ انتخاب عکس</b><span>بعد از خدمت</span></div><div class="upload-preview"><img alt=""></div></label></div>
+          <div class="section-title">توضیحات پرونده</div>
+          <div class="field full"><label>یادداشت و توضیحات</label><textarea class="textarea" id="notes" placeholder="هر توضیحی که قبل از ذخیره پرونده لازم است ثبت شود..."></textarea></div>
         </div>
-        <div class="modal-foot"><button type="button" class="btn" data-close="clientModal">انصراف</button><button type="submit" class="btn primary">ذخیره پرونده</button></div>
+        <div class="modal-foot"><button type="button" class="btn" data-close="clientModal">انصراف</button><button type="submit" class="btn primary">ذخیره پرونده کامل</button></div>
       </form>
     </div>
   </div>
 
   <div class="modal-layer" id="detailModal">
-    <div class="modal">
-      <div class="modal-head"><div><strong id="detailName">پرونده مراجع</strong><span>نمای کلی اطلاعات پرونده</span></div><button class="close-btn" data-close="detailModal">×</button></div>
-      <div class="detail-grid" id="detailContent"></div>
-      <div class="sheet-actions">
-        <button class="primary" id="detailProfile">مشاهده پرونده کامل</button>
-        <button id="detailSms">ارسال پیامک</button>
-        <button id="detailAppointment">ثبت نوبت</button>
-        <button id="detailEdit">ویرایش مراجع</button>
-      </div>
+    <div class="modal xlarge">
+      <div class="modal-head"><div><strong id="detailName">پرونده مراجع</strong><span>پیش‌نمایش پرونده، تماس‌ها، پیگیری و اقدامات سریع</span></div><button class="close-btn" data-close="detailModal">×</button></div>
+      <div id="detailHero"></div>
+      <div class="detail-columns"><div><div class="detail-grid" id="detailContent"></div></div><div class="detail-box"><div class="call-history-head"><strong>تاریخچه تماس</strong><span id="contactStatusText">—</span></div><div class="call-history-list" id="callHistoryList"></div></div></div>
+      <div class="sheet-actions"><button class="primary" id="detailProfile">مشاهده پرونده کامل</button><button id="detailContact">ثبت تماس امروز</button><button id="detailSms">ارسال پیامک</button><button id="detailAppointment">ثبت نوبت</button><button id="detailEdit">ویرایش مراجع</button><button id="detailFollow">ثبت پیگیری</button></div>
     </div>
   </div>
 
@@ -383,287 +437,113 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{tra
 
 <script>
 (() => {
-  "use strict";
+"use strict";
+const $=(s,scope=document)=>scope.querySelector(s),$$=(s,scope=document)=>[...scope.querySelectorAll(s)];
+const root=document.documentElement, STORAGE="moshaver_clients_v4", THEME="moshaver_theme";
+let PAGE_SIZE=Number(localStorage.getItem("moshaver_clients_page_size")||6), page=1, selectedId=null, deleteId=null, toastTimer;
+const seed=[
+{id:"CL-001",first:"سارا",last:"محمدی",phone:"09121234567",service:"عمل بینی",lastVisit:"۱۴۰۵/۰۷/۰۸",nextFollow:"۱۴۰۵/۰۷/۱۵",nextDate:"1405-07-15T10:00",status:"active",created:1,age:31,city:"تهران",visitType:"inperson",payment:"cash",deposit:"5000000",sensitivity:false,lab:true,disease:false,contacted:true,contactHistory:["۱۴۰۵/۰۷/۰۹"],notes:"پیگیری وضعیت قبل از عمل."},
+{id:"CL-002",first:"نرگس",last:"احمدی",phone:"09129876543",service:"کاشت ابرو",lastVisit:"۱۴۰۵/۰۷/۰۷",nextFollow:"۱۴۰۵/۰۷/۱۲",nextDate:"1405-07-12T11:00",status:"pending",created:2,age:28,city:"کرج",visitType:"remote",payment:"installment",deposit:"3000000",sensitivity:false,lab:false,disease:false,contacted:false,contactHistory:[]},
+{id:"CL-003",first:"علی",last:"رضایی",phone:"09351234567",service:"کاشت مو",lastVisit:"۱۴۰۵/۰۷/۰۵",nextFollow:"۱۴۰۵/۰۷/۱۸",nextDate:"1405-07-18T12:00",status:"active",created:3,age:36,city:"تهران",visitType:"inperson",payment:"installment",deposit:"8000000",sensitivity:true,lab:true,disease:true,diseaseDescription:"حساسیت دارویی ثبت شده.",contacted:true,contactHistory:["۱۴۰۵/۰۷/۰۶"]},
+{id:"CL-004",first:"مریم",last:"کریمی",phone:"09101112233",service:"تزریق ژل",lastVisit:"۱۴۰۵/۰۷/۰۴",nextFollow:"۱۴۰۵/۰۷/۱۴",nextDate:"1405-07-14T09:30",status:"active",created:4,age:29,city:"تهران",visitType:"inperson",payment:"cash",deposit:"2500000",sensitivity:false,lab:false,disease:false,contacted:false,contactHistory:[]},
+{id:"CL-005",first:"رضا",last:"کاظمی",phone:"09124445566",service:"لیزر",lastVisit:"۱۴۰۵/۰۷/۰۲",nextFollow:"۱۴۰۵/۰۷/۲۰",nextDate:"1405-07-20T14:00",status:"active",created:5,age:41,city:"قم",visitType:"inperson",payment:"cash",deposit:"1500000",sensitivity:false,lab:false,disease:false,contacted:true,contactHistory:["۱۴۰۵/۰۷/۰۳"]},
+{id:"CL-006",first:"الهام",last:"حسینی",phone:"09367778899",service:"جوانسازی پوست",lastVisit:"۱۴۰۵/۰۶/۲۹",nextFollow:"۱۴۰۵/۰۷/۱۰",nextDate:"1405-07-10T16:00",status:"pending",created:6,age:34,city:"تهران",visitType:"remote",payment:"installment",deposit:"4000000",sensitivity:true,lab:false,disease:false,contacted:false,contactHistory:[]},
+{id:"CL-007",first:"امیر",last:"مرادی",phone:"09123334455",service:"عمل بینی",lastVisit:"۱۴۰۵/۰۶/۲۷",nextFollow:"۱۴۰۵/۰۷/۲۲",nextDate:"1405-07-22T10:30",status:"active",created:7,age:27,city:"تهران",visitType:"inperson",payment:"cash",deposit:"10000000",sensitivity:false,lab:true,disease:false,contacted:true,contactHistory:["۱۴۰۵/۰۶/۲۹"]},
+{id:"CL-008",first:"نگین",last:"رضوانی",phone:"09125556677",service:"کاشت مو",lastVisit:"۱۴۰۵/۰۶/۲۵",nextFollow:"۱۴۰۵/۰۷/۱۷",nextDate:"1405-07-17T13:00",status:"active",created:8,age:32,city:"رشت",visitType:"inperson",payment:"installment",deposit:"6000000",sensitivity:false,lab:true,disease:false,contacted:false,contactHistory:[]},
+{id:"CL-009",first:"حمید",last:"اکبری",phone:"09391112233",service:"بوتاکس",lastVisit:"۱۴۰۵/۰۶/۲۳",nextFollow:"—",nextDate:"",status:"inactive",created:9,age:45,city:"تهران",visitType:"inperson",payment:"cash",deposit:"0",sensitivity:false,lab:false,disease:true,diseaseDescription:"فشار خون.",contacted:true,contactHistory:["۱۴۰۵/۰۶/۲۴"]},
+{id:"CL-010",first:"پریناز",last:"موسوی",phone:"09129998877",service:"فیلر",lastVisit:"۱۴۰۵/۰۶/۲۱",nextFollow:"۱۴۰۵/۰۷/۱۶",nextDate:"1405-07-16T15:30",status:"active",created:10,age:30,city:"تهران",visitType:"remote",payment:"cash",deposit:"3500000",sensitivity:false,lab:false,disease:false,contacted:false,contactHistory:[]},
+{id:"CL-011",first:"سعید",last:"جعفری",phone:"09127776655",service:"کانتورینگ",lastVisit:"۱۴۰۵/۰۶/۱۹",nextFollow:"۱۴۰۵/۰۷/۲۱",nextDate:"1405-07-21T11:30",status:"pending",created:11,age:39,city:"مشهد",visitType:"inperson",payment:"installment",deposit:"4500000",sensitivity:false,lab:false,disease:false,contacted:true,contactHistory:["۱۴۰۵/۰۶/۲۰"]},
+{id:"CL-012",first:"آرزو",last:"نوری",phone:"09353334444",service:"لیفت صورت",lastVisit:"۱۴۰۵/۰۶/۱۷",nextFollow:"۱۴۰۵/۰۷/۱۹",nextDate:"1405-07-19T12:30",status:"active",created:12,age:37,city:"تهران",visitType:"inperson",payment:"cash",deposit:"7000000",sensitivity:true,lab:true,disease:false,contacted:false,contactHistory:[]}
+];
+let clients=load();
+function load(){try{const x=JSON.parse(localStorage.getItem(STORAGE)||"null");return(Array.isArray(x)&&x.length?x:seed).map(normalize)}catch(_){return seed.map(normalize)}}
+function normalize(c){return Object.assign({caseCode:"",age:"",city:"",address:"",visitType:"inperson",payment:"cash",deposit:"",sensitivity:false,lab:false,disease:false,diseaseDescription:"",contacted:false,contactHistory:[],notes:"",beforeImage:"",afterImage:"",depositImage:""},c)}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(clients))}
+function faNum(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function initials(c){return(c.first?.[0]||"")+(c.last?.[0]||"")}
+function statusLabel(v){return{active:"فعال",pending:"در انتظار",inactive:"غیرفعال"}[v]||"—"}
+function statusClass(v){return{active:"green",pending:"yellow",inactive:"red"}[v]||"purple"}
+function displayDate(v){if(!v||v==="—")return"—";if(v.includes("T"))return new Date(v).toLocaleString("fa-IR",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});return v}
+function isToday(v){return!!v&&v!=="—"&&new Date(v).toISOString().slice(0,10)===new Date().toISOString().slice(0,10)}
+function toast(a,b){$("#toastTitle").textContent=a;$("#toastText").textContent=b;$("#toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("#toast").classList.remove("show"),3200)}
+function openModal(id){$("#"+id).classList.add("open");document.body.style.overflow="hidden"}
+function closeModal(id){$("#"+id).classList.remove("open");if(!$$(".modal-layer.open").length)document.body.style.overflow=""}
+$$("[data-close]").forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+$$(".modal-layer").forEach(m=>m.onclick=e=>{if(e.target===m)closeModal(m.id)});
+root.dataset.theme=localStorage.getItem(THEME)||"dark";
+$("#theme").onclick=()=>{const n=root.dataset.theme==="dark"?"light":"dark";root.dataset.theme=n;localStorage.setItem(THEME,n);toast("پوسته تغییر کرد",n==="dark"?"حالت تاریک فعال شد.":"حالت روشن فعال شد.")};
+try{const u=JSON.parse(localStorage.getItem("moshaver_user")||"null");if(u){$("#userName").textContent=[u.firstName,u.lastName].filter(Boolean).join(" ")||u.username||"مشاور";$("#userRole").textContent=u.role==="MANAGER"?"مدیر کلینیک":u.role==="SUPER_ADMIN"?"مدیریت سامانه":"مشاور کلینیک"}}catch(_){}
+const sidebar=$("#sidebar");$("#menu").onclick=()=>sidebar.classList.toggle("open");$("#mobileMore").onclick=()=>sidebar.classList.toggle("open");
+$("#logout").onclick=()=>{localStorage.removeItem("moshaver_user");localStorage.removeItem("moshaver_session");location.href="../index.html"};
 
-  const $ = (s,scope=document) => scope.querySelector(s);
-  const $$ = (s,scope=document) => [...scope.querySelectorAll(s)];
-  const root = document.documentElement;
-  const STORAGE = "moshaver_clients_v2";
-  const THEME = "moshaver_theme";
-  const PAGE_SIZE = 6;
-
-  const seed = [
-    {id:"CL-001",first:"سارا",last:"محمدی",phone:"09121234567",service:"individual",lastVisit:"۱۴۰۵/۰۷/۰۸",nextFollow:"۱۴۰۵/۰۷/۱۵",nextDate:15,status:"active",created:1},
-    {id:"CL-002",first:"نرگس",last:"احمدی",phone:"09129876543",service:"family",lastVisit:"۱۴۰۵/۰۷/۰۷",nextFollow:"۱۴۰۵/۰۷/۱۲",nextDate:12,status:"pending",created:2},
-    {id:"CL-003",first:"علی",last:"رضایی",phone:"09351234567",service:"couple",lastVisit:"۱۴۰۵/۰۷/۰۵",nextFollow:"۱۴۰۵/۰۷/۱۸",nextDate:18,status:"active",created:3},
-    {id:"CL-004",first:"مریم",last:"کریمی",phone:"09101112233",service:"individual",lastVisit:"۱۴۰۵/۰۷/۰۴",nextFollow:"۱۴۰۵/۰۷/۱۴",nextDate:14,status:"active",created:4},
-    {id:"CL-005",first:"رضا",last:"کاظمی",phone:"09124445566",service:"family",lastVisit:"۱۴۰۵/۰۷/۰۲",nextFollow:"۱۴۰۵/۰۷/۲۰",nextDate:20,status:"active",created:5},
-    {id:"CL-006",first:"الهام",last:"حسینی",phone:"09367778899",service:"individual",lastVisit:"۱۴۰۵/۰۶/۲۹",nextFollow:"۱۴۰۵/۰۷/۱۰",nextDate:10,status:"pending",created:6},
-    {id:"CL-007",first:"امیر",last:"مرادی",phone:"09123334455",service:"couple",lastVisit:"۱۴۰۵/۰۶/۲۷",nextFollow:"۱۴۰۵/۰۷/۲۲",nextDate:22,status:"active",created:7},
-    {id:"CL-008",first:"نگین",last:"رضوانی",phone:"09125556677",service:"individual",lastVisit:"۱۴۰۵/۰۶/۲۵",nextFollow:"۱۴۰۵/۰۷/۱۷",nextDate:17,status:"active",created:8},
-    {id:"CL-009",first:"حمید",last:"اکبری",phone:"09391112233",service:"family",lastVisit:"۱۴۰۵/۰۶/۲۳",nextFollow:"—",nextDate:99,status:"inactive",created:9},
-    {id:"CL-010",first:"پریناز",last:"موسوی",phone:"09129998877",service:"individual",lastVisit:"۱۴۰۵/۰۶/۲۱",nextFollow:"۱۴۰۵/۰۷/۱۶",nextDate:16,status:"active",created:10},
-    {id:"CL-011",first:"سعید",last:"جعفری",phone:"09127776655",service:"couple",lastVisit:"۱۴۰۵/۰۶/۱۹",nextFollow:"۱۴۰۵/۰۷/۲۱",nextDate:21,status:"pending",created:11},
-    {id:"CL-012",first:"آرزو",last:"نوری",phone:"09353334444",service:"individual",lastVisit:"۱۴۰۵/۰۶/۱۷",nextFollow:"۱۴۰۵/۰۷/۱۹",nextDate:19,status:"active",created:12}
-  ];
-
-  let clients = loadClients();
-  let filtered = [];
-  let page = 1;
-  let selectedId = null;
-  let deleteId = null;
-  let toastTimer;
-
-  function loadClients(){
-    try{
-      const saved = JSON.parse(localStorage.getItem(STORAGE) || "null");
-      return Array.isArray(saved) && saved.length ? saved : seed.map(x=>({...x}));
-    }catch(_){ return seed.map(x=>({...x})); }
-  }
-  function save(){localStorage.setItem(STORAGE,JSON.stringify(clients));}
-  function faNum(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])}
-  function serviceLabel(v){return {individual:"مشاوره فردی",family:"مشاوره خانواده",couple:"زوج‌درمانی"}[v]||v}
-  function statusLabel(v){return {active:"فعال",pending:"در انتظار",inactive:"غیرفعال"}[v]||v}
-  function statusClass(v){return {active:"green",pending:"yellow",inactive:"red"}[v]||"purple"}
-  function initials(c){return (c.first?.[0]||"")+(c.last?.[0]||"")}
-  function showToast(title,text){
-    $("#toastTitle").textContent=title;$("#toastText").textContent=text;$("#toast").classList.add("show");
-    clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("#toast").classList.remove("show"),3200);
-  }
-
-  root.dataset.theme=localStorage.getItem(THEME)||"dark";
-  $("#theme").addEventListener("click",()=>{
-    const next=root.dataset.theme==="dark"?"light":"dark";
-    root.dataset.theme=next;localStorage.setItem(THEME,next);
-    showToast("پوسته تغییر کرد",next==="dark"?"حالت تاریک فعال شد.":"حالت روشن فعال شد.");
-  });
-
-  try{
-    const user=JSON.parse(localStorage.getItem("moshaver_user")||"null");
-    if(user){
-      $("#userName").textContent=[user.firstName,user.lastName].filter(Boolean).join(" ")||user.username||"مشاور";
-      $("#userRole").textContent=user.role==="MANAGER"?"مدیر کلینیک":user.role==="SUPER_ADMIN"?"مدیریت سامانه":"مشاور کلینیک";
-    }
-  }catch(_){}
-
-  const sidebar=$("#sidebar");
-  $("#menu").addEventListener("click",()=>sidebar.classList.toggle("open"));
-  $("#mobileMore").addEventListener("click",()=>sidebar.classList.toggle("open"));
-  document.addEventListener("click",e=>{
-    if(innerWidth<=980 && sidebar.classList.contains("open") && !sidebar.contains(e.target) && !e.target.closest("#menu") && !e.target.closest("#mobileMore")) sidebar.classList.remove("open");
-  });
-  const notificationPopover=$("#notificationPopover");
-$("#notifications").addEventListener("click",e=>{e.stopPropagation();notificationPopover.classList.toggle("open");notificationPopover.setAttribute("aria-hidden",notificationPopover.classList.contains("open")?"false":"true")});
-$("#closeNotifications").addEventListener("click",()=>{notificationPopover.classList.remove("open");notificationPopover.setAttribute("aria-hidden","true")});
-$("#markNotifications").addEventListener("click",()=>{notificationPopover.classList.remove("open");$("#notifications").classList.remove("notification");showToast("اعلان‌ها خوانده شد","همه اعلان‌های فعلی علامت‌گذاری شدند.")});
-document.addEventListener("click",e=>{if(notificationPopover.classList.contains("open")&&!notificationPopover.contains(e.target)&&!e.target.closest("#notifications")){notificationPopover.classList.remove("open");notificationPopover.setAttribute("aria-hidden","true")}});
-
-$("#quickSearch").addEventListener("click",()=>{const el=$("#search");el.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>{el.focus();el.classList.add("quick-search-focus");setTimeout(()=>el.classList.remove("quick-search-focus"),900)},350)});
-
-  $("#logout").addEventListener("click",()=>{localStorage.removeItem("moshaver_user");localStorage.removeItem("moshaver_session");location.href="../index.html"});
-
-  function getFilters(){
-    return {
-      q:$("#search").value.trim().toLowerCase(),
-      status:$("#statusFilter").value,
-      service:$("#serviceFilter").value,
-      sort:$("#sortFilter").value
-    };
-  }
-  function applyFilters(){
-    const f=getFilters();
-    filtered=clients.filter(c=>{
-      const text=[c.first,c.last,c.phone,c.id,serviceLabel(c.service)].join(" ").toLowerCase();
-      return (!f.q||text.includes(f.q))&&(!f.status||c.status===f.status)&&(!f.service||c.service===f.service);
-    });
-    if(f.sort==="name") filtered.sort((a,b)=>(a.first+a.last).localeCompare(b.first+b.last,"fa"));
-    else if(f.sort==="oldest") filtered.sort((a,b)=>a.created-b.created);
-    else if(f.sort==="next") filtered.sort((a,b)=>a.nextDate-b.nextDate);
-    else filtered.sort((a,b)=>b.created-a.created);
-    page=1;render();
-  }
-
-  function render(){
-    updateKpis();
-    const total=filtered.length;
-    const start=(page-1)*PAGE_SIZE;
-    const rows=filtered.slice(start,start+PAGE_SIZE);
-    $("#tableBody").innerHTML=rows.map(rowHtml).join("");
-    $("#mobileList").innerHTML=rows.map(cardHtml).join("");
-    $("#empty").classList.toggle("show",total===0);
-    $(".table-wrap").style.display=total?"block":"none";
-    $(".mobile-list").style.display=total?"":"none";
-    $("#resultInfo").textContent=`${faNum(total)} پرونده نمایش داده می‌شود`;
-    $("#paginationInfo").textContent=total?`نمایش ${faNum(start+1)} تا ${faNum(Math.min(start+PAGE_SIZE,total))} از ${faNum(total)}`:"نمایشی وجود ندارد";
-    renderPages(total);
-    bindRowActions();
-  }
-
-  function updateKpis(){
-    const active=clients.filter(c=>c.status==="active").length;
-    const pending=clients.filter(c=>c.status==="pending").length;
-    $("#totalCount").textContent=faNum(clients.length);
-    $("#activeCount").textContent=faNum(active);
-    $("#followCount").textContent=faNum(pending);
-    $("#navCount").textContent=faNum(clients.length);
-  }
-
-  function rowHtml(c){
-    return `<tr>
-      <td><div class="client-cell"><div class="client-avatar">${initials(c)}</div><div class="client-name"><strong>${esc(c.first)} ${esc(c.last)}</strong><small>${esc(c.id)}</small></div></div></td>
-      <td>${esc(c.phone)}</td><td>${serviceLabel(c.service)}</td><td>${esc(c.lastVisit)}</td><td>${esc(c.nextFollow)}</td>
-      <td><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></td>
-      <td><div class="actions">
-        <button class="mini-btn" data-action="view" data-id="${c.id}" title="مشاهده">⌕</button>
-        <button class="mini-btn" data-action="edit" data-id="${c.id}" title="ویرایش">✎</button>
-        <button class="mini-btn sms" data-action="sms" data-id="${c.id}" title="پیامک">✉</button>
-        <button class="mini-btn danger" data-action="delete" data-id="${c.id}" title="حذف">×</button>
-      </div></td>
-    </tr>`;
-  }
-
-  function cardHtml(c){
-    return `<article class="client-card">
-      <div class="client-card-top"><div class="client-avatar">${initials(c)}</div><div class="client-card-main"><strong>${esc(c.first)} ${esc(c.last)}</strong><small>${esc(c.id)} · ${serviceLabel(c.service)}</small></div><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></div>
-      <div class="client-card-info"><div class="info-box"><span>شماره تماس</span><b>${esc(c.phone)}</b></div><div class="info-box"><span>پیگیری بعدی</span><b>${esc(c.nextFollow)}</b></div></div>
-      <div class="client-card-actions"><button data-action="view" data-id="${c.id}">مشاهده پرونده</button><button data-action="sms" data-id="${c.id}">پیامک</button><button data-action="edit" data-id="${c.id}">ویرایش</button></div>
-    </article>`;
-  }
-
-  function renderPages(total){
-    const count=Math.max(1,Math.ceil(total/PAGE_SIZE));
-    if(page>count)page=count;
-    const buttons=[];
-    for(let i=1;i<=count;i++) buttons.push(`<button class="page-btn ${i===page?"active":""}" data-page="${i}">${faNum(i)}</button>`);
-    $("#pages").innerHTML=`<button class="page-btn" data-page="${page-1}" ${page===1?"disabled":""}>‹</button>${buttons.join("")}<button class="page-btn" data-page="${page+1}" ${page===count?"disabled":""}>›</button>`;
-    $$(".page-btn").forEach(b=>b.addEventListener("click",()=>{const p=Number(b.dataset.page);if(p>=1&&p<=count){page=p;render()}}));
-  }
-
-  function bindRowActions(){
-    $$("[data-action]").forEach(btn=>btn.addEventListener("click",()=>{
-      const id=btn.dataset.id, action=btn.dataset.action;
-      const c=clients.find(x=>x.id===id); if(!c)return;
-      if(action==="view")openDetail(c);
-      if(action==="edit")openEdit(c);
-      if(action==="sms")sendSms(c);
-      if(action==="delete")openDelete(c);
-    }));
-  }
-
-  function esc(v){
-    return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-  }
-
-  function openModal(id){$("#"+id).classList.add("open");document.body.style.overflow="hidden"}
-  function closeModal(id){$("#"+id).classList.remove("open");if(!$$(".modal-layer.open").length)document.body.style.overflow=""}
-  $$("[data-close]").forEach(b=>b.addEventListener("click",()=>closeModal(b.dataset.close)));
-  $$(".modal-layer").forEach(layer=>layer.addEventListener("click",e=>{if(e.target===layer)closeModal(layer.id)}));
-
-  function resetForm(){
-    $("#clientForm").reset();$("#clientId").value="";
-    $("#status").value="active";$("#service").value="individual";
-  }
-
-  function openNew(){
-    resetForm();$("#modalTitle").textContent="ثبت مراجع جدید";$("#modalSubtitle").textContent="اطلاعات پایه پرونده را وارد کنید.";openModal("clientModal");
-    setTimeout(()=>$("#firstName").focus(),100);
-  }
-
-  function openEdit(c){
-    $("#clientId").value=c.id;$("#firstName").value=c.first;$("#lastName").value=c.last;$("#phone").value=c.phone;$("#caseCode").value=c.id;
-    $("#service").value=c.service;$("#status").value=c.status;$("#lastVisit").value=c.lastVisit;$("#nextFollow").value=c.nextFollow;
-    $("#modalTitle").textContent="ویرایش پرونده";$("#modalSubtitle").textContent=`ویرایش اطلاعات ${c.first} ${c.last}`;
-    openModal("clientModal");
-  }
-
-
-$$("[data-quick]").forEach(btn=>btn.addEventListener("click",()=>{
-  const action=btn.dataset.quick;
-  if(action==="new") openNew();
-  if(action==="follow") location.href="follow-ups.html";
-  if(action==="appointment") location.href="appointments.html?new=1";
-  if(action==="report") location.href="reports.html";
-}));
-
-  $("#addClient").addEventListener("click",openNew);
-
-  $("#clientForm").addEventListener("submit",e=>{
-    e.preventDefault();
-    const id=$("#clientId").value.trim();
-    const data={first:$("#firstName").value.trim(),last:$("#lastName").value.trim(),phone:$("#phone").value.trim(),service:$("#service").value,status:$("#status").value,lastVisit:$("#lastVisit").value.trim()||"—",nextFollow:$("#nextFollow").value.trim()||"—"};
-    if(!data.first||!data.last||!data.phone){showToast("اطلاعات ناقص","نام، نام خانوادگی و موبایل الزامی است.");return}
-    if(id){
-      const i=clients.findIndex(c=>c.id===id);
-      if(i>-1)clients[i]={...clients[i],...data};
-      showToast("پرونده ویرایش شد","اطلاعات مراجع با موفقیت ذخیره شد.");
-    }else{
-      const num=String(Date.now()).slice(-5);
-      clients.unshift({...data,id:`CL-${num}`,created:Date.now(),nextDate:99});
-      showToast("مراجع ثبت شد","پرونده جدید با موفقیت ایجاد شد.");
-    }
-    save();closeModal("clientModal");applyFilters();
-  });
-
-  function openDetail(c){
-    selectedId=c.id;$("#detailName").textContent=`${c.first} ${c.last}`;
-    $("#detailContent").innerHTML=`
-      <div class="detail-box"><span>کد پرونده</span><strong>${esc(c.id)}</strong></div>
-      <div class="detail-box"><span>وضعیت</span><strong>${statusLabel(c.status)}</strong></div>
-      <div class="detail-box"><span>شماره موبایل</span><strong>${esc(c.phone)}</strong></div>
-      <div class="detail-box"><span>خدمت</span><strong>${serviceLabel(c.service)}</strong></div>
-      <div class="detail-box"><span>آخرین جلسه</span><strong>${esc(c.lastVisit)}</strong></div>
-      <div class="detail-box"><span>پیگیری بعدی</span><strong>${esc(c.nextFollow)}</strong></div>
-      <div class="detail-box detail-wide"><span>وضعیت ارتباط</span><strong>پیامک و تماس در دسترس است.</strong></div>`;
-    openModal("detailModal");
-  }
-
-  $("#detailProfile").addEventListener("click",()=>{
-    if(!selectedId)return;
-    location.href=`client-profile.html?id=${encodeURIComponent(selectedId)}`;
-  });
-  $("#detailEdit").addEventListener("click",()=>{
-    const c=clients.find(x=>x.id===selectedId);if(c){closeModal("detailModal");openEdit(c)}
-  });
-  $("#detailSms").addEventListener("click",()=>{
-    const c=clients.find(x=>x.id===selectedId);if(c)sendSms(c);
-  });
-  $("#detailAppointment").addEventListener("click",()=>{
-    if(selectedId)location.href=`appointments.html?client=${encodeURIComponent(selectedId)}&new=1`;
-  });
-
-  function sendSms(c){
-    showToast("آماده ارسال پیامک",`یادآوری نوبت برای ${c.first} ${c.last} آماده است.`);
-  }
-
-  function openDelete(c){
-    deleteId=c.id;$("#confirmText").textContent=`پرونده «${c.first} ${c.last}» حذف خواهد شد. این عملیات قابل بازگشت نیست.`;openModal("confirmModal");
-  }
-  $("#confirmDelete").addEventListener("click",()=>{
-    if(!deleteId)return;
-    const c=clients.find(x=>x.id===deleteId);
-    clients=clients.filter(x=>x.id!==deleteId);save();deleteId=null;closeModal("confirmModal");applyFilters();
-    showToast("پرونده حذف شد",c?`${c.first} ${c.last} از فهرست حذف شد.`:"پرونده حذف شد.");
-  });
-
-  ["#search","#statusFilter","#serviceFilter","#sortFilter"].forEach(s=>$(s).addEventListener(s==="#search"?"input":"change",applyFilters));
-  $("#clear").addEventListener("click",()=>{$("#search").value="";$("#statusFilter").value="";$("#serviceFilter").value="";$("#sortFilter").value="newest";applyFilters()});
-
-  document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){$$(".modal-layer.open").forEach(x=>closeModal(x.id));sidebar.classList.remove("open")}
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#search").focus()}
-  });
-
-  const params=new URLSearchParams(location.search);
-  if(params.get("new")==="1")setTimeout(openNew,180);
-
-const initialClient = params.get("client");
-if(initialClient){
-  const found=clients.find(c=>c.id===initialClient);
-  if(found) setTimeout(()=>openDetail(found),220);
+function getFilters(){return{q:$("#search").value.trim().toLowerCase(),status:$("#statusFilter").value,service:$("#serviceFilter").value,contact:$("#contactFilter").value,visitType:$("#visitTypeFilter").value,payment:$("#paymentFilter").value,lab:$("#labFilter").value,disease:$("#diseaseFilter").value,sensitivity:$("#sensitivityFilter").value,sort:$("#sortFilter").value}}
+function rebuildServices(){const el=$("#serviceFilter"),cur=el.value,vals=[...new Set(clients.map(c=>c.service).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fa"));el.innerHTML='<option value="">همه خدمات</option>'+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");if(vals.includes(cur))el.value=cur}
+function apply(){
+ const f=getFilters();let list=clients.filter(c=>{const hay=[c.first,c.last,c.phone,c.caseCode,c.city,c.address,c.service,c.notes].join(" ").toLowerCase();return(!f.q||hay.includes(f.q))&&(!f.status||c.status===f.status)&&(!f.service||c.service===f.service)&&(!f.contact||(f.contact==="done"?c.contacted:!c.contacted))&&(!f.visitType||c.visitType===f.visitType)&&(!f.payment||c.payment===f.payment)&&(!f.lab||(f.lab==="yes"?c.lab:!c.lab))&&(!f.disease||(f.disease==="yes"?c.disease:!c.disease))&&(!f.sensitivity||(f.sensitivity==="yes"?c.sensitivity:!c.sensitivity))});
+ list.sort((a,b)=>f.sort==="name"?`${a.first}${a.last}`.localeCompare(`${b.first}${b.last}`,"fa"):f.sort==="oldest"?a.created-b.created:f.sort==="next"?String(a.nextDate||"9999").localeCompare(String(b.nextDate||"9999")):b.created-a.created);
+ render(list);stats();return list;
 }
-
-
-  applyFilters();
+function stats(){
+ const total=clients.length,active=clients.filter(c=>c.status==="active").length,pending=clients.filter(c=>c.status==="pending").length,inactive=clients.filter(c=>c.status==="inactive").length,follow=clients.filter(c=>isToday(c.nextDate)).length;
+ $("#totalCount").textContent=faNum(total);$("#activeCount").textContent=faNum(active);$("#followCount").textContent=faNum(follow);$("#weekCount").textContent=faNum(clients.filter(c=>c.nextDate).length);
+ $("#activeSummary").textContent=faNum(active);$("#pendingSummary").textContent=faNum(pending);$("#inactiveSummary").textContent=faNum(inactive);const pct=total?Math.round(active/total*100):0;$("#activePercent").textContent=faNum(pct)+"%";$("#clientDonut").style.background=`conic-gradient(var(--purple) 0 ${pct}%,rgba(255,255,255,.07) ${pct}% 100%)`;
+ $("#navCount").textContent=faNum(total);$("#todayFollowups").textContent=faNum(follow);$("#todaySessions").textContent=faNum(0);$("#todaySms").textContent=faNum(0);
+ const no=clients.filter(c=>!c.contacted).length;$("#noticeTitle").textContent=no?`${faNum(no)} مراجع بدون تماس`:"تماس‌های روزانه به‌روز است";$("#noticeText").textContent=no?"برای افراد بدون تماس، یادآوری روزانه فعال است.":"موردی برای تماس عقب‌افتاده ثبت نشده است.";
+}
+function render(list){
+ const total=list.length,pages=Math.max(1,Math.ceil(total/PAGE_SIZE));page=Math.min(page,pages);const start=(page-1)*PAGE_SIZE,rows=list.slice(start,start+PAGE_SIZE);
+ $("#resultInfo").textContent=`${faNum(total)} پرونده در نتیجه فیلتر`;$("#paginationInfo").textContent=total?`نمایش ${faNum(start+1)} تا ${faNum(Math.min(start+PAGE_SIZE,total))} از ${faNum(total)}`:"نتیجه‌ای وجود ندارد";$("#empty").classList.toggle("show",!rows.length);
+ $("#tableBody").innerHTML=rows.map((c,i)=>row(c,start+i)).join("");$("#mobileList").innerHTML=rows.map((c,i)=>card(c,start+i)).join("");
+ $("#pages").innerHTML=Array.from({length:pages},(_,i)=>`<button class="page-btn ${i+1===page?"active":""}" data-page="${i+1}">${faNum(i+1)}</button>`).join("");$$(".page-btn").forEach(b=>b.onclick=()=>{page=Number(b.dataset.page);render(list)});
+ $$("[data-act]").forEach(b=>b.onclick=()=>act(b.dataset.act,b.dataset.id));$("#filterSummary").textContent=`${faNum(total)} نتیجه | ${faNum(clients.filter(c=>!c.contacted).length)} بدون تماس | ${faNum(clients.filter(c=>isToday(c.nextDate)).length)} پیگیری امروز`;
+}
+function contactBadge(c){return c.contacted?'<span class="contact-badge done">✓ تماس گرفته شده</span>':'<span class="contact-badge missing">! تماس نشده</span>'}
+function row(c,i){return`<tr><td><div class="client-cell"><span class="client-avatar">${esc(initials(c))}</span><div class="client-name"><strong>${faNum(i+1)}. ${esc(c.first)} ${esc(c.last)}</strong><small>${esc(c.city||"—")}</small></div></div></td><td>${esc(c.phone)}</td><td>${esc(c.caseCode||"—")}</td><td>${esc(c.service||"—")}</td><td>${esc(displayDate(c.lastVisit))}</td><td>${esc(displayDate(c.nextDate||c.nextFollow))}</td><td>${contactBadge(c)}</td><td><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></td><td><div class="actions"><button class="mini-btn" data-act="view" data-id="${c.id}">⌕</button><button class="mini-btn" data-act="contact" data-id="${c.id}">☎</button><button class="mini-btn" data-act="edit" data-id="${c.id}">✎</button><button class="mini-btn sms" data-act="sms" data-id="${c.id}">✉</button><button class="mini-btn" data-act="appointment" data-id="${c.id}">◫</button><button class="mini-btn danger" data-act="delete" data-id="${c.id}">×</button></div></td></tr>`}
+function card(c,i){return`<article class="client-card"><div class="client-card-top"><span class="client-avatar">${esc(initials(c))}</span><div class="client-card-main"><strong>${faNum(i+1)}. ${esc(c.first)} ${esc(c.last)}</strong><small>${esc(c.phone)} · ${esc(c.caseCode||"بدون کد")}</small></div><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></div><div class="client-card-info"><div class="info-box"><span>خدمت</span><b>${esc(c.service||"—")}</b></div><div class="info-box"><span>پیگیری</span><b>${esc(displayDate(c.nextDate||c.nextFollow))}</b></div><div class="info-box"><span>تماس</span><b>${c.contacted?"✓ گرفته شده":"! گرفته نشده"}</b></div><div class="info-box"><span>آخرین جلسه</span><b>${esc(displayDate(c.lastVisit))}</b></div></div><div class="client-card-actions"><button data-act="view" data-id="${c.id}">پرونده</button><button data-act="contact" data-id="${c.id}">تماس</button><button data-act="appointment" data-id="${c.id}">نوبت</button></div></article>`}
+function act(type,id){const c=clients.find(x=>x.id===id);if(!c)return;if(type==="view")detail(c);if(type==="edit")edit(c);if(type==="contact")contact(c);if(type==="sms")toast("پیامک","اتصال سرویس پیامکی در مرحله API فعال می‌شود.");if(type==="appointment")location.href=`appointments.html?client=${encodeURIComponent(id)}&new=1`;if(type==="delete"){deleteId=id;$("#confirmText").textContent=`پرونده ${c.first} ${c.last} حذف شود؟`;openModal("confirmModal")}}
+function detail(c){
+ selectedId=c.id;$("#detailName").textContent=`پرونده ${c.first} ${c.last}`;
+ $("#detailHero").innerHTML=`<div class="detail-hero"><span class="client-avatar">${esc(initials(c))}</span><div><h3>${esc(c.first)} ${esc(c.last)}</h3><p>${esc(c.phone)} · ${esc(c.caseCode||"بدون کد پرونده")} · ${esc(c.service||"خدمت ثبت نشده")}</p></div><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></div>`;
+ const data=[["شماره موبایل",c.phone],["سن",c.age||"—"],["شهر",c.city||"—"],["نوع مراجعه",c.visitType==="remote"?"غیرحضوری":"حضوری"],["پرداخت",c.payment==="installment"?"اقساط":"نقدی"],["بیعانه",c.deposit?faNum(c.deposit):"—"],["آخرین جلسه",displayDate(c.lastVisit)],["پیگیری بعدی",displayDate(c.nextDate||c.nextFollow)],["آزمایش",c.lab?"دارد":"ندارد"],["حساسیت",c.sensitivity?"دارد":"ندارد"],["بیماری خاص",c.disease?"دارد":"ندارد"],["آدرس",c.address||"—"],["توضیحات بیماری",c.diseaseDescription||"—"],["توضیحات پرونده",c.notes||"—"]];
+ $("#detailContent").innerHTML=data.map(([a,b])=>`<div class="detail-box"><span>${a}</span><strong>${esc(b)}</strong></div>`).join("");
+ $("#contactStatusText").textContent=c.contacted?"تماس گرفته شده":"تماس گرفته نشده";$("#callHistoryList").innerHTML=c.contactHistory?.length?c.contactHistory.map(d=>`<div class="call-row"><b>تماس ثبت شد</b><span>${esc(d)}</span></div>`).join(""):'<div class="call-row"><b>هنوز تماسی ثبت نشده</b><span>—</span></div>';
+ openModal("detailModal");
+}
+function contact(c){c.contacted=true;c.contactHistory=c.contactHistory||[];c.contactHistory.unshift(new Date().toLocaleDateString("fa-IR"));save();apply();toast("تماس ثبت شد",`تماس با ${c.first} ${c.last} ثبت شد.`);if(selectedId===c.id)detail(c)}
+function edit(c){
+ $("#clientForm").reset();$("#clientId").value=c.id;$("#modalTitle").textContent="ویرایش پرونده";$("#firstName").value=c.first||"";$("#lastName").value=c.last||"";$("#phone").value=c.phone||"";$("#caseCode").value=c.caseCode||"";$("#age").value=c.age||"";$("#city").value=c.city||"";$("#address").value=c.address||"";$("#service").value=c.service||"";$("#status").value=c.status||"active";$("#payment").value=c.payment||"cash";$("#deposit").value=c.deposit||"";$("#sensitivity").checked=!!c.sensitivity;$("#lab").checked=!!c.lab;$("#disease").checked=!!c.disease;$("#diseaseDescription").value=c.diseaseDescription||"";$("#notes").value=c.notes||"";$('input[name="visitType"][value="'+(c.visitType||"inperson")+'"]').checked=true;$("#lastVisit").value=c.lastVisitISO||"";$("#nextFollow").value=c.nextDate||"";$("#diseaseWrap").hidden=!c.disease;["deposit","before","after"].forEach(k=>preview(k,c[k+"Image"]||""));openModal("clientModal")
+}
+function newClient(){$("#clientForm").reset();$("#clientId").value="";$("#modalTitle").textContent="ثبت مراجع جدید";$("#diseaseWrap").hidden=true;["deposit","before","after"].forEach(k=>preview(k,""));openModal("clientModal")}
+function preview(k,src){const box=$("#"+k+"Upload"),img=box?.querySelector("img");if(!box||!img)return;if(src){img.src=src;box.classList.add("has-image")}else{img.removeAttribute("src");box.classList.remove("has-image")}}
+async function fileData(input){return new Promise(r=>{const f=input.files?.[0];if(!f)return r("");const x=new FileReader();x.onload=()=>r(x.result);x.onerror=()=>r("");x.readAsDataURL(f)})}
+$("#disease").onchange=()=>$("#diseaseWrap").hidden=!$("#disease").checked;
+["deposit","before","after"].forEach(k=>$("#"+k+"Image").onchange=async e=>preview(k,await fileData(e.target)));
+$("#clientForm").onsubmit=async e=>{
+ e.preventDefault();const id=$("#clientId").value||`CL-${Date.now()}`,old=clients.find(x=>x.id===id),img={depositImage:old?.depositImage||"",beforeImage:old?.beforeImage||"",afterImage:old?.afterImage||""};
+ for(const k of ["deposit","before","after"]){const v=await fileData($("#"+k+"Image"));if(v)img[k+"Image"]=v}
+ const next=$("#nextFollow").value,last=$("#lastVisit").value,c=normalize({...old,id,first:$("#firstName").value.trim(),last:$("#lastName").value.trim(),phone:$("#phone").value.trim(),caseCode:$("#caseCode").value.trim(),age:$("#age").value.trim(),city:$("#city").value.trim(),address:$("#address").value.trim(),service:$("#service").value.trim(),status:$("#status").value,payment:$("#payment").value,deposit:$("#deposit").value.trim(),sensitivity:$("#sensitivity").checked,lab:$("#lab").checked,disease:$("#disease").checked,diseaseDescription:$("#diseaseDescription").value.trim(),visitType:$('input[name="visitType"]:checked')?.value||"inperson",lastVisitISO:last,nextDate:next,lastVisit:last?displayDate(last):"—",nextFollow:next?displayDate(next):"—",notes:$("#notes").value.trim(),...img,created:old?.created||Date.now()});
+ if(!c.first||!c.last||!c.phone){toast("اطلاعات ناقص","نام، نام خانوادگی و موبایل الزامی است.");return}
+ clients=old?clients.map(x=>x.id===id?c:x):[c,...clients];save();rebuildServices();closeModal("clientModal");apply();toast(old?"پرونده بروزرسانی شد":"پرونده ثبت شد",`${c.first} ${c.last} ذخیره شد.`)
+};
+$("#confirmDelete").onclick=()=>{if(!deleteId)return;clients=clients.filter(c=>c.id!==deleteId);save();deleteId=null;closeModal("confirmModal");apply();toast("پرونده حذف شد","پرونده از فهرست محلی حذف شد.")};
+$("#detailProfile").onclick=()=>selectedId&&(location.href=`client-profile.html?client=${encodeURIComponent(selectedId)}`);
+$("#detailEdit").onclick=()=>{const c=clients.find(x=>x.id===selectedId);if(c){closeModal("detailModal");edit(c)}};$("#detailContact").onclick=()=>{const c=clients.find(x=>x.id===selectedId);if(c)contact(c)};$("#detailSms").onclick=()=>toast("پیامک","برای ارسال واقعی باید سرویس پیامکی به API متصل شود.");$("#detailAppointment").onclick=()=>selectedId&&(location.href=`appointments.html?client=${encodeURIComponent(selectedId)}&new=1`);$("#detailFollow").onclick=()=>toast("پیگیری","پیگیری بعدی را از پرونده مراجع ثبت کنید.");
+$("#addClient").onclick=newClient;
+$$("[data-kpi]").forEach(k=>{const go=()=>{if(k.dataset.kpi==="all"){clear();return}if(k.dataset.kpi==="active"){$("#statusFilter").value="active";page=1;apply()}else if(k.dataset.kpi==="follow")showFollow();else location.href="appointments.html"};k.onclick=go;k.onkeydown=e=>{if(e.key==="Enter"||e.key===" ")go()}});
+$$(".status-click").forEach(b=>b.onclick=()=>{$("#statusFilter").value=b.dataset.status;page=1;apply();document.querySelector(".list-panel").scrollIntoView({behavior:"smooth",block:"start"})});
+$$("[data-activity]").forEach(b=>b.onclick=()=>b.dataset.activity==="follow"?showFollow():toast("نمایش فعالیت",b.dataset.activity==="session"?"جزئیات جلسات از بخش نوبت‌ها قابل مشاهده است.":"تاریخچه پیامک‌ها از گزارش‌ها قابل مشاهده است."));
+function clear(){$("#search").value="";["statusFilter","serviceFilter","contactFilter","visitTypeFilter","paymentFilter","labFilter","diseaseFilter","sensitivityFilter","sortFilter"].forEach(id=>$("#"+id).value="");page=1;apply()}
+$("#clear").onclick=clear;$("#clearAdvanced").onclick=clear;
+["search","statusFilter","serviceFilter","contactFilter","visitTypeFilter","paymentFilter","labFilter","diseaseFilter","sensitivityFilter","sortFilter"].forEach(id=>{["input","change"].forEach(ev=>$("#"+id).addEventListener(ev,()=>{page=1;apply()}))});
+$("#pageSizeFilter").onchange=()=>{PAGE_SIZE=Number($("#pageSizeFilter").value);localStorage.setItem("moshaver_clients_page_size",PAGE_SIZE);page=1;apply()};$("#pageSizeFilter").value=String(PAGE_SIZE);
+function showFollow(){const old=$("#statusFilter").value;$("#statusFilter").value="";const f=clients.filter(c=>isToday(c.nextDate));render(f);document.querySelector(".list-panel").scrollIntoView({behavior:"smooth",block:"start"});toast("پیگیری امروز",`${faNum(f.length)} مراجع برای پیگیری امروز پیدا شد.`)}
+$("#showTodayFollow").onclick=showFollow;$("#showNoContact").onclick=()=>{$("#contactFilter").value="missing";page=1;apply();document.querySelector(".list-panel").scrollIntoView({behavior:"smooth",block:"start"});toast("بدون تماس",`${faNum(clients.filter(c=>!c.contacted).length)} مراجع بدون تماس نمایش داده شدند.`)};
+$("#notifications").onclick=e=>{e.stopPropagation();$("#notificationPopover").classList.toggle("open")};$("#closeNotifications").onclick=()=>$("#notificationPopover").classList.remove("open");$("#markNotifications").onclick=()=>{$("#notificationPopover").classList.remove("open");toast("اعلان‌ها خوانده شد","اعلان‌های فعلی علامت‌گذاری شدند.")};document.addEventListener("click",e=>{if($("#notificationPopover").classList.contains("open")&&!$("#notificationPopover").contains(e.target)&&!e.target.closest("#notifications"))$("#notificationPopover").classList.remove("open")});
+$("#quickSearch").onclick=()=>{$("#search").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>$("#search").focus(),350)};
+const scrollTop=$("#scrollTop"),thumb=$("#sidebarScrollThumb");function scrollUI(){scrollTop.classList.toggle("show",scrollY>420);if(thumb){const ratio=sidebar.clientHeight/sidebar.scrollHeight,max=sidebar.scrollHeight-sidebar.clientHeight;thumb.style.height=Math.max(34,ratio*100)+"%";thumb.style.top=max?(sidebar.scrollTop/max)*(100-ratio*100)+"%":"0"}}scrollTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});addEventListener("scroll",scrollUI,{passive:true});sidebar.addEventListener("scroll",scrollUI,{passive:true});addEventListener("resize",scrollUI);
+rebuildServices();save();apply();scrollUI();
+const p=new URLSearchParams(location.search);if(p.get("new")==="1")setTimeout(newClient,180);if(p.get("client")){const c=clients.find(x=>x.id===p.get("client"));if(c)setTimeout(()=>detail(c),180)}
 })();
 </script>
 
