@@ -1,669 +1,1301 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08070d">
-<meta name="description" content="مدیریت مراجعین پنل مشاور MOSHAVER">
-<title>مراجعین | MOSHAVER</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08050f">
+<title>مراجعین | مشاور</title>
+<meta name="description" content="مدیریت حرفه‌ای مراجعین در پنل مشاور">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
 
-:root{
-  --bg:#07050b;--bg-2:#0d0815;
-  --surface:rgba(20,13,31,.68);--surface-2:rgba(27,17,43,.76);
-  --surface-3:rgba(255,255,255,.045);--surface-4:rgba(255,255,255,.075);
-  --text:#fbf9ff;--muted:#b7adca;--muted-2:#82768f;
-  --border:rgba(255,255,255,.095);--border-strong:rgba(255,255,255,.16);
-  --purple:#a855f7;--purple-2:#7c3aed;--purple-3:#d8b4fe;
-  --cyan:#22d3ee;--green:#34d399;--yellow:#fbbf24;--red:#fb7185;--blue:#60a5fa;
-  --shadow:0 24px 70px rgba(0,0,0,.32);--purple-shadow:0 22px 65px rgba(124,58,237,.16);
-  --blur:26px;--ease:cubic-bezier(.2,.75,.2,1);
+{
+
+--bg:#07040d;--bg2:#0c0715;--surface(22,14,37,.60);--surface2(28,18,47,.78);
+
+--surface3(255,255,255,.045);--text:#fbf9ff;--text2:#bcb3ca;--text3:#82778e;
+
+--border(255,255,255,.085);--border2(168,85,247,.28);
+
+--purple:#a855f7;--purple2:#7c3aed;--cyan:#22d3ee;--green:#34d399;--yellow:#fbbf24;--red:#fb7185;
+
+--shadow:0 24px 80px rgba(0,0,0,.34);--glow:0 0 45px rgba(168,85,247,.12);
+
+--sidebar:274px;--font-scale:1.12;--ease(.22,1,.36,1);--r:24px;
+
 }
-html[data-theme="light"]{
-  --bg:#f4f0fa;--bg-2:#ebe4f5;
-  --surface:rgba(255,255,255,.72);--surface-2:rgba(255,255,255,.86);
-  --surface-3:rgba(112,71,155,.055);--surface-4:rgba(112,71,155,.09);
-  --text:#21162c;--muted:#675873;--muted-2:#8e7d99;
-  --border:rgba(83,49,111,.12);--border-strong:rgba(83,49,111,.19);
-  --shadow:0 24px 70px rgba(77,43,104,.12);--purple-shadow:0 22px 65px rgba(124,58,237,.13);
+
+html[data-theme=light]{
+
+--bg:#f5f1fa;--bg2:#eee8f6;--surface(255,255,255,.62);--surface2(255,255,255,.86);
+
+--surface3(90,60,120,.055);--text:#21172c;--text2:#675b73;--text3:#94899f;
+
+--border(52,28,72,.10);--border2(124,58,237,.22);--shadow:0 25px 75px rgba(70,42,92,.12);
+
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;min-width:320px;min-height:100vh;overflow-x:hidden;
-  font-family:"Vazirmatn",Tahoma,sans-serif;color:var(--text);
-  background:
-    radial-gradient(circle at 82% 4%,rgba(168,85,247,.16),transparent 27rem),
-    radial-gradient(circle at 12% 88%,rgba(34,211,238,.07),transparent 24rem),
-    linear-gradient(135deg,var(--bg),var(--bg-2));
+
+*{box-sizing}
+
+html{scroll-behavior}
+
+body{margin:0;min-height:100vh;font-family,sans-serif;color(--text);background:
+
+radial-gradient(circle at 8% 5%,rgba(168,85,247,.14),transparent 28%),
+
+radial-gradient(circle at 92% 12%,rgba(34,211,238,.07),transparent 24%),
+
+radial-gradient(circle at 65% 100%,rgba(124,58,237,.10),transparent 30%),var(--bg);
+
+overflow-x;transition:.4s var(--ease)}
+
+button,input,select,textarea{font}
+
+button{border:0}
+
+a{text-decoration;color}
+
+::selection{background(168,85,247,.42);color:#fff}
+
+.ambient{position;inset:0;pointer-events;z-index:-1;overflow}
+
+.ambient i{position;width:330px;height:330px;border-radius:50%;filter(85px);opacity:.15}
+
+.ambient i(1){right:8%;top:-150px;background(--purple);animation 15s ease-in-out infinite alternate}
+
+.ambient i(2){left:-150px;bottom:-130px;background(--cyan);animation 18s -6s ease-in-out infinite alternate}
+
+@keyframes orb{to{transform(35px,25px) scale(1.12)}}
+
+/* Professional floating rotating crosses */
+
+.floating-crosses{position;inset:0;pointer-events;overflow;z-index:1}
+
+.floating-cross{position;width:34px;height:34px;display;place-items;color(198,154,255,.62);font-size:28px;font-weight:300;line-height:1;filter(0 0 12px rgba(168,85,247,.35));animation 9s ease-in-out infinite, crossSpin 12s linear infinite}
+
+.floating-cross{content:"×"}.floating-cross(1){right:8%;top:19%;animation-delay:-2s}.floating-cross(2){left:7%;top:57%;font-size:22px;animation-duration:11s,16s;animation-delay:-5s}.floating-cross(3){right:34%;bottom:8%;font-size:18px;animation-duration:10s,14s;animation-delay:-3s}.floating-cross(4){left:30%;top:10%;font-size:16px;animation-duration:13s,18s;animation-delay:-8s}
+
+@keyframes crossFloat{0%,100%{transform(0,0,0)}50%{transform(0,-12px,0)}}
+
+@keyframes crossSpin{to{rotate:360deg}}
+
+html[data-theme=light] .floating-cross{color(124,58,237,.42)}
+
+.glass{background(135deg,var(--surface2),var(--surface));border:1px solid var(--border);
+
+box-shadow(--shadow),var(--glow);backdrop-filter(25px) saturate(150%);-webkit-backdrop-filter(25px) saturate(150%)}
+
+.app{min-height:100vh;display;grid-template-columns(--sidebar) minmax(0,1fr)}
+
+.sidebar{position;right:17px;top:17px;bottom:17px;width(var(--sidebar) - 34px);border-radius:28px;padding:17px 13px;z-index:70;display;flex-direction;overflow}
+
+.sidebar{content:"";position;width:150px;height:150px;border-radius:50%;left:-80px;top:30px;background(168,85,247,.13);filter(38px)}
+
+.brand{display;align-items;gap:11px;padding:5px 7px 20px;position;z-index:2}
+
+.logo{width:44px;height:44px;border-radius:15px;display;place-items;color:#fff;font-weight:900;font-size:19px;background(145deg,var(--purple),var(--purple2));box-shadow:0 0 32px rgba(168,85,247,.32),inset 0 1px rgba(255,255,255,.3)}
+
+.brand strong{display;font-size:17px}.brand small{display;color(--text3);font-size:10px;margin-top:2px}
+
+.nav-title{font-size:11px;color(--text3);font-weight:700;padding:7px 10px}
+
+.nav{position;z-index:2;display;flex-direction;gap:5px}
+
+.nav a{min-height:45px;padding:0 11px;border-radius:15px;display;align-items;gap:10px;color(--text2);transition:.28s var(--ease);position}
+
+.nav a{color(--text);background(--surface3);transform(-3px)}
+
+.nav a.active{color(--text);background(135deg,rgba(168,85,247,.18),rgba(124,58,237,.05));border:1px solid rgba(168,85,247,.12)}
+
+.nav a.active{content:"";position;right:-14px;width:3px;height:24px;border-radius:9px;background(var(--purple),var(--cyan));box-shadow:0 0 16px rgba(168,85,247,.8)}
+
+.nav-icon{width:25px;text-align;font-size:16px}.nav-label{font-size:13px;font-weight:600;flex:1}.badge{min-width:20px;height:20px;padding:0 5px;border-radius:99px;display;place-items;font-size:10px;background(168,85,247,.18);border:1px solid rgba(168,85,247,.2)}
+
+.sidebar-bottom{margin-top;position;z-index:2}
+
+.profile-mini{display;gap:9px;align-items;padding:10px;border:1px solid var(--border);background(--surface3);border-radius:17px;margin-bottom:8px}
+
+.avatar{width:38px;height:38px;border-radius:13px;display;place-items;color:#fff;font-size:11px;font-weight:800;background(145deg,#8b5cf6,#6d28d9);box-shadow:0 0 20px rgba(124,58,237,.25)}
+
+.profile-copy{min-width:0}.profile-copy strong{display;font-size:12px;white-space;overflow;text-overflow}.profile-copy span{display;color(--text3);font-size:10px;margin-top:2px}
+
+.logout{width:100%;height:40px;border-radius:13px;background;border:1px solid var(--border);color(--text2);cursor;transition:.25s}.logout{color(--red);border-color(251,113,133,.28);background(251,113,133,.05)}
+
+.main{grid-column:2;min-width:0;padding:17px 17px 38px}
+
+.topbar{height:70px;border-radius:22px;display;align-items;gap:11px;padding:9px 10px;position;top:12px;z-index:60}
+
+.menu-mobile{display;width:42px;height:42px;border-radius:13px;background(--surface3);border:1px solid var(--border);color(--text);cursor}
+
+.page-context{flex:1;min-width:0}.eyebrow{font-size:9px;color(--purple);font-weight:700}.page-context h1{font-size:20px;margin:2px 0 0;letter-spacing:-.6px}
+
+.top-actions{display;gap:7px}.icon-btn{width:42px;height:42px;border-radius:13px;display;place-items;background(--surface3);border:1px solid var(--border);color(--text2);cursor;transition:.28s var(--ease);position}
+
+.icon-btn{color(--text);border-color(--border2);transform(-2px);box-shadow:0 12px 30px rgba(168,85,247,.12)}
+
+.dot{position;right:8px;top:8px;width:6px;height:6px;border-radius:50%;background(--cyan);box-shadow:0 0 12px rgba(34,211,238,.8)}
+
+.content{padding:20px 3px 0}
+
+.welcome{border-radius:28px;padding:25px 27px;min-height:170px;display;align-items;justify-content;gap:25px;position;overflow;background:
+
+radial-gradient(circle at 8% 100%,rgba(168,85,247,.22),transparent 34%),
+
+radial-gradient(circle at 90% 0%,rgba(34,211,238,.10),transparent 25%),
+
+linear-gradient(135deg,rgba(38,21,61,.82),rgba(15,9,26,.62))}
+
+html[data-theme=light] .welcome{background(circle at 8% 100%,rgba(168,85,247,.12),transparent 34%),radial-gradient(circle at 90% 0%,rgba(34,211,238,.07),transparent 25%),linear-gradient(135deg,rgba(255,255,255,.9),rgba(246,240,252,.72))}
+
+.welcome h2{font-size:29px;margin:0;letter-spacing:-1.2px}.welcome p{font-size:10px;color(--text2);line-height:2;margin:7px 0 0;max-width:620px}.live{display;align-items;gap:6px;font-size:8px;color(--text2);border:1px solid var(--border);background(255,255,255,.045);border-radius:99px;padding:5px 9px;margin-bottom:11px}.live i{width:6px;height:6px;border-radius:50%;background(--green);box-shadow:0 0 10px rgba(52,211,153,.8)}
+
+.welcome-art{width:185px;height:135px;position;flex:0 0 185px}.welcome-art,.welcome-art{content:"";position;border:1px solid rgba(168,85,247,.18);border-radius:50%;inset:13px;transform(-18deg) scaleX(1.45)}.welcome-art{inset:29px;border-color(34,211,238,.14);transform(55deg) scaleX(1.35)}.core{position;width:68px;height:68px;top:34px;left:57px;border-radius:23px;display;place-items;color:#fff;font-size:23px;background(145deg,var(--purple),var(--purple2));box-shadow:0 0 45px rgba(168,85,247,.35);animation 4s ease-in-out infinite}@keyframes float{50%{transform(-7px) rotate(2deg)}}
+
+.dashboard-grid{display;grid-template-columns(12,minmax(0,1fr));gap:13px;margin-top:14px}
+
+.kpi{grid-column 3;min-height:140px;border-radius:21px;padding:17px;position;overflow;transition:.35s var(--ease)}.kpi{transform(-5px);border-color(--border2);box-shadow(--shadow),0 0 42px rgba(168,85,247,.13)}.kpi{content:"";position;width:100px;height:100px;border-radius:50%;right:-40px;top:-40px;background(--purple);opacity:.08;filter(8px)}
+
+.kpi-head{display;justify-content;align-items;color(--text3);font-size:12px}.kpi-icon{width:33px;height:33px;border-radius:11px;display;place-items;background(168,85,247,.10);border:1px solid rgba(168,85,247,.12);font-size:14px}.kpi-value{font-size:31px;font-weight:900;margin-top:16px;letter-spacing:-1px}.kpi-foot{display;gap:5px;margin-top:8px;font-size:10px}.up{color(--green)}.warn{color(--yellow)}.muted{color(--text3)}
+
+.section-head{display;align-items;justify-content;gap:10px;margin-bottom:11px}.section-title strong{font-size:16px;display}.section-title span{display;color(--text3);font-size:10px;margin-top:3px}
+
+.action-btn{height:38px;padding:0 11px;border-radius:11px;background(168,85,247,.11);border:1px solid rgba(168,85,247,.18);color(--text);font-size:10px;cursor;transition:.25s}.action-btn{background(168,85,247,.18);transform(-1px)}
+
+.calendar-panel{grid-column 5;padding:17px;border-radius:23px;min-height:355px}
+
+.calendar-toolbar{display;align-items;justify-content;margin-bottom:13px}.month-name{font-size:14px;font-weight:800}.month-name small{display;font-size:8px;color(--text3);font-weight:400;margin-top:2px}
+
+.cal-actions{display;gap:5px}.cal-btn{width:31px;height:31px;border-radius:9px;background(--surface3);border:1px solid var(--border);color(--text2);cursor;transition:.25s}.cal-btn{color(--text);border-color(--border2)}
+
+.weekdays,.days{display;grid-template-columns(7,1fr);gap:5px}.weekdays div{text-align;color(--text3);font-size:10px;padding:6px 0}.day{min-height:42px;border-radius:12px;display;place-items;color(--text2);font-size:11px;font-weight:600;cursor;border:1px solid var(--border);background(10,7,17,.34);transition:.22s;position}.day{background(168,85,247,.09);border-color(--border2);color(--text);transform(-1px)}.day.muted-day{opacity:.32;background;border-color}.day.today{color:#fff;background(145deg,rgba(168,85,247,.75),rgba(124,58,237,.42));border-color(168,85,247,.45);box-shadow:0 0 22px rgba(168,85,247,.18)}.day.selected{border-color(--cyan);box-shadow:0 0 18px rgba(34,211,238,.14)}.day.has-event{content:"";position;bottom:5px;width:4px;height:4px;border-radius:50%;background(--cyan);box-shadow:0 0 8px rgba(34,211,238,.75)}.calendar-footer{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display;align-items;justify-content;color(--text3);font-size:8px}.today-link{color(--purple);cursor}
+
+.chart-panel{grid-column 7;padding:17px;border-radius:23px;min-height:355px}
+
+.chart-controls{display;align-items;gap:7px}.month-select{height:38px;border-radius:10px;background(--surface3);border:1px solid var(--border);color(--text2);padding:0 11px;outline;font-size:10px}.month-select option{background:#15101d;color:#f4effa}html[data-theme=light] .month-select option{background:#fff;color:#2b2035}
+
+.chart-summary{display;gap:20px;margin-bottom:8px}.summary-item span{font-size:8px;color(--text3);display}.summary-item strong{font-size:16px;display;margin-top:2px}.chart-wrap{height:250px;position}.chart-grid{position;inset:15px 0 27px;display;flex-direction;justify-content}.chart-grid i{height:1px;background(--border);display}.line-chart{position;inset:15px 0 27px;overflow}.chart-svg{width:100%;height:100%;overflow}.chart-area{fill(#areaGradient);opacity:.32}.chart-line{fill;stroke(#lineGradient);stroke-width:3;stroke-linecap;stroke-linejoin;filter(0 0 7px rgba(168,85,247,.45))}.chart-point{fill(--bg2);stroke(--purple);stroke-width:2;cursor}.chart-point{stroke(--cyan);r:5}.x-labels{position;bottom:2px;left:0;right:0;display;justify-content;color(--text3);font-size:7px}.chart-empty{position;inset:0;display;align-items;justify-content;color(--text3);font-size:9px}
+
+.tasks-panel{grid-column 8;padding:18px;border-radius:23px}.tasks-list{display;grid-template-columns(2,minmax(0,1fr));gap:9px}.task{min-height:94px;padding:12px;border-radius:16px;background(--surface3);border:1px solid transparent;display;gap:10px;align-items;cursor;transition:.28s var(--ease);position;overflow}.task{transform(-3px);border-color(--border2);box-shadow:0 15px 35px rgba(0,0,0,.13)}.task.pinned{border-color(168,85,247,.22);background(135deg,rgba(168,85,247,.09),var(--surface3))}.task-check{width:25px;height:25px;flex:0 0 25px;border-radius:8px;border:1px solid var(--border);display;place-items;color;background(255,255,255,.025);margin-top:1px}.task.done .task-check{color:#fff;background(145deg,var(--green),#059669);border-color}.task.done .task-title{text-decoration;opacity:.55}.task-body{min-width:0;flex:1}.task-title{font-size:12px;font-weight:700;white-space;overflow;text-overflow}.task-meta{display;align-items;gap:6px;color(--text3);font-size:10px;margin-top:5px}.priority{width:5px;height:5px;border-radius:50%;background(--yellow)}.task-actions{position;left:9px;top:9px;color(--text3);font-size:11px}.pin{opacity:.45}.task.pinned .pin{opacity:1;color(--purple)}
+
+.quick-panel{grid-column 4;padding:18px;border-radius:23px}.quick-grid{display;grid-template-columns:1fr 1fr;gap:8px}.quick{min-height:86px;border-radius:15px;padding:11px;background(--surface3);border:1px solid transparent;cursor;transition:.28s var(--ease);display;flex-direction;justify-content}.quick{transform(-3px);border-color(--border2);box-shadow:0 15px 30px rgba(168,85,247,.08)}.quick-icon{width:29px;height:29px;border-radius:10px;display;place-items;background(168,85,247,.11);font-size:13px}.quick span{font-size:10px;color(--text2)}.quick strong{font-size:12px}
+
+.activity-panel{grid-column 12;padding:18px;border-radius:23px}.activity-list{display;grid-template-columns(3,minmax(0,1fr));gap:8px}.activity{display;gap:9px;align-items;padding:10px;border-radius:14px;background(--surface3);border:1px solid transparent}.activity-avatar{width:34px;height:34px;border-radius:11px;display;place-items;color:#fff;font-size:9px;background(145deg,rgba(168,85,247,.82),rgba(34,211,238,.52))}.activity-copy{min-width:0;flex:1}.activity-copy strong{display;font-size:10px}.activity-copy span{display;font-size:9px;color(--text3);margin-top:3px;white-space;overflow;text-overflow}.activity-time{font-size:7px;color(--text3)}
+
+.mobile-nav{display}
+
+.overlay{position;inset:0;background(0,0,0,.38);backdrop-filter(4px);z-index:65;opacity:0;pointer-events;transition:.3s}.overlay.open{opacity:1;pointer-events}
+
+.modal-backdrop{position;inset:0;background(2,1,5,.60);backdrop-filter(10px);z-index:100;display;place-items;padding:20px;opacity:0;pointer-events;transition:.35s}.modal-backdrop.open{opacity:1;pointer-events}
+
+.task-modal{width(620px,100%);border-radius:27px;padding:19px;transform(18px) scale(.97);transition:.4s var(--ease)}.modal-backdrop.open .task-modal{transform(0) scale(1)}
+
+.modal-head{display;align-items;justify-content;gap:10px;padding-bottom:13px;border-bottom:1px solid var(--border)}.modal-title strong{font-size:13px}.modal-title span{display;font-size:8px;color(--text3);margin-top:3px}.close{width:35px;height:35px;border-radius:11px;background(--surface3);border:1px solid var(--border);color(--text2);cursor}.form-grid{display;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.field.full{grid-column:1/-1}.field label{display;font-size:10px;color(--text3);margin:0 0 5px}.field input,.field textarea,.field select{width:100%;border-radius:12px;border:1px solid var(--border);background(--surface3);color(--text);outline;padding:11px 12px;font-size:11px;transition:.2s}.field textarea{min-height:110px;resize;line-height:1.9}.field select{appearance;-webkit-appearance;background-color:#17101f;color:#f7f3fb}.field select option{background:#17101f;color:#f7f3fb;padding:10px}html[data-theme=light] .field select{background:#fff;color:#2b2035}html[data-theme=light] .field select option{background:#fff;color:#2b2035}.field input,.field textarea,.field select{border-color(--border2);box-shadow:0 0 0 3px rgba(168,85,247,.07)}.modal-actions{display;justify-content;gap:7px;margin-top:14px}.primary{height:38px;padding:0 15px;border-radius:12px;background(135deg,var(--purple),var(--purple2));color:#fff;cursor;box-shadow:0 0 24px rgba(168,85,247,.18)}.secondary{height:38px;padding:0 13px;border-radius:12px;background(--surface3);border:1px solid var(--border);color(--text2);cursor}.danger{height:38px;padding:0 13px;border-radius:12px;background(251,113,133,.07);border:1px solid rgba(251,113,133,.2);color(--red);cursor;margin-right}
+
+.toast{position;left:22px;bottom:22px;z-index:130;min-width:260px;max-width(100vw - 44px);padding:12px 14px;border-radius:16px;display;align-items;gap:9px;opacity:0;transform(20px);pointer-events;transition:.35s var(--ease)}.toast.show{opacity:1;transform(0)}.toast-icon{width:29px;height:29px;border-radius:10px;display;place-items;background(52,211,153,.13);border:1px solid rgba(52,211,153,.22);color(--green)}.toast strong{font-size:9px;display}.toast span{font-size:7px;color(--text3);display;margin-top:2px}
+
+.notifications{position;left:22px;top:83px;width:320px;padding:14px;border-radius:21px;z-index:90;opacity:0;transform(-8px) scale(.98);pointer-events;transition:.3s}.notifications.open{opacity:1;transform;pointer-events}.notif-head{display;justify-content;align-items}.notif-head strong{font-size:10px}.notif-head button{background;color(--purple);font-size:8px;cursor}.notif{margin-top:7px;padding:10px;border-radius:13px;background(--surface3);border:1px solid transparent}.notif strong{display;font-size:8px}.notif span{display;font-size:7px;color(--text3);margin-top:3px}
+
+@media(max-width:1120px){{--sidebar:235px}.kpi{grid-column 6}.calendar-panel{grid-column 12}.chart-panel{grid-column 12}.tasks-panel{grid-column 8}.quick-panel{grid-column 4}.activity-list{grid-template-columns:1fr 1fr}}
+
+@media(max-width:840px){
+
+.app{display}.sidebar{right:12px;top:12px;bottom:12px;width(285px,calc(100vw - 24px));transform(120%);transition:.4s var(--ease)}.sidebar.open{transform}.main{padding:12px 12px 91px}.menu-mobile{display;place-items}.welcome{padding:21px}.welcome-art{display}.welcome h2{font-size:22px}.kpi{grid-column 6}.tasks-panel{grid-column 12}.quick-panel{grid-column 12}.activity-list{grid-template-columns:1fr}.mobile-nav{position;display;align-items;justify-content;left:10px;right:10px;bottom:10px;min-height:67px;padding:6px;border-radius:22px;z-index:60}.mobile-nav a,.mobile-nav button{min-width:57px;height:52px;border-radius:15px;background;color(--text3);display;flex-direction;align-items;justify-content;gap:3px;font-size:9px;cursor}.mobile-nav b{font-size:16px;font-weight:500}.mobile-nav .active{color(--text);background(168,85,247,.12)}}
+
+@media(max-width:540px){
+
+.top-actions .profile-btn{display}.content{padding-top:15px}.kpi{grid-column 12;min-height:115px}.dashboard-grid{gap:10px}.calendar-panel,.chart-panel,.tasks-panel,.quick-panel,.activity-panel{padding:14px}.tasks-list{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column}.modal-actions{flex-wrap}.danger{margin-right:0}.notifications{left:12px;right:12px;width}.day{min-height:36px}
+
 }
-button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none;color:inherit}
-::selection{background:rgba(168,85,247,.3)}
-.app{min-height:100vh;isolation:isolate}
-.ambient{position:fixed;inset:0;pointer-events:none;z-index:-2;overflow:hidden}
-.grid{position:absolute;inset:0;opacity:.13;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 88%)}
-html[data-theme="light"] .grid{opacity:.07}
-.orb{position:absolute;border-radius:50%;filter:blur(8px);opacity:.55;mix-blend-mode:screen}
-.orb.one{width:330px;height:330px;right:8%;top:5%;background:radial-gradient(circle,rgba(168,85,247,.27),transparent 67%);animation:orbFloat 12s ease-in-out infinite}
-.orb.two{width:420px;height:420px;left:-120px;bottom:2%;background:radial-gradient(circle,rgba(34,211,238,.11),transparent 68%);animation:orbFloat 16s ease-in-out -4s infinite}
-.orb.three{width:250px;height:250px;left:44%;top:38%;background:radial-gradient(circle,rgba(124,58,237,.10),transparent 70%);animation:orbFloat 13s ease-in-out -7s infinite}
-.float-x{position:absolute;width:34px;height:34px;display:grid;place-items:center;color:rgba(216,180,254,.6);font-size:19px;font-weight:300;pointer-events:none;opacity:.6;animation:spinFloat 11s linear infinite,drift 7s ease-in-out infinite}
-.float-x:before{content:"";position:absolute;inset:7px;border:1px solid rgba(168,85,247,.26);border-radius:10px;transform:rotate(45deg)}
-.float-x.a{top:92px;right:32%;animation-delay:-2s}.float-x.b{top:34%;left:9%;font-size:14px;animation-duration:15s}.float-x.c{bottom:21%;right:17%;animation-delay:-6s}.float-x.d{bottom:10%;left:39%;font-size:13px;animation-duration:18s}.float-x.e{top:18%;right:5%;font-size:12px;animation-duration:13s}
 
-.shell{width:min(1540px,100%);margin:0 auto;padding:16px;display:grid;grid-template-columns:276px minmax(0,1fr);gap:16px}
-.sidebar{
-  position:sticky;top:16px;height:calc(100vh - 32px);border:1px solid var(--border);
-  background:linear-gradient(180deg,rgba(24,14,38,.84),rgba(12,8,20,.76));
-  backdrop-filter:blur(var(--blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);
-  border-radius:30px;box-shadow:var(--shadow),var(--purple-shadow);padding:18px;
-  display:flex;flex-direction:column;overflow:hidden;z-index:50
+@media(prefers-reduced-motion){*,*,*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior!important}}
+
+/* =========================
+CLIENTS MODULE
+========================= */
+.content{padding-top:20px}
+.clients-hero{
+min-height:168px;padding:25px 27px;border-radius:28px;position;overflow;
+display;align-items;justify-content;gap:22px;
+background:
+radial-gradient(circle at 8% 100%,rgba(168,85,247,.22),transparent 34%),
+radial-gradient(circle at 88% 0%,rgba(34,211,238,.10),transparent 26%),
+linear-gradient(135deg,rgba(38,21,61,.82),rgba(15,9,26,.62));
 }
-html[data-theme="light"] .sidebar{background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(247,242,252,.78))}
-.brand{display:flex;align-items:center;gap:12px;padding:6px 4px 20px}
-.brand-mark{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--purple),var(--purple-2));color:#fff;font-size:22px;font-weight:900;box-shadow:0 12px 30px rgba(124,58,237,.28);position:relative;overflow:hidden}
-.brand-mark:after{content:"";position:absolute;width:80px;height:18px;background:rgba(255,255,255,.22);transform:rotate(-35deg) translateX(-50px);animation:shimmer 4s ease-in-out infinite}
-.brand strong{font-size:18px;font-weight:900}.brand small{display:block;color:var(--muted-2);font-size:10px;margin-top:3px}
-.sidebar-label{color:var(--muted-2);font-size:11px;font-weight:800;margin:8px 8px}
-.nav{display:grid;gap:6px}.nav a{min-height:48px;display:flex;align-items:center;gap:11px;padding:0 12px;border:1px solid transparent;border-radius:15px;color:var(--muted);transition:.25s var(--ease)}
-.nav a:hover{color:var(--text);background:var(--surface-3);border-color:var(--border);transform:translateX(-3px)}
-.nav a.active{color:var(--text);background:linear-gradient(100deg,rgba(168,85,247,.20),rgba(124,58,237,.08));border-color:rgba(168,85,247,.26);box-shadow:inset 0 0 25px rgba(168,85,247,.05),0 10px 30px rgba(0,0,0,.12)}
-.nav-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:var(--purple-3);background:var(--surface-3);border:1px solid var(--border);flex:0 0 auto}
-.nav .active .nav-icon{color:#fff;background:linear-gradient(145deg,var(--purple),var(--purple-2));border-color:transparent}
-.nav-label{font-size:14px;font-weight:700;flex:1}.nav-badge{min-width:25px;height:25px;padding:0 7px;border-radius:999px;display:grid;place-items:center;font-size:10px;font-weight:800;color:#eadcff;background:rgba(168,85,247,.14);border:1px solid rgba(168,85,247,.2)}
-.sidebar-bottom{margin-top:auto;display:grid;gap:10px}.profile-mini{padding:12px;border:1px solid var(--border);border-radius:18px;background:var(--surface-3);display:flex;align-items:center;gap:10px}
-.avatar{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,var(--purple),var(--purple-2));color:#fff;font-weight:900}
-.profile-mini strong{font-size:13px}.profile-mini small{display:block;color:var(--muted-2);font-size:10px;margin-top:3px}
-.logout{width:100%;height:44px;border-radius:13px;cursor:pointer;color:var(--muted);background:transparent;border:1px solid var(--border);transition:.2s}
-.logout:hover{color:var(--red);border-color:rgba(251,113,133,.25);background:rgba(251,113,133,.06)}
-
-.main{min-width:0}.topbar{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;margin-bottom:16px;border:1px solid var(--border);border-radius:22px;background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);box-shadow:var(--shadow)}
-.topbar-title small{display:block;color:var(--muted-2);font-size:10px;margin-bottom:3px}.topbar-title h1{margin:0;font-size:20px;font-weight:900}
-.top-actions{display:flex;align-items:center;gap:8px}.icon-btn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--muted);background:var(--surface-3);border:1px solid var(--border);cursor:pointer;transition:.25s var(--ease)}
-.icon-btn:hover{color:var(--text);transform:translateY(-2px) rotate(4deg);border-color:var(--border-strong)}
-.notification{position:relative}.notification:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;top:8px;right:8px;background:var(--cyan);box-shadow:0 0 13px var(--cyan)}
-.menu-btn{display:none}
-
-.page-hero{
-  position:relative;padding:25px;border:1px solid var(--border);border-radius:30px;
-  background:radial-gradient(circle at 90% 15%,rgba(168,85,247,.18),transparent 32%),radial-gradient(circle at 8% 115%,rgba(34,211,238,.08),transparent 27%),var(--surface);
-  backdrop-filter:blur(var(--blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--blur)) saturate(160%);
-  box-shadow:var(--shadow),var(--purple-shadow);overflow:hidden
+html[data-theme=light] .clients-hero{
+background:
+radial-gradient(circle at 8% 100%,rgba(168,85,247,.12),transparent 34%),
+radial-gradient(circle at 88% 0%,rgba(34,211,238,.07),transparent 26%),
+linear-gradient(135deg,rgba(255,255,255,.9),rgba(246,240,252,.72));
 }
-.page-hero:before{content:"";position:absolute;width:300px;height:300px;right:-100px;top:-180px;border:1px solid rgba(168,85,247,.22);border-radius:50%;box-shadow:0 0 0 20px rgba(168,85,247,.025),0 0 0 46px rgba(168,85,247,.012);animation:heroRing 16s linear infinite}
-.page-hero:after{content:"";position:absolute;width:500px;height:130px;left:-180px;bottom:-100px;border-radius:50%;background:rgba(168,85,247,.12);filter:blur(45px)}
-.hero-content{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--purple-3);font-size:12px;font-weight:800}.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}
-.page-hero h2{margin:9px 0 6px;font-size:clamp(25px,3vw,38px);letter-spacing:-.8px}.page-hero p{margin:0;color:var(--muted);font-size:13px;line-height:2;max-width:760px}
-.hero-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}.btn{min-height:47px;padding:0 16px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:var(--text);border:1px solid var(--border);background:var(--surface-3);transition:.25s var(--ease);font-weight:800;font-size:13px}
-.btn:hover{transform:translateY(-2px);border-color:var(--border-strong)}.btn.primary{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--purple),var(--purple-2));box-shadow:0 15px 35px rgba(124,58,237,.25);position:relative;overflow:hidden}
-.btn.primary:after{content:"";position:absolute;inset:0;width:35%;transform:skewX(-25deg) translateX(-180%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);animation:buttonShine 4.5s ease-in-out infinite}
-
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:16px}.card{border:1px solid var(--border);background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);box-shadow:var(--shadow)}
-.kpi{min-height:137px;padding:17px;border-radius:22px;position:relative;overflow:hidden;transition:.3s var(--ease)}.kpi:hover{transform:translateY(-5px);border-color:var(--border-strong);box-shadow:var(--shadow),0 20px 45px rgba(124,58,237,.11)}
-.kpi:after{content:"";position:absolute;width:100px;height:100px;left:-45px;bottom:-50px;border-radius:50%;background:rgba(168,85,247,.12);filter:blur(20px)}
-.kpi-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted)}.kpi-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:var(--purple-3);background:rgba(168,85,247,.09);border:1px solid rgba(168,85,247,.16)}
-.kpi strong{display:block;font-size:30px;line-height:1;margin-top:15px;font-weight:900}.kpi small{display:flex;align-items:center;gap:6px;margin-top:9px;color:var(--muted-2);font-size:10px}.up{color:var(--green)!important}.warn{color:var(--yellow)!important}
-
-
-.notification-popover{position:fixed;top:82px;left:28px;width:min(390px,calc(100vw - 32px));border:1px solid var(--border-strong);border-radius:22px;background:rgba(17,10,27,.93);backdrop-filter:blur(28px) saturate(160%);-webkit-backdrop-filter:blur(28px) saturate(160%);box-shadow:0 28px 80px rgba(0,0,0,.38),0 0 55px rgba(124,58,237,.12);z-index:180;opacity:0;transform:translateY(-8px) scale(.98);pointer-events:none;transition:.25s var(--ease);overflow:hidden}
-html[data-theme="light"] .notification-popover{background:rgba(255,255,255,.95)}
-.notification-popover.open{opacity:1;transform:none;pointer-events:auto}
-.popover-head{padding:14px 15px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
-.popover-head strong{display:block;font-size:14px}.popover-head span{display:block;color:var(--muted-2);font-size:9px;margin-top:3px}.popover-close{width:34px;height:34px;border-radius:10px;color:var(--muted);background:var(--surface-3);border:1px solid var(--border);cursor:pointer;font-size:19px;transition:.25s}.popover-close:hover{color:var(--red);transform:rotate(90deg)}
-.notification-list{padding:7px}.notification-item{width:100%;display:grid;grid-template-columns:10px 1fr auto;gap:9px;align-items:start;text-align:right;padding:11px 8px;border-radius:14px;color:var(--text);background:transparent;cursor:pointer}.notification-item:hover{background:var(--surface-3)}.notification-item b{display:block;font-size:11px}.notification-item small{display:block;color:var(--muted-2);font-size:9px;line-height:1.8;margin-top:2px}.notification-item time{color:var(--muted-2);font-size:8px}.notif-dot{width:7px;height:7px;border-radius:50%;margin-top:5px;box-shadow:0 0 12px currentColor}.notif-dot.purple{color:var(--purple);background:var(--purple)}.notif-dot.cyan{color:var(--cyan);background:var(--cyan)}.notif-dot.green{color:var(--green);background:var(--green)}.popover-footer{width:100%;height:42px;color:var(--purple-3);background:rgba(168,85,247,.07);border-top:1px solid var(--border);cursor:pointer;font-size:10px;font-weight:800}
-.overview-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:14px;margin-top:16px}.overview-card{min-height:188px;border-radius:23px;padding:16px;position:relative;overflow:hidden;transition:.3s var(--ease)}.overview-card:hover{transform:translateY(-4px);border-color:var(--border-strong)}.overview-card:after{content:"";position:absolute;width:150px;height:150px;left:-65px;bottom:-85px;border-radius:50%;background:rgba(168,85,247,.08);filter:blur(24px)}.overview-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.section-kicker{display:block;color:var(--muted-2);font-size:9px;margin-bottom:4px}.overview-head strong{font-size:13px}.overview-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--purple-3);background:rgba(168,85,247,.09);border:1px solid rgba(168,85,247,.16)}.cyan-icon{color:var(--cyan);background:rgba(34,211,238,.07);border-color:rgba(34,211,238,.15)}.green-icon{color:var(--green);background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.15)}
-.overview-body{display:flex;align-items:center;gap:20px;margin-top:18px}.donut{width:104px;height:104px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--purple) 0 75%,rgba(255,255,255,.07) 75% 100%);position:relative;box-shadow:0 0 35px rgba(168,85,247,.13)}.donut:before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--bg-2);border:1px solid var(--border)}.donut>div{position:relative;text-align:center}.donut b{display:block;font-size:19px}.donut span{display:block;color:var(--muted-2);font-size:8px;margin-top:2px}.overview-stats{display:grid;gap:8px;flex:1}.overview-stats div{display:flex;align-items:center;justify-content:space-between;padding:7px 9px;border-radius:10px;background:var(--surface-3);border:1px solid var(--border)}.overview-stats span{font-size:9px;color:var(--muted)}.overview-stats b{font-size:12px}.activity-progress{display:flex;align-items:center;gap:10px;margin-top:24px}.activity-progress>div{height:8px;flex:1;border-radius:999px;background:var(--surface-3);overflow:hidden;border:1px solid var(--border)}.activity-progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple-2),var(--purple));box-shadow:0 0 14px rgba(168,85,247,.3)}.activity-progress b{font-size:12px}.activity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:18px}.activity-grid div{padding:8px;border-radius:10px;background:var(--surface-3);border:1px solid var(--border)}.activity-grid span{display:block;color:var(--muted-2);font-size:8px}.activity-grid b{display:block;font-size:14px;margin-top:3px}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:15px}.quick-action{min-height:52px;text-align:right;padding:8px;border-radius:12px;background:var(--surface-3);border:1px solid var(--border);color:var(--text);cursor:pointer;transition:.2s var(--ease)}.quick-action:hover{transform:translateY(-2px);border-color:rgba(168,85,247,.28);background:rgba(168,85,247,.07)}.quick-action span{float:right;width:29px;height:29px;margin-left:7px;display:grid;place-items:center;border-radius:9px;color:var(--purple-3);background:rgba(168,85,247,.09)}.quick-action b{display:block;font-size:9px;padding-top:2px}.quick-action small{display:block;color:var(--muted-2);font-size:7px;margin-top:2px}
-
-.toolbar{margin-top:16px;padding:14px;border-radius:24px;display:grid;gap:12px}
-.toolbar-row{display:flex;align-items:center;gap:10px}.search-wrap{position:relative;flex:1}.search-wrap span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted-2);pointer-events:none}
-.input,.select{width:100%;height:48px;border-radius:14px;border:1px solid var(--border);background:var(--surface-3);color:var(--text);outline:none;padding:0 42px 0 13px;transition:.2s}
-.select{padding:0 13px;cursor:pointer;color:var(--text);color-scheme:dark;appearance:auto}
-.select option{background:#171021;color:#fbf9ff}
-html[data-theme="light"] .select{color-scheme:light}
-html[data-theme="light"] .select option{background:#ffffff;color:#21162c}.input::placeholder{color:var(--muted-2)}.input:focus,.select:focus{border-color:rgba(168,85,247,.45);box-shadow:0 0 0 4px rgba(168,85,247,.07)}
-.clear-btn{height:48px;padding:0 14px;border-radius:14px;color:var(--muted);background:var(--surface-3);border:1px solid var(--border);cursor:pointer;font-size:12px;font-weight:800}
-.clear-btn:hover{color:var(--text);border-color:var(--border-strong)}
-.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-
-.list-panel{margin-top:16px;border-radius:26px;overflow:hidden}.list-head{padding:17px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border)}
-.list-head strong{font-size:15px}.list-head span{color:var(--muted-2);font-size:10px}
-.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:920px}.table th{height:49px;color:var(--muted-2);font-size:10px;font-weight:800;text-align:right;background:rgba(255,255,255,.018);border-bottom:1px solid var(--border);padding:0 14px}.table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted);vertical-align:middle}.table tr:last-child td{border-bottom:0}.table tbody tr{transition:.2s}.table tbody tr:hover{background:var(--surface-3)}
-.client-cell{display:flex;align-items:center;gap:10px;min-width:190px}.client-avatar{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(145deg,var(--purple),var(--purple-2));box-shadow:0 8px 20px rgba(124,58,237,.18)}.client-name strong{display:block;color:var(--text);font-size:12px}.client-name small{display:block;color:var(--muted-2);font-size:9px;margin-top:3px}
-.badge{display:inline-flex;align-items:center;justify-content:center;min-height:29px;padding:0 9px;border-radius:999px;font-size:9px;font-weight:800;white-space:nowrap;border:1px solid transparent}.badge.green{color:#86efac;background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.17)}.badge.yellow{color:#fde68a;background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.17)}.badge.purple{color:#e9d5ff;background:rgba(168,85,247,.10);border-color:rgba(168,85,247,.18)}.badge.red{color:#fecdd3;background:rgba(251,113,133,.08);border-color:rgba(251,113,133,.17)}
-.actions{display:flex;gap:6px;justify-content:flex-start}.mini-btn{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--surface-3);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:.2s}.mini-btn:hover{color:var(--text);border-color:var(--border-strong);transform:translateY(-2px)}.mini-btn.sms:hover{color:var(--cyan);border-color:rgba(34,211,238,.28)}.mini-btn.danger:hover{color:var(--red);border-color:rgba(251,113,133,.28)}
-
-.mobile-list{display:none;padding:10px}.client-card{position:relative;padding:14px;border:1px solid var(--border);border-radius:19px;background:var(--surface-3);margin-bottom:9px;overflow:hidden;transition:.25s var(--ease)}.client-card:hover{transform:translateY(-3px);border-color:var(--border-strong)}
-.client-card:after{content:"";position:absolute;left:-30px;bottom:-50px;width:120px;height:120px;border-radius:50%;background:rgba(168,85,247,.09);filter:blur(20px)}
-.client-card-top{display:flex;align-items:center;gap:10px}.client-card-top .client-avatar{width:44px;height:44px}.client-card-main{min-width:0;flex:1}.client-card-main strong{display:block;font-size:13px}.client-card-main small{display:block;color:var(--muted-2);font-size:9px;margin-top:3px}.client-card-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.info-box{padding:9px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.025)}.info-box span{display:block;color:var(--muted-2);font-size:8px}.info-box b{display:block;font-size:10px;margin-top:3px;color:var(--text)}.client-card-actions{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:7px;margin-top:10px}.client-card-actions button{height:40px;border-radius:12px;color:var(--muted);background:var(--surface-3);border:1px solid var(--border);cursor:pointer;font-size:10px;font-weight:800}.client-card-actions button:first-child{color:#fff;background:linear-gradient(135deg,var(--purple),var(--purple-2));border-color:transparent}.client-card-actions button:hover{transform:translateY(-2px)}
-
-.pagination{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-top:1px solid var(--border)}.pagination-info{color:var(--muted-2);font-size:10px}.pages{display:flex;gap:5px}.page-btn{min-width:34px;height:34px;border-radius:10px;background:var(--surface-3);border:1px solid var(--border);color:var(--muted);cursor:pointer}.page-btn.active{color:#fff;background:linear-gradient(145deg,var(--purple),var(--purple-2));border-color:transparent}.page-btn:disabled{opacity:.4;cursor:not-allowed}
-
-.empty{padding:55px 20px;text-align:center;color:var(--muted-2);display:none}.empty.show{display:block}.empty-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:18px;display:grid;place-items:center;background:var(--surface-3);border:1px solid var(--border);font-size:23px}.empty strong{display:block;color:var(--text);font-size:14px}.empty span{display:block;font-size:10px;margin-top:5px}
-
-.modal-layer{position:fixed;inset:0;background:rgba(3,2,7,.66);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;place-items:center;padding:18px;z-index:200;opacity:0;pointer-events:none;transition:.25s}.modal-layer.open{opacity:1;pointer-events:auto}
-.modal{width:min(620px,100%);max-height:min(88vh,780px);overflow:auto;border:1px solid var(--border-strong);border-radius:27px;background:linear-gradient(145deg,rgba(25,15,39,.94),rgba(12,8,20,.95));box-shadow:0 35px 100px rgba(0,0,0,.45),0 0 70px rgba(124,58,237,.12);transform:translateY(18px) scale(.97);transition:.3s var(--ease);padding:20px}
-html[data-theme="light"] .modal{background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(246,241,251,.97))}
-.modal-layer.open .modal{transform:translateY(0) scale(1)}
-.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}.modal-head strong{display:block;font-size:18px}.modal-head span{display:block;color:var(--muted-2);font-size:10px;margin-top:4px}
-.close-btn{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:var(--muted);background:var(--surface-3);border:1px solid var(--border);cursor:pointer;transition:.3s}.close-btn:hover{color:var(--red);transform:rotate(90deg);border-color:rgba(251,113,133,.25)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:var(--muted);font-weight:700}.field .input,.field .select{padding-right:13px}
-.modal-foot{display:flex;justify-content:flex-start;gap:8px;margin-top:19px;padding-top:15px;border-top:1px solid var(--border)}.danger-btn{color:#fff;background:linear-gradient(135deg,#e11d48,#be123c);border-color:transparent}
-
-.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.detail-box{padding:13px;border-radius:15px;background:var(--surface-3);border:1px solid var(--border)}.detail-box span{display:block;color:var(--muted-2);font-size:9px}.detail-box strong{display:block;font-size:12px;margin-top:5px}.detail-wide{grid-column:1/-1}
-.sheet-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:13px}.sheet-actions button{height:46px;border-radius:13px;background:var(--surface-3);border:1px solid var(--border);color:var(--text);cursor:pointer;font-weight:800;font-size:11px}.sheet-actions button.primary{color:#fff;background:linear-gradient(135deg,var(--purple),var(--purple-2));border-color:transparent}
-
-.mobile-nav{display:none;position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));min-height:66px;padding:7px;border:1px solid var(--border);border-radius:22px;background:rgba(15,9,24,.78);backdrop-filter:blur(25px) saturate(160%);-webkit-backdrop-filter:blur(25px) saturate(160%);box-shadow:0 20px 50px rgba(0,0,0,.28);z-index:90}
-html[data-theme="light"] .mobile-nav{background:rgba(255,255,255,.82)}
-.mobile-nav a,.mobile-nav button{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;color:var(--muted-2);background:transparent;border-radius:15px;cursor:pointer}.mobile-nav b{font-size:18px;font-weight:800}.mobile-nav span{font-size:9px;font-weight:700}.mobile-nav .active{color:var(--text);background:rgba(168,85,247,.12)}.mobile-nav .active b{color:var(--purple-3)}
-
-.quick-search-focus{box-shadow:0 0 0 4px rgba(168,85,247,.08)!important;border-color:rgba(168,85,247,.42)!important}
-.toast{position:fixed;left:20px;bottom:20px;width:min(380px,calc(100vw - 40px));padding:13px;border-radius:17px;display:flex;align-items:center;gap:10px;border:1px solid var(--border);background:rgba(18,11,28,.88);backdrop-filter:blur(22px);box-shadow:var(--shadow);transform:translateY(25px);opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:250}
-html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}.toast.show{transform:translateY(0);opacity:1}.toast-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(52,211,153,.1);color:var(--green)}.toast strong{display:block;font-size:12px}.toast span{display:block;color:var(--muted-2);font-size:10px;margin-top:3px}
-
-@media(max-width:1180px){.overview-grid{grid-template-columns:1fr 1fr}.overview-primary{grid-row:span 2}}
-@media(max-width:1180px){.shell{grid-template-columns:250px minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}.hero-content{align-items:flex-start;flex-direction:column}.hero-actions{justify-content:flex-start}}
-@media(max-width:980px){
-  .shell{grid-template-columns:1fr;padding:12px}.sidebar{position:fixed;top:12px;right:12px;width:min(310px,calc(100vw - 24px));height:calc(100vh - 24px);transform:translateX(calc(100% + 30px));transition:.35s var(--ease);z-index:110}.sidebar.open{transform:translateX(0)}
-  .menu-btn{display:grid}.mobile-nav{display:flex}.main{padding-bottom:88px}.table-wrap{display:none}.mobile-list{display:block}.toolbar-row{flex-wrap:wrap}.search-wrap{flex-basis:100%}.filters{grid-template-columns:repeat(3,1fr)}
+.hero-copy{min-width:0;position;z-index:2}
+.hero-copy .live{margin-bottom:9px}
+.hero-copy h2{font-size:28px;line-height:1.5;margin:0;letter-spacing:-1px}
+.hero-copy p{font-size:11px;line-height:2;color(--text2);margin:7px 0 0;max-width:700px}
+.hero-art{width:190px;height:130px;flex:0 0 190px;position}
+.hero-art,.hero-art{content:"";position;border:1px solid rgba(168,85,247,.18);border-radius:50%;inset:10px;transform(-18deg) scaleX(1.42)}
+.hero-art{inset:28px;border-color(34,211,238,.14);transform(56deg) scaleX(1.34)}
+.hero-core{
+position;left:61px;top:31px;width:68px;height:68px;border-radius:23px;display;place-items;
+color:#fff;font-size:25px;background(145deg,var(--purple),var(--purple2));
+box-shadow:0 0 45px rgba(168,85,247,.35);animation 4s ease-in-out infinite;
 }
-@media(max-width:620px){
-  .shell{padding:8px}.topbar{min-height:64px;padding:9px 11px;border-radius:18px;margin-bottom:10px}.topbar-title h1{font-size:17px}.topbar-title small{font-size:9px}.icon-btn{width:42px;height:42px}
-  .page-hero{padding:19px;border-radius:23px}.page-hero h2{font-size:26px}.page-hero p{font-size:12px}.hero-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.btn{min-height:47px;padding:0 10px;font-size:11px}
-  .kpis{gap:9px;margin-top:10px}.overview-grid{grid-template-columns:1fr;margin-top:10px}.overview-primary{grid-row:auto}.overview-card{min-height:170px}.kpi{padding:13px;min-height:121px;border-radius:19px}.kpi-icon{width:35px;height:35px}.kpi strong{font-size:27px}.kpi small{font-size:9px}
-  .toolbar{margin-top:10px;padding:10px;border-radius:20px}.filters{grid-template-columns:1fr 1fr}.filters .select:last-child{grid-column:1/-1}.clear-btn{width:100%}
-  .list-panel{margin-top:10px;border-radius:21px}.list-head{padding:14px}.pagination{padding:12px 14px}.pagination-info{font-size:9px}.page-btn{min-width:32px}
-  .form-grid,.detail-grid{grid-template-columns:1fr}.field.full,.detail-wide{grid-column:auto}.modal-layer{padding:8px;align-items:end}.modal{max-height:92vh;border-radius:24px 24px 18px 18px;padding:16px}.modal-foot{display:grid;grid-template-columns:1fr 1fr}.modal-foot .btn{width:100%}
-  .float-x{display:none}
+.hero-orbit{position;border-radius:50%;border:1px solid rgba(255,255,255,.07);inset:4px;animation 16s linear infinite}
+.hero-orbit{content:"";position;width:8px;height:8px;border-radius:50%;right:8px;top:23px;background(--cyan);box-shadow:0 0 18px rgba(34,211,238,.75)}
+@keyframes orbit{to{rotate:360deg}}
+
+.clients-kpis{
+display;grid-template-columns(4,minmax(0,1fr));gap:13px;margin-top:14px
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
-@keyframes orbFloat{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(20px,-18px,0) scale(1.05)}}
-@keyframes spinFloat{to{transform:rotate(360deg)}}@keyframes drift{0%,100%{margin-top:0}50%{margin-top:-13px}}
-@keyframes shimmer{0%{transform:rotate(-35deg) translateX(-80px)}45%,100%{transform:rotate(-35deg) translateX(230px)}}
-@keyframes heroRing{to{transform:rotate(360deg)}}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
-@keyframes buttonShine{0%,45%{transform:skewX(-25deg) translateX(-180%)}70%,100%{transform:skewX(-25deg) translateX(420%)}}
+.client-kpi{min-height:132px;padding:17px;border-radius:21px;position;overflow;transition:.35s var(--ease)}
+.client-kpi{transform(-5px);border-color(--border2);box-shadow(--shadow),0 0 42px rgba(168,85,247,.13)}
+.client-kpi{content:"";position;width:105px;height:105px;border-radius:50%;right:-40px;top:-40px;background(--purple);opacity:.08;filter(8px)}
+.client-kpi-head{display;justify-content;align-items;color(--text3);font-size:12px}
+.client-kpi-icon{width:34px;height:34px;border-radius:11px;display;place-items;background(168,85,247,.10);border:1px solid rgba(168,85,247,.13);font-size:14px}
+.client-kpi-value{font-size:30px;font-weight:900;margin-top:14px;letter-spacing:-1px}
+.client-kpi-foot{display;gap:5px;margin-top:7px;font-size:10px}
+
+.clients-workspace{margin-top:14px;padding:17px;border-radius:24px}
+.workspace-head{display;align-items;justify-content;gap:12px;margin-bottom:13px}
+.section-title strong{font-size:16px;display}
+.section-title span{display;color(--text3);font-size:10px;margin-top:3px}
+.primary-shimmer{
+min-height:44px;padding:0 15px;border-radius:13px;background(135deg,var(--purple),var(--purple2));
+color:#fff;cursor;font-size:12px;font-weight:700;display;align-items;gap:7px;
+position;overflow;box-shadow:0 0 28px rgba(168,85,247,.18);transition:.28s var(--ease)
+}
+.primary-shimmer{content:"";position;inset:-40% -20%;background(110deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%);transform(-100%);transition:.65s}
+.primary-shimmer{transform(-2px);box-shadow:0 15px 35px rgba(168,85,247,.18)}
+.primary-shimmer:hover{transform(100%)}
+
+.filter-bar{
+display;grid-template-columns(230px,1.7fr) repeat(2,minmax(150px,.75fr)) auto;gap:8px;
+padding:10px;border-radius:17px;background(--surface3);border:1px solid var(--border)
+}
+.search-box{position;min-width:0}
+.search-box input,.filter-select{
+width:100%;height:44px;border-radius:12px;border:1px solid var(--border);background(8,5,15,.25);
+color(--text);outline;font-size:11px;padding:0 42px 0 12px;transition:.22s
+}
+.search-box input,.filter-select{border-color(--border2);box-shadow:0 0 0 3px rgba(168,85,247,.07)}
+html[data-theme=light] .search-box input,html[data-theme=light] .filter-select{background(255,255,255,.55)}
+.search-box span{position;right:13px;top:50%;transform(-50%);color(--text3);font-size:15px;pointer-events}
+.filter-select{padding:0 11px;appearance;-webkit-appearance;background-color:#17101f}
+.filter-select option{background:#17101f;color:#f7f3fb}
+html[data-theme=light] .filter-select{background:#fff;color:#2b2035}
+html[data-theme=light] .filter-select option{background:#fff;color:#2b2035}
+.clear-btn{height:44px;padding:0 12px;border-radius:12px;background;border:1px solid var(--border);color(--text2);cursor;font-size:10px;transition:.22s}
+.clear-btn{border-color(--border2);color(--text);background(--surface3)}
+
+.clients-table-wrap{margin-top:11px;border:1px solid var(--border);border-radius:18px;overflow;background(255,255,255,.018)}
+.clients-table{width:100%;border-collapse;border-spacing:0;min-width:940px}
+.clients-table th{
+padding:12px 13px;text-align;color(--text3);font-size:10px;font-weight:700;
+background(255,255,255,.025);border-bottom:1px solid var(--border);white-space
+}
+.clients-table td{padding:11px 13px;border-bottom:1px solid rgba(255,255,255,.045);font-size:10px;color(--text2);vertical-align}
+html[data-theme=light] .clients-table td{border-bottom-color(52,28,72,.065)}
+.clients-table tbody tr{transition:.22s}
+.clients-table tbody tr{background(168,85,247,.045)}
+.clients-table tbody tr td{border-bottom:0}
+.client-cell{display;align-items;gap:9px;min-width:190px}
+.client-avatar{
+width:39px;height:39px;flex:0 0 39px;border-radius:13px;display;place-items;color:#fff;font-size:11px;font-weight:800;
+background(145deg,#8b5cf6,#6d28d9);box-shadow:0 0 20px rgba(124,58,237,.18)
+}
+.client-name{min-width:0}
+.client-name strong{display;font-size:11px;color(--text);white-space;overflow;text-overflow}
+.client-name span{display;font-size:8px;color(--text3);margin-top:3px}
+.phone{direction;text-align;white-space}
+.service-text{color(--text2);white-space}
+.date-cell{white-space}
+.badge-status{
+display;align-items;gap:5px;min-height:27px;padding:0 9px;border-radius:99px;font-size:9px;font-weight:700;
+border:1px solid transparent;white-space
+}
+.badge-status{content:"";width:5px;height:5px;border-radius:50%;background;box-shadow:0 0 8px currentColor}
+.status-active{color(--green);background(52,211,153,.08);border-color(52,211,153,.18)}
+.status-pending{color(--yellow);background(251,191,36,.08);border-color(251,191,36,.18)}
+.status-inactive{color(--text3);background(148,137,159,.08);border-color(148,137,159,.14)}
+.followup-due{color(--yellow)}
+.followup-ok{color(--text3)}
+.row-actions{display;align-items;gap:5px}
+.row-action{
+width:34px;height:34px;border-radius:10px;display;place-items;background(--surface3);
+border:1px solid var(--border);color(--text2);cursor;transition:.23s var(--ease);font-size:12px
+}
+.row-action{transform(-2px);color(--text);border-color(--border2);box-shadow:0 10px 25px rgba(168,85,247,.10)}
+.row-action.sms{color(--cyan);border-color(34,211,238,.22)}
+.row-action.delete{color(--red);border-color(251,113,133,.24)}
+
+.empty-state{
+display;padding:48px 20px;text-align;color(--text3)
+}
+.empty-state.show{display}
+.empty-icon{width:58px;height:58px;border-radius:18px;display;place-items;margin:0 auto 12px;background(168,85,247,.08);border:1px solid rgba(168,85,247,.14);font-size:22px;color(--purple)}
+.empty-state strong{display;color(--text);font-size:14px}
+.empty-state span{display;font-size:10px;margin-top:5px}
+
+.table-footer{display;align-items;justify-content;gap:10px;padding-top:12px}
+.result-count{font-size:9px;color(--text3)}
+.pagination{display;gap:5px}
+.page-btn{
+min-width:34px;height:34px;padding:0 9px;border-radius:10px;background(--surface3);border:1px solid var(--border);
+color(--text2);cursor;font-size:10px;transition:.22s
+}
+.page-btn,.page-btn.active{color(--text);border-color(--border2);background(168,85,247,.10)}
+.page-btn{opacity:.35;cursor}
+
+.mobile-client-list{display}
+.client-card{
+padding:14px;border-radius:18px;background(--surface3);border:1px solid var(--border);transition:.25s var(--ease);
+position;overflow
+}
+.client-card{border-color(--border2);transform(-2px)}
+.client-card-top{display;align-items;gap:10px}
+.client-card-main{min-width:0;flex:1}
+.client-card-main strong{display;font-size:13px;color(--text)}
+.client-card-main span{display;font-size:9px;color(--text3);margin-top:3px}
+.client-card-status{margin-right}
+.client-card-grid{display;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mini-info{padding:9px 10px;border-radius:12px;background(255,255,255,.025);border:1px solid var(--border)}
+.mini-info span{display;font-size:8px;color(--text3)}
+.mini-info strong{display;font-size:10px;color(--text2);margin-top:4px}
+.client-card-actions{display;grid-template-columns(4,1fr);gap:6px;margin-top:10px}
+.client-card-actions button{height:40px;border-radius:11px;background(255,255,255,.025);border:1px solid var(--border);color(--text2);cursor;font-size:11px}
+.client-card-actions button{border-color(--border2);color(--text)}
+
+.modal-backdrop{position;inset:0;background(2,1,5,.62);backdrop-filter(10px);z-index:100;display;place-items;padding:18px;opacity:0;pointer-events;transition:.35s}
+.modal-backdrop.open{opacity:1;pointer-events}
+.client-modal{
+width(760px,100%);max-height(90vh,850px);overflow;border-radius:27px;padding:19px;
+transform(18px) scale(.97);transition:.4s var(--ease)
+}
+.modal-backdrop.open .client-modal{transform(0) scale(1)}
+.modal-head{display;align-items;justify-content;gap:10px;padding-bottom:13px;border-bottom:1px solid var(--border)}
+.modal-title strong{font-size:14px}.modal-title span{display;font-size:8px;color(--text3);margin-top:3px}
+.close{
+width:38px;height:38px;border-radius:12px;background(--surface3);border:1px solid var(--border);
+color(--text2);cursor;font-size:23px;line-height:1;transition:.3s var(--ease)
+}
+.close{color(--text);border-color(--border2);rotate:90deg;box-shadow:0 0 25px rgba(168,85,247,.13)}
+.form-grid{display;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.field.full{grid-column:1/-1}
+.field label{display;font-size:10px;color(--text3);margin:0 0 5px}
+.field input,.field textarea,.field select{
+width:100%;border-radius:12px;border:1px solid var(--border);background(--surface3);color(--text);
+outline;padding:11px 12px;font-size:11px;transition:.2s
+}
+.field input,.field select{height:44px}.field textarea{min-height:105px;resize;line-height:1.9}
+.field select{appearance;-webkit-appearance;background-color:#17101f;color:#f7f3fb}
+.field select option{background:#17101f;color:#f7f3fb}
+html[data-theme=light] .field select{background:#fff;color:#2b2035}
+html[data-theme=light] .field select option{background:#fff;color:#2b2035}
+.field input,.field textarea,.field select{border-color(--border2);box-shadow:0 0 0 3px rgba(168,85,247,.07)}
+.modal-actions{display;justify-content;gap:7px;margin-top:14px;flex-wrap}
+.secondary{
+min-height:42px;padding:0 13px;border-radius:12px;background(--surface3);border:1px solid var(--border);
+color(--text2);cursor;font-size:10px
+}
+.danger{
+min-height:42px;padding:0 13px;border-radius:12px;background(251,113,133,.07);
+border:1px solid rgba(251,113,133,.20);color(--red);cursor;font-size:10px;margin-right
+}
+
+.profile-layout{display;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:15px}
+.profile-summary{
+border-radius:19px;padding:16px;background(--surface3);border:1px solid var(--border)
+}
+.profile-large{display;align-items;gap:10px}
+.profile-large .client-avatar{width:52px;height:52px;flex-basis:52px;border-radius:16px;font-size:14px}
+.profile-large strong{display;font-size:14px}.profile-large span{display;font-size:9px;color(--text3);margin-top:3px}
+.profile-stats{display;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.profile-stat{padding:10px;border-radius:13px;background(255,255,255,.025);border:1px solid var(--border)}
+.profile-stat span{display;font-size:8px;color(--text3)}.profile-stat strong{display;font-size:11px;margin-top:3px}
+.profile-timeline{border-radius:19px;padding:16px;background(--surface3);border:1px solid var(--border)}
+.timeline-item{display;gap:9px;padding:9px 0;border-bottom:1px solid var(--border)}
+.timeline-item
+.timeline-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;margin-top:5px;background(--purple);box-shadow:0 0 12px rgba(168,85,247,.45)}
+.timeline-item strong{display;font-size:10px}.timeline-item span{display;color(--text3);font-size:8px;margin-top:3px}
+
+.confirm-copy{padding:18px 2px 4px;text-align}
+.confirm-icon{width:58px;height:58px;border-radius:18px;display;place-items;margin:0 auto 12px;background(251,113,133,.08);border:1px solid rgba(251,113,133,.18);color(--red);font-size:22px}
+.confirm-copy strong{display;font-size:15px}.confirm-copy span{display;color(--text3);font-size:9px;line-height:1.9;margin-top:5px}
+
+.toast{position;left:22px;bottom:22px;z-index:130;min-width:260px;max-width(100vw - 44px);padding:12px 14px;border-radius:16px;display;align-items;gap:9px;opacity:0;transform(20px);pointer-events;transition:.35s var(--ease)}
+.toast.show{opacity:1;transform(0)}
+.toast-icon{width:29px;height:29px;border-radius:10px;display;place-items;background(52,211,153,.13);border:1px solid rgba(52,211,153,.22);color(--green)}
+.toast strong{font-size:9px;display}.toast span{font-size:7px;color(--text3);display;margin-top:2px}
+
+.loading-row{display;padding:35px;text-align;color(--text3);font-size:10px}
+.loading-row.show{display}
+
+@media(max-width:1120px){
+.clients-kpis{grid-template-columns(2,minmax(0,1fr))}
+.filter-bar{grid-template-columns(220px,1fr) 1fr 1fr}
+.clear-btn{grid-column}
+}
+@media(max-width:840px){
+.clients-hero{padding:21px}
+.hero-art{display}
+.hero-copy h2{font-size:23px}
+.clients-kpis{gap:10px}
+.clients-workspace{padding:14px}
+.filter-bar{grid-template-columns:1fr 1fr}
+.search-box{grid-column:1/-1}
+.clients-table-wrap{display}
+.mobile-client-list{display;gap:9px;margin-top:11px}
+.table-footer{padding-top:11px}
+.profile-layout{grid-template-columns:1fr}
+}
+@media(max-width:540px){
+.content{padding-top:15px}
+.clients-hero{min-height:150px;border-radius:23px}
+.hero-copy h2{font-size:21px}
+.hero-copy p{font-size:10px}
+.clients-kpis{grid-template-columns:1fr 1fr}
+.client-kpi{min-height:116px;padding:14px}
+.client-kpi-value{font-size:26px;margin-top:10px}
+.client-kpi-head{font-size:10px}
+.client-kpi-icon{width:31px;height:31px}
+.filter-bar{grid-template-columns:1fr}
+.search-box{grid-column}
+.workspace-head{align-items;flex-direction}
+.primary-shimmer{width:100%;justify-content}
+.client-card-actions{grid-template-columns(4,1fr)}
+.client-card-actions button{font-size:10px}
+.form-grid{grid-template-columns:1fr}
+.field.full{grid-column}
+.client-modal{max-height:94vh;border-radius:23px;padding:15px}
+.modal-actions{flex-direction}
+.modal-actions button{width:100%}
+.danger{margin-right:0}
+.toast{left:12px;right:12px;min-width:0;max-width;bottom:86px}
+}
+
+/* =========================
+CLIENTS V3 VISIBILITY / LAYER SAFETY
+========================= */
+body{position;isolation}
+.content{position;z-index:5}
+.clients-hero,.clients-kpis,.clients-workspace{position;z-index:6}
+.clients-hero{display!important;visibility!important}
+.clients-kpis{visibility!important}
+.clients-workspace{visibility!important}
+.overlay{z-index:65}
+.modal-backdrop{z-index:100}
+.toast{z-index:130}
+@media(max-width:840px){
+.content{padding-top:14px}
+.clients-hero{min-height:156px}
+.hero-copy h2{font-size:24px}
+.hero-copy p{font-size:12px;line-height:2}
+.client-kpi-head{font-size:13px}
+.client-kpi-value{font-size:29px}
+.section-title strong{font-size:18px}
+.section-title span{font-size:12px}
+.search-box input,.filter-select{font-size:14px}
+.clear-btn{font-size:13px}
+.client-card-main strong{font-size:15px}
+.client-card-main span{font-size:11px}
+.mini-info span{font-size:10px}
+.mini-info strong{font-size:12px}
+.client-card-actions button{font-size:12px}
+}
+@media(max-width:540px){
+.main{padding-left:10px;padding-right:10px}
+.clients-hero{padding:18px;border-radius:22px}
+.hero-copy h2{font-size:22px}
+.hero-copy p{font-size:12px}
+.clients-kpis{gap:8px}
+.client-kpi{padding:13px;min-height:118px}
+.client-kpi-head{font-size:12px}
+.client-kpi-value{font-size:28px}
+.workspace-head{gap:12px}
+.primary-shimmer{min-height:46px;font-size:14px}
+.filter-bar{padding:9px}
+.search-box input,.filter-select,.clear-btn{height:46px;font-size:14px}
+.client-card{padding:15px}
+.client-card-actions button{height:44px}
+.field label{font-size:12px}
+.field input,.field select,.field textarea{font-size:14px}
+.secondary,.danger{min-height:46px;font-size:14px}
+}
+
+/* ===== MOSHAVER CLIENTS V4 ===== */
+.client-kpi{cursor}.client-kpi.selected{border-color(--border2);box-shadow(--shadow),0 0 38px rgba(168,85,247,.16);transform(-4px)}
+.client-insights{display;grid-template-columns:1.1fr .9fr;gap:13px;margin-top:14px}.insight-card{padding:17px;border-radius:22px}.insight-head{display;justify-content;align-items;gap:10px}.insight-head strong{font-size:15px}.insight-head span{font-size:9px;color(--text3)}
+.status-preview{display;grid-template-columns(3,1fr);gap:8px;margin-top:13px}.status-preview button{min-height:94px;border-radius:16px;background(--surface3);border:1px solid var(--border);color(--text);cursor;text-align;padding:11px;transition:.25s var(--ease)}.status-preview button,.status-preview button.active{transform(-3px);border-color(--border2);background(168,85,247,.07)}.status-preview i{display;width:8px;height:8px;border-radius:50%;margin-bottom:9px}.status-preview b{display;font-size:21px}.status-preview span{display;color(--text3);font-size:9px;margin-top:3px}.dot-active{background(--green);box-shadow:0 0 12px rgba(52,211,153,.5)}.dot-pending{background(--yellow);box-shadow:0 0 12px rgba(251,191,36,.5)}.dot-inactive{background(--red);box-shadow:0 0 12px rgba(251,113,133,.4)}
+.follow-preview{display;gap:7px;margin-top:13px;max-height:142px;overflow}.follow-mini{display;align-items;justify-content;gap:8px;padding:9px 10px;border-radius:13px;background(--surface3);border:1px solid var(--border);cursor}.follow-mini{border-color(--border2)}.follow-mini strong{font-size:10px}.follow-mini span{font-size:8px;color(--text3)}.follow-mini b{font-size:9px;color(--yellow)}
+.advanced-filters{display;grid-template-columns(4,1fr);gap:8px;margin-top:8px}.filter-caption{display;font-size:8px;color(--text3);margin:0 3px 4px}.advanced-filters .filter-select{height:42px}
+.contact-state{font-size:9px;white-space}.contact-state.yes{color(--green)}.contact-state.no{color(--red)}.contact-history{background;border:0;color(--text3);font-size:8px;cursor;padding:0 4px}.contact-history{color(--text)}
+.form-divider{grid-column:1/-1;display;align-items;gap:9px;color(--purple);font-size:10px;font-weight:800;margin-top:5px}.form-divider{content:"";height:1px;flex:1;background(--border)}.choice-row{display;gap:7px;flex-wrap}.choice{display;align-items;gap:7px;min-height:42px;padding:0 10px;border-radius:12px;background(--surface3);border:1px solid var(--border);font-size:9px;color(--text2);cursor}.choice input{accent-color(--purple);width:16px;height:16px}.conditional-field{display}.conditional-field.show{display}
+.upload-zone{display;border:1px dashed rgba(168,85,247,.28);border-radius:15px;background(168,85,247,.035);padding:13px;text-align;cursor}.upload-zone strong{display;font-size:10px;color(--text2)}.upload-zone span{display;font-size:8px;color(--text3);margin-top:3px}.upload-preview{display;margin-top:7px;border-radius:12px;overflow;border:1px solid var(--border);max-height:150px}.upload-preview.show{display}.upload-preview img{display;width:100%;max-height:150px;object-fit}.modal-note{grid-column:1/-1;padding:9px 11px;border-radius:12px;background(34,211,238,.05);border:1px solid rgba(34,211,238,.12);color(--text3);font-size:8px;line-height:1.8}
+.scroll-top-client{position;left:20px;bottom:22px;width:54px;height:54px;border-radius:19px;z-index:125;background(145deg,var(--purple),var(--purple2));color:#fff;border:1px solid rgba(216,180,254,.35);box-shadow:0 18px 38px rgba(124,58,237,.36);display;place-items;cursor;opacity:0;visibility;transform(18px) scale(.82);transition:.35s var(--ease)}.scroll-top-client.show{opacity:1;visibility;transform}.scroll-top-client{content:"";position;inset:-5px;border:1px solid rgba(168,85,247,.3);border-radius:23px;animation 7s linear infinite}.scroll-top-client span{font-size:23px;animation 1.8s ease-in-out infinite}@keyframes scrollArrow{50%{translate:0 -3px}}
+.sidebar-scroll-track{position;left:-8px;top:104px;bottom:104px;width:5px;border-radius:99px;background(255,255,255,.035);overflow}.sidebar-scroll-thumb{position;left:0;top:0;width:100%;min-height:38px;border-radius:99px;background(var(--purple),var(--cyan));box-shadow:0 0 14px rgba(168,85,247,.35)}
+.notice-panel{position;top:84px;left:20px;width(370px,calc(100vw - 40px));z-index:140;padding:13px;border-radius:19px;display}.notice-panel.open{display;animation .24s var(--ease)}.notice-head{display;justify-content;align-items}.notice-head strong{font-size:12px}.notice-head button{background;color(--text3);font-size:18px;cursor}.notice-item{margin-top:7px;padding:10px;border-radius:13px;background(--surface3);border:1px solid var(--border);cursor}.notice-item b{font-size:10px}.notice-item span{display;color(--text3);font-size:8px;line-height:1.7;margin-top:3px}.notice-item.danger{border-color(251,113,133,.18)}
+.call-history{display;gap:7px;margin-top:12px}.call-row{display;align-items;justify-content;gap:8px;padding:9px 10px;border-radius:12px;background(--surface3);border:1px solid var(--border);font-size:9px}.call-row span{color(--text3)}
+@media(max-width:900px){.client-insights{grid-template-columns:1fr}.advanced-filters{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.advanced-filters{grid-template-columns:1fr}.status-preview{grid-template-columns:1fr}.scroll-top-client{left:13px;bottom:90px}.notice-panel{left:12px;right:12px;width}.form-grid{grid-template-columns:1fr}.form-divider,.modal-note{grid-column}}
+
 </style>
-
 </head>
-
 <body>
+
+<div class="ambient"><i></i><i></i></div>
+<div class="floating-crosses" aria-hidden="true">
+  <span class="floating-cross"></span><span class="floating-cross"></span>
+  <span class="floating-cross"></span><span class="floating-cross"></span>
+</div>
+<div class="overlay" id="overlay"></div>
+
 <div class="app">
-  <div class="ambient" aria-hidden="true">
-    <div class="grid"></div><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
-    <span class="float-x a">×</span><span class="float-x b">×</span><span class="float-x c">×</span><span class="float-x d">×</span><span class="float-x e">×</span>
-  </div>
-
-  <div class="shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand"><div class="brand-mark">م</div><div><strong>مشاور</strong><small>Clinic Management System</small></div></div>
-      <div class="sidebar-label">منوی اصلی</div>
-      <nav class="nav">
-        <a href="dashboard.html"><span class="nav-icon">⌂</span><span class="nav-label">داشبورد</span></a>
-        <a class="active" href="clients.html"><span class="nav-icon">♙</span><span class="nav-label">مراجعین</span><span class="nav-badge" id="navCount">۱۲</span></a>
-        <a href="appointments.html"><span class="nav-icon">◫</span><span class="nav-label">نوبت‌ها</span></a>
-        <a href="follow-ups.html"><span class="nav-icon">↻</span><span class="nav-label">پیگیری‌ها</span><span class="nav-badge">۴</span></a>
-        <a href="notes.html"><span class="nav-icon">✎</span><span class="nav-label">یادداشت‌ها</span></a>
-        <a href="reports.html"><span class="nav-icon">◒</span><span class="nav-label">گزارش‌ها</span></a>
-      </nav>
-      <div class="sidebar-label" style="margin-top:18px">دسترسی سریع</div>
-      <nav class="nav">
-        <a href="appointments.html?new=1"><span class="nav-icon">＋</span><span class="nav-label">ثبت نوبت جدید</span></a>
-        <a href="clients.html?new=1"><span class="nav-icon">✚</span><span class="nav-label">ثبت مراجع جدید</span></a>
-      </nav>
-      <div class="sidebar-bottom">
-        <div class="profile-mini"><div class="avatar">م</div><div><strong id="userName">مشاور</strong><small id="userRole">مشاور کلینیک</small></div></div>
-        <button class="logout" id="logout">خروج از حساب</button>
-      </div>
-    </aside>
-
-<main class="main">
-  <header class="topbar">
-    <div class="topbar-title"><small>پنل مشاور</small><h1>مراجعین</h1></div>
-    <div class="top-actions">
-      <button class="icon-btn notification" id="notifications" aria-label="اعلان‌ها">♧</button><button class="icon-btn" id="quickSearch" aria-label="جستجوی سریع">⌕</button>
-      <button class="icon-btn" id="theme" aria-label="تغییر پوسته">☀</button>
-      <button class="icon-btn menu-btn" id="menu" aria-label="منو">☰</button>
+  <aside class="sidebar glass" id="sidebar">
+    <div class="brand">
+      <div class="logo">م</div>
+      <div><strong>مشاور</strong><small>Clinic Management System</small></div>
     </div>
-  </header>
-
-  <section class="page-hero">
-    <div class="hero-content">
-      <div>
-        <div class="eyebrow"><span class="live-dot"></span> مدیریت پرونده‌ها</div>
-        <h2>مراجعین، یکجا و مرتب.</h2>
-        <p>جستجو، فیلتر، مشاهده پرونده، ثبت مراجع جدید، پیگیری و ارسال پیامک؛ همه در یک فضای یکپارچه.</p>
+    <div class="nav-title">منوی اصلی</div>
+    <nav class="nav">
+      <a href="dashboard.html" data-page="dashboard"><span class="nav-icon">⌂</span><span class="nav-label">داشبورد</span></a>
+      <a class="active" href="clients.html" data-page="clients"><span class="nav-icon">♙</span><span class="nav-label">مراجعین</span><span class="badge" id="navClientBadge">۰</span></a>
+      <a href="appointments.html" data-page="appointments"><span class="nav-icon">◫</span><span class="nav-label">نوبت‌ها</span></a>
+      <a href="follow-ups.html" data-page="followups"><span class="nav-icon">↻</span><span class="nav-label">پیگیری‌ها</span><span class="badge">۴</span></a>
+      <a href="notes.html" data-page="notes"><span class="nav-icon">✎</span><span class="nav-label">یادداشت‌ها</span></a>
+      <a href="reports.html" data-page="reports"><span class="nav-icon">◒</span><span class="nav-label">گزارش‌ها</span></a>
+      <a href="#" data-page="files"><span class="nav-icon">▱</span><span class="nav-label">فایل‌ها و تصاویر</span></a>
+      <a href="#" data-page="notifications"><span class="nav-icon">♢</span><span class="nav-label">اعلان‌ها</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="profile-mini">
+        <div class="avatar" id="sidebarAvatar">م</div>
+        <div class="profile-copy"><strong id="sidebarUser">مشاور سامانه</strong><span id="sidebarRole">مشاور کلینیک</span></div>
       </div>
-      <div class="hero-actions">
-        <button class="btn primary" id="addClient">＋ مراجع جدید</button>
-        <a class="btn" href="reports.html">◒ گزارش مراجعین</a>
-      </div>
+      <button class="logout" id="logout">خروج از حساب</button>
     </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar glass">
+      <button class="menu-mobile" id="menuMobile">☰</button>
+      <div class="page-context"><div class="eyebrow">پنل مدیریت</div><h1 id="pageTitle">مراجعین</h1></div>
+      <div class="top-actions">
+        <button class="icon-btn" id="theme" title="تغییر پوسته">☾</button>
+        <button class="icon-btn" id="notificationsBtn" title="اعلان‌ها">♢<i class="dot" id="notificationDot"></i></button>
+        <button class="icon-btn profile-btn" id="profile" title="پروفایل">م</button>
+      </div>
+    </header>
+
+<section class="content">
+  <section class="clients-hero glass">
+    <div class="hero-copy">
+      <div class="live"><i></i> سیستم آنلاین است</div>
+      <h2>پرونده مراجعین، یکجا و مرتب.</h2>
+      <p>اطلاعات تماس، وضعیت پرونده، خدمات، مراجعه اخیر و پیگیری بعدی را سریع پیدا کنید و بدون خروج از پنل مدیریت کنید.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-core">♙</div></div>
   </section>
 
-  <section class="kpis">
-    <article class="card kpi"><div class="kpi-top"><span>کل مراجعین</span><span class="kpi-icon">♙</span></div><strong id="totalCount">۱۲</strong><small><b class="up">+۱۲٪</b> نسبت به ماه قبل</small></article>
-    <article class="card kpi"><div class="kpi-top"><span>مراجعین فعال</span><span class="kpi-icon">✓</span></div><strong id="activeCount">۹</strong><small><b class="up">فعال</b> در پرونده‌های جاری</small></article>
-    <article class="card kpi"><div class="kpi-top"><span>پیگیری امروز</span><span class="kpi-icon">↻</span></div><strong id="followCount">۴</strong><small><b class="warn">نیازمند اقدام</b> امروز</small></article>
-    <article class="card kpi"><div class="kpi-top"><span>جلسه این هفته</span><span class="kpi-icon">◫</span></div><strong id="weekCount">۱۸</strong><small><b class="up">۷۴٪</b> تکمیل موفق</small></article>
-  </section>
-
-
-  <section class="overview-grid">
-    <article class="card overview-card overview-primary">
-      <div class="overview-head"><div><span class="section-kicker">نمای کلی پرونده‌ها</span><strong>وضعیت مراجعین</strong></div><span class="overview-icon">◉</span></div>
-      <div class="overview-body">
-        <div class="donut" id="clientDonut"><div><b id="activePercent">۷۵٪</b><span>فعال</span></div></div>
-        <div class="overview-stats">
-          <div><span>فعال</span><b id="activeSummary">۹</b></div>
-          <div><span>در انتظار</span><b id="pendingSummary">۲</b></div>
-          <div><span>غیرفعال</span><b id="inactiveSummary">۱</b></div>
-        </div>
-      </div>
+  <section class="clients-kpis" aria-label="آمار مراجعین">
+    <article class="client-kpi glass">
+      <div class="client-kpi-head"><span>کل مراجعین</span><span class="client-kpi-icon">♙</span></div>
+      <div class="client-kpi-value" id="kpiTotal">۰</div>
+      <div class="client-kpi-foot"><span class="up" id="kpiTotalFoot">—</span><span class="muted">پرونده ثبت‌شده</span></div>
     </article>
-    <article class="card overview-card">
-      <div class="overview-head"><div><span class="section-kicker">فعالیت امروز</span><strong>تمرکز کاری</strong></div><span class="overview-icon cyan-icon">◫</span></div>
-      <div class="activity-progress"><div><span style="width:78%"></span></div><b>۷۸٪</b></div>
-      <div class="activity-grid">
-        <div><span>جلسات</span><b>۶</b></div><div><span>پیگیری</span><b>۴</b></div><div><span>پیامک</span><b>۸</b></div>
-      </div>
+    <article class="client-kpi glass">
+      <div class="client-kpi-head"><span>مراجعین فعال</span><span class="client-kpi-icon">✓</span></div>
+      <div class="client-kpi-value" id="kpiActive">۰</div>
+      <div class="client-kpi-foot"><span class="up">در جریان</span><span class="muted">پرونده فعال</span></div>
     </article>
-    <article class="card overview-card">
-      <div class="overview-head"><div><span class="section-kicker">اقدام سریع</span><strong>شروع از اینجا</strong></div><span class="overview-icon green-icon">✦</span></div>
-      <div class="quick-grid">
-        <button class="quick-action" data-quick="new"><span>＋</span><b>مراجع جدید</b><small>ایجاد پرونده</small></button>
-        <button class="quick-action" data-quick="follow"><span>↻</span><b>پیگیری‌ها</b><small>مشاهده موارد امروز</small></button>
-        <button class="quick-action" data-quick="appointment"><span>◫</span><b>نوبت جدید</b><small>ثبت زمان جلسه</small></button>
-        <button class="quick-action" data-quick="report"><span>◒</span><b>گزارش‌ها</b><small>تحلیل عملکرد</small></button>
-      </div>
+    <article class="client-kpi glass">
+      <div class="client-kpi-head"><span>جدید این ماه</span><span class="client-kpi-icon">＋</span></div>
+      <div class="client-kpi-value" id="kpiNew">۰</div>
+      <div class="client-kpi-foot"><span class="up">ثبت جدید</span><span class="muted">در ماه جاری</span></div>
+    </article>
+    <article class="client-kpi glass">
+      <div class="client-kpi-head"><span>نیازمند پیگیری</span><span class="client-kpi-icon">↻</span></div>
+      <div class="client-kpi-value" id="kpiDue">۰</div>
+      <div class="client-kpi-foot"><span class="warn">اقدام لازم</span><span class="muted">پیگیری نزدیک</span></div>
     </article>
   </section>
 
-  <section class="card toolbar">
-    <div class="toolbar-row">
-      <div class="search-wrap"><span>⌕</span><input class="input" id="search" type="search" placeholder="جستجو بر اساس نام، موبایل یا کد پرونده..." autocomplete="off"></div>
-      <button class="clear-btn" id="clear">پاک‌سازی فیلترها</button>
-    </div>
-    <div class="filters">
-      <select class="select" id="statusFilter"><option value="">همه وضعیت‌ها</option><option value="active">فعال</option><option value="pending">در انتظار</option><option value="inactive">غیرفعال</option></select>
-      <select class="select" id="serviceFilter"><option value="">همه خدمات</option><option value="individual">مشاوره فردی</option><option value="family">مشاوره خانواده</option><option value="couple">زوج‌درمانی</option></select>
-      <select class="select" id="sortFilter"><option value="newest">جدیدترین</option><option value="oldest">قدیمی‌ترین</option><option value="name">نام</option><option value="next">نزدیک‌ترین نوبت</option></select>
-    </div>
+  <section class="client-insights">
+    <article class="insight-card glass">
+      <div class="insight-head"><strong>وضعیت مراجعین</strong><span>کلیک = نمایش همان گروه</span></div>
+      <div class="status-preview">
+        <button data-status-preview="active"><i class="dot-active"></i><b id="previewActive">۰</b><span>فعال</span></button>
+        <button data-status-preview="pending"><i class="dot-pending"></i><b id="previewPending">۰</b><span>در انتظار</span></button>
+        <button data-status-preview="inactive"><i class="dot-inactive"></i><b id="previewInactive">۰</b><span>غیرفعال</span></button>
+      </div>
+    </article>
+    <article class="insight-card glass">
+      <div class="insight-head"><strong>پیگیری‌های امروز</strong><span>طبق تاریخ پیگیری بعدی</span></div>
+      <div class="follow-preview" id="followPreview"></div>
+    </article>
   </section>
 
-  <section class="card list-panel">
-    <div class="list-head"><div><strong>فهرست مراجعین</strong><span id="resultInfo">۱۲ پرونده نمایش داده می‌شود</span></div><span>مدیریت سریع پرونده</span></div>
+  <section class="clients-workspace glass">
+    <div class="workspace-head">
+      <div class="section-title">
+        <strong>فهرست مراجعین</strong>
+        <span>جستجو، فیلتر، مشاهده پرونده و مدیریت سریع</span>
+      </div>
+      <button class="primary-shimmer" id="addClient"><span>＋</span> مراجع جدید</button>
+    </div>
 
-    <div class="table-wrap">
-      <table class="table">
-        <thead><tr><th>مراجع</th><th>شماره تماس</th><th>خدمت</th><th>آخرین جلسه</th><th>پیگیری بعدی</th><th>وضعیت</th><th>عملیات</th></tr></thead>
-        <tbody id="tableBody"></tbody>
+    <div class="filter-bar">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="جستجو با نام، موبایل، کد ملی یا شماره پرونده">
+      </div>
+      <select class="filter-select" id="statusFilter" aria-label="فیلتر وضعیت">
+        <option value="all">همه وضعیت‌ها</option>
+        <option value="active">فعال</option>
+        <option value="pending">در انتظار</option>
+        <option value="inactive">غیرفعال</option>
+      </select>
+      <select class="filter-select" id="serviceFilter" aria-label="فیلتر خدمت">
+        <option value="all">همه خدمات</option>
+        <option value="individual">مشاوره فردی</option>
+        <option value="couple">مشاوره زوجین</option>
+        <option value="family">مشاوره خانواده</option>
+        <option value="assessment">ارزیابی اولیه</option>
+      </select>
+      <button class="clear-btn" id="clearFilters">پاک‌سازی</button>
+    </div>
+    <div class="advanced-filters">
+      <div><span class="filter-caption">وضعیت تماس</span><select class="filter-select" id="contactFilter"><option value="all">همه تماس‌ها</option><option value="yes">تماس گرفته شده</option><option value="no">تماس گرفته نشده</option></select></div>
+      <div><span class="filter-caption">نوع حضور</span><select class="filter-select" id="visitTypeFilter"><option value="all">همه</option><option value="in">حضوری</option><option value="out">غیرحضوری</option></select></div>
+      <div><span class="filter-caption">پرداخت</span><select class="filter-select" id="paymentFilter"><option value="all">همه</option><option value="cash">نقدی</option><option value="installment">اقساط</option></select></div>
+      <div><span class="filter-caption">آزمایش</span><select class="filter-select" id="labFilter"><option value="all">همه</option><option value="yes">دارد</option><option value="no">ندارد</option></select></div>
+      <div><span class="filter-caption">بیماری خاص</span><select class="filter-select" id="diseaseFilter"><option value="all">همه</option><option value="yes">دارد</option><option value="no">ندارد</option></select></div>
+      <div><span class="filter-caption">حساسیت</span><select class="filter-select" id="sensitivityFilter"><option value="all">همه</option><option value="yes">دارد</option><option value="no">ندارد</option></select></div>
+      <div><span class="filter-caption">مرتب‌سازی</span><select class="filter-select" id="sortFilter"><option value="newest">جدیدترین ثبت</option><option value="oldest">قدیمی‌ترین</option><option value="name">نام</option><option value="follow">نزدیک‌ترین پیگیری</option></select></div>
+      <div><span class="filter-caption">تعداد صفحه</span><select class="filter-select" id="pageSizeFilter"><option value="8">۸ نفر</option><option value="12">۱۲ نفر</option><option value="20">۲۰ نفر</option></select></div>
+    </div>
+
+    <div class="loading-row" id="loadingRow">در حال آماده‌سازی فهرست مراجعین…</div>
+
+    <div class="clients-table-wrap" id="tableWrap">
+      <table class="clients-table">
+        <thead>
+          <tr>
+            <th># / مراجع</th><th>موبایل</th><th>کد پرونده</th><th>خدمت</th><th>وضعیت</th><th>آخرین جلسه</th><th>پیگیری بعدی</th><th>تماس</th><th>عملیات</th>
+          </tr>
+        </thead>
+        <tbody id="clientTableBody"></tbody>
       </table>
-    </div>
-
-    <div class="mobile-list" id="mobileList"></div>
-
-    <div class="empty" id="empty">
-      <div class="empty-icon">⌕</div>
-      <strong>مراجعی پیدا نشد</strong>
-      <span>عبارت جستجو یا فیلترها را تغییر دهید.</span>
-    </div>
-
-    <div class="pagination">
-      <span class="pagination-info" id="paginationInfo">نمایش ۱ تا ۶ از ۱۲</span>
-      <div class="pages" id="pages"></div>
-    </div>
-  </section>
-</main>
-
-  </div>
-
-  <nav class="mobile-nav">
-    <a href="dashboard.html"><b>⌂</b><span>خانه</span></a>
-    <a class="active" href="clients.html"><b>♙</b><span>مراجعین</span></a>
-    <a href="appointments.html"><b>◫</b><span>نوبت‌ها</span></a>
-    <a href="follow-ups.html"><b>↻</b><span>پیگیری</span></a>
-    <button id="mobileMore"><b>•••</b><span>بیشتر</span></button>
-  </nav>
-
-  <div class="notification-popover" id="notificationPopover" aria-hidden="true">
-    <div class="popover-head"><div><strong>اعلان‌ها</strong><span>آخرین رویدادهای پنل</span></div><button class="popover-close" id="closeNotifications">×</button></div>
-    <div class="notification-list">
-      <button class="notification-item"><span class="notif-dot purple"></span><span><b>۴ پیگیری امروز</b><small>مواردی که نیاز به اقدام دارند.</small></span><time>اکنون</time></button>
-      <button class="notification-item"><span class="notif-dot cyan"></span><span><b>۲ نوبت جدید</b><small>دو نوبت جدید برای امروز ثبت شده.</small></span><time>۱۲د</time></button>
-      <button class="notification-item"><span class="notif-dot green"></span><span><b>پیامک آماده</b><small>یادآوری نوبت برای ارسال آماده است.</small></span><time>۲۸د</time></button>
-    </div>
-    <button class="popover-footer" id="markNotifications">علامت‌گذاری همه به‌عنوان خوانده‌شده</button>
-  </div>
-
-  <div class="modal-layer" id="clientModal">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modal-head"><div><strong id="modalTitle">ثبت مراجع جدید</strong><span id="modalSubtitle">اطلاعات پایه پرونده را وارد کنید.</span></div><button class="close-btn" data-close="clientModal">×</button></div>
-      <form id="clientForm">
-        <input type="hidden" id="clientId">
-        <div class="form-grid">
-          <div class="field"><label>نام</label><input class="input" id="firstName" required placeholder="مثلاً سارا"></div>
-          <div class="field"><label>نام خانوادگی</label><input class="input" id="lastName" required placeholder="مثلاً محمدی"></div>
-          <div class="field"><label>شماره موبایل</label><input class="input" id="phone" inputmode="tel" required placeholder="09xxxxxxxxx"></div>
-          <div class="field"><label>کد پرونده</label><input class="input" id="caseCode" placeholder="مثلاً CL-0013"></div>
-          <div class="field"><label>نوع خدمت</label><select class="select" id="service"><option value="individual">مشاوره فردی</option><option value="family">مشاوره خانواده</option><option value="couple">زوج‌درمانی</option></select></div>
-          <div class="field"><label>وضعیت</label><select class="select" id="status"><option value="active">فعال</option><option value="pending">در انتظار</option><option value="inactive">غیرفعال</option></select></div>
-          <div class="field"><label>آخرین جلسه</label><input class="input" id="lastVisit" placeholder="۱۴۰۵/۰۷/۰۸"></div>
-          <div class="field"><label>پیگیری بعدی</label><input class="input" id="nextFollow" placeholder="۱۴۰۵/۰۷/۱۵"></div>
-        </div>
-        <div class="modal-foot"><button type="button" class="btn" data-close="clientModal">انصراف</button><button type="submit" class="btn primary">ذخیره پرونده</button></div>
-      </form>
-    </div>
-  </div>
-
-  <div class="modal-layer" id="detailModal">
-    <div class="modal">
-      <div class="modal-head"><div><strong id="detailName">پرونده مراجع</strong><span>نمای کلی اطلاعات پرونده</span></div><button class="close-btn" data-close="detailModal">×</button></div>
-      <div class="detail-grid" id="detailContent"></div>
-      <div class="sheet-actions">
-        <button class="primary" id="detailProfile">مشاهده پرونده کامل</button>
-        <button id="detailSms">ارسال پیامک</button>
-        <button id="detailAppointment">ثبت نوبت</button>
-        <button id="detailEdit">ویرایش مراجع</button>
+      <div class="empty-state" id="tableEmpty">
+        <div class="empty-icon">⌕</div><strong>مراجعی پیدا نشد</strong><span>عبارت جستجو یا فیلترهای انتخاب‌شده را تغییر دهید.</span>
       </div>
     </div>
-  </div>
 
-  <div class="modal-layer" id="confirmModal">
-    <div class="modal">
-      <div class="modal-head"><div><strong>حذف پرونده؟</strong><span id="confirmText">این عملیات قابل بازگشت نیست.</span></div><button class="close-btn" data-close="confirmModal">×</button></div>
-      <div class="modal-foot"><button class="btn" data-close="confirmModal">انصراف</button><button class="btn danger-btn" id="confirmDelete">حذف پرونده</button></div>
+    <div class="mobile-client-list" id="mobileClientList"></div>
+    <div class="empty-state" id="mobileEmpty">
+      <div class="empty-icon">⌕</div><strong>مراجعی پیدا نشد</strong><span>عبارت جستجو یا فیلترهای انتخاب‌شده را تغییر دهید.</span>
     </div>
-  </div>
 
-  <div class="toast" id="toast"><div class="toast-icon">✓</div><div><strong id="toastTitle">انجام شد</strong><span id="toastText">عملیات با موفقیت انجام شد.</span></div></div>
+    <div class="table-footer">
+      <div class="result-count" id="resultCount">۰ مورد</div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+</section>
+
+  </main>
+</div>
+
+<div class="sidebar-scroll-track" aria-hidden="true"><i class="sidebar-scroll-thumb" id="sidebarScrollThumb"></i></div>
+<button class="scroll-top-client" id="scrollTopClient" title="بازگشت به بالا"><span>↑</span></button>
+<div class="notice-panel glass" id="noticePanel"><div class="notice-head"><strong>اعلان‌های مراجعین</strong><button id="closeNotice">×</button></div><div id="noticeItems"></div></div>
+<nav class="mobile-nav glass">
+  <a href="dashboard.html" data-page="dashboard"><b>⌂</b><span>خانه</span></a>
+  <a class="active" href="clients.html" data-page="clients"><b>♙</b><span>مراجعین</span></a>
+  <a href="appointments.html" data-page="appointments"><b>◫</b><span>نوبت‌ها</span></a>
+  <a href="follow-ups.html" data-page="followups"><b>↻</b><span>پیگیری</span></a>
+  <button id="mobileMore"><b>•••</b><span>بیشتر</span></button>
+</nav>
+
+<section class="modal-backdrop" id="clientModal">
+  <section class="client-modal glass" role="dialog" aria-modal="true" aria-labelledby="clientModalTitle">
+    <div class="modal-head">
+      <div class="modal-title"><strong id="clientModalTitle">ثبت مراجع جدید</strong><span id="clientModalSubtitle">اطلاعات پایه پرونده را وارد کنید.</span></div>
+      <button class="close" id="closeClientModal" type="button" aria-label="بستن">×</button>
+    </div>
+    <form id="clientForm">
+      <div class="form-grid">
+        <div class="form-divider">اطلاعات هویتی و پرونده</div>
+        <div class="field"><label for="firstName">نام *</label><input id="firstName" required maxlength="60" placeholder="مثلاً سارا"></div>
+        <div class="field"><label for="lastName">نام خانوادگی *</label><input id="lastName" required maxlength="80" placeholder="مثلاً محمدی"></div>
+        <div class="field"><label for="phone">شماره موبایل *</label><input id="phone" required inputmode="tel" maxlength="15" placeholder="09xxxxxxxxx"></div>
+        <div class="field"><label for="caseCode">کد پرونده <span class="field-help">اختیاری</span></label><input id="caseCode" maxlength="40" placeholder="اگر نخواستید خالی بگذارید"></div>
+        <div class="field"><label for="service">خدمت *</label><input id="service" list="serviceOptions" required placeholder="جستجو یا نام خدمت جدید..."><datalist id="serviceOptions"><option value="عمل بینی"><option value="کاشت ابرو"><option value="کاشت مو"><option value="تزریق ژل"><option value="تزریق بوتاکس"><option value="لیزر"><option value="پاکسازی پوست"><option value="جوانسازی پوست"><option value="مشاوره زیبایی"><option value="مشاوره فردی"><option value="مشاوره خانواده"><option value="زوج‌درمانی"></datalist><small class="field-help">اگر خدمت نبود، نام جدید را مستقیم بنویسید.</small></div>
+        <div class="field"><label for="status">وضعیت</label><select id="status"><option value="active">فعال</option><option value="pending">در انتظار</option><option value="inactive">غیرفعال</option></select></div>
+        <div class="field"><label for="age">سن</label><input id="age" type="number" min="0" max="120"></div>
+        <div class="field"><label for="city">شهر</label><input id="city"></div>
+        <div class="field full"><label for="address">آدرس</label><input id="address"></div>
+        <div class="form-divider">جلسه، پیگیری و پرداخت</div>
+        <div class="field"><label for="visitType">نوع حضور</label><select id="visitType"><option value="in">حضوری</option><option value="out">غیرحضوری</option></select></div>
+        <div class="field"><label for="lastVisit">تاریخ و ساعت آخرین جلسه</label><input id="lastVisit" type="datetime-local"></div>
+        <div class="field"><label for="nextFollowup">تاریخ و ساعت پیگیری بعدی</label><input id="nextFollowup" type="datetime-local"></div>
+        <div class="field"><label for="payment">شرایط نقدی / اقساط</label><select id="payment"><option value="cash">نقدی</option><option value="installment">اقساط</option></select></div>
+        <div class="field"><label for="deposit">مبلغ بیعانه</label><input id="deposit" type="number" min="0" inputmode="decimal" placeholder="تومان"></div>
+        <div class="form-divider">اطلاعات پزشکی</div>
+        <div class="field full"><div class="choice-row"><label class="choice"><input id="sensitivity" type="checkbox"> حساسیت دارد</label><label class="choice"><input id="disease" type="checkbox"> بیماری خاص دارد</label><label class="choice"><input id="lab" type="checkbox"> آزمایش دارد</label></div></div>
+        <div class="field full conditional-field" id="diseaseField"><label for="diseaseDescription">توضیحات بیماری</label><textarea id="diseaseDescription" placeholder="نام بیماری و توضیحات ضروری..."></textarea></div>
+        <div class="form-divider">تصاویر پرونده</div>
+        <div class="field"><label>عکس قبل</label><label class="upload-zone" for="beforePhoto"><strong>▧ افزودن عکس قبل</strong><span>در پرونده نمایش داده می‌شود.</span></label><input id="beforePhoto" type="file" accept="image/*" hidden><div class="upload-preview" id="beforePreview"></div></div>
+        <div class="field"><label>عکس بعد</label><label class="upload-zone" for="afterPhoto"><strong>▧ افزودن عکس بعد</strong><span>برای مقایسه در پرونده.</span></label><input id="afterPhoto" type="file" accept="image/*" hidden><div class="upload-preview" id="afterPreview"></div></div>
+        <div class="field full"><label>عکس واریزی بیعانه</label><label class="upload-zone" for="depositPhoto"><strong>▧ افزودن تصویر واریزی</strong><span>در سوابق پرداخت پرونده نگهداری می‌شود.</span></label><input id="depositPhoto" type="file" accept="image/*" hidden><div class="upload-preview" id="depositPreview"></div></div>
+        <div class="field full"><label for="note">توضیحات پرونده</label><textarea id="note" maxlength="2000" placeholder="هر توضیحی که قبل از ذخیره پرونده لازم است ثبت شود..."></textarea></div>
+        <div class="modal-note">این صفحه فعلاً داده‌ها را در localStorage نگه می‌دارد؛ ساختار فیلدها برای اتصال مستقیم به ماژول Clients / Reports / Appointments آماده شده است.</div>
+      </div>
+      <div class="modal-actions"><button class="primary-shimmer" type="submit">ذخیره پرونده</button><button class="secondary" type="button" id="cancelClient">انصراف</button><button class="danger" type="button" id="deleteFromEdit" hidden>حذف پرونده</button></div>
+    </form>
+  </section>
+</section>
+
+<section class="modal-backdrop" id="profileModal">
+  <section class="client-modal glass" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="modal-head">
+      <div class="modal-title"><strong id="profileModalTitle">پرونده مراجع</strong><span>نمای سریع اطلاعات و فعالیت‌های اخیر</span></div>
+      <button class="close" id="closeProfileModal" type="button" aria-label="بستن">×</button>
+    </div>
+    <div class="profile-layout">
+      <div class="profile-summary">
+        <div class="profile-large">
+          <div class="client-avatar" id="profileAvatar">م</div>
+          <div><strong id="profileName">—</strong><span id="profileService">—</span></div>
+        </div>
+        <div class="profile-stats">
+          <div class="profile-stat"><span>موبایل</span><strong id="profilePhone">—</strong></div>
+          <div class="profile-stat"><span>کد ملی</span><strong id="profileNational">—</strong></div>
+          <div class="profile-stat"><span>آخرین مراجعه</span><strong id="profileLastVisit">—</strong></div>
+          <div class="profile-stat"><span>پیگیری بعدی</span><strong id="profileFollowup">—</strong></div>
+        </div>
+      </div>
+      <div class="profile-timeline" id="profileTimeline"></div>
+      <div class="call-history" id="profileCallHistory"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="primary-shimmer" id="profileEdit" type="button">ویرایش پرونده</button>
+      <button class="secondary" id="profileSms" type="button">ارسال پیامک یادآوری</button>
+      <button class="secondary" id="profileAppointments" type="button">نوبت‌های مراجع</button>
+    </div>
+  </section>
+</section>
+
+<section class="modal-backdrop" id="confirmModal">
+  <section class="client-modal glass" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title"><strong>حذف پرونده</strong><span>این عملیات در نسخه نمایشی محلی انجام می‌شود.</span></div>
+      <button class="close" id="closeConfirm" type="button" aria-label="بستن">×</button>
+    </div>
+    <div class="confirm-copy">
+      <div class="confirm-icon">!</div>
+      <strong id="confirmName">—</strong>
+      <span>آیا از حذف این پرونده مطمئن هستید؟ اطلاعات از فهرست محلی این صفحه حذف خواهد شد.</span>
+    </div>
+    <div class="modal-actions">
+      <button class="danger" id="confirmDelete" type="button">حذف پرونده</button>
+      <button class="secondary" id="cancelDelete" type="button">انصراف</button>
+    </div>
+  </section>
+</section>
+
+<div class="toast glass" id="toast">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div><strong id="toastTitle">انجام شد</strong><span id="toastMessage">عملیات با موفقیت انجام شد.</span></div>
 </div>
 
 <script>
 (() => {
-  "use strict";
+"use strict";
 
-  const $ = (s,scope=document) => scope.querySelector(s);
-  const $$ = (s,scope=document) => [...scope.querySelectorAll(s)];
-  const root = document.documentElement;
-  const STORAGE = "moshaver_clients_v2";
-  const THEME = "moshaver_theme";
-  const PAGE_SIZE = 6;
+const root=document.documentElement;
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const fa=n=>new Intl.NumberFormat("fa-IR").format(Number(n)||0);
 
-  const seed = [
-    {id:"CL-001",first:"سارا",last:"محمدی",phone:"09121234567",service:"individual",lastVisit:"۱۴۰۵/۰۷/۰۸",nextFollow:"۱۴۰۵/۰۷/۱۵",nextDate:15,status:"active",created:1},
-    {id:"CL-002",first:"نرگس",last:"احمدی",phone:"09129876543",service:"family",lastVisit:"۱۴۰۵/۰۷/۰۷",nextFollow:"۱۴۰۵/۰۷/۱۲",nextDate:12,status:"pending",created:2},
-    {id:"CL-003",first:"علی",last:"رضایی",phone:"09351234567",service:"couple",lastVisit:"۱۴۰۵/۰۷/۰۵",nextFollow:"۱۴۰۵/۰۷/۱۸",nextDate:18,status:"active",created:3},
-    {id:"CL-004",first:"مریم",last:"کریمی",phone:"09101112233",service:"individual",lastVisit:"۱۴۰۵/۰۷/۰۴",nextFollow:"۱۴۰۵/۰۷/۱۴",nextDate:14,status:"active",created:4},
-    {id:"CL-005",first:"رضا",last:"کاظمی",phone:"09124445566",service:"family",lastVisit:"۱۴۰۵/۰۷/۰۲",nextFollow:"۱۴۰۵/۰۷/۲۰",nextDate:20,status:"active",created:5},
-    {id:"CL-006",first:"الهام",last:"حسینی",phone:"09367778899",service:"individual",lastVisit:"۱۴۰۵/۰۶/۲۹",nextFollow:"۱۴۰۵/۰۷/۱۰",nextDate:10,status:"pending",created:6},
-    {id:"CL-007",first:"امیر",last:"مرادی",phone:"09123334455",service:"couple",lastVisit:"۱۴۰۵/۰۶/۲۷",nextFollow:"۱۴۰۵/۰۷/۲۲",nextDate:22,status:"active",created:7},
-    {id:"CL-008",first:"نگین",last:"رضوانی",phone:"09125556677",service:"individual",lastVisit:"۱۴۰۵/۰۶/۲۵",nextFollow:"۱۴۰۵/۰۷/۱۷",nextDate:17,status:"active",created:8},
-    {id:"CL-009",first:"حمید",last:"اکبری",phone:"09391112233",service:"family",lastVisit:"۱۴۰۵/۰۶/۲۳",nextFollow:"—",nextDate:99,status:"inactive",created:9},
-    {id:"CL-010",first:"پریناز",last:"موسوی",phone:"09129998877",service:"individual",lastVisit:"۱۴۰۵/۰۶/۲۱",nextFollow:"۱۴۰۵/۰۷/۱۶",nextDate:16,status:"active",created:10},
-    {id:"CL-011",first:"سعید",last:"جعفری",phone:"09127776655",service:"couple",lastVisit:"۱۴۰۵/۰۶/۱۹",nextFollow:"۱۴۰۵/۰۷/۲۱",nextDate:21,status:"pending",created:11},
-    {id:"CL-012",first:"آرزو",last:"نوری",phone:"09353334444",service:"individual",lastVisit:"۱۴۰۵/۰۶/۱۷",nextFollow:"۱۴۰۵/۰۷/۱۹",nextDate:19,status:"active",created:12}
-  ];
-
-  let clients = loadClients();
-  let filtered = [];
-  let page = 1;
-  let selectedId = null;
-  let deleteId = null;
-  let toastTimer;
-
-  function loadClients(){
-    try{
-      const saved = JSON.parse(localStorage.getItem(STORAGE) || "null");
-      return Array.isArray(saved) && saved.length ? saved : seed.map(x=>({...x}));
-    }catch(_){ return seed.map(x=>({...x})); }
-  }
-  function save(){localStorage.setItem(STORAGE,JSON.stringify(clients));}
-  function faNum(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])}
-  function serviceLabel(v){return {individual:"مشاوره فردی",family:"مشاوره خانواده",couple:"زوج‌درمانی"}[v]||v}
-  function statusLabel(v){return {active:"فعال",pending:"در انتظار",inactive:"غیرفعال"}[v]||v}
-  function statusClass(v){return {active:"green",pending:"yellow",inactive:"red"}[v]||"purple"}
-  function initials(c){return (c.first?.[0]||"")+(c.last?.[0]||"")}
-  function showToast(title,text){
-    $("#toastTitle").textContent=title;$("#toastText").textContent=text;$("#toast").classList.add("show");
-    clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("#toast").classList.remove("show"),3200);
-  }
-
-  root.dataset.theme=localStorage.getItem(THEME)||"dark";
-  $("#theme").addEventListener("click",()=>{
-    const next=root.dataset.theme==="dark"?"light":"dark";
-    root.dataset.theme=next;localStorage.setItem(THEME,next);
-    showToast("پوسته تغییر کرد",next==="dark"?"حالت تاریک فعال شد.":"حالت روشن فعال شد.");
-  });
-
-  try{
-    const user=JSON.parse(localStorage.getItem("moshaver_user")||"null");
-    if(user){
-      $("#userName").textContent=[user.firstName,user.lastName].filter(Boolean).join(" ")||user.username||"مشاور";
-      $("#userRole").textContent=user.role==="MANAGER"?"مدیر کلینیک":user.role==="SUPER_ADMIN"?"مدیریت سامانه":"مشاور کلینیک";
-    }
-  }catch(_){}
-
-  const sidebar=$("#sidebar");
-  $("#menu").addEventListener("click",()=>sidebar.classList.toggle("open"));
-  $("#mobileMore").addEventListener("click",()=>sidebar.classList.toggle("open"));
-  document.addEventListener("click",e=>{
-    if(innerWidth<=980 && sidebar.classList.contains("open") && !sidebar.contains(e.target) && !e.target.closest("#menu") && !e.target.closest("#mobileMore")) sidebar.classList.remove("open");
-  });
-  const notificationPopover=$("#notificationPopover");
-$("#notifications").addEventListener("click",e=>{e.stopPropagation();notificationPopover.classList.toggle("open");notificationPopover.setAttribute("aria-hidden",notificationPopover.classList.contains("open")?"false":"true")});
-$("#closeNotifications").addEventListener("click",()=>{notificationPopover.classList.remove("open");notificationPopover.setAttribute("aria-hidden","true")});
-$("#markNotifications").addEventListener("click",()=>{notificationPopover.classList.remove("open");$("#notifications").classList.remove("notification");showToast("اعلان‌ها خوانده شد","همه اعلان‌های فعلی علامت‌گذاری شدند.")});
-document.addEventListener("click",e=>{if(notificationPopover.classList.contains("open")&&!notificationPopover.contains(e.target)&&!e.target.closest("#notifications")){notificationPopover.classList.remove("open");notificationPopover.setAttribute("aria-hidden","true")}});
-
-$("#quickSearch").addEventListener("click",()=>{const el=$("#search");el.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>{el.focus();el.classList.add("quick-search-focus");setTimeout(()=>el.classList.remove("quick-search-focus"),900)},350)});
-
-  $("#logout").addEventListener("click",()=>{localStorage.removeItem("moshaver_user");localStorage.removeItem("moshaver_session");location.href="../index.html"});
-
-  function getFilters(){
-    return {
-      q:$("#search").value.trim().toLowerCase(),
-      status:$("#statusFilter").value,
-      service:$("#serviceFilter").value,
-      sort:$("#sortFilter").value
-    };
-  }
-  function applyFilters(){
-    const f=getFilters();
-    filtered=clients.filter(c=>{
-      const text=[c.first,c.last,c.phone,c.id,serviceLabel(c.service)].join(" ").toLowerCase();
-      return (!f.q||text.includes(f.q))&&(!f.status||c.status===f.status)&&(!f.service||c.service===f.service);
-    });
-    if(f.sort==="name") filtered.sort((a,b)=>(a.first+a.last).localeCompare(b.first+b.last,"fa"));
-    else if(f.sort==="oldest") filtered.sort((a,b)=>a.created-b.created);
-    else if(f.sort==="next") filtered.sort((a,b)=>a.nextDate-b.nextDate);
-    else filtered.sort((a,b)=>b.created-a.created);
-    page=1;render();
-  }
-
-  function render(){
-    updateKpis();
-    const total=filtered.length;
-    const start=(page-1)*PAGE_SIZE;
-    const rows=filtered.slice(start,start+PAGE_SIZE);
-    $("#tableBody").innerHTML=rows.map(rowHtml).join("");
-    $("#mobileList").innerHTML=rows.map(cardHtml).join("");
-    $("#empty").classList.toggle("show",total===0);
-    $(".table-wrap").style.display=total?"block":"none";
-    $(".mobile-list").style.display=total?"":"none";
-    $("#resultInfo").textContent=`${faNum(total)} پرونده نمایش داده می‌شود`;
-    $("#paginationInfo").textContent=total?`نمایش ${faNum(start+1)} تا ${faNum(Math.min(start+PAGE_SIZE,total))} از ${faNum(total)}`:"نمایشی وجود ندارد";
-    renderPages(total);
-    bindRowActions();
-  }
-
-  function updateKpis(){
-    const active=clients.filter(c=>c.status==="active").length;
-    const pending=clients.filter(c=>c.status==="pending").length;
-    $("#totalCount").textContent=faNum(clients.length);
-    $("#activeCount").textContent=faNum(active);
-    $("#followCount").textContent=faNum(pending);
-    $("#navCount").textContent=faNum(clients.length);
-  }
-
-  function rowHtml(c){
-    return `<tr>
-      <td><div class="client-cell"><div class="client-avatar">${initials(c)}</div><div class="client-name"><strong>${esc(c.first)} ${esc(c.last)}</strong><small>${esc(c.id)}</small></div></div></td>
-      <td>${esc(c.phone)}</td><td>${serviceLabel(c.service)}</td><td>${esc(c.lastVisit)}</td><td>${esc(c.nextFollow)}</td>
-      <td><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></td>
-      <td><div class="actions">
-        <button class="mini-btn" data-action="view" data-id="${c.id}" title="مشاهده">⌕</button>
-        <button class="mini-btn" data-action="edit" data-id="${c.id}" title="ویرایش">✎</button>
-        <button class="mini-btn sms" data-action="sms" data-id="${c.id}" title="پیامک">✉</button>
-        <button class="mini-btn danger" data-action="delete" data-id="${c.id}" title="حذف">×</button>
-      </div></td>
-    </tr>`;
-  }
-
-  function cardHtml(c){
-    return `<article class="client-card">
-      <div class="client-card-top"><div class="client-avatar">${initials(c)}</div><div class="client-card-main"><strong>${esc(c.first)} ${esc(c.last)}</strong><small>${esc(c.id)} · ${serviceLabel(c.service)}</small></div><span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span></div>
-      <div class="client-card-info"><div class="info-box"><span>شماره تماس</span><b>${esc(c.phone)}</b></div><div class="info-box"><span>پیگیری بعدی</span><b>${esc(c.nextFollow)}</b></div></div>
-      <div class="client-card-actions"><button data-action="view" data-id="${c.id}">مشاهده پرونده</button><button data-action="sms" data-id="${c.id}">پیامک</button><button data-action="edit" data-id="${c.id}">ویرایش</button></div>
-    </article>`;
-  }
-
-  function renderPages(total){
-    const count=Math.max(1,Math.ceil(total/PAGE_SIZE));
-    if(page>count)page=count;
-    const buttons=[];
-    for(let i=1;i<=count;i++) buttons.push(`<button class="page-btn ${i===page?"active":""}" data-page="${i}">${faNum(i)}</button>`);
-    $("#pages").innerHTML=`<button class="page-btn" data-page="${page-1}" ${page===1?"disabled":""}>‹</button>${buttons.join("")}<button class="page-btn" data-page="${page+1}" ${page===count?"disabled":""}>›</button>`;
-    $$(".page-btn").forEach(b=>b.addEventListener("click",()=>{const p=Number(b.dataset.page);if(p>=1&&p<=count){page=p;render()}}));
-  }
-
-  function bindRowActions(){
-    $$("[data-action]").forEach(btn=>btn.addEventListener("click",()=>{
-      const id=btn.dataset.id, action=btn.dataset.action;
-      const c=clients.find(x=>x.id===id); if(!c)return;
-      if(action==="view")openDetail(c);
-      if(action==="edit")openEdit(c);
-      if(action==="sms")sendSms(c);
-      if(action==="delete")openDelete(c);
-    }));
-  }
-
-  function esc(v){
-    return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-  }
-
-  function openModal(id){$("#"+id).classList.add("open");document.body.style.overflow="hidden"}
-  function closeModal(id){$("#"+id).classList.remove("open");if(!$$(".modal-layer.open").length)document.body.style.overflow=""}
-  $$("[data-close]").forEach(b=>b.addEventListener("click",()=>closeModal(b.dataset.close)));
-  $$(".modal-layer").forEach(layer=>layer.addEventListener("click",e=>{if(e.target===layer)closeModal(layer.id)}));
-
-  function resetForm(){
-    $("#clientForm").reset();$("#clientId").value="";
-    $("#status").value="active";$("#service").value="individual";
-  }
-
-  function openNew(){
-    resetForm();$("#modalTitle").textContent="ثبت مراجع جدید";$("#modalSubtitle").textContent="اطلاعات پایه پرونده را وارد کنید.";openModal("clientModal");
-    setTimeout(()=>$("#firstName").focus(),100);
-  }
-
-  function openEdit(c){
-    $("#clientId").value=c.id;$("#firstName").value=c.first;$("#lastName").value=c.last;$("#phone").value=c.phone;$("#caseCode").value=c.id;
-    $("#service").value=c.service;$("#status").value=c.status;$("#lastVisit").value=c.lastVisit;$("#nextFollow").value=c.nextFollow;
-    $("#modalTitle").textContent="ویرایش پرونده";$("#modalSubtitle").textContent=`ویرایش اطلاعات ${c.first} ${c.last}`;
-    openModal("clientModal");
-  }
-
-
-$$("[data-quick]").forEach(btn=>btn.addEventListener("click",()=>{
-  const action=btn.dataset.quick;
-  if(action==="new") openNew();
-  if(action==="follow") location.href="follow-ups.html";
-  if(action==="appointment") location.href="appointments.html?new=1";
-  if(action==="report") location.href="reports.html";
-}));
-
-  $("#addClient").addEventListener("click",openNew);
-
-  $("#clientForm").addEventListener("submit",e=>{
-    e.preventDefault();
-    const id=$("#clientId").value.trim();
-    const data={first:$("#firstName").value.trim(),last:$("#lastName").value.trim(),phone:$("#phone").value.trim(),service:$("#service").value,status:$("#status").value,lastVisit:$("#lastVisit").value.trim()||"—",nextFollow:$("#nextFollow").value.trim()||"—"};
-    if(!data.first||!data.last||!data.phone){showToast("اطلاعات ناقص","نام، نام خانوادگی و موبایل الزامی است.");return}
-    if(id){
-      const i=clients.findIndex(c=>c.id===id);
-      if(i>-1)clients[i]={...clients[i],...data};
-      showToast("پرونده ویرایش شد","اطلاعات مراجع با موفقیت ذخیره شد.");
-    }else{
-      const num=String(Date.now()).slice(-5);
-      clients.unshift({...data,id:`CL-${num}`,created:Date.now(),nextDate:99});
-      showToast("مراجع ثبت شد","پرونده جدید با موفقیت ایجاد شد.");
-    }
-    save();closeModal("clientModal");applyFilters();
-  });
-
-  function openDetail(c){
-    selectedId=c.id;$("#detailName").textContent=`${c.first} ${c.last}`;
-    $("#detailContent").innerHTML=`
-      <div class="detail-box"><span>کد پرونده</span><strong>${esc(c.id)}</strong></div>
-      <div class="detail-box"><span>وضعیت</span><strong>${statusLabel(c.status)}</strong></div>
-      <div class="detail-box"><span>شماره موبایل</span><strong>${esc(c.phone)}</strong></div>
-      <div class="detail-box"><span>خدمت</span><strong>${serviceLabel(c.service)}</strong></div>
-      <div class="detail-box"><span>آخرین جلسه</span><strong>${esc(c.lastVisit)}</strong></div>
-      <div class="detail-box"><span>پیگیری بعدی</span><strong>${esc(c.nextFollow)}</strong></div>
-      <div class="detail-box detail-wide"><span>وضعیت ارتباط</span><strong>پیامک و تماس در دسترس است.</strong></div>`;
-    openModal("detailModal");
-  }
-
-  $("#detailProfile").addEventListener("click",()=>{
-    if(!selectedId)return;
-    location.href=`client-profile.html?id=${encodeURIComponent(selectedId)}`;
-  });
-  $("#detailEdit").addEventListener("click",()=>{
-    const c=clients.find(x=>x.id===selectedId);if(c){closeModal("detailModal");openEdit(c)}
-  });
-  $("#detailSms").addEventListener("click",()=>{
-    const c=clients.find(x=>x.id===selectedId);if(c)sendSms(c);
-  });
-  $("#detailAppointment").addEventListener("click",()=>{
-    if(selectedId)location.href=`appointments.html?client=${encodeURIComponent(selectedId)}&new=1`;
-  });
-
-  function sendSms(c){
-    showToast("آماده ارسال پیامک",`یادآوری نوبت برای ${c.first} ${c.last} آماده است.`);
-  }
-
-  function openDelete(c){
-    deleteId=c.id;$("#confirmText").textContent=`پرونده «${c.first} ${c.last}» حذف خواهد شد. این عملیات قابل بازگشت نیست.`;openModal("confirmModal");
-  }
-  $("#confirmDelete").addEventListener("click",()=>{
-    if(!deleteId)return;
-    const c=clients.find(x=>x.id===deleteId);
-    clients=clients.filter(x=>x.id!==deleteId);save();deleteId=null;closeModal("confirmModal");applyFilters();
-    showToast("پرونده حذف شد",c?`${c.first} ${c.last} از فهرست حذف شد.`:"پرونده حذف شد.");
-  });
-
-  ["#search","#statusFilter","#serviceFilter","#sortFilter"].forEach(s=>$(s).addEventListener(s==="#search"?"input":"change",applyFilters));
-  $("#clear").addEventListener("click",()=>{$("#search").value="";$("#statusFilter").value="";$("#serviceFilter").value="";$("#sortFilter").value="newest";applyFilters()});
-
-  document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){$$(".modal-layer.open").forEach(x=>closeModal(x.id));sidebar.classList.remove("open")}
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#search").focus()}
-  });
-
-  const params=new URLSearchParams(location.search);
-  if(params.get("new")==="1")setTimeout(openNew,180);
-
-const initialClient = params.get("client");
-if(initialClient){
-  const found=clients.find(c=>c.id===initialClient);
-  if(found) setTimeout(()=>openDetail(found),220);
+function toast(title,message,type="success"){
+  $("#toastTitle").textContent=title;
+  $("#toastMessage").textContent=message;
+  $("#toastIcon").textContent=type==="danger"?"!":type==="info"?"i":"✓";
+  $("#toast").classList.add("show");
+  clearTimeout(window.__toast);
+  window.__toast=setTimeout(()=>$("#toast").classList.remove("show"),3200);
 }
 
+const themeKey="moshaver_theme";
+function applyTheme(t){
+  root.dataset.theme=t;
+  localStorage.setItem(themeKey,t);
+  $("#theme").textContent=t==="dark"?"☀":"☾";
+}
+applyTheme(localStorage.getItem(themeKey)||"dark");
+$("#theme").onclick=()=>{
+  const next=root.dataset.theme==="dark"?"light":"dark";
+  applyTheme(next);
+  toast("پوسته تغییر کرد",next==="dark"?"حالت تاریک فعال شد.":"حالت روشن فعال شد.");
+};
 
+const STORAGE_KEY="moshaver_clients_demo_v2";
+const PAGE_SIZE=8;
+let clients=[];
+let filtered=[];
+let currentPage=1;
+let editingId=null;
+let profileId=null;
+let pendingDeleteId=null;
+
+const serviceLabels={
+  individual:"مشاوره فردی",
+  couple:"مشاوره زوجین",
+  family:"مشاوره خانواده",
+  assessment:"ارزیابی اولیه"
+};
+const statusLabels={active:"فعال",pending:"در انتظار",inactive:"غیرفعال"};
+
+const seedClients=[
+ {id:"c1",firstName:"سارا",lastName:"محمدی",phone:"09121234567",nationalId:"0012345678",service:"individual",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۸",nextFollowup:"۱۴۰۵/۰۷/۱۲",createdAt:"1405-07-01",note:"پیگیری نتیجه جلسه قبلی و هماهنگی جلسه بعد."},
+ {id:"c2",firstName:"نرگس",lastName:"احمدی",phone:"09129876543",nationalId:"0023456789",service:"couple",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۷",nextFollowup:"۱۴۰۵/۰۷/۱۰",createdAt:"1405-07-02",note:"جلسه زوجین در حال پیگیری است."},
+ {id:"c3",firstName:"علی",lastName:"رضایی",phone:"09351234567",nationalId:"0034567890",service:"family",status:"pending",lastVisit:"۱۴۰۵/۰۷/۰۵",nextFollowup:"۱۴۰۵/۰۷/۱۵",createdAt:"1405-07-03",note:"منتظر تأیید زمان جلسه بعد."},
+ {id:"c4",firstName:"مریم",lastName:"کریمی",phone:"09105554433",nationalId:"0045678901",service:"assessment",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۹",nextFollowup:"۱۴۰۵/۰۷/۱۱",createdAt:"1405-07-04",note:"ارزیابی اولیه انجام شد."},
+ {id:"c5",firstName:"امیر",lastName:"حسینی",phone:"09361234567",nationalId:"0056789012",service:"individual",status:"inactive",lastVisit:"۱۴۰۵/۰۶/۲۲",nextFollowup:"—",createdAt:"1405-06-20",note:"پرونده فعلاً غیرفعال است."},
+ {id:"c6",firstName:"الهام",lastName:"رضوانی",phone:"09197654321",nationalId:"0067890123",service:"family",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۶",nextFollowup:"۱۴۰۵/۰۷/۱۳",createdAt:"1405-07-05",note:"نیازمند پیگیری وضعیت خانواده."},
+ {id:"c7",firstName:"محمد",lastName:"اکبری",phone:"09901234567",nationalId:"0078901234",service:"individual",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۳",nextFollowup:"۱۴۰۵/۰۷/۰۹",createdAt:"1405-07-05",note:"تماس پیگیری برنامه‌ریزی شده."},
+ {id:"c8",firstName:"سحر",lastName:"کاظمی",phone:"09123334455",nationalId:"0089012345",service:"couple",status:"pending",lastVisit:"۱۴۰۵/۰۷/۰۱",nextFollowup:"۱۴۰۵/۰۷/۱۴",createdAt:"1405-07-06",note:"در انتظار هماهنگی زوجین."},
+ {id:"c9",firstName:"رضا",lastName:"موسوی",phone:"09383332211",nationalId:"0090123456",service:"individual",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۴",nextFollowup:"۱۴۰۵/۰۷/۱۶",createdAt:"1405-07-06",note:"جلسه بعدی نیازمند تأیید است."},
+ {id:"c10",firstName:"نگین",lastName:"صادقی",phone:"09114445566",nationalId:"0101234567",service:"assessment",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۸",nextFollowup:"۱۴۰۵/۰۷/۱۷",createdAt:"1405-07-07",note:"ارزیابی تکمیلی پیشنهاد شده."},
+ {id:"c11",firstName:"کیان",lastName:"مرادی",phone:"09212223344",nationalId:"0112345678",service:"family",status:"inactive",lastVisit:"۱۴۰۵/۰۶/۲۸",nextFollowup:"—",createdAt:"1405-06-25",note:"پرونده بایگانی موقت."},
+ {id:"c12",firstName:"پریسا",lastName:"نوری",phone:"09127778899",nationalId:"0123456789",service:"individual",status:"active",lastVisit:"۱۴۰۵/۰۷/۰۹",nextFollowup:"۱۴۰۵/۰۷/۱۲",createdAt:"1405-07-08",note:"جلسه اخیر با نتیجه مناسب ثبت شد."}
+];
+
+function loadClients(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    clients=raw?JSON.parse(raw):seedClients.map(x=>({...x}));
+    if(!Array.isArray(clients)) throw new Error("bad-data");
+  }catch(e){
+    clients=seedClients.map(x=>({...x}));
+  }
+}
+function saveClients(){localStorage.setItem(STORAGE_KEY,JSON.stringify(clients));}
+
+function normalize(v){
+  return String(v??"").toLowerCase().replace(/\s+/g," ").trim();
+}
+function initials(c){
+  return `${(c.firstName||"").charAt(0)}${(c.lastName||"").charAt(0)}`||"م";
+}
+function fullName(c){return `${c.firstName||""} ${c.lastName||""}`.trim()||"مراجع بدون نام";}
+function statusClass(status){
+  return status==="active"?"status-active":status==="pending"?"status-pending":"status-inactive";
+}
+function isDue(c){
+  return c.status!=="inactive" && c.nextFollowup && c.nextFollowup!=="—";
+}
+function isNewThisMonth(c){
+  return String(c.createdAt||"").startsWith("1405-07");
+}
+
+function updateKpis(){
+  const total=clients.length;
+  const active=clients.filter(x=>x.status==="active").length;
+  const fresh=clients.filter(isNewThisMonth).length;
+  const due=clients.filter(isDue).length;
+  $("#kpiTotal").textContent=fa(total);
+  $("#kpiActive").textContent=fa(active);
+  $("#kpiNew").textContent=fa(fresh);
+  $("#kpiDue").textContent=fa(due);
+  $("#kpiTotalFoot").textContent=total?`+${fa(Math.min(fresh,99))} جدید`:"—";
+  $("#navClientBadge").textContent=fa(Math.min(total,99));
+}
+
+function getFilters(){
+  return {
+    q:normalize($("#searchInput").value),
+    status:$("#statusFilter").value,
+    service:$("#serviceFilter").value
+  };
+}
+function applyFilters(){
+  const f=getFilters();
+  filtered=clients.filter(c=>{
+    const hay=normalize([fullName(c),c.phone,c.nationalId,c.id].join(" "));
+    return (!f.q||hay.includes(f.q)) &&
+      (f.status==="all"||c.status===f.status) &&
+      (f.service==="all"||c.service===f.service);
+  });
+  currentPage=1;
+  render();
+}
+function pagedItems(){
+  const start=(currentPage-1)*PAGE_SIZE;
+  return filtered.slice(start,start+PAGE_SIZE);
+}
+
+function clientRow(c){
+  const followupClass=isDue(c)?"followup-due":"followup-ok";
+  return `<tr>
+    <td><div class="client-cell">
+      <div class="client-avatar">${initials(c)}</div>
+      <div class="client-name"><strong>${escapeHtml(fullName(c))}</strong><span>پرونده ${escapeHtml(c.id.toUpperCase())}</span></div>
+    </div></td>
+    <td><span class="phone">${escapeHtml(c.phone||"—")}</span></td>
+    <td><span class="service-text">${escapeHtml(serviceLabels[c.service]||"—")}</span></td>
+    <td><span class="date-cell">${escapeHtml(c.lastVisit||"—")}</span></td>
+    <td><span class="badge-status ${statusClass(c.status)}">${escapeHtml(statusLabels[c.status]||"—")}</span></td>
+    <td><span class="${followupClass}">${escapeHtml(c.nextFollowup||"—")}</span></td>
+    <td><div class="row-actions">
+      <button class="row-action" data-action="view" data-id="${c.id}" title="مشاهده">◉</button>
+      <button class="row-action" data-action="edit" data-id="${c.id}" title="ویرایش">✎</button>
+      <button class="row-action sms" data-action="sms" data-id="${c.id}" title="پیامک">⌁</button>
+      <button class="row-action delete" data-action="delete" data-id="${c.id}" title="حذف">×</button>
+    </div></td>
+  </tr>`;
+}
+
+function clientCard(c){
+  return `<article class="client-card">
+    <div class="client-card-top">
+      <div class="client-avatar">${initials(c)}</div>
+      <div class="client-card-main"><strong>${escapeHtml(fullName(c))}</strong><span>پرونده ${escapeHtml(c.id.toUpperCase())}</span></div>
+      <span class="badge-status ${statusClass(c.status)} client-card-status">${escapeHtml(statusLabels[c.status])}</span>
+    </div>
+    <div class="client-card-grid">
+      <div class="mini-info"><span>خدمت</span><strong>${escapeHtml(serviceLabels[c.service]||"—")}</strong></div>
+      <div class="mini-info"><span>موبایل</span><strong>${escapeHtml(c.phone||"—")}</strong></div>
+      <div class="mini-info"><span>آخرین مراجعه</span><strong>${escapeHtml(c.lastVisit||"—")}</strong></div>
+      <div class="mini-info"><span>پیگیری بعدی</span><strong class="${isDue(c)?"followup-due":""}">${escapeHtml(c.nextFollowup||"—")}</strong></div>
+    </div>
+    <div class="client-card-actions">
+      <button data-action="view" data-id="${c.id}" title="مشاهده">◉</button>
+      <button data-action="edit" data-id="${c.id}" title="ویرایش">✎</button>
+      <button data-action="sms" data-id="${c.id}" title="پیامک">⌁</button>
+      <button data-action="delete" data-id="${c.id}" title="حذف">×</button>
+    </div>
+  </article>`;
+}
+
+function renderPagination(){
+  const totalPages=Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));
+  const holder=$("#pagination");
+  holder.innerHTML="";
+  if(totalPages<=1)return;
+  const prev=document.createElement("button");
+  prev.className="page-btn";prev.textContent="‹";prev.disabled=currentPage===1;
+  prev.onclick=()=>{currentPage--;render()};
+  holder.appendChild(prev);
+  for(let i=1;i<=totalPages;i++){
+    const b=document.createElement("button");
+    b.className="page-btn"+(i===currentPage?" active":"");
+    b.textContent=fa(i);b.onclick=()=>{currentPage=i;render()};
+    holder.appendChild(b);
+  }
+  const next=document.createElement("button");
+  next.className="page-btn";next.textContent="›";next.disabled=currentPage===totalPages;
+  next.onclick=()=>{currentPage++;render()};
+  holder.appendChild(next);
+}
+
+function render(){
+  updateKpis();
+  const items=pagedItems();
+  $("#resultCount").textContent=`${fa(filtered.length)} مورد از ${fa(clients.length)} مراجع`;
+  $("#clientTableBody").innerHTML=items.map(clientRow).join("");
+  $("#mobileClientList").innerHTML=items.map(clientCard).join("");
+  const tableEmpty=$("#tableEmpty"),mobileEmpty=$("#mobileEmpty");
+  tableEmpty.classList.toggle("show",filtered.length===0);
+  mobileEmpty.classList.toggle("show",filtered.length===0);
+  renderPagination();
+}
+
+function escapeHtml(value){
+  return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+function openClientModal(id=null){
+  editingId=id;
+  const c=id?clients.find(x=>x.id===id):null;
+  $("#clientModalTitle").textContent=c?"ویرایش پرونده مراجع":"ثبت مراجع جدید";
+  $("#clientModalSubtitle").textContent=c?"اطلاعات پرونده را بررسی و اصلاح کنید.":"اطلاعات پایه پرونده را وارد کنید.";
+  $("#firstName").value=c?.firstName||"";
+  $("#lastName").value=c?.lastName||"";
+  $("#phone").value=c?.phone||"";
+  $("#nationalId").value=c?.nationalId||"";
+  $("#service").value=c?.service||"individual";
+  $("#status").value=c?.status||"active";
+  $("#lastVisit").value=c?.lastVisit||"";
+  $("#nextFollowup").value=c?.nextFollowup||"";
+  $("#note").value=c?.note||"";
+  $("#deleteFromEdit").hidden=!c;
+  $("#clientModal").classList.add("open");
+  setTimeout(()=>$("#firstName").focus(),80);
+}
+function closeClientModal(){$("#clientModal").classList.remove("open");editingId=null}
+
+$("#addClient").onclick=()=>openClientModal();
+$("#closeClientModal").onclick=closeClientModal;
+$("#cancelClient").onclick=closeClientModal;
+$("#clientModal").onclick=e=>{if(e.target===e.currentTarget)closeClientModal()};
+
+$("#clientForm").onsubmit=e=>{
+  e.preventDefault();
+  const firstName=$("#firstName").value.trim();
+  const lastName=$("#lastName").value.trim();
+  if(!firstName||!lastName){toast("اطلاعات ناقص","نام و نام خانوادگی الزامی است.","danger");return}
+
+  const payload={
+    firstName,lastName,
+    phone:$("#phone").value.trim(),
+    nationalId:$("#nationalId").value.trim(),
+    service:$("#service").value,
+    status:$("#status").value,
+    lastVisit:$("#lastVisit").value.trim()||"—",
+    nextFollowup:$("#nextFollowup").value.trim()||"—",
+    note:$("#note").value.trim()
+  };
+
+  const duplicate=clients.find(c=>c.nationalId&&payload.nationalId&&c.nationalId===payload.nationalId&&c.id!==editingId);
+  if(duplicate){toast("کد ملی تکراری است","برای این مراجع قبلاً پرونده ثبت شده است.","danger");return}
+
+  if(editingId){
+    const index=clients.findIndex(x=>x.id===editingId);
+    if(index>=0){clients[index]={...clients[index],...payload};toast("پرونده ویرایش شد","اطلاعات مراجع با موفقیت ذخیره شد.")}
+  }else{
+    clients.unshift({id:"c_"+Date.now().toString(36),...payload,createdAt:"1405-07-09"});
+    toast("مراجع اضافه شد","پرونده جدید در فهرست قرار گرفت.");
+  }
+  saveClients();closeClientModal();applyFilters();
+};
+
+$("#deleteFromEdit").onclick=()=>{
+  if(!editingId)return;
+  pendingDeleteId=editingId;
+  closeClientModal();
+  openConfirm(editingId);
+};
+
+function openConfirm(id){
+  pendingDeleteId=id;
+  const c=clients.find(x=>x.id===id);
+  if(!c)return;
+  $("#confirmName").textContent=fullName(c);
+  $("#confirmModal").classList.add("open");
+}
+function closeConfirm(){$("#confirmModal").classList.remove("open");pendingDeleteId=null}
+$("#closeConfirm").onclick=closeConfirm;
+$("#cancelDelete").onclick=closeConfirm;
+$("#confirmModal").onclick=e=>{if(e.target===e.currentTarget)closeConfirm()};
+$("#confirmDelete").onclick=()=>{
+  if(!pendingDeleteId)return;
+  const c=clients.find(x=>x.id===pendingDeleteId);
+  clients=clients.filter(x=>x.id!==pendingDeleteId);
+  saveClients();closeConfirm();applyFilters();
+  toast("پرونده حذف شد",c?`${fullName(c)} از فهرست حذف شد.`:"پرونده حذف شد.");
+};
+
+function openProfile(id){
+  const c=clients.find(x=>x.id===id);if(!c)return;
+  profileId=id;
+  $("#profileAvatar").textContent=initials(c);
+  $("#profileName").textContent=fullName(c);
+  $("#profileService").textContent=`${serviceLabels[c.service]||"—"} • ${statusLabels[c.status]||"—"}`;
+  $("#profilePhone").textContent=c.phone||"—";
+  $("#profileNational").textContent=c.nationalId||"—";
+  $("#profileLastVisit").textContent=c.lastVisit||"—";
+  $("#profileFollowup").textContent=c.nextFollowup||"—";
+  $("#profileTimeline").innerHTML=`
+    <div class="timeline-item"><div class="timeline-dot"></div><div><strong>وضعیت پرونده</strong><span>${escapeHtml(statusLabels[c.status]||"—")} • خدمت ${escapeHtml(serviceLabels[c.service]||"—")}</span></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div><strong>آخرین مراجعه</strong><span>${escapeHtml(c.lastVisit||"ثبت نشده")}</span></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div><strong>پیگیری بعدی</strong><span>${escapeHtml(c.nextFollowup||"ثبت نشده")}</span></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div><strong>یادداشت پرونده</strong><span>${escapeHtml(c.note||"یادداشتی ثبت نشده است.")}</span></div></div>`;
+  $("#profileModal").classList.add("open");
+}
+function closeProfile(){$("#profileModal").classList.remove("open");profileId=null}
+$("#closeProfileModal").onclick=closeProfile;
+$("#profileModal").onclick=e=>{if(e.target===e.currentTarget)closeProfile()};
+$("#profileEdit").onclick=()=>{if(profileId){const id=profileId;closeProfile();openClientModal(id)}};
+$("#profileSms").onclick=()=>{
+  const c=clients.find(x=>x.id===profileId);
+  if(!c)return;
+  toast("آماده ارسال پیامک",`پیام یادآوری برای ${fullName(c)} آماده شد.`,`info`);
+};
+$("#profileAppointments").onclick=()=>{
+  const c=clients.find(x=>x.id===profileId);
+  if(c)toast("نوبت‌های مراجع",`ماژول نوبت‌ها برای ${fullName(c)} در مرحله اتصال به داده‌های واقعی است.`,"info");
+};
+
+function sendSms(id){
+  const c=clients.find(x=>x.id===id);if(!c)return;
+  if(!c.phone){toast("شماره تماس ثبت نشده","برای ارسال پیامک ابتدا شماره موبایل را وارد کنید.","danger");return}
+  toast("آماده ارسال پیامک",`پیام یادآوری برای ${fullName(c)} آماده ارسال است.`,"info");
+}
+
+function handleAction(action,id){
+  if(action==="view")openProfile(id);
+  if(action==="edit")openClientModal(id);
+  if(action==="sms")sendSms(id);
+  if(action==="delete")openConfirm(id);
+}
+document.addEventListener("click",e=>{
+  const btn=e.target.closest("[data-action]");
+  if(btn)handleAction(btn.dataset.action,btn.dataset.id);
+});
+
+$("#searchInput").addEventListener("input",applyFilters);
+$("#statusFilter").addEventListener("change",applyFilters);
+$("#serviceFilter").addEventListener("change",applyFilters);
+$("#clearFilters").onclick=()=>{
+  $("#searchInput").value="";
+  $("#statusFilter").value="all";
+  $("#serviceFilter").value="all";
   applyFilters();
+};
+
+function closeSidebar(){
+  $("#sidebar").classList.remove("open");
+  $("#overlay").classList.remove("open");
+}
+$("#menuMobile").onclick=()=>{
+  $("#sidebar").classList.toggle("open");
+  $("#overlay").classList.toggle("open");
+};
+$("#overlay").onclick=closeSidebar;
+$("#mobileMore").onclick=()=>{
+  $("#sidebar").classList.add("open");
+  $("#overlay").classList.add("open");
+};
+
+const pageNames={dashboard:"داشبورد",clients:"مراجعین",appointments:"نوبت‌ها",followups:"پیگیری‌ها",notes:"یادداشت‌ها",reports:"گزارش‌ها",files:"فایل‌ها و تصاویر",notifications:"اعلان‌ها"};
+$$("[data-page]").forEach(el=>{
+  el.onclick=e=>{
+    const page=el.dataset.page;
+    if(["dashboard","clients","appointments","followups","notes","reports"].includes(page)){
+      closeSidebar();
+      return;
+    }
+    e.preventDefault();
+    toast(pageNames[page]||"ماژول", "این بخش در مرحله اتصال صفحه مستقل قرار دارد.","info");
+    closeSidebar();
+  };
+});
+
+$("#notificationsBtn").onclick=e=>{
+  e.stopPropagation();
+  toast("اعلان‌ها","اعلان‌های مرتبط با مراجعین در نسخه بعدی از داده واقعی خوانده می‌شوند.","info");
+};
+$("#profile").onclick=()=>toast("پروفایل","اطلاعات حساب کاربری از ماژول احراز هویت خوانده می‌شود.","info");
+
+$("#logout").onclick=()=>{
+  sessionStorage.removeItem("moshaver_access_token");
+  localStorage.removeItem("moshaver_user");
+  location.href="../index.html";
+};
+
+try{
+  const user=JSON.parse(localStorage.getItem("moshaver_user")||"null");
+  if(user){
+    const name=user.name||user.fullName||user.username;
+    if(name){$("#sidebarUser").textContent=name;$("#profile").textContent=(name.charAt(0)||"م");$("#sidebarAvatar").textContent=(name.charAt(0)||"م")}
+    const role={SUPER_ADMIN:"مدیر کل سامانه",ADMIN:"مدیر کلینیک",CONSULTANT:"مشاور"}[user.role];
+    if(role)$("#sidebarRole").textContent=role;
+  }
+}catch(e){}
+
+
+/* ===== Advanced V4 behaviour ===== */
+function ensureClientFields(){
+  clients.forEach(c=>{
+    if(!Array.isArray(c.contactHistory)) c.contactHistory=[];
+    if(typeof c.contacted!=='boolean') c.contacted=false;
+    if(!c.caseCode) c.caseCode=c.id||"";
+    if(c.service && !serviceLabels[c.service]) serviceLabels[c.service]=c.service;
+    if(!c.visitType) c.visitType="in";
+    if(!c.payment) c.payment="cash";
+    if(c.sensitivity==null) c.sensitivity=false;
+    if(c.disease==null) c.disease=false;
+    if(c.lab==null) c.lab=false;
+    if(c.diseaseDescription==null) c.diseaseDescription="";
+    if(c.age==null) c.age=""; if(c.city==null)c.city=""; if(c.address==null)c.address="";
+    if(c.deposit==null)c.deposit=""; if(c.description==null)c.description=c.note||"";
+  });
+}
+function nowLocalInput(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
+function toFaDateTime(v){if(!v||v==="—")return "—";const d=new Date(v);if(Number.isNaN(d.getTime()))return v;return d.toLocaleDateString("fa-IR",{year:"numeric",month:"2-digit",day:"2-digit"})+" · "+d.toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"})}
+function isTodayV4(v){if(!v||v==="—")return false;const d=new Date(v),n=new Date();return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth()&&d.getDate()===n.getDate()}
+function isThisWeekV4(v){if(!v||v==="—")return false;const d=new Date(v),n=new Date();const day=n.getDay()||7;const start=new Date(n);start.setHours(0,0,0,0);start.setDate(n.getDate()-day+1);const end=new Date(start);end.setDate(start.getDate()+7);return d>=start&&d<end}
+function markContactV4(id){const c=clients.find(x=>x.id===id);if(!c)return;c.contacted=true;c.contactHistory=Array.isArray(c.contactHistory)?c.contactHistory:[];c.contactHistory.push(new Date().toISOString());saveClients();render();openProfile(id);toast("تماس ثبت شد",`تماس با ${fullName(c)} برای امروز ثبت شد.`)}
+function renderContactHistoryV4(c){const h=Array.isArray(c.contactHistory)?c.contactHistory:[];return `<div class="modal-title"><strong>تاریخچه تماس</strong><span>${h.length?fa(h.length)+" تماس ثبت شده":"هنوز تماسی ثبت نشده"}</span></div>${h.slice().reverse().map(x=>`<div class="call-row"><b>تماس با مراجع</b><span>${toFaDateTime(x)}</span></div>`).join("")}`}
+
+const _updateKpis=updateKpis;
+updateKpis=function(){
+  const total=clients.length,active=clients.filter(x=>x.status==="active").length,pending=clients.filter(x=>x.status==="pending").length,inactive=clients.filter(x=>x.status==="inactive").length;
+  const todayFollow=clients.filter(x=>isTodayV4(x.nextFollowup)).length,week=clients.filter(x=>isThisWeekV4(x.lastVisit)||isThisWeekV4(x.nextFollowup)).length;
+  const fresh=clients.filter(isNewThisMonth).length;
+  $("#kpiTotal").textContent=fa(total);$("#kpiActive").textContent=fa(active);$("#kpiNew").textContent=fa(fresh);$("#kpiDue").textContent=fa(todayFollow);
+  if($("#kpiTotalFoot"))$("#kpiTotalFoot").textContent=total?`+${fa(Math.min(fresh,99))} جدید`:"—";
+  if($("#navClientBadge"))$("#navClientBadge").textContent=fa(Math.min(total,99));
+  $("#previewActive").textContent=fa(active);$("#previewPending").textContent=fa(pending);$("#previewInactive").textContent=fa(inactive);
+  const follow=clients.filter(x=>isTodayV4(x.nextFollowup));
+  $("#followPreview").innerHTML=follow.length?follow.slice(0,6).map(c=>`<div class="follow-mini" data-follow-client="${c.id}"><div><strong>${escapeHtml(fullName(c))}</strong><span>${escapeHtml(serviceLabels[c.service]||c.service||"—")}</span></div><b>${toFaDateTime(c.nextFollowup)}</b></div>`).join(""):`<div class="empty-state" style="display:block;padding:20px">امروز پیگیری سررسیدشده‌ای ثبت نشده است.</div>`;
+  $("#followBadge").textContent=fa(todayFollow);
+}
+
+const _getFilters=getFilters;
+getFilters=function(){return{
+  q:normalize($("#searchInput").value),status:$("#statusFilter").value,service:$("#serviceFilter").value,
+  contact:$("#contactFilter").value,visit:$("#visitTypeFilter").value,payment:$("#paymentFilter").value,
+  lab:$("#labFilter").value,disease:$("#diseaseFilter").value,sensitivity:$("#sensitivityFilter").value,sort:$("#sortFilter").value
+}}
+applyFilters=function(){const f=getFilters();filtered=clients.filter(c=>{const hay=normalize([fullName(c),c.phone,c.nationalId,c.id,c.caseCode,c.city,c.address,c.service,c.description,c.note].join(" "));return(!f.q||hay.includes(f.q))&&(f.status==="all"||c.status===f.status)&&(f.service==="all"||c.service===f.service)&&(f.contact==="all"||(f.contact==="yes"?c.contacted===true:c.contacted!==true))&&(f.visit==="all"||c.visitType===f.visit)&&(f.payment==="all"||c.payment===f.payment)&&(f.lab==="all"||(f.lab==="yes"?c.lab===true:c.lab!==true))&&(f.disease==="all"||(f.disease==="yes"?c.disease===true:c.disease!==true))&&(f.sensitivity==="all"||(f.sensitivity==="yes"?c.sensitivity===true:c.sensitivity!==true))});if(f.sort==="oldest")filtered.sort((a,b)=>String(a.createdAt).localeCompare(String(b.createdAt)));else if(f.sort==="name")filtered.sort((a,b)=>fullName(a).localeCompare(fullName(b),"fa"));else if(f.sort==="follow")filtered.sort((a,b)=>(a.nextFollowup||"9999").localeCompare(b.nextFollowup||"9999"));else filtered.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));currentPage=1;render()}
+
+const _clientRow=clientRow;
+clientRow=function(c,i){const num=(currentPage-1)*PAGE_SIZE_V4+i+1;const followup=isTodayV4(c.nextFollowup)?"followup-due":"followup-ok";return `<tr><td><div class="client-cell"><div class="client-avatar">${initials(c)}</div><div class="client-name"><strong>${fa(num)}. ${escapeHtml(fullName(c))}</strong><span>پرونده ${escapeHtml(c.caseCode||c.id||"—")}</span></div></div></td><td><span class="phone">${escapeHtml(c.phone||"—")}</span></td><td>${escapeHtml(c.caseCode||c.id||"—")}</td><td><span class="service-text">${escapeHtml(c.service||"—")}</span></td><td><span class="badge-status ${statusClass(c.status)}">${escapeHtml(statusLabels[c.status]||c.status||"—")}</span></td><td><span class="date-cell">${escapeHtml(toFaDateTime(c.lastVisit))}</span></td><td><span class="${followup}">${escapeHtml(toFaDateTime(c.nextFollowup))}</span></td><td><span class="contact-state ${c.contacted?"yes":"no"}">${c.contacted?"✓ تماس گرفته شده":"! تماس نشده"}</span><button class="contact-history" data-action="contact-history" data-id="${c.id}">تاریخچه</button></td><td><div class="row-actions"><button class="row-action" data-action="view" data-id="${c.id}" title="خلاصه پرونده">◉</button><button class="row-action" data-action="edit" data-id="${c.id}" title="ویرایش">✎</button><button class="row-action ${c.contacted?"call-done":""}" data-action="call" data-id="${c.id}" title="ثبت تماس">☎</button><button class="row-action" data-action="appointment" data-id="${c.id}" title="ثبت نوبت">◷</button></div></td></tr>`}
+clientCard=function(c,i){const num=(currentPage-1)*PAGE_SIZE_V4+i+1;return `<article class="client-card"><div class="client-card-top"><div class="client-avatar">${initials(c)}</div><div class="client-card-main"><strong>${fa(num)}. ${escapeHtml(fullName(c))}</strong><span>${escapeHtml(c.caseCode||c.id||"بدون کد پرونده")}</span></div><span class="badge-status ${statusClass(c.status)} client-card-status">${escapeHtml(statusLabels[c.status])}</span></div><div class="client-card-grid"><div class="mini-info"><span>موبایل</span><strong>${escapeHtml(c.phone||"—")}</strong></div><div class="mini-info"><span>خدمت</span><strong>${escapeHtml(c.service||"—")}</strong></div><div class="mini-info"><span>آخرین جلسه</span><strong>${escapeHtml(toFaDateTime(c.lastVisit))}</strong></div><div class="mini-info"><span>پیگیری بعدی</span><strong>${escapeHtml(toFaDateTime(c.nextFollowup))}</strong></div><div class="mini-info"><span>تماس</span><strong class="${c.contacted?"up":"warn"}">${c.contacted?"✓ گرفته شده":"! گرفته نشده"}</strong></div></div><div class="client-card-actions"><button data-action="view" data-id="${c.id}">پرونده</button><button data-action="edit" data-id="${c.id}">ویرایش</button><button data-action="call" data-id="${c.id}">تماس</button><button data-action="appointment" data-id="${c.id}">نوبت</button></div></article>`}
+
+const _render=render;
+render=function(){updateKpis();const size=Number($("#pageSizeFilter")?.value||PAGE_SIZE_V4);const start=(currentPage-1)*size,items=filtered.slice(start,start+size);$("#resultCount").textContent=`${fa(filtered.length)} مورد از ${fa(clients.length)} مراجع`;$("#clientTableBody").innerHTML=items.map(clientRow).join("");$("#mobileClientList").innerHTML=items.map(clientCard).join("");$("#tableEmpty").classList.toggle("show",!filtered.length);$("#mobileEmpty").classList.toggle("show",!filtered.length);renderPagination();}
+renderPagination=function(){const size=Number($("#pageSizeFilter")?.value||PAGE_SIZE_V4),totalPages=Math.max(1,Math.ceil(filtered.length/size)),holder=$("#pagination");holder.innerHTML="";if(totalPages<=1)return;for(let i=1;i<=totalPages;i++){const b=document.createElement("button");b.className="page-btn"+(i===currentPage?" active":"");b.textContent=fa(i);b.onclick=()=>{currentPage=i;render()};holder.appendChild(b)}}
+
+const _openProfile=openProfile;
+openProfile=function(id){const c=clients.find(x=>x.id===id);if(!c)return;profileId=id;$("#profileAvatar").textContent=initials(c);$("#profileName").textContent=fullName(c);$("#profileService").textContent=`${c.service||"—"} • ${statusLabels[c.status]||"—"}`;$("#profilePhone").textContent=c.phone||"—";$("#profileNational").textContent=c.caseCode||c.id||"—";$("#profileLastVisit").textContent=toFaDateTime(c.lastVisit);$("#profileFollowup").textContent=toFaDateTime(c.nextFollowup);$("#profileTimeline").innerHTML=`<div class="timeline-item"><div class="timeline-dot"></div><div><strong>وضعیت پرونده</strong><span>${escapeHtml(statusLabels[c.status]||"—")} • ${escapeHtml(c.service||"—")}</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>اطلاعات پزشکی</strong><span>${c.disease?"بیماری خاص ثبت شده":"بیماری خاص ثبت نشده"} • ${c.sensitivity?"حساسیت ثبت شده":"حساسیت ثبت نشده"} • ${c.lab?"آزمایش دارد":"آزمایش ندارد"}</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>آخرین جلسه</strong><span>${escapeHtml(toFaDateTime(c.lastVisit))}</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>پیگیری بعدی</strong><span>${escapeHtml(toFaDateTime(c.nextFollowup))}</span></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><strong>توضیحات</strong><span>${escapeHtml(c.description||c.note||"توضیحی ثبت نشده")}</span></div></div>`;if($("#profileCallHistory"))$("#profileCallHistory").innerHTML=renderContactHistoryV4(c);$("#profileModal").classList.add("open")}
+
+openClientModal=function(id=null){editingId=id;const c=id?clients.find(x=>x.id===id):null;$("#clientModalTitle").textContent=c?"ویرایش پرونده مراجع":"ثبت مراجع جدید";$("#clientModalSubtitle").textContent=c?"اطلاعات کامل پرونده را بررسی و اصلاح کنید.":"پرونده کامل مراجع را ثبت کنید.";const vals={firstName:c?.firstName||"",lastName:c?.lastName||"",phone:c?.phone||"",caseCode:c?.caseCode||c?.id||"",service:c?.service||"",status:c?.status||"active",age:c?.age||"",city:c?.city||"",address:c?.address||"",visitType:c?.visitType||"in",lastVisit:c?.lastVisit||"",nextFollowup:c?.nextFollowup||"",payment:c?.payment||"cash",deposit:c?.deposit||"",diseaseDescription:c?.diseaseDescription||"",note:c?.description||c?.note||""};Object.entries(vals).forEach(([k,v])=>{if($("#"+k))$("#"+k).value=v});$("#sensitivity").checked=!!c?.sensitivity;$("#disease").checked=!!c?.disease;$("#lab").checked=!!c?.lab;$("#diseaseField").classList.toggle("show",!!c?.disease);$("#deleteFromEdit").hidden=!c;$("#clientModal").classList.add("open");setTimeout(()=>$("#firstName").focus(),80)}
+
+const _submitOld=$("#clientForm");
+$("#clientForm").onsubmit=e=>{e.preventDefault();const first=$("#firstName").value.trim(),last=$("#lastName").value.trim();if(!first||!last){toast("اطلاعات ناقص","نام و نام خانوادگی الزامی است.","danger");return}const payload={firstName:first,lastName:last,phone:$("#phone").value.trim(),nationalId:$("#nationalId")?.value.trim()||"",caseCode:$("#caseCode").value.trim(),service:$("#service").value.trim(),status:$("#status").value,age:$("#age").value,city:$("#city").value.trim(),address:$("#address").value.trim(),visitType:$("#visitType").value,lastVisit:$("#lastVisit").value,nextFollowup:$("#nextFollowup").value,payment:$("#payment").value,deposit:$("#deposit").value,sensitivity:$("#sensitivity").checked,disease:$("#disease").checked,lab:$("#lab").checked,diseaseDescription:$("#diseaseDescription").value.trim(),description:$("#note").value.trim(),note:$("#note").value.trim()};if(!payload.caseCode)payload.caseCode="";const duplicate=clients.find(c=>payload.nationalId&&c.nationalId===payload.nationalId&&c.id!==editingId);if(duplicate){toast("کد ملی تکراری","برای این مراجع قبلاً پرونده ثبت شده است.","danger");return}if(editingId){const i=clients.findIndex(x=>x.id===editingId);if(i>=0)clients[i]={...clients[i],...payload}}else{const id=payload.caseCode||"c_"+Date.now().toString(36);clients.unshift({id,...payload,createdAt:new Date().toISOString(),contacted:false,contactHistory:[]})}ensureClientFields();saveClients();closeClientModal();applyFilters();toast(editingId?"پرونده بروزرسانی شد":"مراجع جدید ثبت شد",`${first} ${last} ذخیره شد.`)}
+
+function openAppointmentV4(id){const c=clients.find(x=>x.id===id);if(!c)return;location.href=`appointments.html?client=${encodeURIComponent(id)}&new=1`}
+function handleV4Action(action,id){if(action==="call")markContactV4(id);else if(action==="contact-history")openProfile(id);else if(action==="appointment")openAppointmentV4(id);else if(action==="view")openProfile(id);else if(action==="edit")openClientModal(id);else if(action==="sms")sendSms(id);else if(action==="delete")openConfirm(id)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(b){e.preventDefault();handleV4Action(b.dataset.action,b.dataset.id)}const f=e.target.closest("[data-follow-client]");if(f)openProfile(f.dataset.followClient)})
+
+["searchInput","statusFilter","serviceFilter","contactFilter","visitTypeFilter","paymentFilter","labFilter","diseaseFilter","sensitivityFilter","sortFilter"].forEach(id=>$("#"+id)?.addEventListener(id==="searchInput"?"input":"change",applyFilters));
+$("#pageSizeFilter").onchange=()=>{currentPage=1;render()};$("#clearFilters").onclick=()=>{$("#searchInput").value="";["statusFilter","serviceFilter","contactFilter","visitTypeFilter","paymentFilter","labFilter","diseaseFilter","sensitivityFilter"].forEach(id=>$("#"+id).value="all");$("#sortFilter").value="newest";applyFilters()}
+
+$$('.client-kpi').forEach((k,i)=>k.addEventListener('click',()=>{const map=["all","active","new","follow"],t=map[i];$$('.client-kpi').forEach(x=>x.classList.remove('selected'));k.classList.add('selected');if(t==='active'){$("#statusFilter").value='active';applyFilters()}else if(t==='follow'){$("#searchInput").value='';filtered=clients.filter(x=>isTodayV4(x.nextFollowup));currentPage=1;render()}else if(t==='new'){$("#searchInput").value='';filtered=clients.filter(isNewThisMonth);currentPage=1;render()}else{$("#statusFilter").value='all';applyFilters()}document.querySelector('.clients-workspace').scrollIntoView({behavior:'smooth',block:'start'})}));
+$$('[data-status-preview]').forEach(b=>b.onclick=()=>{$("#statusFilter").value=b.dataset.statusPreview;applyFilters();document.querySelector('.clients-workspace').scrollIntoView({behavior:'smooth',block:'start'});toast('نمایش وضعیت',`مراجعین ${statusLabels[b.dataset.statusPreview]} نمایش داده شدند.`)});
+$("#disease")?.addEventListener('change',()=>$("#diseaseField").classList.toggle('show',$("#disease").checked));
+
+function setupUpload(id,preview){$("#"+id)?.addEventListener('change',()=>{const f=$("#"+id).files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("#"+preview).innerHTML=`<img src="${r.result}" alt="">`;$("#"+preview).classList.add('show');$("#"+id).dataset.preview=r.result};r.readAsDataURL(f)})}
+setupUpload('beforePhoto','beforePreview');setupUpload('afterPhoto','afterPreview');setupUpload('depositPhoto','depositPreview');
+
+$("#notifications")?.addEventListener('click',e=>{e.stopPropagation();$("#noticePanel").classList.toggle('open');renderNoticePanel()});$("#closeNotice")?.addEventListener('click',()=>$("#noticePanel").classList.remove('open'));document.addEventListener('click',e=>{if(!$("#noticePanel").contains(e.target)&&!e.target.closest('#notifications'))$("#noticePanel").classList.remove('open')});
+function renderNoticePanel(){const noCall=clients.filter(x=>!x.contacted),follow=clients.filter(x=>isTodayV4(x.nextFollowup));$("#noticeItems").innerHTML=`<div class="notice-item ${noCall.length?'danger':''}" data-notice="call"><b>${fa(noCall.length)} مراجع بدون تماس ثبت‌شده</b><span>هر روز تا زمان ثبت تماس در اعلان باقی می‌ماند.</span></div><div class="notice-item" data-notice="follow"><b>${fa(follow.length)} پیگیری برای امروز</b><span>طبق تاریخ و ساعت پیگیری بعدی پرونده‌ها.</span></div>`;$$('[data-notice]').forEach(x=>x.onclick=()=>{if(x.dataset.notice==='call'){$("#contactFilter").value='no';applyFilters()}else{$("#searchInput").value='';filtered=clients.filter(c=>isTodayV4(c.nextFollowup));currentPage=1;render()}$("#noticePanel").classList.remove('open')})}
+
+$("#scrollTopClient").onclick=()=>scrollTo({top:0,behavior:'smooth'});addEventListener('scroll',()=>{$("#scrollTopClient").classList.toggle('show',scrollY>360)},{passive:true});
+const mainNav=$("#sidebar .nav");function updateSideScroll(){const t=$("#sidebarScrollThumb");if(!mainNav||!t)return;const max=mainNav.scrollHeight-mainNav.clientHeight;if(max<=0){t.style.height='0';return}const h=Math.max(38,mainNav.clientHeight/mainNav.scrollHeight*100);t.style.height=h+'%';t.style.top=(mainNav.scrollTop/max)*(mainNav.clientHeight-(h/100*mainNav.clientHeight))+'px'}mainNav?.addEventListener('scroll',updateSideScroll,{passive:true});updateSideScroll();
+
+ensureClientFields();
+
+loadClients();
+ensureClientFields();
+saveClients();
+render();
+
 })();
 </script>
 
