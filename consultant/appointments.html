@@ -1,14 +1,1819 @@
-<!doctype html><html lang="fa" dir="rtl" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>نوبت‌ها | مشاور</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html>
+<html data-theme="dark" dir="rtl" lang="fa">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+  <meta content="#08070d" name="theme-color"/>
+  <meta content="پنل حرفه&zwnj;ای مدیریت مراجعین MOSHAVER" name="description"/>
+  <title>
+   نوبت&zwnj;ها | MOSHAVER
+  </title>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#07050b;--bg2:#0d0815;--surface:rgba(20,13,31,.70);--surface2:rgba(27,17,43,.76);--surface3:rgba(255,255,255,.045);--surface4:rgba(255,255,255,.075);--text:#fbf9ff;--muted:#b7adca;--muted2:#82768f;--border:rgba(255,255,255,.095);--border2:rgba(255,255,255,.17);--purple:#a855f7;--purple2:#7c3aed;--purple3:#d8b4fe;--cyan:#22d3ee;--green:#34d399;--yellow:#fbbf24;--red:#fb7185;--blue:#60a5fa;--shadow:0 24px 70px rgba(0,0,0,.34);--glow:0 22px 65px rgba(124,58,237,.16);--blur:26px;--r-xl:30px;--r-lg:24px;--r-md:18px;--r-sm:14px;--ease:cubic-bezier(.2,.75,.2,1)}
+html[data-theme=light]{--bg:#f4f0fa;--bg2:#ebe4f5;--surface:rgba(255,255,255,.76);--surface2:rgba(255,255,255,.92);--surface3:rgba(112,71,155,.055);--surface4:rgba(112,71,155,.09);--text:#21162c;--muted:#5d4c69;--muted2:#796986;--border:rgba(83,49,111,.15);--border2:rgba(83,49,111,.25);--purple:#7c3aed;--purple2:#6d28d9;--purple3:#6b21a8;--cyan:#0891b2;--green:#059669;--yellow:#b45309;--red:#dc2626;--blue:#2563eb;--shadow:0 24px 70px rgba(77,43,104,.12);--glow:0 22px 65px rgba(124,58,237,.15)}
+*{box-sizing:border-box}
+/* Professional interaction and scrollbar refinements */
+.status-number,.status-top b,.action-card strong,.focus-stat b,.legend-value,.kpi strong{color:var(--text)}
+.preview-card .avatar,.timeline-item i{animation:iconFloat 3.8s ease-in-out infinite}
+.status-card .status-number{position:relative;z-index:2}
+.action-card .action-icon{animation:iconFloat 4.2s ease-in-out infinite}
 
-{--bg:#07040d;--bg2:#0c0715;--s(22,14,37,.60);--s2(28,18,47,.78);--s3(255,255,255,.045);--t:#fbf9ff;--t2:#bcb3ca;--t3:#82778e;--b(255,255,255,.085);--b2(168,85,247,.28);--p:#a855f7;--p2:#7c3aed;--c:#22d3ee;--g:#34d399;--y:#fbbf24;--r:#fb7185;--shadow:0 24px 80px rgba(0,0,0,.34);--ease(.22,1,.36,1)}
-html[data-theme=light]{--bg:#f5f1fa;--bg2:#eee8f6;--s(255,255,255,.62);--s2(255,255,255,.86);--s3(90,60,120,.055);--t:#21172c;--t2:#675b73;--t3:#94899f;--b(52,28,72,.10);--b2(124,58,237,.22);--shadow:0 25px 75px rgba(70,42,92,.12)}
-{box-sizing}html{scroll-behavior}body{margin:0;min-height:100vh;font-family,sans-serif;color(--t);background(circle at 8% 5%,rgba(168,85,247,.14),transparent 28%),radial-gradient(circle at 92% 12%,rgba(34,211,238,.07),transparent 24%),radial-gradient(circle at 65% 100%,rgba(124,58,237,.10),transparent 30%),var(--bg);overflow-x}button,input,select,textarea{font}button{border:0}a{text-decoration;color}.glass{background(135deg,var(--s2),var(--s));border:1px solid var(--b);box-shadow(--shadow),0 0 45px rgba(168,85,247,.12);backdrop-filter(25px) saturate(150%);-webkit-backdrop-filter(25px) saturate(150%)}
-.ambient{position;inset:0;pointer-events;z-index:-1;overflow}.ambient i{position;width:330px;height:330px;border-radius:50%;filter(85px);opacity:.15}.ambient i{right:8%;top:-150px;background(--p);animation 15s ease-in-out infinite alternate}.ambient i{left:-150px;bottom:-130px;background(--c);animation 18s -6s ease-in-out infinite alternate}@keyframes orb{to{transform(35px,25px) scale(1.12)}}
-.crosses{position;inset:0;pointer-events;overflow;z-index:1}.cross{position;color(198,154,255,.62);font-size:28px;animation 9s ease-in-out infinite,spin 12s linear infinite;filter(0 0 12px rgba(168,85,247,.35))}.cross{content:'×'}.cross(1){right:8%;top:19%}.cross(2){left:7%;top:57%;font-size:22px;animation-duration:11s,16s}.cross(3){right:34%;bottom:8%;font-size:18px}.cross(4){left:30%;top:10%;font-size:16px}@keyframes fl{50%{transform(-12px)}}@keyframes spin{to{rotate:360deg}}
-.app{min-height:100vh;display;grid-template-columns:274px minmax(0,1fr)}.sidebar{position;right:17px;top:17px;bottom:17px;width:240px;border-radius:28px;padding:17px 13px;z-index:70;display;flex-direction;overflow}.brand{display;align-items;gap:11px;padding:5px 7px 20px}.logo{width:44px;height:44px;border-radius:15px;display;place-items;color:#fff;font-weight:900;font-size:19px;background(145deg,var(--p),var(--p2));box-shadow:0 0 32px rgba(168,85,247,.32)}.brand strong{display;font-size:17px}.brand small{display;color(--t3);font-size:10px;margin-top:2px}.nav-title{font-size:11px;color(--t3);font-weight:700;padding:7px 10px}.nav{display;flex-direction;gap:5px}.nav a{min-height:45px;padding:0 11px;border-radius:15px;display;align-items;gap:10px;color(--t2);transition:.28s var(--ease);position}.nav a{color(--t);background(--s3);transform(-3px)}.nav a.active{color(--t);background(135deg,rgba(168,85,247,.18),rgba(124,58,237,.05));border:1px solid rgba(168,85,247,.12)}.nav a.active{content:'';position;right:-14px;width:3px;height:24px;border-radius:9px;background(var(--p),var(--c))}.ni{width:25px;text-align;font-size:16px}.nl{font-size:13px;font-weight:600;flex:1}.badge{min-width:20px;height:20px;padding:0 5px;border-radius:99px;display;place-items;font-size:10px;background(168,85,247,.18)}.sidebottom{margin-top}.profile{display;gap:9px;align-items;padding:10px;border:1px solid var(--b);background(--s3);border-radius:17px;margin-bottom:8px}.avatar{width:40px;height:40px;border-radius:13px;display;place-items;color:#fff;font-size:12px;font-weight:800;background(145deg,#8b5cf6,#6d28d9);flex:0 0 40px}.pc{min-width:0}.pc strong{display;font-size:12px;white-space;overflow;text-overflow}.pc span{display;color(--t3);font-size:10px;margin-top:2px}.logout{width:100%;height:42px;border-radius:13px;background;border:1px solid var(--b);color(--t2);cursor}.logout{color(--r);border-color(251,113,133,.28)}
-.main{grid-column:2;min-width:0;padding:17px}.top{height:70px;border-radius:22px;display;align-items;gap:11px;padding:9px 10px;position;top:12px;z-index:60}.menu{display;width:44px;height:44px;border-radius:13px;background(--s3);border:1px solid var(--b);color(--t)}.ctx{flex:1}.ey{font-size:10px;color(--p);font-weight:800}.ctx h1{font-size:22px;margin:2px 0}.acts{display;gap:7px}.ib,.close{width:44px;height:44px;border-radius:13px;display;place-items;background(--s3);border:1px solid var(--b);color(--t2);cursor;transition:.25s}.ib,.close{transform(-2px);border-color(--b2);color(--t)}.content{padding:20px 3px 40px}.hero{border-radius:28px;padding:24px 26px;margin-bottom:14px;overflow;background(circle at 8% 100%,rgba(168,85,247,.22),transparent 34%),radial-gradient(circle at 90% 0%,rgba(34,211,238,.10),transparent 25%),linear-gradient(135deg,rgba(38,21,61,.82),rgba(15,9,26,.62))}.heroRow{display;align-items;justify-content;gap:18px}.live{display;align-items;gap:7px;font-size:10px;color(--t2);border:1px solid var(--b);border-radius:99px;padding:6px 10px;margin-bottom:10px}.live i{width:7px;height:7px;border-radius:50%;background(--g);box-shadow:0 0 10px rgba(52,211,153,.8)}.hero h2{font-size:27px;margin:0}.hero p{font-size:14px;color(--t2);line-height:1.9;margin:7px 0 0;max-width:720px}.grid{display;grid-template-columns(12,minmax(0,1fr));gap:13px}.card{padding:18px;border-radius:23px;min-width:0}.kpi{grid-column 3;min-height:140px;transition:.3s}.kpi{transform(-5px);border-color(--b2)}.kh{display;justify-content;align-items;color(--t3);font-size:13px}.ki{width:35px;height:35px;border-radius:11px;display;place-items;background(168,85,247,.1)}.kv{font-size:32px;font-weight:900;margin-top:16px}.kf{font-size:12px;margin-top:8px}.up{color(--g)}.warn{color(--y)}.muted{color(--t3)}.head{display;align-items;justify-content;gap:10px;margin-bottom:12px}.head strong{font-size:17px}.head span{display;color(--t3);font-size:12px;margin-top:3px}.btn{min-height:44px;padding:0 14px;border-radius:12px;background(168,85,247,.11);border:1px solid rgba(168,85,247,.18);color(--t);cursor}.primary{min-height:46px;padding:0 16px;border-radius:13px;background(135deg,var(--p),var(--p2));color:#fff;cursor;box-shadow:0 0 24px rgba(168,85,247,.18);font-size:15px}.secondary{min-height:44px;padding:0 14px;border-radius:12px;background(--s3);border:1px solid var(--b);color(--t2);cursor;font-size:14px}.danger{color(--r)!important}.badgeS{display;align-items;justify-content;min-height:29px;padding:0 9px;border-radius:99px;font-size:12px;font-weight:700}.ok{color(--g);background(52,211,153,.1)}.wa{color(--y);background(251,191,36,.1)}.er{color(--r);background(251,113,133,.09)}.pu{color:#d8b4fe;background(168,85,247,.1)}.cy{color(--c);background(34,211,238,.08)}.toolbar{grid-column 12;padding:14px;border-radius:20px;display;align-items;gap:9px;flex-wrap}.search,.select{height:46px;border-radius:13px;border:1px solid var(--b);background(--s3);color(--t);padding:0 13px;outline;font-size:14px}.search{flex:1;min-width:240px}.select{min-width:150px}.search,.select,.field input,.field select,.field textarea{border-color(--b2);box-shadow:0 0 0 3px rgba(168,85,247,.07)}.tableCard{grid-column 12;border-radius:23px;overflow}.tw{overflow}.table{width:100%;border-collapse;min-width:850px}.table th{padding:15px;text-align;color(--t3);font-size:12px;border-bottom:1px solid var(--b)}.table td{padding:15px;border-bottom:1px solid var(--b);font-size:14px}.table tr td{border-bottom:0}.person{display;align-items;gap:10px}.person strong{display}.person span{display;color(--t3);font-size:12px;margin-top:3px}.rowActions{display;gap:6px}.ia{width:38px;height:38px;border-radius:11px;background(--s3);border:1px solid var(--b);color(--t2);display;place-items;cursor}.empty{text-align;padding:45px 15px;color(--t3)}.empty strong{display;color(--t);font-size:17px;margin-bottom:6px}.stats{grid-column 12;display;grid-template-columns(4,1fr);gap:10px}.stat{padding:15px;border-radius:17px;background(--s3);border:1px solid var(--b)}.stat span{color(--t3);font-size:12px}.stat strong{display;font-size:25px;margin-top:5px}.list{display;flex-direction;gap:8px}.li{display;align-items;justify-content;gap:12px;padding:13px;border-radius:15px;background(--s3);border:1px solid transparent}.lic{min-width:0}.lic strong{display;font-size:14px}.lic span{display;color(--t3);font-size:12px;margin-top:4px;line-height:1.7}.info{display;grid-template-columns(2,1fr);gap:10px}.infoItem{padding:13px;border-radius:14px;background(--s3)}.infoItem span{display;color(--t3);font-size:12px}.infoItem strong{display;font-size:14px;margin-top:5px}.detail8{grid-column 8}.detail4{grid-column 4}.tabs{display;gap:6px;overflow;margin-bottom:12px}.tab{min-height:42px;padding:0 14px;border-radius:12px;background(--s3);border:1px solid var(--b);color(--t2);cursor;white-space}.tab.active{color(--t);background(168,85,247,.12);border-color(168,85,247,.22)}.timeline{display;flex-direction;gap:9px}.ti{display;gap:10px;padding:13px;border-radius:15px;background(--s3)}.dot2{width:11px;height:11px;border-radius:50%;background(--p);box-shadow:0 0 12px rgba(168,85,247,.45);margin-top:6px;flex:0 0 11px}.ti strong{font-size:14px}.ti span{display;color(--t3);font-size:12px;margin-top:4px;line-height:1.8}.calendar{grid-column 7}.agenda{grid-column 5}.calGrid{display;grid-template-columns(7,1fr);gap:6px}.wd{text-align;color(--t3);font-size:12px;padding:7px}.day{min-height:68px;border-radius:13px;border:1px solid var(--b);background(--s3);padding:7px;cursor}.day.today{border-color(168,85,247,.42);background(168,85,247,.11)}.day.muted{opacity:.3}.evt{display;margin-top:8px;font-size:10px;color(--c);white-space;overflow;text-overflow}.evt{content:'•';margin-left:4px}.formCard{grid-column 12}.formGrid{display;grid-template-columns(2,1fr);gap:12px}.full{grid-column:1/-1}.field label{display;font-size:13px;color(--t2);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;min-height:46px;border-radius:13px;border:1px solid var(--b);background(--s3);color(--t);padding:12px 13px;outline;font-size:15px}.field textarea{min-height:125px;resize;line-height:1.9}.formActions{display;gap:8px;margin-top:14px;flex-wrap}.notes{grid-column 12;display;grid-template-columns(3,1fr);gap:12px}.note{padding:16px;border-radius:19px;min-height:180px}.note.pin{border-color(168,85,247,.25);background(135deg,rgba(168,85,247,.09),var(--s3))}.tag{display;padding:5px 8px;border-radius:99px;background(168,85,247,.1);color:#d8b4fe;font-size:11px}.note h3{font-size:16px;margin:12px 0 6px}.note p{font-size:13px;line-height:1.9;color(--t2);margin:0}.noteMeta{display;justify-content;color(--t3);font-size:11px;margin-top:12px}.chart{grid-column 8}.chartSide{grid-column 4}.bars{display;align-items;gap:8px;height:240px;padding:10px 0}.bar{flex:1;border-radius:9px 9px 3px 3px;background(180deg,var(--p),var(--p2));min-height:8px;transition:.3s}.labels{display;gap:8px}.labels span{flex:1;text-align;color(--t3);font-size:11px}.modal{position;inset:0;background(2,1,5,.62);backdrop-filter(10px);z-index:100;display;place-items;padding:14px;opacity:0;pointer-events;transition:.3s}.modal.open{opacity:1;pointer-events}.modalBox{width(720px,100%);max-height:88vh;overflow;border-radius:27px;padding:19px;transform(15px) scale(.98);transition:.35s}.modal.open .modalBox{transform}.modalHead{display;justify-content;align-items;padding-bottom:13px;border-bottom:1px solid var(--b);margin-bottom:14px}.modalHead strong{font-size:17px}.modalHead span{display;color(--t3);font-size:12px;margin-top:3px}.close{transform(90deg);color(--r)}.mobileNav{display}.overlay{position;inset:0;background(0,0,0,.38);backdrop-filter(4px);z-index:65;opacity:0;pointer-events;transition:.3s}.overlay.open{opacity:1;pointer-events}.toast{position;left:22px;bottom:22px;z-index:130;min-width:280px;padding:13px 15px;border-radius:17px;display;gap:9px;opacity:0;transform(20px);pointer-events;transition:.35s}.toast.show{opacity:1;transform}.toast b{color(--g)}
-@media(max-width:1120px){.kpi{grid-column 6}.calendar,.agenda,.chart,.chartSide,.detail8,.detail4{grid-column 12}.notes{grid-template-columns(2,1fr)}.stats{grid-template-columns(2,1fr)}}
-@media(max-width:840px){.app{display}.sidebar{right:12px;top:12px;bottom:12px;width(290px,calc(100vw - 24px));transform(120%);transition:.4s}.sidebar.open{transform}.main{padding:12px 12px 94px}.menu{display;place-items}.hero{padding:21px}.heroRow{align-items}.hero h2{font-size:23px}.grid{gap:10px}.mobileNav{position;display;align-items;justify-content;left:10px;right:10px;bottom:10px;min-height:68px;padding:6px;border-radius:22px;z-index:60}.mobileNav a,.mobileNav button{min-width:57px;height:53px;border-radius:15px;background;color(--t3);display;flex-direction;align-items;justify-content;gap:3px;font-size:10px}.mobileNav b{font-size:17px}.mobileNav .active{color(--t);background(168,85,247,.12)}.toolbar{align-items}.search{min-width:100%}.select{flex:1}.tableCard{overflow;background;box-shadow;border:0}.tw{overflow}.table{min-width:0;border-collapse;border-spacing:0 9px}.table thead{display}.table tbody,.table tr,.table td{display;width:100%}.table tr{background(135deg,var(--s2),var(--s));border:1px solid var(--b);border-radius:19px;padding:9px;margin-bottom:9px;box-shadow(--shadow)}.table td{border:0;padding:7px 8px;display;justify-content;gap:12px}.table td{content(data-label);color(--t3);font-size:12px;flex:0 0 105px}.table td[data-label='مراجع']{display}.table td[data-label='مراجع'].info,.formGrid{grid-template-columns:1fr}.full{grid-column}}
-@media(max-width:540px){.kpi{grid-column 12}.notes{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.top .profileBtn{display}.hero p{font-size:13px}.content{padding-top:15px}.toast{left:12px;right:12px;bottom:88px;min-width:0}.modalBox{border-radius:22px;padding:15px}}
-@media(prefers-reduced-motion){,,{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior!important}}
-</style></head><body><div class="ambient"><i></i><i></i></div><div class="crosses"><i class="cross"></i><i class="cross"></i><i class="cross"></i><i class="cross"></i></div><div class="overlay" id="ov"></div><div class="app"><aside class="sidebar glass" id="side"><div class="brand"><div class="logo">م</div><div><strong>مشاور</strong><small>Clinic Management System</small></div></div><div class="nav-title">منوی اصلی</div><nav class="nav"><a data-route="home" class=""><span class="ni">⌂</span><span class="nl">داشبورد</span></a><a data-route="clients" class=""><span class="ni">♙</span><span class="nl">مراجعین</span></a><a data-route="appointments" class="active"><span class="ni">◫</span><span class="nl">نوبت‌ها</span></a><a data-route="follow-ups" class=""><span class="ni">↻</span><span class="nl">پیگیری‌ها</span></a><a data-route="notes" class=""><span class="ni">✎</span><span class="nl">یادداشت‌ها</span></a><a data-route="reports" class=""><span class="ni">◒</span><span class="nl">گزارش‌ها</span></a></nav><div class="sidebottom"><div class="profile"><div class="avatar" id="ava">م</div><div class="pc"><strong id="uname">مشاور سامانه</strong><span id="urole">مشاور کلینیک</span></div></div><button class="logout" id="logout">خروج از حساب</button></div></aside><main class="main"><header class="top glass"><button class="menu" id="menu">☰</button><div class="ctx"><div class="ey">پنل مشاور</div><h1>نوبت‌ها</h1></div><div class="acts"><button class="ib" id="theme">☾</button><button class="ib" id="notifications">♢</button><button class="ib profileBtn">م</button></div></header><section class="content"><section class="hero glass"><div class="heroRow"><div><div class="live"><i></i> مدیریت نوبت‌ها</div><h2>تقویم و برنامه جلسات، بدون شلوغی.</h2><p>رزرو، جابه‌جایی، لغو و وضعیت حضور را از یک نمای موبایل‌پسند مدیریت کن.</p></div><button class="primary" id="newA">+ نوبت جدید</button></div></section><div class="grid"><div class="stats"><div class="stat glass"><span>امروز</span><strong>۱۸</strong></div><div class="stat glass"><span>رزرو شده</span><strong>۱۲</strong></div><div class="stat glass"><span>انجام‌شده</span><strong>۶</strong></div><div class="stat glass"><span>عدم حضور</span><strong>۲</strong></div></div><section class="card glass calendar"><div class="head"><div><strong>تقویم ماه</strong><span>روز دارای نوبت مشخص است.</span></div><div><button class="ia" id="prev">‹</button><button class="ia" id="next">›</button></div></div><div class="calGrid" id="mc"></div></section><section class="card glass agenda"><div class="head"><div><strong id="at">برنامه امروز</strong><span>وضعیت هر نوبت</span></div></div><div class="list" id="al"></div></section><div class="toolbar glass"><input class="search" id="aq" placeholder="جست‌وجوی نام مراجع یا شماره تماس"><select class="select" id="af"><option value="">همه وضعیت‌ها</option><option>رزرو شده</option><option>انجام شد</option><option>لغو شد</option></select></div></div><div class="modal" id="am"><div class="modalBox glass"><div class="modalHead"><div><strong>نوبت جدید</strong><span>زمان و مراجع را ثبت کن.</span></div><button class="close" id="ac">×</button></div><form id="afm"><div class="formGrid"><div class="field"><label>مراجع</label><input name="client" required></div><div class="field"><label>موبایل</label><input name="phone"></div><div class="field"><label>تاریخ</label><input name="date" type="date" required></div><div class="field"><label>ساعت</label><input name="time" type="time" required></div><div class="field"><label>خدمت</label><select name="service"><option>مشاوره فردی</option><option>زوجین</option><option>خانواده</option><option>ارزیابی اولیه</option></select></div><div class="field"><label>وضعیت</label><select name="status"><option>رزرو شده</option><option>انجام شد</option><option>لغو شد</option></select></div><div class="field full"><label>توضیحات</label><textarea name="note"></textarea></div></div><div class="formActions"><button class="primary">ذخیره نوبت</button></div></form></div></div></section></main></div><nav class="mobileNav glass"><a data-route="home" class=""><b>⌂</b><span>خانه</span></a><a data-route="clients" class=""><b>♙</b><span>مراجعین</span></a><a data-route="appointments" class="active"><b>◫</b><span>نوبت</span></a><a data-route="follow-ups" class=""><b>↻</b><span>پیگیری</span></a><button id="more"><b>☰</b><span>بیشتر</span></button></nav><div class="toast glass" id="toast"><b>✓</b><div><strong id="tt">انجام شد</strong><span id="tx"></span></div></div><script>const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'''}[m]));const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);function toast(a,b=''){const t=$('#toast');if(!t)return;$('#tt').textContent=a;$('#tx').textContent=b;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),2800)}function user(){try{return JSON.parse(localStorage.getItem('moshaver_user')||'null')}catch{return null}}function org(){const u=user();return u?.organizationId||u?.orgId||''}const routes={home:'dashboard.html',clients:'clients.html',appointments:'appointments.html','follow-ups':'follow-ups.html',notes:'notes.html',reports:'reports.html','client-profile':'client-profile.html'};function go(p){const id=org();location.href=id?/${encodeURIComponent(id)}/${p}:../consultant/${routes[p]}}function boot(){const saved=localStorage.getItem('moshaver_theme');if(saved)document.documentElement.dataset.theme=saved;$('#theme')?.addEventListener('click',()=>{const n=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=n;localStorage.setItem('moshaver_theme',n)});$('#menu')?.addEventListener('click',()=>{$('#side').classList.toggle('open');$('#ov').classList.toggle('open')});$('#ov')?.addEventListener('click',()=>{$('#side').classList.remove('open');$('#ov').classList.remove('open')});$('#more')?.addEventListener('click',()=>{$('#side').classList.add('open');$('#ov').classList.add('open')});$$('[data-route]').forEach(x=>x.addEventListener('click',e=>{e.preventDefault();go(x.dataset.route)}));$('#logout')?.addEventListener('click',()=>{sessionStorage.removeItem('moshaver_access_token');localStorage.removeItem('moshaver_user');location.href='../index.html'});const u=user();if(u){const n=u.name||u.fullName||[u.firstName,u.lastName].filter(Boolean).join(' ')||u.username||'مشاور سامانه';$('#uname').textContent=n;$('#ava').textContent=n[0];$('#urole').textContent={SUPER_ADMIN:'مدیر کل سامانه',MANAGER:'مدیر کلینیک',ADMIN:'مدیر کلینیک',CONSULTANT:'مشاور'}[u.role]||'مشاور کلینیک'}$('#notifications')?.addEventListener('click',()=>toast('اعلان‌ها','اعلان‌های واقعی بعد از اتصال Backend از اینجا نمایش داده می‌شوند.'));}document.addEventListener('DOMContentLoaded',boot);document.addEventListener('DOMContentLoaded',()=>{let a=JSON.parse(localStorage.getItem('m_appts')||'null')||[{client:'سارا محمدی',phone:'09121234567',date:'2026-09-30',time:'10:00',service:'مشاوره فردی',status:'رزرو شده'},{client:'علی رضایی',phone:'09129876543',date:'2026-09-30',time:'12:30',service:'زوجین',status:'رزرو شده'},{client:'نگار کریمی',phone:'09351234567',date:'2026-09-30',time:'16:00',service:'خانواده',status:'انجام شد'}];let cur=new Date('2026-09-30T00:00:00');const save=()=>localStorage.setItem('m_appts',JSON.stringify(a));const render=()=>{let y=cur.getFullYear(),m=cur.getMonth(),days=new Date(y,m+1,0).getDate();let h=['ش','ی','د','س','چ','پ','ج'].map(x=><div class="wd">${x}</div>).join('');for(let d=1;d<=days;d++){let ds=${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')};h+=<div class="day ${ds==='2026-09-30'?'today':''}" data-d="${ds}"><b>${fa(d)}</b>${a.some(x=>x.date===ds)?'<span class="evt">نوبت</span>':''}</div>}$('#mc').innerHTML=h;$$('#mc [data-d]').forEach(x=>x.onclick=()=>{cur=new Date(x.dataset.d+'T00:00:00');renderList(x.dataset.d)});renderList('2026-09-30')};const renderList=d=>{let q=$('#aq').value.toLowerCase(),f=$('#af').value,l=a.filter(x=>(!q||x.client.toLowerCase().includes(q)||x.phone.includes(q))&&(!f||x.status===f)&&(!q?x.date===d));$('#at').textContent=q?'نتایج جست‌وجو':برنامه ${d};$('#al').innerHTML=l.length?l.map(x=><div class="li"><div class="lic"><strong>${x.client}</strong><span>${x.date} · ${x.time} · ${x.service}</span></div><span class="badgeS ${x.status==='انجام شد'?'ok':x.status==='لغو شد'?'er':'pu'}">${x.status}</span></div>).join(''):'<div class="empty"><strong>نوبتی وجود ندارد</strong></div>'};$('#prev').onclick=()=>{cur.setMonth(cur.getMonth()-1);render()};$('#next').onclick=()=>{cur.setMonth(cur.getMonth()+1);render()};$('#aq').oninput=()=>renderList('2026-09-30');$('#af').onchange=()=>renderList('2026-09-30');$('#newA').onclick=()=>$('#am').classList.add('open');$('#ac').onclick=()=>$('#am').classList.remove('open');$('#afm').onsubmit=e=>{e.preventDefault();a.push(Object.fromEntries(new FormData(e.target)));save();$('#am').classList.remove('open');e.target.reset();render();toast('نوبت ثبت شد','')};render()});</script></body></html>
+html{scrollbar-color:rgba(168,85,247,.72) rgba(255,255,255,.035);scrollbar-width:thin}
+body{scrollbar-gutter:stable}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.025);border-radius:99px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(168,85,247,.82),rgba(34,211,238,.58));border:2px solid transparent;background-clip:padding-box;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#c084fc,#22d3ee);border:2px solid transparent;background-clip:padding-box}
+.sidebar{direction:ltr;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.65) transparent}.sidebar>*{direction:rtl}
+.sidebar>.sidebar-label+.nav{direction:rtl;overflow-y:auto;overflow-x:hidden;max-height:calc(100vh - 330px);padding-left:2px;scrollbar-width:thin}
+.sidebar>.sidebar-label+.nav::-webkit-scrollbar{width:5px}
+.sidebar>.sidebar-label+.nav::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple),var(--cyan));border:0}
+.kpi{isolation:isolate}
+.kpi-icon,.action-icon{position:relative;overflow:hidden;transform:translateZ(0)}
+.kpi-icon:before,.action-icon:before{content:"";position:absolute;inset:4px;border:1px solid rgba(216,180,254,.22);border-radius:10px;animation:iconFloat 3.8s ease-in-out infinite}
+.kpi-icon:after,.action-icon:after{content:"";position:absolute;width:44px;height:10px;left:-55px;top:7px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.30),transparent);transform:rotate(-25deg);animation:iconShine 4.8s ease-in-out infinite}
+.kpi:nth-child(2) .kpi-icon:before{animation-delay:-.8s}.kpi:nth-child(3) .kpi-icon:before{animation-delay:-1.6s}.kpi:nth-child(4) .kpi-icon:before{animation-delay:-2.4s}
+.status-visual{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;gap:22px;margin-bottom:15px;padding:16px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(145deg,rgba(168,85,247,.065),rgba(255,255,255,.02));box-shadow:inset 0 0 35px rgba(168,85,247,.035)}
+.status-donut{width:172px;height:172px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(var(--green) 0 40%,var(--yellow) 40% 70%,var(--red) 70% 100%);box-shadow:0 0 0 8px rgba(168,85,247,.035),0 20px 45px rgba(0,0,0,.20),0 0 45px rgba(168,85,247,.10);animation:donutGlow 4s ease-in-out infinite}
+.status-donut:before{content:"";position:absolute;inset:12px;border-radius:50%;background:radial-gradient(circle at 35% 25%,rgba(168,85,247,.15),transparent 45%),var(--bg2);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 0 35px rgba(0,0,0,.28)}
+html[data-theme=light] .status-donut:before{background:var(--surface2);border-color:var(--border)}
+.status-donut-inner{position:relative;z-index:2;text-align:center}.status-donut-inner strong{display:block;font-size:31px;font-weight:900}.status-donut-inner span{display:block;color:var(--muted2);font-size:10px;margin-top:3px}
+.status-legend{display:grid;gap:9px}.legend-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);cursor:pointer;transition:.25s var(--ease)}.legend-row:hover{transform:translateX(-3px);border-color:var(--border2);background:var(--surface4)}.legend-left{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}.legend-value{font-size:15px;font-weight:900}.legend-percent{color:var(--muted2);font-size:10px;margin-right:5px}
+.focus-panel{margin-top:16px;padding:18px;border-radius:24px;position:relative;overflow:hidden}.focus-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.focus-main{padding:18px;border:1px solid var(--border);border-radius:21px;background:linear-gradient(145deg,rgba(168,85,247,.11),rgba(34,211,238,.035));position:relative;overflow:hidden}.focus-main:before{content:"";position:absolute;width:180px;height:180px;left:-70px;bottom:-80px;border-radius:50%;border:1px solid rgba(168,85,247,.18);box-shadow:0 0 0 15px rgba(168,85,247,.025);animation:spin 14s linear infinite}.focus-score{display:flex;align-items:center;gap:15px}.focus-ring{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--purple) 0 74%,rgba(255,255,255,.07) 74% 100%);position:relative;box-shadow:0 0 35px rgba(168,85,247,.16);flex:0 0 auto}.focus-ring:before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--bg2);border:1px solid var(--border)}html[data-theme=light] .focus-ring:before{background:var(--surface2)}.focus-ring b{position:relative;z-index:2;font-size:22px}.focus-copy strong{font-size:17px}.focus-copy span{display:block;color:var(--muted2);font-size:11px;line-height:1.9;margin-top:4px}.focus-bars{display:grid;gap:9px;margin-top:17px}.focus-bar{display:grid;grid-template-columns:90px 1fr 42px;align-items:center;gap:8px;color:var(--muted);font-size:10px}.focus-track{height:8px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden;border:1px solid var(--border)}.focus-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--purple2),var(--purple),var(--cyan));box-shadow:0 0 14px rgba(168,85,247,.22)}.focus-side{display:grid;grid-template-columns:1fr 1fr;gap:9px}.focus-stat{padding:14px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);transition:.25s}.focus-stat:hover{transform:translateY(-3px);border-color:var(--border2)}.focus-stat span{display:block;color:var(--muted2);font-size:10px}.focus-stat b{display:block;font-size:23px;margin-top:8px}
+.contact-editor{display:grid;gap:12px}.contact-history-list{direction:ltr;display:grid;gap:8px;max-height:300px;overflow-y:auto;overflow-x:hidden;padding-left:2px}.contact-history-list>*{direction:rtl}.contact-history-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:11px;border:1px solid var(--border);border-radius:15px;background:var(--surface3)}.contact-history-item strong{font-size:11px}.contact-history-item span{display:block;color:var(--muted2);font-size:9px;margin-top:3px}.history-actions{display:flex;align-items:center;gap:6px}.contact-history-item button{height:34px;min-width:34px;padding:0 8px;padding:0 9px;border-radius:9px;background:rgba(251,113,133,.06);border:1px solid rgba(251,113,133,.18);color:#fecdd3;cursor:pointer}
+.delete-btn{color:#fecdd3!important;border-color:rgba(251,113,133,.18)!important;background:rgba(251,113,133,.06)!important}
+.modal{scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.72) transparent}
+.modal::-webkit-scrollbar{width:8px}.modal::-webkit-scrollbar-track{background:transparent}.modal::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple),var(--cyan));border-radius:99px}
+.form-section{scroll-margin-top:70px}
+@keyframes iconFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(8deg)}}
+@keyframes iconShine{0%,55%{transform:translateX(-70px) rotate(-25deg)}72%,100%{transform:translateX(120px) rotate(-25deg)}}
+@keyframes donutGlow{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(2deg) scale(1.025)}}
+html{scroll-behavior:smooth}body{margin:0;min-width:320px;min-height:100vh;font-family:"Vazirmatn",Tahoma,sans-serif;color:var(--text);background:radial-gradient(circle at 82% 4%,rgba(168,85,247,.16),transparent 27rem),radial-gradient(circle at 12% 88%,rgba(34,211,238,.07),transparent 24rem),linear-gradient(135deg,var(--bg),var(--bg2));overflow-x:hidden}button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none;color:inherit}::selection{background:rgba(168,85,247,.3)}
+.app{min-height:100vh;isolation:isolate}.ambient{position:fixed;inset:0;pointer-events:none;z-index:-2;overflow:hidden}.grid{position:absolute;inset:0;opacity:.13;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 88%)}html[data-theme=light] .grid{opacity:.07}.orb{position:absolute;border-radius:50%;filter:blur(8px);opacity:.55}.orb.one{width:330px;height:330px;right:8%;top:5%;background:radial-gradient(circle,rgba(168,85,247,.27),transparent 67%);animation:orb 12s ease-in-out infinite}.orb.two{width:420px;height:420px;left:-120px;bottom:2%;background:radial-gradient(circle,rgba(34,211,238,.11),transparent 68%);animation:orb 16s ease-in-out -4s infinite}.orb.three{width:250px;height:250px;left:44%;top:38%;background:radial-gradient(circle,rgba(124,58,237,.10),transparent 70%);animation:orb 13s ease-in-out -7s infinite}
+.float-x{position:absolute;width:34px;height:34px;display:grid;place-items:center;color:rgba(216,180,254,.6);font-size:19px;font-weight:300;pointer-events:none;opacity:.65;animation:spin 11s linear infinite,drift 7s ease-in-out infinite}.float-x:before{content:"";position:absolute;inset:7px;border:1px solid rgba(168,85,247,.26);border-radius:10px;transform:rotate(45deg)}.float-x.a{top:92px;right:32%;animation-delay:-2s}.float-x.b{top:34%;left:9%;font-size:14px;animation-duration:15s}.float-x.c{bottom:21%;right:17%;animation-delay:-6s}.float-x.d{bottom:10%;left:39%;font-size:13px;animation-duration:18s}.float-x.e{top:18%;right:5%;font-size:12px;animation-duration:13s}
+.shell{width:min(1560px,100%);margin:auto;padding:16px;display:grid;grid-template-columns:276px minmax(0,1fr);gap:16px}.sidebar{position:sticky;top:16px;height:calc(100vh - 32px);border:1px solid var(--border);background:linear-gradient(180deg,rgba(24,14,38,.86),rgba(12,8,20,.78));backdrop-filter:blur(var(--blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);border-radius:30px;box-shadow:var(--shadow),var(--glow);padding:18px;display:flex;flex-direction:column;overflow:hidden;z-index:80}html[data-theme=light] .sidebar{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(247,242,252,.80))}.brand{display:flex;align-items:center;gap:12px;padding:6px 4px 20px}.brand-mark{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--purple),var(--purple2));color:#fff;font-size:22px;font-weight:900;box-shadow:0 12px 30px rgba(124,58,237,.28);position:relative;overflow:hidden}.brand-mark:after{content:"";position:absolute;width:80px;height:18px;background:rgba(255,255,255,.22);transform:rotate(-35deg) translateX(-50px);animation:shine 4s ease-in-out infinite}.brand strong{font-size:18px;font-weight:900}.brand small{display:block;color:var(--muted2);font-size:10px;margin-top:3px}.sidebar-label{color:var(--muted2);font-size:11px;font-weight:800;margin:8px 8px}.nav{display:grid;gap:6px}.nav a{min-height:48px;display:flex;align-items:center;gap:11px;padding:0 12px;border:1px solid transparent;border-radius:15px;color:var(--muted);transition:.25s var(--ease)}.nav a:hover{color:var(--text);background:var(--surface3);border-color:var(--border);transform:translateX(-3px)}.nav a.active{color:var(--text);background:linear-gradient(100deg,rgba(168,85,247,.20),rgba(124,58,237,.08));border-color:rgba(168,85,247,.26);box-shadow:inset 0 0 25px rgba(168,85,247,.05),0 10px 30px rgba(0,0,0,.12)}.nav-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:var(--purple3);background:var(--surface3);border:1px solid var(--border);flex:0 0 auto}.nav .active .nav-icon{color:#fff;background:linear-gradient(145deg,var(--purple),var(--purple2));border-color:transparent}.nav-label{font-size:14px;font-weight:700;flex:1}.nav-badge{min-width:25px;height:25px;padding:0 7px;border-radius:999px;display:grid;place-items:center;font-size:10px;font-weight:800;color:#eadcff;background:rgba(168,85,247,.14);border:1px solid rgba(168,85,247,.2)}.sidebar-bottom{margin-top:auto;display:grid;gap:10px}.profile-mini{padding:12px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);display:flex;align-items:center;gap:10px}.avatar{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,var(--purple),var(--purple2));color:#fff;font-weight:900}.profile-mini strong{font-size:13px}.profile-mini small{display:block;color:var(--muted2);font-size:10px;margin-top:3px}.logout{width:100%;height:44px;border-radius:13px;cursor:pointer;color:var(--muted);background:transparent;border:1px solid var(--border);transition:.2s}.logout:hover{color:var(--red);border-color:rgba(251,113,133,.25);background:rgba(251,113,133,.06)}
+.sidebar-scroll{position:absolute;top:82px;bottom:18px;left:7px;width:4px;border-radius:99px;background:rgba(255,255,255,.035);opacity:0;transition:.2s;pointer-events:none}.sidebar:hover .sidebar-scroll,.sidebar.scrollable .sidebar-scroll{opacity:1}.sidebar-scroll-thumb{position:absolute;top:0;left:0;width:100%;height:45px;border-radius:99px;background:linear-gradient(var(--purple),var(--cyan));box-shadow:0 0 14px rgba(168,85,247,.35)}
+.mobile-nav{display:none!important}\n
+.mobile-nav{color:var(--muted);justify-content:space-around;gap:4px;overflow:hidden}.mobile-nav a,.mobile-nav button{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid transparent;border-radius:16px;background:transparent;color:var(--muted);cursor:pointer;transition:.25s var(--ease);font:inherit}.mobile-nav b{width:34px;height:28px;display:grid;place-items:center;border-radius:10px;font-size:19px;line-height:1}.mobile-nav span{font-size:9px;font-weight:800}.mobile-nav a:hover,.mobile-nav button:hover{color:var(--text);background:var(--surface3)}.mobile-nav a.active{color:#fff;background:linear-gradient(145deg,rgba(168,85,247,.42),rgba(124,58,237,.24));border-color:rgba(168,85,247,.30);box-shadow:0 8px 22px rgba(124,58,237,.18),inset 0 0 18px rgba(255,255,255,.035)}.mobile-nav a.active b{background:linear-gradient(145deg,var(--purple),var(--purple2));box-shadow:0 0 18px rgba(168,85,247,.3)}html[data-theme=light] .mobile-nav{background:rgba(255,255,255,.88)!important;box-shadow:0 20px 50px rgba(77,43,104,.18)}html[data-theme=light] .mobile-nav a.active{color:#fff;background:linear-gradient(145deg,var(--purple),var(--purple2))}
+.main{min-width:0}.topbar{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;margin-bottom:16px;border:1px solid var(--border);border-radius:22px;background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);box-shadow:var(--shadow);position:relative;z-index:20}.topbar-title small{display:block;color:var(--muted2);font-size:10px;margin-bottom:3px}.topbar-title h1{margin:0;font-size:20px;font-weight:900}.top-actions{display:flex;align-items:center;gap:8px}.icon-btn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--muted);background:var(--surface3);border:1px solid var(--border);cursor:pointer;transition:.25s var(--ease);position:relative}.icon-btn:hover{color:var(--text);transform:translateY(-2px) rotate(4deg);border-color:var(--border2)}.notification-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:8px;right:8px;background:var(--cyan);box-shadow:0 0 13px var(--cyan)}.menu-btn{display:none}
+.popover{position:absolute;top:62px;left:10px;width:min(390px,calc(100vw - 30px));padding:12px;border:1px solid var(--border2);border-radius:20px;background:var(--surface2);backdrop-filter:blur(30px) saturate(160%);box-shadow:var(--shadow),var(--glow);display:none;z-index:200}.popover.open{display:block;animation:pop .25s var(--ease)}.popover-head{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 10px}.popover-head strong{font-size:14px}.popover-head button{background:transparent;color:var(--purple3);cursor:pointer;font-size:11px}.notice{padding:11px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);margin-top:7px;cursor:pointer;transition:.2s}.notice:hover{transform:translateY(-2px);border-color:var(--border2)}.notice b{display:block;font-size:12px}.notice span{display:block;color:var(--muted2);font-size:10px;line-height:1.8;margin-top:3px}
+.hero{position:relative;min-height:210px;padding:26px;border:1px solid var(--border);border-radius:var(--r-xl);background:radial-gradient(circle at 10% 110%,rgba(34,211,238,.08),transparent 25%),radial-gradient(circle at 88% 30%,rgba(168,85,247,.18),transparent 32%),var(--surface);backdrop-filter:blur(var(--blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--blur)) saturate(160%);box-shadow:var(--shadow),var(--glow);overflow:hidden}.hero:before{content:"";position:absolute;width:340px;height:340px;right:-90px;top:-160px;border-radius:50%;border:1px solid rgba(168,85,247,.2);box-shadow:0 0 0 18px rgba(168,85,247,.025),0 0 0 40px rgba(168,85,247,.015);animation:spin 16s linear infinite}.hero:after{content:"";position:absolute;width:520px;height:180px;left:-160px;bottom:-150px;border-radius:50%;background:rgba(168,85,247,.13);filter:blur(50px)}.hero-content{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:25px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--purple3);font-size:12px;font-weight:800}.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}
+.hero-content{align-items:stretch}.hero-copy{flex:1;min-width:0}.control-brief{width:min(390px,38%);min-width:300px;padding:16px;border:1px solid rgba(168,85,247,.24);border-radius:22px;background:linear-gradient(145deg,rgba(168,85,247,.14),rgba(34,211,238,.045));box-shadow:inset 0 0 30px rgba(168,85,247,.035),0 18px 45px rgba(0,0,0,.12);position:relative;overflow:hidden}.control-brief:after{content:"";position:absolute;width:170px;height:170px;left:-90px;top:-90px;border-radius:50%;border:1px solid rgba(34,211,238,.18);box-shadow:0 0 0 15px rgba(34,211,238,.025);animation:spin 12s linear infinite}.control-brief-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.control-brief-head span{display:block;color:var(--muted2);font-size:10px}.control-brief-head strong{display:block;font-size:15px;margin-top:4px}.control-brief-head i{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,var(--purple),var(--purple2));color:#fff;font-style:normal;box-shadow:0 12px 28px rgba(124,58,237,.28);animation:iconFloat 3.8s ease-in-out infinite}.control-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.control-metrics button{min-height:62px;padding:10px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);color:var(--text);text-align:right;cursor:pointer;transition:.25s var(--ease)}.control-metrics button:hover{transform:translateY(-3px);border-color:rgba(168,85,247,.32);background:var(--surface4)}.control-metrics span{display:block;color:var(--muted2);font-size:9px}.control-metrics b{display:block;font-size:20px;margin-top:5px}.control-foot{margin-top:13px;padding-top:11px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto;gap:7px;color:var(--muted2);font-size:9px}.control-foot b{color:var(--purple3);font-size:12px}.control-progress{grid-column:1/-1;height:7px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}.control-progress i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--purple2),var(--purple),var(--cyan));box-shadow:0 0 14px rgba(168,85,247,.3);transition:width .5s var(--ease)}
+@media(max-width:720px){.hero-content{display:block}.control-brief{width:100%;min-width:0;margin-top:16px}.hero-actions{grid-template-columns:1fr 1fr}}
+.hero h2{margin:10px 0 8px;font-size:clamp(25px,3vw,39px);line-height:1.45;letter-spacing:-1px}.hero p{margin:0;color:var(--muted);max-width:760px;font-size:14px;line-height:2}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:19px}.btn{min-height:48px;padding:0 17px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:var(--text);border:1px solid var(--border);background:var(--surface3);transition:.25s var(--ease);font-weight:800;font-size:13px}.btn:hover{transform:translateY(-2px);border-color:var(--border2)}.btn.primary{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--purple),var(--purple2));box-shadow:0 15px 35px rgba(124,58,237,.25);position:relative;overflow:hidden}.btn.primary:after{content:"";position:absolute;inset:0;width:35%;transform:skewX(-25deg) translateX(-180%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);animation:shine 4.5s ease-in-out infinite}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:16px}.glass{border:1px solid var(--border);background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);box-shadow:var(--shadow)}.kpi{min-height:148px;padding:18px;border-radius:22px;position:relative;overflow:hidden;transition:.3s var(--ease);cursor:pointer}.kpi:hover{transform:translateY(-5px);border-color:var(--border2);box-shadow:var(--shadow),0 20px 45px rgba(124,58,237,.11)}.kpi:after{content:"";position:absolute;width:110px;height:110px;left:-45px;bottom:-50px;border-radius:50%;background:rgba(168,85,247,.12);filter:blur(20px)}.kpi-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px}.kpi-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:var(--purple3);background:rgba(168,85,247,.09);border:1px solid rgba(168,85,247,.16)}.kpi strong{display:block;font-size:31px;line-height:1;margin-top:15px;font-weight:900}.kpi small{display:flex;align-items:center;gap:6px;margin-top:10px;color:var(--muted2);font-size:11px}.up{color:var(--green)!important}.warn{color:var(--yellow)!important}
+.insights{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px}.panel{padding:18px;border-radius:24px;min-width:0}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}.panel-title strong{display:block;font-size:16px;font-weight:900}.panel-title span{display:block;color:var(--muted2);font-size:11px;margin-top:5px}.panel-link{color:var(--purple3);font-size:12px;font-weight:800;cursor:pointer}.panel-link{appearance:none;-webkit-appearance:none;border:1px solid transparent;background:transparent;padding:7px 10px;border-radius:10px;outline:none}.panel-link:hover{background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.18);transform:translateY(-1px)}.panel-link:focus-visible{outline:2px solid rgba(168,85,247,.55);outline-offset:2px}.panel-link::-moz-focus-inner{border:0}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.status-card{border:1px solid var(--border);border-radius:18px;background:var(--surface3);padding:15px;cursor:pointer;transition:.28s var(--ease);position:relative;overflow:hidden}.status-card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.28);box-shadow:0 18px 38px rgba(124,58,237,.10)}.status-card:after{content:"";position:absolute;width:85px;height:85px;left:-30px;bottom:-45px;border-radius:50%;background:rgba(168,85,247,.11);filter:blur(18px)}.status-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.status-number{font-size:29px;font-weight:900;margin-top:12px}.status-help{color:var(--muted2);font-size:10px;margin-top:4px}.dot{width:9px;height:9px;border-radius:50%;display:inline-block}.dot.green{background:var(--green);box-shadow:0 0 12px var(--green)}.dot.yellow{background:var(--yellow);box-shadow:0 0 12px var(--yellow)}.dot.red{background:var(--red);box-shadow:0 0 12px var(--red)}
+.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.action-card{min-height:104px;padding:14px;border-radius:18px;border:1px solid var(--border);background:var(--surface3);cursor:pointer;position:relative;overflow:hidden;transition:.28s var(--ease)}.action-card:hover{transform:translateY(-4px) rotateX(2deg);border-color:rgba(168,85,247,.27);box-shadow:0 18px 38px rgba(124,58,237,.1)}.action-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(168,85,247,.10);border:1px solid rgba(168,85,247,.17);color:var(--purple3)}.action-card strong{display:block;font-size:12px;margin-top:12px}.action-card small{display:block;color:var(--muted2);font-size:9px;margin-top:4px}
+.activity-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{display:inline-flex;align-items:center;gap:6px;min-height:35px;padding:0 10px;border-radius:999px;background:var(--surface3);border:1px solid var(--border);color:var(--muted);font-size:10px;cursor:pointer}.chip:hover{border-color:var(--border2);color:var(--text)}
+.filters{margin-top:16px;padding:18px;border-radius:24px}.filter-grid{display:grid;grid-template-columns:1.7fr repeat(5,1fr);gap:10px}.field{display:grid;gap:7px}.field label{font-size:11px;color:var(--muted2);font-weight:800}.input,.select,.textarea{width:100%;min-height:48px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.035);color:var(--text);outline:none;padding:0 13px;transition:.2s}.textarea{min-height:110px;padding:12px;resize:vertical}.input:focus,.select:focus,.textarea:focus{border-color:rgba(168,85,247,.5);box-shadow:0 0 0 4px rgba(168,85,247,.08)}.select option{background:#171021;color:#fbf9ff}.select optgroup{background:#171021;color:#d8b4fe}html[data-theme=light] .select option,html[data-theme=light] .select optgroup{background:#fff;color:#21162c}.filter-actions{display:flex;gap:8px;align-items:end}.btn.small{min-height:48px;font-size:12px;padding:0 13px}.btn.danger{color:#fecdd3;border-color:rgba(251,113,133,.18);background:rgba(251,113,133,.06)}
+.table-panel{margin-top:16px;padding:0;border-radius:24px;overflow:hidden}.table-head{padding:18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px}.table-meta{color:var(--muted2);font-size:11px}.table-wrap{overflow:auto}.table{width:100%;border-collapse:separate;border-spacing:0;min-width:1120px}.table th,.table td{padding:13px 12px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}.table th{font-size:10px;color:var(--muted2);background:rgba(255,255,255,.018);position:sticky;top:0;z-index:2}.table td{font-size:11px;color:var(--muted)}.table tbody tr{transition:.2s}.table tbody tr:hover{background:var(--surface3)}.client-cell{display:flex;align-items:center;gap:9px}.client-cell .avatar{width:38px;height:38px;border-radius:12px}.client-cell strong{display:block;color:var(--text);font-size:12px}.client-cell small{display:block;color:var(--muted2);font-size:9px;margin-top:3px}.row-actions{display:flex;gap:5px}.mini-btn{height:34px;padding:0 9px;border-radius:10px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer;font-size:10px;transition:.2s}.mini-btn:hover{color:var(--text);border-color:var(--border2);transform:translateY(-1px)}.mini-btn.contact.done{color:var(--green);border-color:rgba(52,211,153,.2);background:rgba(52,211,153,.06)}.mini-btn.contact.todo{color:var(--yellow);border-color:rgba(251,191,36,.2);background:rgba(251,191,36,.06)}.status-pill{display:inline-flex;align-items:center;min-height:27px;padding:0 9px;border-radius:999px;font-size:9px;font-weight:800}.status-pill.active{color:#86efac;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.17)}.status-pill.waiting{color:#fde68a;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.17)}.status-pill.closed{color:#cbd5e1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.17)}.status-pill.cancelled{color:#fecdd3;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.17)}
+.mobile-list{display:none;padding:12px;gap:10px}.mobile-client{border:1px solid var(--border);border-radius:20px;padding:13px;background:var(--surface3);box-shadow:0 14px 35px rgba(0,0,0,.08)}.mobile-client-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.mobile-client-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.data-mini{padding:9px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.025)}.data-mini span{display:block;color:var(--muted2);font-size:9px}.data-mini b{display:block;color:var(--text);font-size:11px;margin-top:4px}.mobile-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.mobile-actions .mini-btn{width:100%;padding:0}
+.pagination{padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--border)}.pages{display:flex;gap:6px}.page-btn{width:36px;height:36px;border-radius:11px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer}.page-btn.active{color:#fff;background:linear-gradient(145deg,var(--purple),var(--purple2));border-color:transparent}.empty{padding:45px 20px;text-align:center;color:var(--muted2);display:none}.empty strong{display:block;color:var(--text);font-size:15px;margin-bottom:7px}.empty span{font-size:11px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(3,2,7,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px;z-index:300}.modal-backdrop.open{display:flex}.modal{direction:ltr;width:min(980px,100%);max-height:min(92vh,900px);overflow-y:auto;overflow-x:hidden;border:1px solid var(--border2);border-radius:28px;background:var(--surface2);box-shadow:0 35px 110px rgba(0,0,0,.45),var(--glow);animation:modalIn .28s var(--ease)}.modal>*{direction:rtl}.modal.narrow{width:min(650px,100%)}.modal-head{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border);background:rgba(20,13,31,.82);backdrop-filter:blur(20px)}html[data-theme=light] .modal-head{background:rgba(255,255,255,.88)}.modal-head strong{font-size:15px}.close{width:38px;height:38px;border-radius:12px;background:var(--surface3);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:22px;transition:.25s}.close:hover{transform:rotate(90deg);color:var(--red);border-color:rgba(251,113,133,.25)}.modal-body{padding:18px}.form-section{padding:16px;border:1px solid var(--border);border-radius:20px;background:rgba(255,255,255,.02);margin-bottom:12px}.form-section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.form-section-title strong{font-size:13px}.form-section-title span{font-size:9px;color:var(--muted2)}.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid.one{grid-template-columns:1fr}.required:after{content:" *";color:var(--red)}.check-row{display:flex;gap:8px;flex-wrap:wrap}.check{min-height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;background:var(--surface3);display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--muted);font-size:11px}.check input{accent-color:var(--purple);width:16px;height:16px}.conditional{display:none;margin-top:12px}.conditional.show{display:block}.service-wrap{position:relative}.service-results{direction:rtl;position:absolute;z-index:10;left:0;right:0;top:56px;border:1px solid var(--border2);border-radius:15px;background:var(--surface2);box-shadow:var(--shadow);display:none;max-height:230px;overflow:auto}.service-results.open{display:block}.service-option{padding:11px 12px;border-bottom:1px solid var(--border);cursor:pointer;font-size:11px}.service-option:hover{background:var(--surface3)}.upload-box{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.upload{border:1px dashed rgba(168,85,247,.35);border-radius:17px;padding:14px;background:rgba(168,85,247,.035);min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;text-align:center;color:var(--muted2);cursor:pointer;position:relative;overflow:hidden}.upload:hover{border-color:rgba(168,85,247,.65);background:rgba(168,85,247,.06)}.upload input{position:absolute;inset:0;opacity:0;cursor:pointer}.upload strong{color:var(--text);font-size:12px}.upload span{font-size:9px}.previews{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.thumb{width:74px;height:74px;border-radius:12px;object-fit:cover;border:1px solid var(--border)}.modal-foot{position:sticky;bottom:0;display:flex;justify-content:flex-end;gap:8px;padding:14px 18px;border-top:1px solid var(--border);background:rgba(20,13,31,.82);backdrop-filter:blur(20px)}html[data-theme=light] .modal-foot{background:rgba(255,255,255,.9)}
+.preview-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.preview-card{border:1px solid var(--border);border-radius:20px;padding:15px;background:var(--surface3)}.preview-client{display:flex;align-items:center;gap:12px}.preview-client .avatar{width:52px;height:52px;border-radius:16px}.preview-client strong{font-size:16px}.preview-client small{display:block;color:var(--muted2);font-size:10px;margin-top:4px}.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.detail{padding:10px;border:1px solid var(--border);border-radius:13px}.detail span{display:block;color:var(--muted2);font-size:9px}.detail b{display:block;font-size:11px;margin-top:4px;overflow-wrap:anywhere}.timeline{display:grid;gap:7px}.timeline-item{display:flex;gap:9px;padding:9px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.02)}.timeline-item i{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:rgba(168,85,247,.1);color:var(--purple3);font-style:normal}.timeline-item b{display:block;font-size:10px}.timeline-item span{display:block;color:var(--muted2);font-size:9px;margin-top:3px}.image-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.gallery-item{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface3)}.gallery-item img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.gallery-item span{display:block;padding:6px;font-size:9px;color:var(--muted2)}
+.scroll-top{position:fixed;left:18px;bottom:max(20px,env(safe-area-inset-bottom));width:54px;height:54px;border-radius:18px;border:1px solid rgba(168,85,247,.30);background:rgba(18,10,30,.72);color:#fff;backdrop-filter:blur(22px) saturate(160%);box-shadow:0 20px 45px rgba(0,0,0,.32),0 0 30px rgba(168,85,247,.12);display:grid;place-items:center;cursor:pointer;z-index:250;opacity:0;transform:translateY(70px) scale(.8) rotate(-12deg);pointer-events:none;transition:.45s var(--ease)}html[data-theme=light] .scroll-top{background:rgba(255,255,255,.82);color:var(--purple2)}.scroll-top.show{opacity:1;transform:translateY(0) scale(1) rotate(0);pointer-events:auto}.scroll-top:hover{transform:translateY(-4px) rotate(180deg) scale(1.04);border-color:rgba(168,85,247,.6);box-shadow:0 24px 55px rgba(0,0,0,.35),0 0 35px rgba(168,85,247,.24)}.scroll-top:before{content:"";position:absolute;inset:6px;border:1px dashed rgba(216,180,254,.35);border-radius:14px;animation:spin 8s linear infinite}.scroll-top span{font-size:24px;position:relative;z-index:2}
+.toast{position:fixed;right:20px;bottom:20px;width:min(390px,calc(100vw - 40px));padding:13px;border-radius:17px;display:flex;align-items:center;gap:10px;border:1px solid var(--border);background:rgba(18,11,28,.88);backdrop-filter:blur(22px);box-shadow:var(--shadow);transform:translateY(25px);opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:500}html[data-theme=light] .toast{background:rgba(255,255,255,.94)}.toast.show{transform:translateY(0);opacity:1}.toast-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(52,211,153,.1);color:var(--green)}.toast strong{display:block;font-size:12px}.toast span{display:block;color:var(--muted2);font-size:10px;margin-top:3px}
+.loading{opacity:.55;pointer-events:none}.hidden{display:none!important}.muted{color:var(--muted2)}
+@media(max-width:1200px){.filter-grid{grid-template-columns:1.5fr repeat(3,1fr)}.filter-actions{grid-column:1/-1}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1040px){.shell{grid-template-columns:1fr;padding:12px}.sidebar{position:fixed;top:12px;right:12px;width:min(320px,calc(100vw - 24px));height:calc(100vh - 24px);transform:translateX(calc(100% + 35px));transition:.35s var(--ease);z-index:400}.sidebar.open{transform:translateX(0)}.menu-btn{display:grid}.insights{grid-template-columns:1fr}.mobile-list{display:grid}.table-wrap{display:none}.main{padding-bottom:88px}.mobile-nav{display:flex!important}}
+@media(max-width:720px){.shell{padding:8px}.topbar{min-height:64px;padding:9px 11px;border-radius:18px;margin-bottom:10px}.topbar-title h1{font-size:17px}.icon-btn{width:42px;height:42px}.hero{padding:19px;border-radius:23px}.hero-content{display:block}.hero h2{font-size:25px}.hero p{font-size:12px}.hero-actions{display:grid;grid-template-columns:1fr 1fr}.btn{min-height:47px;padding:0 10px;font-size:12px}.kpis{gap:9px;margin-top:10px}.kpi{padding:13px;min-height:125px;border-radius:19px}.kpi-icon{width:35px;height:35px}.kpi strong{font-size:27px}.kpi small{font-size:9px}.status-grid{grid-template-columns:1fr 1fr}.status-card:last-child{grid-column:1/-1}.panel{padding:13px;border-radius:20px}.filters{padding:13px}.filter-grid{grid-template-columns:1fr 1fr}.filter-grid .search-field{grid-column:1/-1}.table-head{padding:13px}.pagination{padding:12px 13px}.form-grid,.form-grid.two{grid-template-columns:1fr}.upload-box{grid-template-columns:1fr}.preview-layout{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(3,1fr)}.modal-backdrop{padding:0;align-items:flex-end}.modal{width:100%;max-height:94vh;border-radius:26px 26px 0 0}.scroll-top{left:12px;bottom:92px;width:50px;height:50px}.float-x{display:none}.popover{left:5px;right:5px;width:auto}.mobile-actions{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.kpis{grid-template-columns:1fr 1fr}.status-grid{grid-template-columns:1fr}.status-card:last-child{grid-column:auto}.filter-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
+@keyframes orb{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(20px,-18px,0) scale(1.05)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{0%,100%{margin-top:0}50%{margin-top:-13px}}@keyframes shine{0%,45%{transform:skewX(-25deg) translateX(-180%)}70%,100%{transform:skewX(-25deg) translateX(420%)}}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}@keyframes pop{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}@keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* Final visual fixes */
+html[data-theme=light] .status-pill.active{color:#047857;background:rgba(5,150,105,.12);border-color:rgba(5,150,105,.30)} html[data-theme=light] .status-pill.waiting{color:#92400e;background:rgba(180,83,9,.12);border-color:rgba(180,83,9,.30)} html[data-theme=light] .status-pill.closed{color:#475569;background:rgba(71,85,105,.10);border-color:rgba(71,85,105,.24)} html[data-theme=light] .status-pill.cancelled{color:#b91c1c;background:rgba(220,38,38,.11);border-color:rgba(220,38,38,.30)} html[data-theme=light] .btn.danger,html[data-theme=light] .delete-btn{color:#b91c1c!important;border-color:rgba(220,38,38,.28)!important;background:rgba(220,38,38,.09)!important}
+
+.history-edit{background:rgba(168,85,247,.10)!important;border:1px solid rgba(168,85,247,.25)!important;color:var(--purple3)!important}.history-delete{background:rgba(220,38,38,.09)!important;border:1px solid rgba(220,38,38,.28)!important;color:#dc2626!important}.history-edit:hover,.history-delete:hover{transform:translateY(-2px) rotate(-3deg)}
+   /* APPOINTMENTS MODULE */
+.appointment-hero .hero-content{align-items:stretch}.appointment-kpi{cursor:pointer}.appointment-kpi:hover{transform:translateY(-5px)}
+.appointment-donut{animation:donutGlow 5s ease-in-out infinite}.purple-dot{background:var(--purple)!important;box-shadow:0 0 12px rgba(168,85,247,.45)}
+.appointment-status-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.appointment-status-cards .status-card{min-height:122px}
+.calendar-panel{padding:20px;overflow:hidden}.calendar-toolbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:16px}.calendar-heading h3{font-size:26px;margin:6px 0 2px}.calendar-heading>span{color:var(--muted2);font-size:13px}.calendar-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.view-switch,.date-nav{display:flex;gap:5px;padding:5px;border:1px solid var(--border);background:var(--surface3);border-radius:16px}.view-btn{border:0;background:transparent;color:var(--muted);padding:10px 14px;border-radius:11px;cursor:pointer;font:inherit}.view-btn.active{background:linear-gradient(135deg,rgba(168,85,247,.28),rgba(34,211,238,.10));color:var(--text);box-shadow:inset 0 0 0 1px rgba(168,85,247,.25)}.small-icon{width:40px!important;height:40px!important;padding:0!important}
+.calendar-body{min-height:330px}.day-board{display:grid;grid-template-columns:120px 1fr;gap:12px}.day-side{padding:18px;border:1px solid var(--border);border-radius:20px;background:var(--surface3);text-align:center}.day-side .big-day{font-size:44px;font-weight:900;line-height:1}.day-side strong{display:block;margin-top:7px}.day-side span{display:block;color:var(--muted2);font-size:12px;margin-top:5px}.day-slots{display:grid;gap:8px}.time-slot{display:grid;grid-template-columns:72px 1fr;min-height:58px;border:1px solid var(--border);border-radius:15px;overflow:hidden;background:rgba(255,255,255,.025)}.time-label{display:grid;place-items:center;color:var(--muted2);font-size:12px;border-left:1px solid var(--border)}.slot-items{display:flex;gap:8px;padding:7px;flex-wrap:wrap;align-items:center}.calendar-appt{min-width:220px;max-width:100%;padding:9px 12px;border-radius:13px;border:1px solid rgba(168,85,247,.24);background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(34,211,238,.05));cursor:pointer;transition:.25s}.calendar-appt:hover{transform:translateY(-2px);border-color:var(--border2)}.calendar-appt strong{display:block;font-size:13px}.calendar-appt small{display:block;color:var(--muted2);margin-top:4px;font-size:11px}.calendar-appt .appt-status{margin-top:5px}
+.week-board{display:grid;grid-template-columns:repeat(7,minmax(130px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}.week-col{min-width:130px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);overflow:hidden}.week-col.today{border-color:rgba(168,85,247,.55);box-shadow:0 0 25px rgba(168,85,247,.12)}.week-head{padding:12px;text-align:center;border-bottom:1px solid var(--border)}.week-head strong{display:block;font-size:17px}.week-head span{font-size:11px;color:var(--muted2)}.week-items{padding:8px;display:grid;gap:7px;min-height:210px}.week-empty{display:grid;place-items:center;min-height:180px;color:var(--muted2);font-size:11px}.month-board{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.month-head{font-size:11px;color:var(--muted2);text-align:center;padding:7px}.month-cell{min-height:105px;border:1px solid var(--border);border-radius:14px;background:var(--surface3);padding:8px;cursor:pointer;transition:.2s}.month-cell:hover{transform:translateY(-2px);border-color:var(--border2)}.month-cell.today{box-shadow:inset 0 0 0 1px rgba(168,85,247,.55)}.month-cell.muted{opacity:.42}.month-number{font-weight:800}.month-count{font-size:10px;color:var(--muted2);margin-top:4px}.month-mini{margin-top:6px;display:grid;gap:3px}.month-mini span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9px;padding:4px 6px;border-radius:7px;background:rgba(168,85,247,.10)}
+.list-board{display:grid;gap:9px}.list-day{border:1px solid var(--border);border-radius:17px;background:var(--surface3);overflow:hidden}.list-day-head{display:flex;justify-content:space-between;padding:12px 15px;border-bottom:1px solid var(--border)}.list-day-items{display:grid}.list-appt{display:grid;grid-template-columns:75px 1fr auto;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border)}.list-appt:last-child{border-bottom:0}.list-time{font-weight:800;color:var(--purple3)}.list-client strong{display:block}.list-client small{color:var(--muted2)}
+.appt-status{display:inline-flex;align-items:center;gap:5px;border:1px solid transparent;border-radius:999px;padding:4px 8px;font-size:10px;white-space:nowrap}.appt-status.pending{color:#fbbf24;background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.22)}.appt-status.confirmed{color:#34d399;background:rgba(16,185,129,.10);border-color:rgba(16,185,129,.22)}.appt-status.completed{color:#c4b5fd;background:rgba(139,92,246,.11);border-color:rgba(139,92,246,.24)}.appt-status.no-show{color:#fb7185;background:rgba(244,63,94,.10);border-color:rgba(244,63,94,.24)}.appt-status.cancelled{color:#fb7185;background:rgba(220,38,38,.10);border-color:rgba(220,38,38,.24)}.appt-status.rescheduled{color:#67e8f9;background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.22)}
+.appointment-table td{vertical-align:middle}.appointment-table .row-actions{display:flex;gap:5px;flex-wrap:wrap}.appointment-table .mini-btn{min-height:34px}.reminder-on{color:#34d399}.reminder-off{color:var(--muted2)}
+.appointment-card{padding:15px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);display:grid;gap:11px}.appointment-card-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.appointment-card-client{display:flex;gap:10px;align-items:center}.appointment-card .avatar{width:42px;height:42px}.appointment-card-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px}.appointment-card-meta div{padding:9px;border:1px solid var(--border);border-radius:12px}.appointment-card-meta span{display:block;color:var(--muted2);font-size:9px}.appointment-card-meta b{display:block;margin-top:4px;font-size:12px}.appointment-card-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.appt-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.appt-form .full{grid-column:1/-1}.client-search-wrap{position:relative}.client-results{position:absolute;z-index:20;left:0;right:0;top:100%;margin-top:5px;display:none;max-height:240px;overflow-y:auto;border:1px solid var(--border2);border-radius:15px;background:var(--surface2);backdrop-filter:blur(20px);box-shadow:var(--shadow)}.client-results.open{display:grid}.client-option{padding:11px 13px;border-bottom:1px solid var(--border);cursor:pointer}.client-option:last-child{border-bottom:0}.client-option:hover{background:rgba(168,85,247,.10)}.client-option strong{display:block}.client-option small{color:var(--muted2)}.selected-client{display:none;margin-top:7px;padding:10px 12px;border:1px solid rgba(168,85,247,.28);border-radius:13px;background:rgba(168,85,247,.08)}.selected-client.show{display:flex;justify-content:space-between;gap:8px;align-items:center}.selected-client button{border:0;background:none;color:var(--red);cursor:pointer;font-size:18px}.date-shortcuts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.date-shortcuts button{font-size:10px;padding:6px 9px;border-radius:9px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer}.modal-lg{width:min(850px,calc(100vw - 28px))}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.detail-item{padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.detail-item span{display:block;color:var(--muted2);font-size:10px}.detail-item b{display:block;margin-top:5px}.detail-notes{padding:13px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);line-height:1.9;color:var(--muted)}.status-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.status-actions button{min-height:43px}
+html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83,9,.12);border-color:rgba(180,83,9,.28)}html[data-theme=light] .appt-status.confirmed{color:#047857;background:rgba(5,150,105,.12);border-color:rgba(5,150,105,.28)}html[data-theme=light] .appt-status.completed{color:#6d28d9;background:rgba(124,58,237,.10);border-color:rgba(124,58,237,.24)}html[data-theme=light] .appt-status.no-show,html[data-theme=light] .appt-status.cancelled{color:#b91c1c;background:rgba(220,38,38,.10);border-color:rgba(220,38,38,.28)}html[data-theme=light] .appt-status.rescheduled{color:#0e7490;background:rgba(8,145,178,.10);border-color:rgba(8,145,178,.24)}
+@media(max-width:900px){.appointment-status-cards{grid-template-columns:1fr 1fr}.calendar-toolbar{align-items:flex-start;flex-direction:column}.calendar-controls{width:100%;justify-content:space-between}.day-board{grid-template-columns:1fr}.day-side{display:flex;align-items:center;gap:12px;text-align:right}.day-side .big-day{font-size:32px}.month-board{min-width:700px}.calendar-body{overflow-x:auto}.list-appt{grid-template-columns:65px 1fr}.list-appt>.appt-status{grid-column:2}.appt-form{grid-template-columns:1fr}.appt-form .full{grid-column:auto}.detail-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.appointment-status-cards{grid-template-columns:1fr 1fr}.view-switch{width:100%;justify-content:space-between}.view-btn{flex:1;padding:9px 6px;font-size:11px}.date-nav{align-self:flex-start}.calendar-controls{display:grid;grid-template-columns:1fr auto}.calendar-controls .view-switch{grid-column:1/-1}.week-board{grid-template-columns:repeat(7,130px)}.calendar-appt{min-width:0;width:100%}.time-slot{grid-template-columns:58px 1fr}.list-appt{grid-template-columns:58px 1fr}.list-appt .row-actions{grid-column:1/-1}.appointment-card-actions{grid-template-columns:1fr 1fr 1fr}.detail-grid{grid-template-columns:1fr}.status-actions{grid-template-columns:1fr 1fr}.hero-actions .btn{min-width:0}.calendar-heading h3{font-size:22px}}
+   .switch{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;background:var(--surface3);cursor:pointer}.switch input{display:none}.switch span{width:42px;height:24px;border-radius:99px;background:rgba(255,255,255,.10);position:relative;border:1px solid var(--border)}.switch span:after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#94a3b8;transition:.2s}.switch input:checked+span{background:rgba(168,85,247,.28);border-color:rgba(168,85,247,.55)}.switch input:checked+span:after{right:21px;background:var(--purple3);box-shadow:0 0 10px rgba(168,85,247,.45)}.switch b{font-size:12px}.textarea{resize:vertical;min-height:105px;line-height:1.8}.slot-empty{color:var(--muted2);font-size:10px;padding:7px 10px}.notification-item{display:block;width:100%;text-align:right;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);padding:11px 12px;cursor:pointer}.notification-item:hover{background:rgba(168,85,247,.08)}.notification-item strong{display:block;font-size:11px}.notification-item span{display:block;color:var(--muted2);font-size:10px;margin-top:4px}.notification-empty{padding:18px;color:var(--muted2);font-size:12px;text-align:center}.danger-box{padding:16px;border:1px solid rgba(220,38,38,.25);border-radius:16px;background:rgba(220,38,38,.07);display:grid;gap:7px}.danger-box strong{color:var(--red)}
+  </style>
+ </head>
+ <body>
+  <div class="app">
+   <div aria-hidden="true" class="ambient">
+    <div class="grid">
+    </div>
+    <div class="orb one">
+    </div>
+    <div class="orb two">
+    </div>
+    <div class="orb three">
+    </div>
+    <span class="float-x a">
+     &times;
+    </span>
+    <span class="float-x b">
+     &times;
+    </span>
+    <span class="float-x c">
+     &times;
+    </span>
+    <span class="float-x d">
+     &times;
+    </span>
+    <span class="float-x e">
+     &times;
+    </span>
+   </div>
+   <div class="shell">
+    <aside class="sidebar" id="sidebar">
+     <div class="brand">
+      <div class="brand-mark">
+       م
+      </div>
+      <div>
+       <strong>
+        مشاور
+       </strong>
+       <small>
+        Clinic Management System
+       </small>
+      </div>
+     </div>
+     <div class="sidebar-label">
+      منوی اصلی
+     </div>
+     <nav class="nav">
+      <a href="dashboard.html">
+       <span class="nav-icon">
+        ⌂
+       </span>
+       <span class="nav-label">
+        داشبورد
+       </span>
+      </a>
+      <a class="" href="clients.html">
+       <span class="nav-icon">
+        ♙
+       </span>
+       <span class="nav-label">
+        مراجعین
+       </span>
+       <span class="nav-badge" id="navClientBadge">
+        ۰
+       </span>
+      </a>
+      <a class="active" href="appointments.html">
+       <span class="nav-icon">
+        ◫
+       </span>
+       <span class="nav-label">
+        نوبت&zwnj;ها
+       </span>
+      </a>
+      <a href="follow-ups.html">
+       <span class="nav-icon">
+        &orarr;
+       </span>
+       <span class="nav-label">
+        پیگیری&zwnj;ها
+       </span>
+       <span class="nav-badge" id="navFollowBadge">
+        ۰
+       </span>
+      </a>
+      <a href="notes.html">
+       <span class="nav-icon">
+        ✎
+       </span>
+       <span class="nav-label">
+        یادداشت&zwnj;ها
+       </span>
+      </a>
+      <a href="reports.html">
+       <span class="nav-icon">
+        ◒
+       </span>
+       <span class="nav-label">
+        گزارش&zwnj;ها
+       </span>
+      </a>
+     </nav>
+     <div class="sidebar-label" style="margin-top:18px">
+      دسترسی سریع
+     </div>
+     <nav class="nav">
+      <a href="appointments.html?new=1">
+       <span class="nav-icon">
+        ＋
+       </span>
+       <span class="nav-label">
+        ثبت نوبت جدید
+       </span>
+      </a>
+      <a href="clients.html?new=1">
+       <span class="nav-icon">
+        ✚
+       </span>
+       <span class="nav-label">
+        ثبت مراجع جدید
+       </span>
+      </a>
+     </nav>
+     <div class="sidebar-bottom">
+      <div class="profile-mini">
+       <div class="avatar" id="sidebarAvatar">
+        م
+       </div>
+       <div>
+        <strong id="userName">
+         مشاور
+        </strong>
+        <small id="userRole">
+         مشاور کلینیک
+        </small>
+       </div>
+      </div>
+      <button class="logout" id="logout">
+       خروج از حساب
+      </button>
+     </div>
+     <div class="sidebar-scroll">
+      <div class="sidebar-scroll-thumb" id="sidebarScrollThumb">
+      </div>
+     </div>
+    </aside>
+    <main class="main">
+     <header class="topbar">
+      <div class="topbar-title">
+       <small>
+        پنل مشاور
+       </small>
+       <h1>
+        نوبت&zwnj;ها
+       </h1>
+      </div>
+      <div class="top-actions">
+       <button class="icon-btn" id="quickToday" title="امروز">
+        ⌂
+       </button>
+       <button class="icon-btn" id="notificationsBtn" title="اعلان&zwnj;ها">
+        ♢
+        <i class="notification-dot" id="notificationDot">
+        </i>
+       </button>
+       <button class="icon-btn" id="theme" title="تغییر پوسته">
+        ☾
+       </button>
+       <button class="icon-btn menu-btn" id="menu" title="منو">
+        ☰
+       </button>
+      </div>
+      <div class="popover" id="notificationPopover">
+       <div class="popover-head">
+        <strong>
+         اعلان&zwnj;های نوبت&zwnj;ها
+        </strong>
+        <button id="markRead">
+         خواندم
+        </button>
+       </div>
+       <div id="notificationList">
+       </div>
+      </div>
+     </header>
+     <section class="hero appointment-hero">
+      <div class="hero-content">
+       <div class="hero-copy">
+        <div class="eyebrow">
+         <span class="live-dot">
+         </span>
+         مدیریت حرفه&zwnj;ای نوبت&zwnj;ها
+        </div>
+        <h2>
+         تقویم، نوبت و حضور؛ یکپارچه و تحت کنترل.
+        </h2>
+        <p>
+         ثبت، جابه&zwnj;جایی، لغو، حضور، عدم حضور، پایان جلسه و یادآوری نوبت&zwnj;ها از یک فضای شیشه&zwnj;ای و یکپارچه.
+        </p>
+        <div class="hero-actions">
+         <button class="btn primary" id="addAppointment">
+          ＋ ثبت نوبت جدید
+         </button>
+         <button class="btn" id="todayBtn">
+          ⌂ امروز
+         </button>
+         <button class="btn" id="openTodayList">
+          ◫ نوبت&zwnj;های امروز
+         </button>
+         <button class="btn" id="openPending">
+          ◷ نوبت&zwnj;های در انتظار
+         </button>
+        </div>
+       </div>
+       <div class="control-brief">
+        <div class="control-brief-head">
+         <div>
+          <span>
+           کنترل سریع نوبت&zwnj;ها
+          </span>
+          <strong>
+           وضعیت لحظه&zwnj;ای
+          </strong>
+         </div>
+         <i>
+          ◫
+         </i>
+        </div>
+        <div class="control-metrics">
+         <button data-control="today">
+          <span>
+           امروز
+          </span>
+          <b id="heroToday">
+           ۰
+          </b>
+         </button>
+         <button data-control="week">
+          <span>
+           این هفته
+          </span>
+          <b id="heroWeek">
+           ۰
+          </b>
+         </button>
+         <button data-control="pending">
+          <span>
+           در انتظار
+          </span>
+          <b id="heroPending">
+           ۰
+          </b>
+         </button>
+         <button data-control="noshow">
+          <span>
+           عدم حضور
+          </span>
+          <b id="heroNoShow">
+           ۰
+          </b>
+         </button>
+        </div>
+        <div class="control-foot">
+         <span>
+          حضور ثبت&zwnj;شده امروز
+         </span>
+         <b id="heroAttendance">
+          ۰٪
+         </b>
+         <div class="control-progress">
+          <i id="heroAttendanceBar">
+          </i>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="kpis" id="kpis">
+      <article class="glass kpi appointment-kpi" data-kpi="today">
+       <div class="kpi-top">
+        <span>
+         نوبت&zwnj;های امروز
+        </span>
+        <span class="kpi-icon">
+         ◫
+        </span>
+       </div>
+       <strong id="kpiToday">
+        ۰
+       </strong>
+       <small>
+        <b class="up">
+         امروز
+        </b>
+        در تقویم مشاور
+       </small>
+      </article>
+      <article class="glass kpi appointment-kpi" data-kpi="week">
+       <div class="kpi-top">
+        <span>
+         نوبت&zwnj;های هفته
+        </span>
+        <span class="kpi-icon">
+         ▦
+        </span>
+       </div>
+       <strong id="kpiWeek">
+        ۰
+       </strong>
+       <small>
+        <b class="up">
+         هفته جاری
+        </b>
+        مجموع نوبت&zwnj;ها
+       </small>
+      </article>
+      <article class="glass kpi appointment-kpi" data-kpi="pending">
+       <div class="kpi-top">
+        <span>
+         در انتظار تأیید
+        </span>
+        <span class="kpi-icon">
+         ◷
+        </span>
+       </div>
+       <strong id="kpiPending">
+        ۰
+       </strong>
+       <small>
+        <b class="warn">
+         نیازمند اقدام
+        </b>
+        برای تأیید
+       </small>
+      </article>
+      <article class="glass kpi appointment-kpi" data-kpi="attendance">
+       <div class="kpi-top">
+        <span>
+         نرخ حضور
+        </span>
+        <span class="kpi-icon">
+         &checkmark;
+        </span>
+       </div>
+       <strong id="kpiAttendance">
+        ۰٪
+       </strong>
+       <small>
+        <b class="up">
+         حضور
+        </b>
+        از نوبت&zwnj;های انجام&zwnj;شده
+       </small>
+      </article>
+     </section>
+     <section class="insights appointment-insights">
+      <article class="glass panel">
+       <div class="panel-head">
+        <div class="panel-title">
+         <strong>
+          وضعیت نوبت&zwnj;ها
+         </strong>
+         <span>
+          هر وضعیت مستقیماً فهرست مربوط به خود را نمایش می&zwnj;دهد.
+         </span>
+        </div>
+        <button class="panel-link" id="showAllAppointments">
+         نمایش همه &larr;
+        </button>
+       </div>
+       <div class="status-visual">
+        <div class="status-donut appointment-donut" id="appointmentDonut">
+         <div class="status-donut-inner">
+          <strong id="statusTotal">
+           ۰
+          </strong>
+          <span>
+           کل نوبت&zwnj;ها
+          </span>
+         </div>
+        </div>
+        <div class="status-legend">
+         <button class="legend-row" data-status="confirmed">
+          <span class="legend-left">
+           <i class="dot green">
+           </i>
+           تأییدشده
+           <small id="confirmedPct">
+            ۰٪
+           </small>
+          </span>
+          <b class="legend-value" id="confirmedCount">
+           ۰
+          </b>
+         </button>
+         <button class="legend-row" data-status="pending">
+          <span class="legend-left">
+           <i class="dot yellow">
+           </i>
+           در انتظار
+           <small id="pendingPct">
+            ۰٪
+           </small>
+          </span>
+          <b class="legend-value" id="pendingCount">
+           ۰
+          </b>
+         </button>
+         <button class="legend-row" data-status="completed">
+          <span class="legend-left">
+           <i class="dot purple-dot">
+           </i>
+           انجام&zwnj;شده
+           <small id="completedPct">
+            ۰٪
+           </small>
+          </span>
+          <b class="legend-value" id="completedCount">
+           ۰
+          </b>
+         </button>
+         <button class="legend-row" data-status="cancelled">
+          <span class="legend-left">
+           <i class="dot red">
+           </i>
+           لغوشده
+           <small id="cancelledPct">
+            ۰٪
+           </small>
+          </span>
+          <b class="legend-value" id="cancelledCount">
+           ۰
+          </b>
+         </button>
+        </div>
+       </div>
+       <div class="appointment-status-cards">
+        <button class="status-card" data-status="confirmed">
+         <div class="status-top">
+          <span>
+           <i class="dot green">
+           </i>
+           تأییدشده
+          </span>
+          <b id="confirmedCard">
+           ۰
+          </b>
+         </div>
+         <div class="status-number">
+          ۰
+         </div>
+         <div class="status-help">
+          نوبت&zwnj;های تأییدشده
+         </div>
+        </button>
+        <button class="status-card" data-status="pending">
+         <div class="status-top">
+          <span>
+           <i class="dot yellow">
+           </i>
+           در انتظار
+          </span>
+          <b id="pendingCard">
+           ۰
+          </b>
+         </div>
+         <div class="status-number">
+          ۰
+         </div>
+         <div class="status-help">
+          نیازمند تأیید مشاور
+         </div>
+        </button>
+        <button class="status-card" data-status="completed">
+         <div class="status-top">
+          <span>
+           <i class="dot purple-dot">
+           </i>
+           انجام&zwnj;شده
+          </span>
+          <b id="completedCard">
+           ۰
+          </b>
+         </div>
+         <div class="status-number">
+          ۰
+         </div>
+         <div class="status-help">
+          جلسات تکمیل&zwnj;شده
+         </div>
+        </button>
+        <button class="status-card" data-status="cancelled">
+         <div class="status-top">
+          <span>
+           <i class="dot red">
+           </i>
+           لغوشده
+          </span>
+          <b id="cancelledCard">
+           ۰
+          </b>
+         </div>
+         <div class="status-number">
+          ۰
+         </div>
+         <div class="status-help">
+          نوبت&zwnj;های لغوشده
+         </div>
+        </button>
+       </div>
+      </article>
+      <article class="glass panel">
+       <div class="panel-head">
+        <div class="panel-title">
+         <strong>
+          کارهای فوری نوبت&zwnj;ها
+         </strong>
+         <span>
+          اقدام&zwnj;های این بخش مستقیماً روی نوبت ذخیره&zwnj;شده اعمال می&zwnj;شوند.
+         </span>
+        </div>
+       </div>
+       <div class="action-grid">
+        <button class="action-card" id="actionPending">
+         <div class="action-icon">
+          ◷
+         </div>
+         <strong>
+          تأیید نوبت&zwnj;ها
+         </strong>
+         <small id="actionPendingText">
+          در حال محاسبه...
+         </small>
+        </button>
+        <button class="action-card" id="actionToday">
+         <div class="action-icon">
+          ◫
+         </div>
+         <strong>
+          نوبت&zwnj;های امروز
+         </strong>
+         <small id="actionTodayText">
+          در حال محاسبه...
+         </small>
+        </button>
+        <button class="action-card" id="actionNoShow">
+         <div class="action-icon">
+          !
+         </div>
+         <strong>
+          پیگیری عدم حضور
+         </strong>
+         <small id="actionNoShowText">
+          در حال محاسبه...
+         </small>
+        </button>
+        <button class="action-card" id="actionExport">
+         <div class="action-icon">
+          ⇩
+         </div>
+         <strong>
+          خروجی نوبت&zwnj;ها
+         </strong>
+         <small>
+          داده&zwnj;های فیلترشده را دریافت کنید
+         </small>
+        </button>
+       </div>
+      </article>
+     </section>
+     <section class="glass calendar-panel" id="calendarPanel">
+      <div class="calendar-toolbar">
+       <div class="calendar-heading">
+        <div class="eyebrow">
+         <span class="live-dot">
+         </span>
+         تقویم کاری
+        </div>
+        <h3 id="calendarTitle">
+         امروز
+        </h3>
+        <span id="calendarSubtitle">
+         تقویم نوبت&zwnj;های مشاور
+        </span>
+       </div>
+       <div class="calendar-controls">
+        <div class="view-switch">
+         <button class="view-btn active" data-view="day">
+          روز
+         </button>
+         <button class="view-btn" data-view="week">
+          هفته
+         </button>
+         <button class="view-btn" data-view="month">
+          ماه
+         </button>
+         <button class="view-btn" data-view="list">
+          فهرست
+         </button>
+        </div>
+        <div class="date-nav">
+         <button class="icon-btn small-icon" id="prevDate">
+          &lsaquo;
+         </button>
+         <button class="btn small" id="calendarToday">
+          امروز
+         </button>
+         <button class="icon-btn small-icon" id="nextDate">
+          &rsaquo;
+         </button>
+        </div>
+       </div>
+      </div>
+      <div class="calendar-body" id="calendarBody">
+      </div>
+     </section>
+     <section class="glass filters" id="filtersPanel">
+      <div class="panel-head">
+       <div class="panel-title">
+        <strong>
+         جستجو و فیلتر نوبت&zwnj;ها
+        </strong>
+        <span>
+         جستجو بر اساس مراجع، خدمت، وضعیت، نوع جلسه و تاریخ شمسی.
+        </span>
+       </div>
+       <button class="btn small danger" id="resetFilters">
+        پاک&zwnj;سازی همه &times;
+       </button>
+      </div>
+      <div class="filter-grid appointment-filters">
+       <div class="field search-field">
+        <label>
+         جستجوی سریع
+        </label>
+        <input autocomplete="off" class="input" id="search" placeholder="نام مراجع، موبایل، خدمت..."/>
+       </div>
+       <div class="field">
+        <label>
+         وضعیت
+        </label>
+        <select class="select" id="filterStatus">
+         <option value="">
+          همه وضعیت&zwnj;ها
+         </option>
+         <option value="pending">
+          در انتظار
+         </option>
+         <option value="confirmed">
+          تأییدشده
+         </option>
+         <option value="completed">
+          انجام&zwnj;شده
+         </option>
+         <option value="no-show">
+          عدم حضور
+         </option>
+         <option value="cancelled">
+          لغوشده
+         </option>
+         <option value="rescheduled">
+          جابجا&zwnj;شده
+         </option>
+        </select>
+       </div>
+       <div class="field">
+        <label>
+         نوع جلسه
+        </label>
+        <select class="select" id="filterMode">
+         <option value="">
+          همه
+         </option>
+         <option value="حضوری">
+          حضوری
+         </option>
+         <option value="غیر حضوری">
+          غیر حضوری
+         </option>
+        </select>
+       </div>
+       <div class="field">
+        <label>
+         خدمت
+        </label>
+        <select class="select" id="filterService">
+         <option value="">
+          همه خدمات
+         </option>
+        </select>
+       </div>
+       <div class="field">
+        <label>
+         از تاریخ شمسی
+        </label>
+        <input class="input" id="filterFrom" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۰۱"/>
+       </div>
+       <div class="field">
+        <label>
+         تا تاریخ شمسی
+        </label>
+        <input class="input" id="filterTo" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۳۰"/>
+       </div>
+       <div class="filter-actions">
+        <button class="btn primary small" id="applyFilters">
+         اعمال فیلتر
+        </button>
+        <button class="btn small" id="clearFilters">
+         حذف فیلتر
+        </button>
+       </div>
+      </div>
+     </section>
+     <section class="glass table-panel" id="appointmentsPanel">
+      <div class="table-head">
+       <div class="panel-title">
+        <strong>
+         فهرست نوبت&zwnj;ها
+        </strong>
+        <span id="listMeta">
+         ۰ نوبت
+        </span>
+       </div>
+       <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn small" id="exportCsv">
+         ⇩ خروجی CSV
+        </button>
+        <button class="btn primary small" id="addAppointment2">
+         ＋ ثبت نوبت
+        </button>
+       </div>
+      </div>
+      <div class="table-wrap">
+       <table class="table appointment-table">
+        <thead>
+         <tr>
+          <th>
+           #
+          </th>
+          <th>
+           مراجع
+          </th>
+          <th>
+           تاریخ
+          </th>
+          <th>
+           ساعت
+          </th>
+          <th>
+           خدمت
+          </th>
+          <th>
+           نوع
+          </th>
+          <th>
+           وضعیت
+          </th>
+          <th>
+           یادآوری
+          </th>
+          <th>
+           عملیات
+          </th>
+         </tr>
+        </thead>
+        <tbody id="appointmentRows">
+        </tbody>
+       </table>
+      </div>
+      <div class="mobile-list" id="mobileAppointments">
+      </div>
+      <div class="empty" id="emptyState">
+       <strong>
+        نوبتی با این فیلتر پیدا نشد.
+       </strong>
+       <span>
+        فیلترها را تغییر دهید یا یک نوبت جدید ثبت کنید.
+       </span>
+      </div>
+      <div class="pagination">
+       <span class="table-meta" id="pageMeta">
+        نمایش ۰ تا ۰
+       </span>
+       <div class="pages" id="pages">
+       </div>
+      </div>
+     </section>
+     <div class="scroll-top" id="scrollTop">
+      &uarr;
+     </div>
+     <div class="modal-backdrop" id="appointmentModal">
+      <div class="modal modal-lg">
+       <div class="modal-head">
+        <div>
+         <small>
+          مدیریت نوبت
+         </small>
+         <h3 id="modalTitle">
+          ثبت نوبت جدید
+         </h3>
+        </div>
+        <button class="modal-close" data-close="appointmentModal">
+         &times;
+        </button>
+       </div>
+       <form class="modal-body appt-form" id="appointmentForm">
+        <input id="appointmentId" type="hidden"/>
+        <div class="field full client-search-wrap">
+         <label>
+          مراجع *
+         </label>
+         <select class="select" id="appointmentClient">
+          <option value="">
+           انتخاب مراجع
+          </option>
+         </select>
+         <div class="client-results" id="clientResults">
+         </div>
+         <div class="selected-client" id="selectedClient">
+         </div>
+         <div style="margin-top:8px">
+          <input autocomplete="off" class="input" id="clientSearch" placeholder="جستجوی سریع مراجع برای انتخاب..."/>
+         </div>
+        </div>
+        <div class="field">
+         <label>
+          تاریخ شمسی *
+         </label>
+         <input class="input" id="appointmentDate" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۰۱" required=""/>
+         <div class="date-shortcuts">
+          <button data-add="0" type="button">
+           امروز
+          </button>
+          <button data-add="1" type="button">
+           فردا
+          </button>
+          <button data-add="2" type="button">
+           پس&zwnj;فردا
+          </button>
+         </div>
+        </div>
+        <div class="field">
+         <label>
+          ساعت *
+         </label>
+         <input class="input" id="appointmentTime" required="" type="time"/>
+        </div>
+        <div class="field">
+         <label>
+          مدت جلسه
+         </label>
+         <select class="select" id="appointmentDuration">
+          <option value="30">
+           ۳۰ دقیقه
+          </option>
+          <option value="45">
+           ۴۵ دقیقه
+          </option>
+          <option selected="" value="60">
+           ۶۰ دقیقه
+          </option>
+          <option value="90">
+           ۹۰ دقیقه
+          </option>
+          <option value="120">
+           ۱۲۰ دقیقه
+          </option>
+         </select>
+        </div>
+        <div class="field">
+         <label>
+          خدمت *
+         </label>
+         <input class="input" id="appointmentService" placeholder="مثلاً مشاوره زیبایی" required=""/>
+        </div>
+        <div class="field">
+         <label>
+          نوع جلسه
+         </label>
+         <select class="select" id="appointmentMode">
+          <option>
+           حضوری
+          </option>
+          <option>
+           غیر حضوری
+          </option>
+         </select>
+        </div>
+        <div class="field">
+         <label>
+          وضعیت
+         </label>
+         <select class="select" id="appointmentStatus">
+          <option value="pending">
+           در انتظار
+          </option>
+          <option value="confirmed">
+           تأییدشده
+          </option>
+          <option value="completed">
+           انجام&zwnj;شده
+          </option>
+          <option value="no-show">
+           عدم حضور
+          </option>
+          <option value="cancelled">
+           لغوشده
+          </option>
+          <option value="rescheduled">
+           جابجا&zwnj;شده
+          </option>
+         </select>
+        </div>
+        <div class="field">
+         <label>
+          یادآوری
+         </label>
+         <label class="switch">
+          <input checked="" id="appointmentReminder" type="checkbox"/>
+          <span>
+          </span>
+          <b>
+           یادآوری فعال باشد
+          </b>
+         </label>
+        </div>
+        <div class="field full">
+         <label>
+          یادداشت نوبت
+         </label>
+         <textarea class="input textarea" id="appointmentNotes" placeholder="موضوع جلسه، نکات لازم یا توضیحات داخلی..." rows="4"></textarea>
+        </div>
+        <div class="modal-actions full">
+         <button class="btn" data-close="appointmentModal" type="button">
+          انصراف
+         </button>
+         <button class="btn primary" type="submit">
+          ذخیره نوبت
+         </button>
+        </div>
+       </form>
+      </div>
+     </div>
+     <div class="modal-backdrop" id="detailModal">
+      <div class="modal modal-lg">
+       <div class="modal-head">
+        <div>
+         <small>
+          نمایش کامل
+         </small>
+         <h3 id="detailTitle">
+          جزئیات نوبت
+         </h3>
+        </div>
+        <button class="modal-close" data-close="detailModal">
+         &times;
+        </button>
+       </div>
+       <div class="modal-body" id="detailBody">
+       </div>
+      </div>
+     </div>
+     <div class="modal-backdrop" id="deleteModal">
+      <div class="modal">
+       <div class="modal-head">
+        <div>
+         <small>
+          تأیید عملیات
+         </small>
+         <h3>
+          حذف نوبت
+         </h3>
+        </div>
+        <button class="modal-close" data-close="deleteModal">
+         &times;
+        </button>
+       </div>
+       <div class="modal-body">
+        <div class="danger-box">
+         <strong>
+          حذف این نوبت؟
+         </strong>
+         <span id="deleteText">
+          این عمل قابل بازگشت نیست.
+         </span>
+        </div>
+        <div class="modal-actions">
+         <button class="btn" data-close="deleteModal">
+          انصراف
+         </button>
+         <button class="btn danger" id="confirmDelete">
+          حذف نوبت
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+   <nav class="mobile-nav" style="position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));min-height:66px;padding:7px;border:1px solid var(--border);border-radius:22px;background:rgba(15,9,24,.80);backdrop-filter:blur(25px) saturate(160%);box-shadow:0 20px 50px rgba(0,0,0,.28);z-index:90;align-items:stretch">
+    <a href="dashboard.html">
+     <b>
+      ⌂
+     </b>
+     <span>
+      خانه
+     </span>
+    </a>
+    <a class="" href="clients.html">
+     <b>
+      ♙
+     </b>
+     <span>
+      مراجعین
+     </span>
+    </a>
+    <a class="active" href="appointments.html">
+     <b>
+      ◫
+     </b>
+     <span>
+      نوبت&zwnj;ها
+     </span>
+    </a>
+    <a href="follow-ups.html">
+     <b>
+      &orarr;
+     </b>
+     <span>
+      پیگیری
+     </span>
+    </a>
+    <button id="mobileMenu">
+     <b>
+      &bull;&bull;&bull;
+     </b>
+     <span>
+      بیشتر
+     </span>
+    </button>
+   </nav>
+   <button aria-label="بازگشت به بالای صفحه" class="scroll-top" id="scrollTop" title="بازگشت به بالا">
+    <span>
+     &uarr;
+    </span>
+   </button>
+   <div class="toast" id="toast">
+    <div class="toast-icon">
+     &checkmark;
+    </div>
+    <div>
+     <strong id="toastTitle">
+      انجام شد
+     </strong>
+     <span id="toastText">
+      عملیات با موفقیت انجام شد.
+     </span>
+    </div>
+   </div>
+   <!-- Client form -->
+   <div class="modal-backdrop" id="clientModal">
+    <div class="modal">
+     <div class="modal-head">
+      <strong id="clientModalTitle">
+       ثبت مراجع جدید
+      </strong>
+      <button class="close" data-close="clientModal">
+       &times;
+      </button>
+     </div>
+     <form id="clientForm">
+      <div class="modal-body">
+       <section class="form-section">
+        <div class="form-section-title">
+         <strong>
+          اطلاعات پایه پرونده
+         </strong>
+         <span>
+          نام و موبایل برای شناسایی سریع
+         </span>
+        </div>
+        <div class="form-grid">
+         <div class="field">
+          <label class="required">
+           نام
+          </label>
+          <input class="input" id="firstName" required=""/>
+         </div>
+         <div class="field">
+          <label class="required">
+           نام خانوادگی
+          </label>
+          <input class="input" id="lastName" required=""/>
+         </div>
+         <div class="field">
+          <label class="required">
+           شماره موبایل
+          </label>
+          <input class="input" id="mobile" inputmode="tel" placeholder="09xxxxxxxxx" required=""/>
+         </div>
+         <div class="field">
+          <label>
+           کد پرونده
+          </label>
+          <input class="input" id="caseCode" placeholder="اختیاری"/>
+         </div>
+         <div class="field">
+          <label>
+           سن
+          </label>
+          <input class="input" id="age" max="120" min="0" type="number"/>
+         </div>
+         <div class="field">
+          <label>
+           شهر
+          </label>
+          <input class="input" id="city"/>
+         </div>
+         <div class="field" style="grid-column:1/-1">
+          <label>
+           آدرس
+          </label>
+          <textarea class="textarea" id="address" placeholder="آدرس یا توضیحات محل سکونت"></textarea>
+         </div>
+        </div>
+       </section>
+       <section class="form-section">
+        <div class="form-section-title">
+         <strong>
+          خدمت و وضعیت پرونده
+         </strong>
+         <span>
+          قابل جستجو و قابل توسعه
+         </span>
+        </div>
+        <div class="form-grid">
+         <div class="field">
+          <label class="required">
+           نوع خدمت
+          </label>
+          <div class="service-wrap">
+           <input autocomplete="off" class="input" id="service" placeholder="مثلاً عمل بینی، کاشت مو..." required=""/>
+           <div class="service-results" id="serviceResults">
+           </div>
+          </div>
+         </div>
+         <div class="field">
+          <label class="required">
+           وضعیت
+          </label>
+          <select class="select" id="status" required="">
+           <option value="active">
+            فعال
+           </option>
+           <option value="waiting">
+            انتظار
+           </option>
+           <option value="closed">
+            بسته / غیرفعال
+           </option>
+           <option value="cancelled">
+            لغوشده
+           </option>
+          </select>
+         </div>
+         <div class="field">
+          <label>
+           نوع مشاوره
+          </label>
+          <select class="select" id="mode">
+           <option>
+            حضوری
+           </option>
+           <option>
+            غیر حضوری
+           </option>
+          </select>
+         </div>
+         <div class="field">
+          <label>
+           آخرین جلسه &mdash; تاریخ شمسی
+          </label>
+          <input class="input jalali-date" id="lastDate" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۰۱"/>
+         </div>
+         <div class="field">
+          <label>
+           آخرین جلسه &mdash; ساعت
+          </label>
+          <input class="input" id="lastTime" type="time"/>
+         </div>
+         <div class="field">
+          <label>
+           پیگیری بعدی &mdash; تاریخ شمسی
+          </label>
+          <input class="input jalali-date" id="followDate" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۰۵"/>
+         </div>
+         <div class="field">
+          <label>
+           پیگیری بعدی &mdash; ساعت
+          </label>
+          <input class="input" id="followTime" type="time"/>
+         </div>
+        </div>
+       </section>
+       <section class="form-section">
+        <div class="form-section-title">
+         <strong>
+          اطلاعات پزشکی
+         </strong>
+         <span>
+          در صورت نیاز توضیحات بیماری باز می&zwnj;شود
+         </span>
+        </div>
+        <div class="check-row">
+         <label class="check">
+          <input id="allergy" type="checkbox"/>
+          حساسیت دارد
+         </label>
+         <label class="check">
+          <input id="disease" type="checkbox"/>
+          بیماری خاص دارد
+         </label>
+         <label class="check">
+          <input id="lab" type="checkbox"/>
+          آزمایش دارد
+         </label>
+        </div>
+        <div class="conditional" id="diseaseBox">
+         <div class="field">
+          <label>
+           توضیحات بیماری
+          </label>
+          <textarea class="textarea" id="diseaseDescription" placeholder="نوع بیماری، داروها، نکات مهم پزشکی..."></textarea>
+         </div>
+        </div>
+        <div class="conditional" id="allergyBox">
+         <div class="field">
+          <label>
+           توضیحات حساسیت
+          </label>
+          <textarea class="textarea" id="allergyDescription" placeholder="حساسیت به دارو، ماده یا مورد خاص..."></textarea>
+         </div>
+        </div>
+       </section>
+       <section class="form-section">
+        <div class="form-section-title">
+         <strong>
+          پرداخت و بیعانه
+         </strong>
+         <span>
+          اطلاعات مالی پرونده
+         </span>
+        </div>
+        <div class="form-grid">
+         <div class="field">
+          <label>
+           شرایط پرداخت
+          </label>
+          <select class="select" id="payment">
+           <option value="cash">
+            نقدی
+           </option>
+           <option value="installment">
+            اقساط
+           </option>
+          </select>
+         </div>
+         <div class="field">
+          <label>
+           مبلغ بیعانه
+          </label>
+          <input class="input" id="deposit" inputmode="numeric" min="0" placeholder="تومان" type="number"/>
+         </div>
+         <div class="field">
+          <label>
+           تصویر واریزی بیعانه
+          </label>
+          <label class="upload" style="min-height:48px;padding:5px">
+           <input accept="image/*" id="depositImage" type="file"/>
+           <strong>
+            ＋ انتخاب تصویر
+           </strong>
+           <span id="depositImageName">
+            فایل انتخاب نشده
+           </span>
+          </label>
+         </div>
+        </div>
+        <div class="previews" id="depositPreview">
+        </div>
+       </section>
+       <section class="form-section">
+        <div class="form-section-title">
+         <strong>
+          تصاویر قبل و بعد
+         </strong>
+         <span>
+          بعداً داخل پرونده نمایش داده می&zwnj;شوند
+         </span>
+        </div>
+        <div class="upload-box">
+         <label class="upload">
+          <input accept="image/*" id="beforeImages" multiple="" type="file"/>
+          <strong>
+           ＋ تصاویر قبل
+          </strong>
+          <span>
+           چند تصویر قابل انتخاب است
+          </span>
+         </label>
+         <label class="upload">
+          <input accept="image/*" id="afterImages" multiple="" type="file"/>
+          <strong>
+           ＋ تصاویر بعد
+          </strong>
+          <span>
+           چند تصویر قابل انتخاب است
+          </span>
+         </label>
+        </div>
+        <div class="previews" id="beforePreview">
+        </div>
+        <div class="previews" id="afterPreview">
+        </div>
+       </section>
+       <section class="form-section">
+        <div class="form-section-title">
+         <strong>
+          توضیحات پرونده
+         </strong>
+         <span>
+          جدا از اطلاعات اصلی
+         </span>
+        </div>
+        <textarea class="textarea" id="description" placeholder="هر توضیحی که قبل از ذخیره پرونده لازم است..."></textarea>
+       </section>
+      </div>
+      <div class="modal-foot">
+       <button class="btn" data-close="clientModal" type="button">
+        انصراف
+       </button>
+       <button class="btn primary" id="saveClient" type="submit">
+        ذخیره پرونده
+       </button>
+      </div>
+     </form>
+    </div>
+   </div>
+   <!-- Preview/list modal -->
+   <div class="modal-backdrop" id="previewModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <strong id="previewTitle">
+       پیش&zwnj;نمایش
+      </strong>
+      <button class="close" data-close="previewModal">
+       &times;
+      </button>
+     </div>
+     <div class="modal-body" id="previewBody">
+     </div>
+    </div>
+   </div>
+   <!-- Profile modal -->
+   <div class="modal-backdrop" id="profileModal">
+    <div class="modal">
+     <div class="modal-head">
+      <strong id="profileTitle">
+       پرونده مراجع
+      </strong>
+      <button class="close" data-close="profileModal">
+       &times;
+      </button>
+     </div>
+     <div class="modal-body" id="profileBody">
+     </div>
+    </div>
+   </div>
+   <!-- Contact editor modal -->
+   <div class="modal-backdrop" id="contactModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <strong id="contactModalTitle">
+       ثبت / اصلاح تماس
+      </strong>
+      <button class="close" data-close="contactModal">
+       &times;
+      </button>
+     </div>
+     <form id="contactForm">
+      <div class="modal-body">
+       <input id="contactClientId" type="hidden"/>
+       <input id="contactIndex" type="hidden"/>
+       <div class="contact-editor">
+        <div class="field">
+         <label>
+          مراجع
+         </label>
+         <input class="input" id="contactClientName" readonly=""/>
+        </div>
+        <div class="form-grid two">
+         <div class="field">
+          <label>
+           تاریخ تماس
+          </label>
+          <input class="input jalali-date" id="contactDate" required=""/>
+         </div>
+         <div class="field">
+          <label>
+           ساعت تماس
+          </label>
+          <input class="input" id="contactTime" required="" type="time"/>
+         </div>
+        </div>
+        <div class="field">
+         <label>
+          یادداشت تماس
+         </label>
+         <textarea class="textarea" id="contactNote" placeholder="خلاصه تماس، نتیجه، اقدام بعدی..."></textarea>
+        </div>
+        <div>
+         <div class="form-section-title">
+          <strong>
+           سوابق تماس
+          </strong>
+          <span>
+           قابل ویرایش
+          </span>
+         </div>
+         <div class="contact-history-list" id="contactHistoryList">
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="modal-foot">
+       <button class="btn" data-close="contactModal" type="button">
+        انصراف
+       </button>
+       <button class="btn primary" type="submit">
+        ذخیره تماس
+       </button>
+      </div>
+     </form>
+    </div>
+   </div>
+   <!-- Delete contact modal -->
+   <div class="modal-backdrop" id="deleteContactModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <strong>
+       حذف سابقه تماس
+      </strong>
+      <button class="close" data-close="deleteContactModal">
+       &times;
+      </button>
+     </div>
+     <div class="modal-body">
+      <div class="preview-card">
+       <div class="preview-client">
+        <div class="avatar" style="background:linear-gradient(145deg,#ef4444,#991b1b)">
+         &phone;
+        </div>
+        <div>
+         <strong id="deleteContactTitle">
+          حذف تماس
+         </strong>
+         <small id="deleteContactMeta">
+          &mdash;
+         </small>
+        </div>
+       </div>
+       <div class="detail" style="margin-top:12px">
+        <span>
+         تأیید حذف
+        </span>
+        <b style="line-height:2;color:#fecdd3">
+         این سابقه تماس از تاریخچه مراجع حذف می&zwnj;شود و قابل بازگشت نیست.
+        </b>
+       </div>
+      </div>
+     </div>
+     <div class="modal-foot">
+      <button class="btn" data-close="deleteContactModal">
+       انصراف
+      </button>
+      <button class="btn danger" id="confirmDeleteContact">
+       ⌫ حذف سابقه
+      </button>
+     </div>
+    </div>
+   </div>
+   <!-- Delete modal -->
+   <div class="modal-backdrop" id="deleteModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <strong>
+       حذف پرونده
+      </strong>
+      <button class="close" data-close="deleteModal">
+       &times;
+      </button>
+     </div>
+     <div class="modal-body">
+      <div class="preview-card">
+       <div class="preview-client">
+        <div class="avatar" id="deleteAvatar">
+         !
+        </div>
+        <div>
+         <strong id="deleteClientName">
+          &mdash;
+         </strong>
+         <small id="deleteClientMeta">
+          &mdash;
+         </small>
+        </div>
+       </div>
+       <div class="detail" style="margin-top:12px">
+        <span>
+         هشدار
+        </span>
+        <b style="line-height:2;color:#fecdd3">
+         این عملیات پرونده را از فهرست محلی این نسخه حذف می&zwnj;کند. قبل از ادامه از حذف آن مطمئن شوید.
+        </b>
+       </div>
+      </div>
+     </div>
+     <div class="modal-foot">
+      <button class="btn" data-close="deleteModal">
+       انصراف
+      </button>
+      <button class="btn danger" id="confirmDelete">
+       حذف پرونده
+      </button>
+     </div>
+    </div>
+   </div>
+   <!-- Appointment modal -->
+   <div class="modal-backdrop" id="appointmentModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <strong>
+       ثبت نوبت برای مراجع
+      </strong>
+      <button class="close" data-close="appointmentModal">
+       &times;
+      </button>
+     </div>
+     <form id="appointmentForm">
+      <div class="modal-body">
+       <input id="appointmentClientId" type="hidden"/>
+       <div class="form-grid">
+        <div class="field">
+         <label>
+          مراجع
+         </label>
+         <input class="input" id="appointmentClientName" readonly=""/>
+        </div>
+        <div class="field">
+         <label>
+          نوع خدمت
+         </label>
+         <input class="input" id="appointmentService"/>
+        </div>
+        <div class="field">
+         <label>
+          تاریخ شمسی
+         </label>
+         <input class="input jalali-date" id="appointmentDate" placeholder="۱۴۰۵/۰۷/۱۰" required=""/>
+        </div>
+        <div class="field">
+         <label>
+          ساعت
+         </label>
+         <input class="input" id="appointmentTime" required="" type="time"/>
+        </div>
+        <div class="field">
+         <label>
+          نوع نوبت
+         </label>
+         <select class="select" id="appointmentMode">
+          <option>
+           حضوری
+          </option>
+          <option>
+           غیر حضوری
+          </option>
+         </select>
+        </div>
+        <div class="field">
+         <label>
+          وضعیت
+         </label>
+         <select class="select" id="appointmentStatus">
+          <option value="confirmed">
+           تأیید شده
+          </option>
+          <option value="pending">
+           در انتظار
+          </option>
+         </select>
+        </div>
+        <div class="field" style="grid-column:1/-1">
+         <label>
+          توضیحات نوبت
+         </label>
+         <textarea class="textarea" id="appointmentNote" placeholder="توضیحات، آمادگی قبل از مراجعه، نکات اجرایی..."></textarea>
+        </div>
+       </div>
+      </div>
+      <div class="modal-foot">
+       <button class="btn" data-close="appointmentModal" type="button">
+        انصراف
+       </button>
+       <button class="btn primary">
+        ثبت نوبت
+       </button>
+      </div>
+     </form>
+    </div>
+   </div>
+   <script>
+    (function(){'use strict';
+const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+const LS={clients:'moshaver_clients',appointments:'moshaver_appointments',activity:'moshaver_activity',theme:'moshaver_theme',user:'moshaver_user'};
+const SERVICES=['عمل بینی','کاشت ابرو','کاشت مو','تزریق ژل','تزریق بوتاکس','فیلر لب','فیلر گونه','لیفت صورت','لیزر موهای زائد','جوانسازی پوست','میکرونیدلینگ','مزوتراپی','هایفو','RF','کانتورینگ صورت','بلفاروپلاستی','پیکرتراشی','لیپوساکشن','مراقبت پوست','مشاوره زیبایی','ویزیت عمومی'];
+let clients=[],appointments=[],activity=[],selectedClientId='',editingId='',view='day',cursorDate=new Date(),currentPage=1,pageSize=10;
+const faDigits='۰۱۲۳۴۵۶۷۸۹';
+function faNum(v){return String(v??'').replace(/\d/g,d=>faDigits[+d])} function enNum(v){return String(v??'').replace(/[۰-۹]/g,d=>faDigits.indexOf(d))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function uid(p='APT'){return p+'-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,7).toUpperCase()}
+function isoDate(d){return d.toISOString().slice(0,10)}
+function pad(n){return String(n).padStart(2,'0')}
+function gregorianToJalali(gy,gm,gd){const gdm=[0,31,59,90,120,151,181,212,243,273,304,334];let gy2=gm>2?gy+1:gy;let days=355666+365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)+gd+gdm[gm-1];let jy=-1595+33*Math.floor(days/12053);days%=12053;jy+=4*Math.floor(days/1461);days%=1461;if(days>365){jy+=Math.floor((days-1)/365);days=(days-1)%365}let jm=days<186?1+Math.floor(days/31):7+Math.floor((days-186)/30);let jd=1+(days<186?days%31:(days-186)%30);return [jy,jm,jd]}
+function jalaliToGregorian(jy,jm,jd){jy=+jy;jm=+jm;jd=+jd;let jy2=jy+1595;let days=-355668+365*jy2+Math.floor(jy2/33)*8+Math.floor((jy2%33+3)/4)+jd+(jm<7?(jm-1)*31:(jm-7)*30+186);let gy=400*Math.floor(days/146097);days%=146097;if(days>36524){gy+=100*Math.floor(--days/36524);days%=36524;if(days>=365)days++}gy+=4*Math.floor(days/1461);days%=1461;if(days>365){gy+=Math.floor((days-1)/365);days=(days-1)%365}let gd=days+1;const sal=[0,31,(gy%4===0&&(gy%100!==0||gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];let gm=1;while(gd>sal[gm]){gd-=sal[gm];gm++}return [gy,gm,gd]}
+function jalaliParts(d=new Date()){return gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate())} function jalaliStr(d=new Date()){const [y,m,day]=jalaliParts(d);return `${y}/${pad(m)}/${pad(day)}`} function parseJ(s){const a=enNum((s||'').replace(/-/g,'/')).split('/').map(Number);return a.length===3&&a.every(Number.isFinite)?a:null} function jKey(s){const a=parseJ(s);return a?a[0]*10000+a[1]*100+a[2]:0}
+function jToDate(s){const a=parseJ(s);if(!a)return null;const [y,m,d]=jalaliToGregorian(...a);return new Date(y,m-1,d)} function dateOnly(d){const x=new Date(d);x.setHours(0,0,0,0);return x}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x} function sameDay(a,b){return isoDate(a)===isoDate(b)}
+function startOfWeek(d){const x=dateOnly(d),day=x.getDay();return addDays(x,day===0?-6:1-day)} function endOfWeek(d){return addDays(startOfWeek(d),6)}
+function fmtWeekday(d){return new Intl.DateTimeFormat('fa-IR',{weekday:'long'}).format(d)} function fmtMonth(d){return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{month:'long',year:'numeric'}).format(d)}
+function statusLabel(s){return {'pending':'در انتظار','confirmed':'تأییدشده','completed':'انجام‌شده','no-show':'عدم حضور','cancelled':'لغوشده','rescheduled':'جابجا‌شده'}[s]||s}
+function statusClass(s){return s||'pending'} function initials(c){return (c?.firstName?.[0]||'م')+(c?.lastName?.[0]||'')}
+function load(){try{clients=JSON.parse(localStorage.getItem(LS.clients)||'[]');appointments=JSON.parse(localStorage.getItem(LS.appointments)||'[]');activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){clients=[];appointments=[];activity=[]}if(!clients.length){seedClients()}normalizeAppointments();save()}
+function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x[0],lastName:x[1],mobile:x[2],service:x[3],status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
+function normalizeAppointments(){appointments=appointments.map(a=>({...a,status:a.status||'pending',reminder:a.reminder!==false,mode:a.mode||'حضوری',date:a.date||a.jalaliDate||jalaliStr(new Date()),time:a.time||'10:00',duration:Number(a.duration)||60,service:a.service||'',notes:a.notes||'',createdAt:a.createdAt||new Date().toISOString(),updatedAt:a.updatedAt||new Date().toISOString()}))}
+function save(){localStorage.setItem(LS.clients,JSON.stringify(clients));localStorage.setItem(LS.appointments,JSON.stringify(appointments));localStorage.setItem(LS.activity,JSON.stringify(activity.slice(0,500)))}
+function clientById(id){return clients.find(c=>c.id===id)} function apptDate(a){return jToDate(a.date)}
+function apptsOn(d){return appointments.filter(a=>{const x=apptDate(a);return x&&sameDay(x,d)&&a.status!=='cancelled'})}
+function weekAppts(d=cursorDate){const s=startOfWeek(d),e=endOfWeek(d);return appointments.filter(a=>{const x=apptDate(a);return x&&x>=s&&x<=e&&a.status!=='cancelled'})}
+function todayAppts(){return apptsOn(new Date())}
+function pending(){return appointments.filter(a=>a.status==='pending')}
+function attendanceRate(){const done=appointments.filter(a=>['completed','no-show'].includes(a.status));return done.length?Math.round(done.filter(a=>a.status==='completed').length/done.length*100):0}
+function log(message,id){activity.unshift({id:uid('ACT'),type:'appointment',message,appointmentId:id,at:new Date().toISOString()})}
+function renderKpis(){const t=todayAppts(),w=weekAppts(),p=pending(),n=appointments.filter(a=>a.status==='no-show'),rate=attendanceRate();$('#kpiToday').textContent=faNum(t.length);$('#kpiWeek').textContent=faNum(w.length);$('#kpiPending').textContent=faNum(p.length);$('#kpiAttendance').textContent=faNum(rate)+'٪';$('#heroToday').textContent=faNum(t.length);$('#heroWeek').textContent=faNum(w.length);$('#heroPending').textContent=faNum(p.length);$('#heroNoShow').textContent=faNum(n.length);$('#heroAttendance').textContent=faNum(rate)+'٪';$('#heroAttendanceBar').style.width=rate+'%';renderStatus();renderActions();renderNotifications()}
+function renderStatus(){const counts={confirmed:0,pending:0,completed:0,cancelled:0};appointments.forEach(a=>{if(counts[a.status]!==undefined)counts[a.status]++});const total=appointments.length||1;Object.entries(counts).forEach(([k,v])=>{$('#'+k+'Count').textContent=faNum(v);$('#'+k+'Card').textContent=faNum(v)});$('#statusTotal').textContent=faNum(appointments.length);const p={};Object.entries(counts).forEach(([k,v])=>p[k]=Math.round(v/total*100));$('#confirmedPct').textContent=faNum(p.confirmed)+'٪';$('#pendingPct').textContent=faNum(p.pending)+'٪';$('#completedPct').textContent=faNum(p.completed)+'٪';$('#cancelledPct').textContent=faNum(p.cancelled)+'٪';let s=0;const seg=[['confirmed','var(--green)'],['pending','var(--yellow)'],['completed','var(--purple)'],['cancelled','var(--red)']].map(([k,c])=>{const e=s+p[k];const x=`${c} ${s}% ${e}%`;s=e;return x}).join(',');$('#appointmentDonut').style.background=`conic-gradient(${seg})`;$('.appointment-status-cards .status-card:nth-child(1) .status-number').textContent=faNum(counts.confirmed);$('.appointment-status-cards .status-card:nth-child(2) .status-number').textContent=faNum(counts.pending);$('.appointment-status-cards .status-card:nth-child(3) .status-number').textContent=faNum(counts.completed);$('.appointment-status-cards .status-card:nth-child(4) .status-number').textContent=faNum(counts.cancelled)}
+function renderActions(){const p=pending().length,t=todayAppts().length,n=appointments.filter(a=>a.status==='no-show').length;$('#actionPendingText').textContent=`${faNum(p)} نوبت نیازمند تأیید`;$('#actionTodayText').textContent=`${faNum(t)} نوبت برای امروز`;$('#actionNoShowText').textContent=`${faNum(n)} مورد نیازمند پیگیری`}
+function renderNotifications(){const arr=[];pending().slice(0,8).forEach(a=>{const c=clientById(a.clientId);arr.push({title:'نوبت در انتظار تأیید',text:`${c?c.firstName+' '+c.lastName:'مراجع'} — ${a.date} ${a.time}`,id:a.id})});todayAppts().filter(a=>a.reminder).slice(0,8).forEach(a=>{const c=clientById(a.clientId);arr.push({title:'نوبت امروز',text:`${c?c.firstName+' '+c.lastName:'مراجع'} — ساعت ${a.time}`,id:a.id})});$('#notificationList').innerHTML=arr.length?arr.map(x=>`<button class="notification-item" data-notification="${x.id}"><strong>${esc(x.title)}</strong><span>${esc(x.text)}</span></button>`).join(''):`<div class="notification-empty">اعلان جدیدی وجود ندارد.</div>`;$('#notificationDot').style.display=arr.length?'block':'none'}
+function filters(){return{q:$('#search').value.trim().toLowerCase(),status:$('#filterStatus').value,mode:$('#filterMode').value,service:$('#filterService').value,from:$('#filterFrom').value,to:$('#filterTo').value}}
+function filtered(){const f=filters();return appointments.filter(a=>{const c=clientById(a.clientId)||{};const hay=[c.firstName,c.lastName,c.mobile,a.service,a.notes,a.date,a.time].join(' ').toLowerCase();if(f.q&&!hay.includes(f.q))return false;if(f.status&&a.status!==f.status)return false;if(f.mode&&a.mode!==f.mode)return false;if(f.service&&a.service!==f.service)return false;if(f.from&&jKey(a.date)<jKey(f.from))return false;if(f.to&&jKey(a.date)>jKey(f.to))return false;return true}).sort((a,b)=>{const da=jKey(a.date)-jKey(b.date);return da||String(a.time).localeCompare(String(b.time))})}
+function renderTable(){const list=filtered(),pages=Math.max(1,Math.ceil(list.length/pageSize));if(currentPage>pages)currentPage=pages;const start=(currentPage-1)*pageSize,rows=list.slice(start,start+pageSize);$('#listMeta').textContent=`${faNum(list.length)} نوبت از ${faNum(appointments.length)}`;$('#pageMeta').textContent=list.length?`نمایش ${faNum(start+1)} تا ${faNum(Math.min(start+pageSize,list.length))}`:'نمایش ۰ تا ۰';$('#appointmentRows').innerHTML=rows.map((a,i)=>{const c=clientById(a.clientId)||{};return `<tr><td>${faNum(start+i+1)}</td><td><div class="client-cell"><div class="avatar">${esc(initials(c))}</div><div><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(c.mobile||'بدون موبایل')}</small></div></div></td><td>${faNum(a.date)}</td><td>${esc(a.time)}</td><td>${esc(a.service||c.service||'—')}</td><td>${esc(a.mode)}</td><td><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></td><td class="${a.reminder?'reminder-on':'reminder-off'}">${a.reminder?'✓ فعال':'خاموش'}</td><td><div class="row-actions"><button class="mini-btn" data-action="view" data-id="${a.id}">جزئیات</button><button class="mini-btn" data-action="edit" data-id="${a.id}">ویرایش</button><button class="mini-btn" data-action="status" data-id="${a.id}">وضعیت</button><button class="mini-btn delete-btn" data-action="delete" data-id="${a.id}">حذف</button></div></td></tr>`}).join('');$('#mobileAppointments').innerHTML=rows.map(a=>appointmentCard(a)).join('');$('#emptyState').classList.toggle('show',!rows.length);renderPages(pages)}
+function appointmentCard(a){const c=clientById(a.clientId)||{};return `<article class="appointment-card"><div class="appointment-card-head"><div class="appointment-card-client"><div class="avatar">${esc(initials(c))}</div><div><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(c.mobile||'')}</small></div></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div><div class="appointment-card-meta"><div><span>تاریخ</span><b>${faNum(a.date)}</b></div><div><span>ساعت</span><b>${esc(a.time)}</b></div><div><span>خدمت</span><b>${esc(a.service||'—')}</b></div><div><span>نوع</span><b>${esc(a.mode)}</b></div></div><div class="appointment-card-actions"><button class="mini-btn" data-action="view" data-id="${a.id}">جزئیات</button><button class="mini-btn" data-action="edit" data-id="${a.id}">ویرایش</button><button class="mini-btn" data-action="status" data-id="${a.id}">وضعیت</button></div></article>`}
+function renderPages(pages){$('#pages').innerHTML=Array.from({length:pages},(_,i)=>`<button class="page ${i+1===currentPage?'active':''}" data-page="${i+1}">${faNum(i+1)}</button>`).join('')}
+function renderCalendar(){const title=$('#calendarTitle'),sub=$('#calendarSubtitle');if(view==='day'){title.textContent=fmtMonth(cursorDate);sub.textContent=`${fmtWeekday(cursorDate)} · ${faNum(jalaliStr(cursorDate))}`;$('#calendarBody').innerHTML=renderDay()}else if(view==='week'){title.textContent='هفته کاری';sub.textContent=`${faNum(jalaliStr(startOfWeek(cursorDate)))} تا ${faNum(jalaliStr(endOfWeek(cursorDate)))}`;$('#calendarBody').innerHTML=renderWeek()}else if(view==='month'){title.textContent=fmtMonth(cursorDate);sub.textContent='تقویم ماهانه نوبت‌ها';$('#calendarBody').innerHTML=renderMonth()}else{title.textContent='فهرست نوبت‌ها';sub.textContent='مرتب‌شده بر اساس تاریخ و ساعت';$('#calendarBody').innerHTML=renderListBoard()}}
+function apptHtml(a){const c=clientById(a.clientId)||{};return `<button class="calendar-appt" data-calendar-id="${a.id}"><strong>${esc(a.time)} · ${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||c.service||'—')} · ${esc(a.mode)}</small><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></button>`}
+function renderDay(){let h=`<div class="day-board"><aside class="day-side"><div class="big-day">${faNum(jalaliParts(cursorDate)[2])}</div><div><strong>${fmtWeekday(cursorDate)}</strong><span>${esc(fmtMonth(cursorDate))}</span><span>${faNum(apptsOn(cursorDate).length)} نوبت</span></div></aside><div class="day-slots">`;for(let hour=8;hour<=20;hour++){const list=apptsOn(cursorDate).filter(a=>Number(a.time.split(':')[0])===hour);h+=`<div class="time-slot"><div class="time-label">${faNum(pad(hour))+':۰۰'}</div><div class="slot-items">${list.length?list.map(apptHtml).join(''):'<span class="slot-empty">آزاد</span>'}</div></div>`}return h+'</div></div>'}
+function renderWeek(){let h='<div class="week-board">';for(let i=0;i<7;i++){const d=addDays(startOfWeek(cursorDate),i),list=apptsOn(d);h+=`<div class="week-col ${sameDay(d,new Date())?'today':''}"><div class="week-head"><strong>${faNum(jalaliParts(d)[2])}</strong><span>${fmtWeekday(d)}</span></div><div class="week-items">${list.length?list.map(apptHtml).join(''):'<div class="week-empty">نوبتی ثبت نشده</div>'}</div></div>`}return h+'</div>'}
+function renderMonth(){const [jy,jm]=jalaliParts(cursorDate),days=new Date(...jalaliToGregorian(jy,jm+1,1));const first=jalaliToGregorian(jy,jm,1);const fd=new Date(first[0],first[1]-1,first[2]);let start=fd.getDay();start=start===0?6:start-1;const dim=jm<=6?31:jm<=11?30:((jy%33===1||jy%33===5||jy%33===9||jy%33===13||jy%33===17||jy%33===22||jy%33===26||jy%33===30)?30:29);let h='<div class="month-board"><div class="month-head">شنبه</div><div class="month-head">یکشنبه</div><div class="month-head">دوشنبه</div><div class="month-head">سه‌شنبه</div><div class="month-head">چهارشنبه</div><div class="month-head">پنجشنبه</div><div class="month-head">جمعه</div>';for(let i=0;i<start;i++)h+='<div class="month-cell muted"></div>';for(let day=1;day<=dim;day++){const d=new Date(...jalaliToGregorian(jy,jm,day)),list=apptsOn(d);h+=`<div class="month-cell ${sameDay(d,new Date())?'today':''}" data-calendar-date="${jalaliStr(d)}"><div class="month-number">${faNum(day)}</div><div class="month-count">${faNum(list.length)} نوبت</div><div class="month-mini">${list.slice(0,3).map(a=>{const c=clientById(a.clientId)||{};return `<span>${esc(a.time)} · ${esc(c.firstName||'مراجع')}</span>`}).join('')}</div></div>`}return h+'</div>'}
+function renderListBoard(){const groups={};filtered().forEach(a=>(groups[a.date]??=[]).push(a));const keys=Object.keys(groups);return keys.length?'<div class="list-board">'+keys.map(k=>`<div class="list-day"><div class="list-day-head"><strong>${faNum(k)}</strong><span>${faNum(groups[k].length)} نوبت</span></div><div class="list-day-items">${groups[k].map(a=>{const c=clientById(a.clientId)||{};return `<div class="list-appt"><div class="list-time">${esc(a.time)}</div><div class="list-client"><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||'—')} · ${esc(a.mode)}</small></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div>`}).join('')}</div></div>`).join('')+'</div>':'<div class="empty show"><strong>نوبتی برای این بازه پیدا نشد.</strong><span>با تغییر تاریخ یا ثبت نوبت جدید، تقویم را تکمیل کنید.</span></div>'}
+function renderAll(){renderKpis();renderTable();renderCalendar()}
+function openModal(id){$(id)?.classList.add('open');document.body.classList.add('modal-open')}function closeModal(id){$(id)?.classList.remove('open');if(!$$('.modal-backdrop.open').length)document.body.classList.remove('modal-open')}
+function setTheme(){const t=localStorage.getItem(LS.theme)||'dark';document.documentElement.dataset.theme=t;$('#theme').textContent=t==='dark'?'☾':'☀'}function toggleTheme(){const t=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(LS.theme,t);setTheme()}
+function fillClientOptions(){const sel=$('#appointmentClient');sel.innerHTML='<option value="">انتخاب مراجع</option>'+clients.map(c=>`<option value="${c.id}">${esc(c.firstName+' '+c.lastName)} — ${esc(c.mobile||'')}</option>`).join('');$('#filterService').innerHTML='<option value="">همه خدمات</option>'+SERVICES.map(s=>`<option>${esc(s)}</option>`).join('')}
+function openForm(id='',clientId=''){editingId=id;selectedClientId=clientId;const a=id?appointments.find(x=>x.id===id):null;$('#appointmentForm').reset();$('#appointmentId').value=id;$('#appointmentClient').value=a?.clientId||clientId||'';$('#appointmentDate').value=a?.date||jalaliStr(cursorDate);$('#appointmentTime').value=a?.time||'10:00';$('#appointmentDuration').value=a?.duration||60;$('#appointmentService').value=a?.service||clientById(clientId)?.service||'';$('#appointmentMode').value=a?.mode||'حضوری';$('#appointmentStatus').value=a?.status||'pending';$('#appointmentReminder').checked=a?a.reminder!==false:true;$('#appointmentNotes').value=a?.notes||'';$('#modalTitle').textContent=id?'ویرایش نوبت':'ثبت نوبت جدید';$('#clientSearch').value='';$('#clientResults').classList.remove('open');updateSelectedClient();openModal('#appointmentModal')}
+function updateSelectedClient(){const c=clientById($('#appointmentClient').value);const box=$('#selectedClient');if(c){box.classList.add('show');box.innerHTML=`<span><strong>${esc(c.firstName+' '+c.lastName)}</strong> · ${esc(c.mobile||'')}</span><button type="button" id="clearSelectedClient">×</button>`}else{box.classList.remove('show');box.innerHTML=''}}
+function collectForm(){return{clientId:$('#appointmentClient').value,date:$('#appointmentDate').value.trim(),time:$('#appointmentTime').value,duration:Number($('#appointmentDuration').value)||60,service:$('#appointmentService').value.trim(),mode:$('#appointmentMode').value,status:$('#appointmentStatus').value,reminder:$('#appointmentReminder').checked,notes:$('#appointmentNotes').value.trim()}}
+function saveAppointment(e){e.preventDefault();const d=collectForm();if(!d.clientId||!clientById(d.clientId)){toast('انتخاب مراجع الزامی است','یک مراجع واقعی از پرونده‌ها انتخاب کنید.',false);return}if(!parseJ(d.date)){toast('تاریخ شمسی نامعتبر است','تاریخ را مثل ۱۴۰۵/۰۷/۰۱ وارد کنید.',false);return}if(!d.time){toast('ساعت نوبت','ساعت نوبت را مشخص کنید.',false);return}if(!d.service){toast('خدمت نوبت','خدمت را وارد کنید.',false);return}const conflict=appointments.find(a=>a.id!==editingId&&a.date===d.date&&a.time===d.time&&a.status!=='cancelled');if(conflict){toast('تداخل زمانی','در این تاریخ و ساعت یک نوبت دیگر ثبت شده است.',false);return}if(editingId){const i=appointments.findIndex(a=>a.id===editingId);appointments[i]={...appointments[i],...d,updatedAt:new Date().toISOString()};log('نوبت ویرایش شد',editingId);toast('نوبت ویرایش شد','تغییرات با موفقیت ذخیره شد.')}else{const a={id:uid('APT'),...d,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};appointments.push(a);log('نوبت جدید ثبت شد',a.id);toast('نوبت ثبت شد','نوبت به تقویم و فهرست نوبت‌ها اضافه شد.')}save();closeModal('#appointmentModal');renderAll()}
+function openDetail(id){const a=appointments.find(x=>x.id===id);if(!a)return;const c=clientById(a.clientId)||{};$('#detailTitle').textContent=`نوبت ${c.firstName||'مراجع'} ${c.lastName||''}`;$('#detailBody').innerHTML=`<div class="detail-grid"><div class="detail-item"><span>مراجع</span><b>${esc(c.firstName+' '+c.lastName)}</b></div><div class="detail-item"><span>موبایل</span><b>${esc(c.mobile||'—')}</b></div><div class="detail-item"><span>تاریخ</span><b>${faNum(a.date)}</b></div><div class="detail-item"><span>ساعت</span><b>${esc(a.time)}</b></div><div class="detail-item"><span>خدمت</span><b>${esc(a.service||'—')}</b></div><div class="detail-item"><span>نوع جلسه</span><b>${esc(a.mode)}</b></div><div class="detail-item"><span>مدت</span><b>${faNum(a.duration)} دقیقه</b></div><div class="detail-item"><span>یادآوری</span><b>${a.reminder?'فعال':'خاموش'}</b></div><div class="detail-item"><span>وضعیت</span><b><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></b></div></div><div class="detail-notes"><strong>یادداشت نوبت</strong><div>${esc(a.notes||'یادداشتی برای این نوبت ثبت نشده است.')}</div></div><div class="status-actions"><button class="btn" data-detail-status="confirmed" data-id="${a.id}">✓ تأیید</button><button class="btn" data-detail-status="completed" data-id="${a.id}">✓ پایان جلسه</button><button class="btn danger" data-detail-status="no-show" data-id="${a.id}">! عدم حضور</button></div><div class="hero-actions"><button class="btn primary" data-detail-edit="${a.id}">ویرایش نوبت</button><button class="btn" data-detail-client="${a.clientId}">پرونده مراجع</button><button class="btn" data-detail-sms="${a.id}">⌁ ارسال یادآوری</button></div>`;openModal('#detailModal')}
+function changeStatus(id,status){const a=appointments.find(x=>x.id===id);if(!a)return;a.status=status;a.updatedAt=new Date().toISOString();log(`وضعیت نوبت به «${statusLabel(status)}» تغییر کرد`,id);save();toast('وضعیت به‌روزرسانی شد',statusLabel(status));renderAll();if($('#detailModal').classList.contains('open'))openDetail(id)}
+function deleteAppointment(id){const a=appointments.find(x=>x.id===id);if(!a)return;$('#deleteText').textContent='این نوبت از فهرست و تقویم حذف خواهد شد. این عمل قابل بازگشت نیست.';$('#confirmDelete').dataset.id=id;openModal('#deleteModal')}
+function confirmDelete(){const id=$('#confirmDelete').dataset.id;appointments=appointments.filter(a=>a.id!==id);log('نوبت حذف شد',id);save();closeModal('#deleteModal');renderAll();toast('نوبت حذف شد','نوبت از سیستم محلی حذف شد.')}
+function sendReminder(id){const a=appointments.find(x=>x.id===id);const c=a&&clientById(a.clientId);if(!a||!c)return;toast('یادآوری آماده شد',`یادآوری ${c.firstName} ${c.lastName} برای ${a.date} ساعت ${a.time} ثبت شد.`);a.reminder=true;save();renderAll()}
+function toast(title,text,good=true){const t=document.createElement('div');t.className='toast '+(good?'':'error');t.innerHTML=`<strong>${esc(title)}</strong><span>${esc(text)}</span>`;document.body.appendChild(t);setTimeout(()=>t.classList.add('show'),20);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250)},3600)}
+function csv(){const rows=[['مراجع','موبایل','تاریخ شمسی','ساعت','خدمت','نوع','وضعیت','یادآوری','یادداشت']];filtered().forEach(a=>{const c=clientById(a.clientId)||{};rows.push([`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.notes||''])});const out='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([out],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.csv';a.click();URL.revokeObjectURL(url)}
+function moveCursor(n){if(view==='day')cursorDate=addDays(cursorDate,n);else if(view==='week')cursorDate=addDays(cursorDate,n*7);else if(view==='month'){const [y,m,d]=jalaliParts(cursorDate);const x=jalaliToGregorian(y,m+n,Math.min(d,28));cursorDate=new Date(x[0],x[1]-1,x[2])}else cursorDate=addDays(cursorDate,n);renderCalendar()}
+function today(){cursorDate=new Date();renderCalendar();document.querySelector('#calendarPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function openFilteredStatus(status){if(status){$('#filterStatus').value=status}else{$('#filterStatus').value=''}currentPage=1;view='list';$$('.view-btn').forEach(b=>b.classList.toggle('active',b.dataset.view==='list'));renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function wire(){
+ $('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
+ $('#addAppointment').onclick=()=>openForm();$('#addAppointment2').onclick=()=>openForm();$('#openTodayList').onclick=()=>{view='list';$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());currentPage=1;renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#openPending').onclick=()=>openFilteredStatus('pending');
+ $('#actionPending').onclick=()=>openFilteredStatus('pending');$('#actionToday').onclick=()=>{$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());view='list';renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#actionNoShow').onclick=()=>openFilteredStatus('no-show');$('#actionExport').onclick=csv;
+ $$('.appointment-kpi').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.kpi==='today'?'':b.dataset.kpi==='pending'?'pending':''));
+ $$('.legend-row,.appointment-status-cards .status-card').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.status));$('#showAllAppointments').onclick=()=>openFilteredStatus('');
+ $$('.view-btn').forEach(b=>b.onclick=()=>{view=b.dataset.view;$$('.view-btn').forEach(x=>x.classList.toggle('active',x===b));renderCalendar()});
+ $('#applyFilters').onclick=()=>{currentPage=1;renderTable();renderCalendar()};$('#clearFilters').onclick=()=>{$('#search').value='';$('#filterStatus').value='';$('#filterMode').value='';$('#filterService').value='';$('#filterFrom').value='';$('#filterTo').value='';currentPage=1;renderTable();renderCalendar()};$('#resetFilters').onclick=$('#clearFilters').onclick;$('#search').oninput=()=>{currentPage=1;renderTable();if(view==='list')renderCalendar()};['filterStatus','filterMode','filterService','filterFrom','filterTo'].forEach(id=>$('#'+id).onchange=()=>{currentPage=1;renderTable();renderCalendar()});$('#exportCsv').onclick=csv;
+ $('#appointmentRows').addEventListener('click',handleAction);$('#mobileAppointments').addEventListener('click',handleAction);$('#calendarBody').addEventListener('click',e=>{const a=e.target.closest('[data-calendar-id]');if(a){openDetail(a.dataset.calendarId);return}const d=e.target.closest('[data-calendar-date]');if(d){cursorDate=jToDate(d.dataset.calendarDate);view='day';$$('.view-btn').forEach(x=>x.classList.toggle('active',x.dataset.view==='day'));renderCalendar()}});$('#pages').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){currentPage=Number(b.dataset.page);renderTable()}});
+ $('#clientSearch').oninput=e=>{const q=e.target.value.trim().toLowerCase();const arr=clients.filter(c=>[c.firstName,c.lastName,c.mobile,c.caseCode,c.service].join(' ').toLowerCase().includes(q)).slice(0,10);$('#clientResults').innerHTML=arr.map(c=>`<div class="client-option" data-client="${c.id}"><strong>${esc(c.firstName+' '+c.lastName)}</strong><small>${esc(c.mobile||'')} · ${esc(c.service||'')}</small></div>`).join('');$('#clientResults').classList.toggle('open',!!q&&arr.length>0)};
+ $('#clientResults').addEventListener('click',e=>{const b=e.target.closest('[data-client]');if(!b)return;$('#appointmentClient').value=b.dataset.client;selectedClientId=b.dataset.client;$('#clientSearch').value='';$('#clientResults').classList.remove('open');const c=clientById(b.dataset.client);$('#appointmentService').value=c?.service||'';updateSelectedClient()});$('#appointmentClient').onchange=updateSelectedClient;
+ $('#appointmentForm').onsubmit=saveAppointment;$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
+ $$('.date-shortcuts button').forEach(b=>b.onclick=()=>$('#appointmentDate').value=jalaliStr(addDays(new Date(),Number(b.dataset.add||0))));
+ $$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal('#'+m.id)}));$$('[data-close]').forEach(b=>b.onclick=()=>closeModal('#'+b.dataset.close));
+ $('#confirmDelete').onclick=confirmDelete;$('#detailBody').addEventListener('click',e=>{const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
+ $('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover').classList.toggle('open')};document.addEventListener('click',e=>{if(!e.target.closest('#notificationPopover')&&!e.target.closest('#notificationsBtn'))$('#notificationPopover').classList.remove('open')});$('#notificationList').addEventListener('click',e=>{const b=e.target.closest('[data-notification]');if(b){$('#notificationPopover').classList.remove('open');openDetail(b.dataset.notification)}});$('#markRead').onclick=()=>toast('اعلان‌ها بررسی شد','اعلان‌های نوبت‌ها در همین صفحه مدیریت می‌شوند.');
+ $('#logout').onclick=()=>{localStorage.removeItem(LS.user);location.href='../index.html'};$('#scrollTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>$('#scrollTop').classList.toggle('show',window.scrollY>420),{passive:true});$('#sidebar').addEventListener('scroll',updateSidebarScroll,{passive:true});window.addEventListener('resize',updateSidebarScroll);window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal-backdrop.open').forEach(m=>closeModal('#'+m.id))});
+}
+function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
+function updateSidebarScroll(){const s=$('#sidebar');const t=$('#sidebarScrollThumb');if(!s||!t)return;const max=s.scrollHeight-s.clientHeight;const ratio=max>0?s.clientHeight/s.scrollHeight:1;t.style.height=Math.max(38,Math.round(s.clientHeight*ratio))+'px';t.style.top=(max>0?(s.scrollTop/max)*(s.clientHeight-parseFloat(t.style.height)):0)+'px'}
+load();fillClientOptions();setTheme();wire();
+const params=new URLSearchParams(location.search);if(params.get('client')){setTimeout(()=>openForm('',params.get('client')),120)}else if(params.get('new')==='1'){setTimeout(()=>openForm(),120)}
+renderAll();updateSidebarScroll();
+})();
+   </script>
+  </div>
+ </body>
+</html>
