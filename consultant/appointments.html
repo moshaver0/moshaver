@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html data-theme="dark" dir="rtl" lang="fa">
  <head>
   <meta charset="utf-8"/>
@@ -33,7 +34,7 @@ body{scrollbar-gutter:stable}
 .kpi-icon,.action-icon{position:relative;overflow:hidden;transform:translateZ(0)}
 .kpi-icon:before,.action-icon:before{content:"";position:absolute;inset:4px;border:1px solid rgba(216,180,254,.22);border-radius:10px;animation:iconFloat 3.8s ease-in-out infinite}
 .kpi-icon:after,.action-icon:after{content:"";position:absolute;width:44px;height:10px;left:-55px;top:7px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.30),transparent);transform:rotate(-25deg);animation:iconShine 4.8s ease-in-out infinite}
-.kpi:nth-child(2) .kpi-icon:before{animation-delay:-.8s}.kpi:nth-child(3) .kpi-icon:before{animation-delay:-1.6s}.kpi:nth-child(4) .kpi-icon:before{animation-delay:-2.4s}
+.kpi:nth-child(2) .kpi-icon:before.kpi:nth-child(3) .kpi-icon:before.kpi:nth-child(4) .kpi-icon:before
 .status-visual{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;gap:22px;margin-bottom:15px;padding:16px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(145deg,rgba(168,85,247,.065),rgba(255,255,255,.02));box-shadow:inset 0 0 35px rgba(168,85,247,.035)}
 .status-donut{width:172px;height:172px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(var(--green) 0 40%,var(--yellow) 40% 70%,var(--red) 70% 100%);box-shadow:0 0 0 8px rgba(168,85,247,.035),0 20px 45px rgba(0,0,0,.20),0 0 45px rgba(168,85,247,.10);animation:donutGlow 4s ease-in-out infinite}
 .status-donut:before{content:"";position:absolute;inset:12px;border-radius:50%;background:radial-gradient(circle at 35% 25%,rgba(168,85,247,.15),transparent 45%),var(--bg2);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 0 35px rgba(0,0,0,.28)}
@@ -78,7 +79,7 @@ html{scroll-behavior:smooth}body{margin:0;min-width:320px;min-height:100vh;font-
 @media(max-width:1200px){.filter-grid{grid-template-columns:1.5fr repeat(3,1fr)}.filter-actions{grid-column:1/-1}.kpis{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:1040px){.shell{grid-template-columns:1fr;padding:12px}.sidebar{position:fixed;top:12px;right:12px;width:min(320px,calc(100vw - 24px));height:calc(100vh - 24px);transform:translateX(calc(100% + 35px));transition:.35s var(--ease);z-index:400}.sidebar.open{transform:translateX(0)}.menu-btn{display:grid}.insights{grid-template-columns:1fr}.mobile-list{display:grid}.table-wrap{display:none}.main{padding-bottom:88px}.mobile-nav{display:flex!important}}
 @media(max-width:720px){.shell{padding:8px}.topbar{min-height:64px;padding:9px 11px;border-radius:18px;margin-bottom:10px}.topbar-title h1{font-size:17px}.icon-btn{width:42px;height:42px}.hero{padding:19px;border-radius:23px}.hero-content{display:block}.hero h2{font-size:25px}.hero p{font-size:12px}.hero-actions{display:grid;grid-template-columns:1fr 1fr}.btn{min-height:47px;padding:0 10px;font-size:12px}.kpis{gap:9px;margin-top:10px}.kpi{padding:13px;min-height:125px;border-radius:19px}.kpi-icon{width:35px;height:35px}.kpi strong{font-size:27px}.kpi small{font-size:9px}.status-grid{grid-template-columns:1fr 1fr}.status-card:last-child{grid-column:1/-1}.panel{padding:13px;border-radius:20px}.filters{padding:13px}.filter-grid{grid-template-columns:1fr 1fr}.filter-grid .search-field{grid-column:1/-1}.table-head{padding:13px}.pagination{padding:12px 13px}.form-grid,.form-grid.two{grid-template-columns:1fr}.upload-box{grid-template-columns:1fr}.preview-layout{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(3,1fr)}.modal-backdrop{padding:0;align-items:flex-end}.modal{width:100%;max-height:94vh;border-radius:26px 26px 0 0}.scroll-top{left:12px;bottom:92px;width:50px;height:50px}.float-x{display:none}.popover{left:5px;right:5px;width:auto}.mobile-actions{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:460px){.kpis{grid-template-columns:1fr 1fr}.status-grid{grid-template-columns:1fr}.status-card:last-child{grid-column:auto}.filter-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.kpis{grid-template-columns:1fr 1fr}.status-grid{grid-template-columns:1fr}.status-card:last-child.filter-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
 @keyframes orb{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(20px,-18px,0) scale(1.05)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{0%,100%{margin-top:0}50%{margin-top:-13px}}@keyframes shine{0%,45%{transform:skewX(-25deg) translateX(-180%)}70%,100%{transform:skewX(-25deg) translateX(420%)}}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}@keyframes pop{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}@keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
 
@@ -86,25 +87,65 @@ html{scroll-behavior:smooth}body{margin:0;min-width:320px;min-height:100vh;font-
 html[data-theme=light] .status-pill.active{color:#047857;background:rgba(5,150,105,.12);border-color:rgba(5,150,105,.30)} html[data-theme=light] .status-pill.waiting{color:#92400e;background:rgba(180,83,9,.12);border-color:rgba(180,83,9,.30)} html[data-theme=light] .status-pill.closed{color:#475569;background:rgba(71,85,105,.10);border-color:rgba(71,85,105,.24)} html[data-theme=light] .status-pill.cancelled{color:#b91c1c;background:rgba(220,38,38,.11);border-color:rgba(220,38,38,.30)} html[data-theme=light] .btn.danger,html[data-theme=light] .delete-btn{color:#b91c1c!important;border-color:rgba(220,38,38,.28)!important;background:rgba(220,38,38,.09)!important}
 
 .history-edit{background:rgba(168,85,247,.10)!important;border:1px solid rgba(168,85,247,.25)!important;color:var(--purple3)!important}.history-delete{background:rgba(220,38,38,.09)!important;border:1px solid rgba(220,38,38,.28)!important;color:#dc2626!important}.history-edit:hover,.history-delete:hover{transform:translateY(-2px) rotate(-3deg)}
-   /* APPOINTMENTS MODULE */
+/* APPOINTMENTS MODULE */
 .appointment-hero .hero-content{align-items:stretch}.appointment-kpi{cursor:pointer}.appointment-kpi:hover{transform:translateY(-5px)}
 .appointment-donut{animation:donutGlow 5s ease-in-out infinite}.purple-dot{background:var(--purple)!important;box-shadow:0 0 12px rgba(168,85,247,.45)}
 .appointment-status-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.appointment-status-cards .status-card{min-height:122px}
 .calendar-panel{padding:20px;overflow:hidden}.calendar-toolbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:16px}.calendar-heading h3{font-size:26px;margin:6px 0 2px}.calendar-heading>span{color:var(--muted2);font-size:13px}.calendar-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.view-switch,.date-nav{display:flex;gap:5px;padding:5px;border:1px solid var(--border);background:var(--surface3);border-radius:16px}.view-btn{border:0;background:transparent;color:var(--muted);padding:10px 14px;border-radius:11px;cursor:pointer;font:inherit}.view-btn.active{background:linear-gradient(135deg,rgba(168,85,247,.28),rgba(34,211,238,.10));color:var(--text);box-shadow:inset 0 0 0 1px rgba(168,85,247,.25)}.small-icon{width:40px!important;height:40px!important;padding:0!important}
 .calendar-body{min-height:330px}.day-board{display:grid;grid-template-columns:120px 1fr;gap:12px}.day-side{padding:18px;border:1px solid var(--border);border-radius:20px;background:var(--surface3);text-align:center}.day-side .big-day{font-size:44px;font-weight:900;line-height:1}.day-side strong{display:block;margin-top:7px}.day-side span{display:block;color:var(--muted2);font-size:12px;margin-top:5px}.day-slots{display:grid;gap:8px}.time-slot{display:grid;grid-template-columns:72px 1fr;min-height:58px;border:1px solid var(--border);border-radius:15px;overflow:hidden;background:rgba(255,255,255,.025)}.time-label{display:grid;place-items:center;color:var(--muted2);font-size:12px;border-left:1px solid var(--border)}.slot-items{display:flex;gap:8px;padding:7px;flex-wrap:wrap;align-items:center}.calendar-appt{min-width:220px;max-width:100%;padding:9px 12px;border-radius:13px;border:1px solid rgba(168,85,247,.24);background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(34,211,238,.05));cursor:pointer;transition:.25s}.calendar-appt:hover{transform:translateY(-2px);border-color:var(--border2)}.calendar-appt strong{display:block;font-size:13px}.calendar-appt small{display:block;color:var(--muted2);margin-top:4px;font-size:11px}.calendar-appt .appt-status{margin-top:5px}
 .week-board{display:grid;grid-template-columns:repeat(7,minmax(130px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}.week-col{min-width:130px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);overflow:hidden}.week-col.today{border-color:rgba(168,85,247,.55);box-shadow:0 0 25px rgba(168,85,247,.12)}.week-head{padding:12px;text-align:center;border-bottom:1px solid var(--border)}.week-head strong{display:block;font-size:17px}.week-head span{font-size:11px;color:var(--muted2)}.week-items{padding:8px;display:grid;gap:7px;min-height:210px}.week-empty{display:grid;place-items:center;min-height:180px;color:var(--muted2);font-size:11px}.month-board{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.month-head{font-size:11px;color:var(--muted2);text-align:center;padding:7px}.month-cell{min-height:105px;border:1px solid var(--border);border-radius:14px;background:var(--surface3);padding:8px;cursor:pointer;transition:.2s}.month-cell:hover{transform:translateY(-2px);border-color:var(--border2)}.month-cell.today{box-shadow:inset 0 0 0 1px rgba(168,85,247,.55)}.month-cell.muted{opacity:.42}.month-number{font-weight:800}.month-count{font-size:10px;color:var(--muted2);margin-top:4px}.month-mini{margin-top:6px;display:grid;gap:3px}.month-mini span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9px;padding:4px 6px;border-radius:7px;background:rgba(168,85,247,.10)}
-.list-board{display:grid;gap:9px}.list-day{border:1px solid var(--border);border-radius:17px;background:var(--surface3);overflow:hidden}.list-day-head{display:flex;justify-content:space-between;padding:12px 15px;border-bottom:1px solid var(--border)}.list-day-items{display:grid}.list-appt{display:grid;grid-template-columns:75px 1fr auto;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border)}.list-appt:last-child{border-bottom:0}.list-time{font-weight:800;color:var(--purple3)}.list-client strong{display:block}.list-client small{color:var(--muted2)}
+.list-board{display:grid;gap:9px}.list-day{border:1px solid var(--border);border-radius:17px;background:var(--surface3);overflow:hidden}.list-day-head{display:flex;justify-content:space-between;padding:12px 15px;border-bottom:1px solid var(--border)}.list-day-items{display:grid}.list-appt{display:grid;grid-template-columns:75px 1fr auto;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border)}.list-appt:last-child.list-time{font-weight:800;color:var(--purple3)}.list-client strong{display:block}.list-client small{color:var(--muted2)}
 .appt-status{display:inline-flex;align-items:center;gap:5px;border:1px solid transparent;border-radius:999px;padding:4px 8px;font-size:10px;white-space:nowrap}.appt-status.pending{color:#fbbf24;background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.22)}.appt-status.confirmed{color:#34d399;background:rgba(16,185,129,.10);border-color:rgba(16,185,129,.22)}.appt-status.completed{color:#c4b5fd;background:rgba(139,92,246,.11);border-color:rgba(139,92,246,.24)}.appt-status.no-show{color:#fb7185;background:rgba(244,63,94,.10);border-color:rgba(244,63,94,.24)}.appt-status.cancelled{color:#fb7185;background:rgba(220,38,38,.10);border-color:rgba(220,38,38,.24)}.appt-status.rescheduled{color:#67e8f9;background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.22)}
 .appointment-table td{vertical-align:middle}.appointment-table .row-actions{display:flex;gap:5px;flex-wrap:wrap}.appointment-table .mini-btn{min-height:34px}.reminder-on{color:#34d399}.reminder-off{color:var(--muted2)}
 .appointment-card{padding:15px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);display:grid;gap:11px}.appointment-card-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.appointment-card-client{display:flex;gap:10px;align-items:center}.appointment-card .avatar{width:42px;height:42px}.appointment-card-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px}.appointment-card-meta div{padding:9px;border:1px solid var(--border);border-radius:12px}.appointment-card-meta span{display:block;color:var(--muted2);font-size:9px}.appointment-card-meta b{display:block;margin-top:4px;font-size:12px}.appointment-card-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.appt-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.appt-form .full{grid-column:1/-1}.client-search-wrap{position:relative}.client-results{position:absolute;z-index:20;left:0;right:0;top:100%;margin-top:5px;display:none;max-height:240px;overflow-y:auto;border:1px solid var(--border2);border-radius:15px;background:var(--surface2);backdrop-filter:blur(20px);box-shadow:var(--shadow)}.client-results.open{display:grid}.client-option{padding:11px 13px;border-bottom:1px solid var(--border);cursor:pointer}.client-option:last-child{border-bottom:0}.client-option:hover{background:rgba(168,85,247,.10)}.client-option strong{display:block}.client-option small{color:var(--muted2)}.selected-client{display:none;margin-top:7px;padding:10px 12px;border:1px solid rgba(168,85,247,.28);border-radius:13px;background:rgba(168,85,247,.08)}.selected-client.show{display:flex;justify-content:space-between;gap:8px;align-items:center}.selected-client button{border:0;background:none;color:var(--red);cursor:pointer;font-size:18px}.date-shortcuts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.date-shortcuts button{font-size:10px;padding:6px 9px;border-radius:9px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer}.modal-lg{width:min(850px,calc(100vw - 28px))}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.detail-item{padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.detail-item span{display:block;color:var(--muted2);font-size:10px}.detail-item b{display:block;margin-top:5px}.detail-notes{padding:13px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);line-height:1.9;color:var(--muted)}.status-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.status-actions button{min-height:43px}
+.appt-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.appt-form .full{grid-column:1/-1}.client-search-wrap{position:relative}.client-results{position:absolute;z-index:20;left:0;right:0;top:100%;margin-top:5px;display:none;max-height:240px;overflow-y:auto;border:1px solid var(--border2);border-radius:15px;background:var(--surface2);backdrop-filter:blur(20px);box-shadow:var(--shadow)}.client-results.open{display:grid}.client-option{padding:11px 13px;border-bottom:1px solid var(--border);cursor:pointer}.client-option:last-child.client-option:hover{background:rgba(168,85,247,.10)}.client-option strong{display:block}.client-option small{color:var(--muted2)}.selected-client{display:none;margin-top:7px;padding:10px 12px;border:1px solid rgba(168,85,247,.28);border-radius:13px;background:rgba(168,85,247,.08)}.selected-client.show{display:flex;justify-content:space-between;gap:8px;align-items:center}.selected-client button{border:0;background:none;color:var(--red);cursor:pointer;font-size:18px}.date-shortcuts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.date-shortcuts button{font-size:10px;padding:6px 9px;border-radius:9px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer}.modal-lg{width:min(850px,calc(100vw - 28px))}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.detail-item{padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.detail-item span{display:block;color:var(--muted2);font-size:10px}.detail-item b{display:block;margin-top:5px}.detail-notes{padding:13px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);line-height:1.9;color:var(--muted)}.status-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.status-actions button{min-height:43px}
 html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83,9,.12);border-color:rgba(180,83,9,.28)}html[data-theme=light] .appt-status.confirmed{color:#047857;background:rgba(5,150,105,.12);border-color:rgba(5,150,105,.28)}html[data-theme=light] .appt-status.completed{color:#6d28d9;background:rgba(124,58,237,.10);border-color:rgba(124,58,237,.24)}html[data-theme=light] .appt-status.no-show,html[data-theme=light] .appt-status.cancelled{color:#b91c1c;background:rgba(220,38,38,.10);border-color:rgba(220,38,38,.28)}html[data-theme=light] .appt-status.rescheduled{color:#0e7490;background:rgba(8,145,178,.10);border-color:rgba(8,145,178,.24)}
 @media(max-width:900px){.appointment-status-cards{grid-template-columns:1fr 1fr}.calendar-toolbar{align-items:flex-start;flex-direction:column}.calendar-controls{width:100%;justify-content:space-between}.day-board{grid-template-columns:1fr}.day-side{display:flex;align-items:center;gap:12px;text-align:right}.day-side .big-day{font-size:32px}.month-board{min-width:700px}.calendar-body{overflow-x:auto}.list-appt{grid-template-columns:65px 1fr}.list-appt>.appt-status{grid-column:2}.appt-form{grid-template-columns:1fr}.appt-form .full{grid-column:auto}.detail-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.appointment-status-cards{grid-template-columns:1fr 1fr}.view-switch{width:100%;justify-content:space-between}.view-btn{flex:1;padding:9px 6px;font-size:11px}.date-nav{align-self:flex-start}.calendar-controls{display:grid;grid-template-columns:1fr auto}.calendar-controls .view-switch{grid-column:1/-1}.week-board{grid-template-columns:repeat(7,130px)}.calendar-appt{min-width:0;width:100%}.time-slot{grid-template-columns:58px 1fr}.list-appt{grid-template-columns:58px 1fr}.list-appt .row-actions{grid-column:1/-1}.appointment-card-actions{grid-template-columns:1fr 1fr 1fr}.detail-grid{grid-template-columns:1fr}.status-actions{grid-template-columns:1fr 1fr}.hero-actions .btn{min-width:0}.calendar-heading h3{font-size:22px}}
-   .switch{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;background:var(--surface3);cursor:pointer}.switch input{display:none}.switch span{width:42px;height:24px;border-radius:99px;background:rgba(255,255,255,.10);position:relative;border:1px solid var(--border)}.switch span:after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#94a3b8;transition:.2s}.switch input:checked+span{background:rgba(168,85,247,.28);border-color:rgba(168,85,247,.55)}.switch input:checked+span:after{right:21px;background:var(--purple3);box-shadow:0 0 10px rgba(168,85,247,.45)}.switch b{font-size:12px}.textarea{resize:vertical;min-height:105px;line-height:1.8}.slot-empty{color:var(--muted2);font-size:10px;padding:7px 10px}.notification-item{display:block;width:100%;text-align:right;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);padding:11px 12px;cursor:pointer}.notification-item:hover{background:rgba(168,85,247,.08)}.notification-item strong{display:block;font-size:11px}.notification-item span{display:block;color:var(--muted2);font-size:10px;margin-top:4px}.notification-empty{padding:18px;color:var(--muted2);font-size:12px;text-align:center}.danger-box{padding:16px;border:1px solid rgba(220,38,38,.25);border-radius:16px;background:rgba(220,38,38,.07);display:grid;gap:7px}.danger-box strong{color:var(--red)}
-  </style>
+.switch{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;background:var(--surface3);cursor:pointer}.switch input{display:none}.switch span{width:42px;height:24px;border-radius:99px;background:rgba(255,255,255,.10);position:relative;border:1px solid var(--border)}.switch span:after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#94a3b8;transition:.2s}.switch input:checked+span{background:rgba(168,85,247,.28);border-color:rgba(168,85,247,.55)}.switch input:checked+span:after{right:21px;background:var(--purple3);box-shadow:0 0 10px rgba(168,85,247,.45)}.switch b{font-size:12px}.textarea{resize:vertical;min-height:105px;line-height:1.8}.slot-empty{color:var(--muted2);font-size:10px;padding:7px 10px}.notification-item{display:block;width:100%;text-align:right;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);padding:11px 12px;cursor:pointer}.notification-item:hover{background:rgba(168,85,247,.08)}.notification-item strong{display:block;font-size:11px}.notification-item span{display:block;color:var(--muted2);font-size:10px;margin-top:4px}.notification-empty{padding:18px;color:var(--muted2);font-size:12px;text-align:center}.danger-box{padding:16px;border:1px solid rgba(220,38,38,.25);border-radius:16px;background:rgba(220,38,38,.07);display:grid;gap:7px}.danger-box strong{color:var(--red)}
+
+/* =========================================================
+APPOINTMENTS V2 — SPACING / MODAL / CALENDAR / EXPORTS
+========================================================= */
+
+:root{--panel-gap:18px;--section-pad:22px}
+
+.glass,.panel,.filters,.table-panel,.calendar-panel,.finance-panel{box-shadow:0 20px 65px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.035)}
+
+.kpis{gap:14px}.kpi{min-height:146px;padding:18px}.insights{gap:16px;margin-top:18px}.status-card{min-height:132px;padding:16px}.calendar-panel{padding:24px;border-radius:30px;margin-top:18px}.filters{padding:22px;margin-top:18px;border-radius:26px}.table-panel{padding:22px;margin-top:18px;border-radius:26px}
+
+/* Calendar shell */
+.calendar-toolbar{padding:4px 2px 18px;border-bottom:1px solid var(--border);margin-bottom:18px}.calendar-heading h3{font-size:29px;letter-spacing:-.4px}.calendar-controls{gap:12px}.view-switch,.date-nav{border-radius:18px;padding:6px}.view-btn{min-height:42px;font-size:12px}.date-nav .icon-btn{font-size:22px}.calendar-body{min-height:470px}.day-board{grid-template-columns:145px 1fr;gap:15px}.day-side{padding:20px;border-radius:24px;position:sticky;top:12px;height:max-content}.day-side .big-day{font-size:52px}.day-slots{gap:9px}.time-slot{grid-template-columns:82px 1fr;min-height:66px;border-radius:17px}.time-label{font-weight:700}.slot-items{padding:8px}.calendar-appt{min-height:54px;padding:9px 11px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.10)}
+
+/* Floating close */
+.modal-close.floating-close{position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border-color:rgba(168,85,247,.30);background:radial-gradient(circle at 35% 25%,rgba(168,85,247,.22),var(--surface3));box-shadow:0 0 0 1px rgba(168,85,247,.08),0 10px 28px rgba(0,0,0,.18);overflow:visible}.modal-close.floating-close:before{content:"";position:absolute;inset:-5px;border:1px dashed rgba(168,85,247,.35);border-radius:50%;animation:spin 7s linear infinite}.modal-close.floating-close span{display:block;font-size:24px;line-height:1;transition:.25s}.modal-close.floating-close:hover span{transform:rotate(135deg) scale(1.08)}
+
+/* New appointment form */
+.appt-form{gap:17px}.form-section{padding:19px;border-radius:22px}.field-hint{display:block;color:var(--muted2);font-size:10px;margin-top:7px}.time-control{display:grid;grid-template-columns:48px 1fr 48px;gap:7px;align-items:center}.time-input{text-align:center;font-size:19px;font-weight:800;letter-spacing:1px}.time-step{height:48px;border:1px solid var(--border);border-radius:14px;background:var(--surface3);color:var(--text);font-size:22px;cursor:pointer;transition:.25s}.time-step:hover{transform:translateY(-2px);border-color:rgba(168,85,247,.42);box-shadow:0 8px 20px rgba(168,85,247,.12)}.time-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}.time-presets button{min-height:37px;border:1px solid var(--border);border-radius:11px;background:var(--surface3);color:var(--muted);cursor:pointer;font:inherit;font-size:11px}.time-presets button:hover,.time-presets button.active{color:var(--text);border-color:rgba(168,85,247,.48);background:linear-gradient(135deg,rgba(168,85,247,.18),rgba(34,211,238,.06))}
+.modal{scrollbar-gutter:stable;overscroll-behavior:contain}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple),var(--cyan));border:2px solid transparent;background-clip:padding-box}.modal::-webkit-scrollbar-track{background:transparent}.modal-body{padding:22px}.modal-foot,.modal-actions{padding-top:16px}.completion-summary{padding:16px;border-radius:20px;border:1px solid rgba(168,85,247,.24);background:linear-gradient(145deg,rgba(168,85,247,.12),rgba(34,211,238,.045));display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.completion-summary div{padding:11px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.completion-summary span{display:block;color:var(--muted2);font-size:10px}.completion-summary b{display:block;margin-top:5px;font-size:13px}.completion-form{display:grid;gap:15px}
+
+/* Filter controls */
+.appointment-filters{gap:13px}.date-input-wrap{position:relative}.date-input-wrap .input{padding-left:56px}.date-spin{position:absolute;left:7px;top:7px;bottom:7px;width:42px;display:grid;grid-template-rows:1fr 1fr;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:var(--surface3)}.date-spin button{border:0;background:transparent;color:var(--muted);font-size:9px;cursor:pointer}.date-spin button:hover{color:var(--purple3);background:rgba(168,85,247,.09)}.filter-grid .select,.filter-grid .input{min-height:48px}
+
+/* Finance */
+.finance-panel{padding:22px;border-radius:26px;margin-top:18px}.finance-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.finance-card{min-height:125px;text-align:right;padding:16px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(145deg,rgba(168,85,247,.07),rgba(255,255,255,.025));color:var(--text);cursor:pointer;transition:.25s var(--ease)}.finance-card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.32);box-shadow:0 15px 35px rgba(0,0,0,.12)}.finance-card span,.finance-card small{display:block;color:var(--muted2);font-size:10px}.finance-card b{display:block;font-size:25px;margin:12px 0 5px}.finance-mini-list{display:grid;gap:7px;margin-top:12px}.finance-mini{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:11px 13px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.finance-mini strong{font-size:11px}.finance-mini small{display:block;color:var(--muted2);margin-top:3px;font-size:9px}.finance-mini b{font-size:11px}.finance-mini button{height:34px;min-width:34px;border:1px solid var(--border);border-radius:10px;background:var(--surface3);color:var(--muted);cursor:pointer}.finance-mini button:hover{color:var(--red);border-color:rgba(220,38,38,.3)}
+
+/* Better pagination */
+.pagination{margin-top:14px;padding:14px 2px}.pages{display:flex;gap:6px;flex-wrap:wrap}.page{min-width:38px;height:38px;padding:0 10px;border:1px solid var(--border);border-radius:11px;background:var(--surface3);color:var(--muted);font:inherit;cursor:pointer}.page.active{color:#fff;background:linear-gradient(135deg,var(--purple2),var(--purple));border-color:rgba(216,180,254,.42);box-shadow:0 8px 20px rgba(124,58,237,.22)}html[data-theme=light] .page.active{color:#fff}
+
+/* Print / export */
+.print-title{display:none}.print-only{display:none}@media print{body{background:#fff!important;color:#111!important}.app,.mobile-nav,.scroll-top,.modal-backdrop,.toast,.ambient{display:none!important}.print-title{display:block;font-size:24px;font-weight:900;margin:0 0 20px}.print-target{display:block!important}.table-panel{display:block!important;box-shadow:none!important;border:1px solid #ddd!important}.table{color:#111!important}.table th,.table td{color:#111!important;border-color:#ddd!important}.table th{background:#f3f3f3!important}}
+
+/* Responsive spacing */
+@media(max-width:900px){.calendar-panel,.filters,.table-panel,.finance-panel{padding:17px}.finance-grid{grid-template-columns:1fr 1fr}.completion-summary{grid-template-columns:1fr 1fr}.day-board{gap:11px}.calendar-body{min-height:420px}}
+@media(max-width:600px){.kpis{gap:10px}.kpi{padding:14px;min-height:132px}.calendar-panel{border-radius:24px;padding:14px}.calendar-toolbar{margin-bottom:13px}.calendar-heading h3{font-size:23px}.calendar-controls{gap:8px}.view-switch{border-radius:15px}.date-nav{border-radius:15px}.day-side{position:relative;top:auto;border-radius:19px;padding:14px}.day-side .big-day{font-size:38px}.time-presets{grid-template-columns:repeat(4,1fr)}.modal-body{padding:15px}.completion-summary{grid-template-columns:1fr 1fr}.finance-grid{grid-template-columns:1fr 1fr}.finance-card{min-height:110px;padding:13px}.finance-card b{font-size:21px}.finance-mini{grid-template-columns:1fr auto}.finance-mini button{grid-column:2;grid-row:1/3}.pagination{display:grid;gap:10px}.pages{justify-content:center}}
+
+.success-btn{color:var(--green)!important;border-color:rgba(52,211,153,.25)!important;background:rgba(52,211,153,.06)!important}
+.success-box{margin:13px 0;padding:15px;border:1px solid rgba(52,211,153,.25);border-radius:17px;background:rgba(52,211,153,.07);display:grid;gap:5px}.success-box strong{color:var(--green)}.success-box span{color:var(--muted2);font-size:10px} </style>
+
  </head>
  <body>
+  <div class="print-title" id="printTitle">گزارش نوبت‌ها — MOSHAVER</div>
   <div class="app">
    <div aria-hidden="true" class="ambient">
     <div class="grid">
@@ -726,7 +767,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
          جستجو و فیلتر نوبت&zwnj;ها
         </strong>
         <span>
-         جستجو بر اساس مراجع، خدمت، وضعیت، نوع جلسه و تاریخ شمسی.
+         جستجو بر اساس مراجع، خدمات، وضعیت، نوع جلسه و تاریخ شمسی.
         </span>
        </div>
        <button class="btn small danger" id="resetFilters">
@@ -738,7 +779,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         <label>
          جستجوی سریع
         </label>
-        <input autocomplete="off" class="input" id="search" placeholder="نام مراجع، موبایل، خدمت..."/>
+        <input autocomplete="off" class="input" id="search" placeholder="نام مراجع، موبایل، خدمات..."/>
        </div>
        <div class="field">
         <label>
@@ -786,7 +827,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
        </div>
        <div class="field">
         <label>
-         خدمت
+         خدمات
         </label>
         <select class="select" id="filterService">
          <option value="">
@@ -798,13 +839,13 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         <label>
          از تاریخ شمسی
         </label>
-        <input class="input" id="filterFrom" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۰۱"/>
+        <div class="date-input-wrap"><input class="input" id="filterFrom" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۰۱"/><div class="date-spin"><button type="button" data-filter-step="from" data-step="1">▲</button><button type="button" data-filter-step="from" data-step="-1">▼</button></div></div>
        </div>
        <div class="field">
         <label>
          تا تاریخ شمسی
         </label>
-        <input class="input" id="filterTo" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۳۰"/>
+        <div class="date-input-wrap"><input class="input" id="filterTo" inputmode="numeric" placeholder="۱۴۰۵/۰۷/۳۰"/><div class="date-spin"><button type="button" data-filter-step="to" data-step="1">▲</button><button type="button" data-filter-step="to" data-step="-1">▼</button></div></div>
        </div>
        <div class="filter-actions">
         <button class="btn primary small" id="applyFilters">
@@ -815,6 +856,19 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         </button>
        </div>
       </div>
+     </section>
+     <section class="glass finance-panel" id="financePanel">
+      <div class="panel-head">
+       <div class="panel-title"><strong>مالی نوبت‌ها</strong><span>درآمد و پورسانت ثبت‌شده از خدمات تکمیل‌شده</span></div>
+       <button class="btn small" id="financeRefresh">↻ بروزرسانی</button>
+      </div>
+      <div class="finance-grid">
+       <button class="finance-card" id="financeToday"><span>درآمد امروز</span><b id="financeTodayValue">۰</b><small>مبلغ ثبت‌شده امروز</small></button>
+       <button class="finance-card" id="financeMonth"><span>درآمد ماه</span><b id="financeMonthValue">۰</b><small>مجموع ماه جاری</small></button>
+       <button class="finance-card" id="financeCommission"><span>پورسانت ماه</span><b id="financeCommissionValue">۰</b><small>مجموع پورسانت</small></button>
+       <button class="finance-card" id="financeCompleted"><span>خدمات تکمیل‌شده</span><b id="financeCompletedValue">۰</b><small>پرونده‌های موفق</small></button>
+      </div>
+      <div class="finance-mini-list" id="financeList"></div>
      </section>
      <section class="glass table-panel" id="appointmentsPanel">
       <div class="table-head">
@@ -827,8 +881,14 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         </span>
        </div>
        <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn small" id="exportPdf">
+         ⤓ PDF
+        </button>
+        <button class="btn small" id="exportExcel">
+         ⤓ Excel
+        </button>
         <button class="btn small" id="exportCsv">
-         ⇩ خروجی CSV
+         ⤓ CSV
         </button>
         <button class="btn primary small" id="addAppointment2">
          ＋ ثبت نوبت
@@ -852,7 +912,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
            ساعت
           </th>
           <th>
-           خدمت
+           خدمات
           </th>
           <th>
            نوع
@@ -904,8 +964,8 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
           ثبت نوبت جدید
          </h3>
         </div>
-        <button class="modal-close" data-close="appointmentModal">
-         &times;
+        <button class="modal-close floating-close" data-close="appointmentModal" aria-label="بستن">
+         <span>&times;</span>
         </button>
        </div>
        <form class="modal-body appt-form" id="appointmentForm">
@@ -944,11 +1004,26 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
           </button>
          </div>
         </div>
-        <div class="field">
+        <div class="field time-field">
          <label>
-          ساعت *
+          ساعت نوبت *
          </label>
-         <input class="input" id="appointmentTime" required="" type="time"/>
+         <div class="time-control">
+          <button class="time-step" id="timeMinus" type="button" aria-label="۱۵ دقیقه قبل">−</button>
+          <input class="input time-input" id="appointmentTime" required="" type="time"/>
+          <button class="time-step" id="timePlus" type="button" aria-label="۱۵ دقیقه بعد">+</button>
+         </div>
+         <div class="time-presets" id="timePresets">
+          <button type="button" data-time="09:00">۰۹:۰۰</button>
+          <button type="button" data-time="10:00">۱۰:۰۰</button>
+          <button type="button" data-time="11:00">۱۱:۰۰</button>
+          <button type="button" data-time="12:00">۱۲:۰۰</button>
+          <button type="button" data-time="14:00">۱۴:۰۰</button>
+          <button type="button" data-time="15:00">۱۵:۰۰</button>
+          <button type="button" data-time="16:00">۱۶:۰۰</button>
+          <button type="button" data-time="17:00">۱۷:۰۰</button>
+         </div>
+         <small class="field-hint">ساعت را با گام ۱۵ دقیقه تنظیم کنید.</small>
         </div>
         <div class="field">
          <label>
@@ -974,7 +1049,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         </div>
         <div class="field">
          <label>
-          خدمت *
+          خدمات *
          </label>
          <input class="input" id="appointmentService" placeholder="مثلاً مشاوره زیبایی" required=""/>
         </div>
@@ -1057,12 +1132,40 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
           جزئیات نوبت
          </h3>
         </div>
-        <button class="modal-close" data-close="detailModal">
-         &times;
+        <button class="modal-close floating-close" data-close="detailModal" aria-label="بستن">
+         <span>&times;</span>
         </button>
        </div>
        <div class="modal-body" id="detailBody">
        </div>
+      </div>
+     </div>
+     <div class="modal-backdrop" id="completionModal">
+      <div class="modal modal-lg completion-modal">
+       <div class="modal-head">
+        <div><small>تأیید نهایی خدمات</small><h3 id="completionTitle">اتمام خدمات و تسویه</h3></div>
+        <button class="modal-close floating-close" data-close="completionModal" aria-label="بستن"><span>&times;</span></button>
+       </div>
+       <form class="modal-body completion-form" id="completionForm">
+        <input id="completionAppointmentId" type="hidden"/>
+        <div class="completion-summary" id="completionSummary"></div>
+        <div class="form-section">
+         <div class="form-section-title"><strong>تسویه مالی</strong><span>این اطلاعات به سوابق مالی منتقل می‌شود.</span></div>
+         <div class="form-grid">
+          <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="completionAmount" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰۰"/></div>
+          <div class="field"><label>مبلغ پورسانت</label><input class="input" id="completionCommission" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰۰"/></div>
+          <div class="field"><label>روش پرداخت</label><select class="select" id="completionPayment"><option>کارت</option><option>نقدی</option><option>انتقال بانکی</option><option>ترکیبی</option></select></div>
+         </div>
+        </div>
+        <div class="form-section">
+         <div class="form-section-title"><strong>نتیجه خدمات</strong><span>برای پرونده مراجع نیز ثبت می‌شود.</span></div>
+         <div class="field"><label>یادداشت پایان خدمات</label><textarea class="input textarea" id="completionNote" rows="4" placeholder="نتیجه، توضیحات یا نکات نهایی پرونده..."></textarea></div>
+        </div>
+        <div class="modal-actions">
+         <button class="btn" data-close="completionModal" type="button">انصراف</button>
+         <button class="btn primary" type="submit">✓ ثبت نهایی و انتقال به مالی</button>
+        </div>
+       </form>
       </div>
      </div>
      <div class="modal-backdrop" id="deleteModal">
@@ -1076,8 +1179,8 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
           حذف نوبت
          </h3>
         </div>
-        <button class="modal-close" data-close="deleteModal">
-         &times;
+        <button class="modal-close floating-close" data-close="deleteModal" aria-label="بستن">
+         <span>&times;</span>
         </button>
        </div>
        <div class="modal-body">
@@ -1232,7 +1335,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
        <section class="form-section">
         <div class="form-section-title">
          <strong>
-          خدمت و وضعیت پرونده
+          خدمات و وضعیت پرونده
          </strong>
          <span>
           قابل جستجو و قابل توسعه
@@ -1241,7 +1344,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         <div class="form-grid">
          <div class="field">
           <label class="required">
-           نوع خدمت
+           نوع خدمات
           </label>
           <div class="service-wrap">
            <input autocomplete="off" class="input" id="service" placeholder="مثلاً عمل بینی، کاشت مو..." required=""/>
@@ -1595,7 +1698,35 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
     </div>
    </div>
    <!-- Delete modal -->
-   <div class="modal-backdrop" id="deleteModal">
+   <div class="modal-backdrop" id="completionModal">
+      <div class="modal modal-lg completion-modal">
+       <div class="modal-head">
+        <div><small>تأیید نهایی خدمات</small><h3 id="completionTitle">اتمام خدمات و تسویه</h3></div>
+        <button class="modal-close floating-close" data-close="completionModal" aria-label="بستن"><span>&times;</span></button>
+       </div>
+       <form class="modal-body completion-form" id="completionForm">
+        <input id="completionAppointmentId" type="hidden"/>
+        <div class="completion-summary" id="completionSummary"></div>
+        <div class="form-section">
+         <div class="form-section-title"><strong>تسویه مالی</strong><span>این اطلاعات به سوابق مالی منتقل می‌شود.</span></div>
+         <div class="form-grid">
+          <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="completionAmount" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰۰"/></div>
+          <div class="field"><label>مبلغ پورسانت</label><input class="input" id="completionCommission" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰۰"/></div>
+          <div class="field"><label>روش پرداخت</label><select class="select" id="completionPayment"><option>کارت</option><option>نقدی</option><option>انتقال بانکی</option><option>ترکیبی</option></select></div>
+         </div>
+        </div>
+        <div class="form-section">
+         <div class="form-section-title"><strong>نتیجه خدمات</strong><span>برای پرونده مراجع نیز ثبت می‌شود.</span></div>
+         <div class="field"><label>یادداشت پایان خدمات</label><textarea class="input textarea" id="completionNote" rows="4" placeholder="نتیجه، توضیحات یا نکات نهایی پرونده..."></textarea></div>
+        </div>
+        <div class="modal-actions">
+         <button class="btn" data-close="completionModal" type="button">انصراف</button>
+         <button class="btn primary" type="submit">✓ ثبت نهایی و انتقال به مالی</button>
+        </div>
+       </form>
+      </div>
+     </div>
+     <div class="modal-backdrop" id="deleteModal">
     <div class="modal narrow">
      <div class="modal-head">
       <strong>
@@ -1663,7 +1794,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         </div>
         <div class="field">
          <label>
-          نوع خدمت
+          نوع خدمات
          </label>
          <input class="input" id="appointmentService"/>
         </div>
@@ -1725,95 +1856,324 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
     </div>
    </div>
    <script>
-    (function(){'use strict';
+
+```
+(function(){'use strict';
+```
+
+// =========================================================
+// 01. DOM / STORAGE / CONSTANTS
+// =========================================================
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const LS={clients:'moshaver_clients',appointments:'moshaver_appointments',activity:'moshaver_activity',theme:'moshaver_theme',user:'moshaver_user'};
 const SERVICES=['عمل بینی','کاشت ابرو','کاشت مو','تزریق ژل','تزریق بوتاکس','فیلر لب','فیلر گونه','لیفت صورت','لیزر موهای زائد','جوانسازی پوست','میکرونیدلینگ','مزوتراپی','هایفو','RF','کانتورینگ صورت','بلفاروپلاستی','پیکرتراشی','لیپوساکشن','مراقبت پوست','مشاوره زیبایی','ویزیت عمومی'];
 let clients=[],appointments=[],activity=[],selectedClientId='',editingId='',view='day',cursorDate=new Date(),currentPage=1,pageSize=10;
 const faDigits='۰۱۲۳۴۵۶۷۸۹';
+
 function faNum(v){return String(v??'').replace(/\d/g,d=>faDigits[+d])} function enNum(v){return String(v??'').replace(/[۰-۹]/g,d=>faDigits.indexOf(d))}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'''}[m]))}
+
 function uid(p='APT'){return p+'-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,7).toUpperCase()}
+
 function isoDate(d){return d.toISOString().slice(0,10)}
+
 function pad(n){return String(n).padStart(2,'0')}
+// =========================================================
+// 02. DATE / JALALI UTILITIES
+// =========================================================
+
 function gregorianToJalali(gy,gm,gd){const gdm=[0,31,59,90,120,151,181,212,243,273,304,334];let gy2=gm>2?gy+1:gy;let days=355666+365*gy+Math.floor((gy2+3)/4)-Math.floor((gy2+99)/100)+Math.floor((gy2+399)/400)+gd+gdm[gm-1];let jy=-1595+33*Math.floor(days/12053);days%=12053;jy+=4*Math.floor(days/1461);days%=1461;if(days>365){jy+=Math.floor((days-1)/365);days=(days-1)%365}let jm=days<186?1+Math.floor(days/31):7+Math.floor((days-186)/30);let jd=1+(days<186?days%31:(days-186)%30);return [jy,jm,jd]}
+
 function jalaliToGregorian(jy,jm,jd){jy=+jy;jm=+jm;jd=+jd;let jy2=jy+1595;let days=-355668+365*jy2+Math.floor(jy2/33)*8+Math.floor((jy2%33+3)/4)+jd+(jm<7?(jm-1)*31:(jm-7)*30+186);let gy=400*Math.floor(days/146097);days%=146097;if(days>36524){gy+=100*Math.floor(--days/36524);days%=36524;if(days>=365)days++}gy+=4*Math.floor(days/1461);days%=1461;if(days>365){gy+=Math.floor((days-1)/365);days=(days-1)%365}let gd=days+1;const sal=[0,31,(gy%4===0&&(gy%100!==0||gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];let gm=1;while(gd>sal[gm]){gd-=sal[gm];gm++}return [gy,gm,gd]}
+
 function jalaliParts(d=new Date()){return gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate())} function jalaliStr(d=new Date()){const [y,m,day]=jalaliParts(d);return `${y}/${pad(m)}/${pad(day)}`} function parseJ(s){const a=enNum((s||'').replace(/-/g,'/')).split('/').map(Number);return a.length===3&&a.every(Number.isFinite)?a:null} function jKey(s){const a=parseJ(s);return a?a[0]*10000+a[1]*100+a[2]:0}
+
 function jToDate(s){const a=parseJ(s);if(!a)return null;const [y,m,d]=jalaliToGregorian(...a);return new Date(y,m-1,d)} function dateOnly(d){const x=new Date(d);x.setHours(0,0,0,0);return x}
+
 function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x} function sameDay(a,b){return isoDate(a)===isoDate(b)}
+
 function startOfWeek(d){const x=dateOnly(d),day=x.getDay();return addDays(x,day===0?-6:1-day)} function endOfWeek(d){return addDays(startOfWeek(d),6)}
+
 function fmtWeekday(d){return new Intl.DateTimeFormat('fa-IR',{weekday:'long'}).format(d)} function fmtMonth(d){return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{month:'long',year:'numeric'}).format(d)}
+
 function statusLabel(s){return {'pending':'در انتظار','confirmed':'تأییدشده','completed':'انجام‌شده','no-show':'عدم حضور','cancelled':'لغوشده','rescheduled':'جابجا‌شده'}[s]||s}
+
 function statusClass(s){return s||'pending'} function initials(c){return (c?.firstName?.[0]||'م')+(c?.lastName?.[0]||'')}
+// =========================================================
+// 03. DATA / LOCAL STORAGE
+// =========================================================
+
 function load(){try{clients=JSON.parse(localStorage.getItem(LS.clients)||'[]');appointments=JSON.parse(localStorage.getItem(LS.appointments)||'[]');activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){clients=[];appointments=[];activity=[]}if(!clients.length){seedClients()}normalizeAppointments();save()}
-function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x[0],lastName:x[1],mobile:x[2],service:x[3],status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
+
+function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x,lastName:x,mobile:x,service:x,status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
+
 function normalizeAppointments(){appointments=appointments.map(a=>({...a,status:a.status||'pending',reminder:a.reminder!==false,mode:a.mode||'حضوری',date:a.date||a.jalaliDate||jalaliStr(new Date()),time:a.time||'10:00',duration:Number(a.duration)||60,service:a.service||'',notes:a.notes||'',createdAt:a.createdAt||new Date().toISOString(),updatedAt:a.updatedAt||new Date().toISOString()}))}
+
 function save(){localStorage.setItem(LS.clients,JSON.stringify(clients));localStorage.setItem(LS.appointments,JSON.stringify(appointments));localStorage.setItem(LS.activity,JSON.stringify(activity.slice(0,500)))}
+
 function clientById(id){return clients.find(c=>c.id===id)} function apptDate(a){return jToDate(a.date)}
+
 function apptsOn(d){return appointments.filter(a=>{const x=apptDate(a);return x&&sameDay(x,d)&&a.status!=='cancelled'})}
+
 function weekAppts(d=cursorDate){const s=startOfWeek(d),e=endOfWeek(d);return appointments.filter(a=>{const x=apptDate(a);return x&&x>=s&&x<=e&&a.status!=='cancelled'})}
+
 function todayAppts(){return apptsOn(new Date())}
+
 function pending(){return appointments.filter(a=>a.status==='pending')}
+
 function attendanceRate(){const done=appointments.filter(a=>['completed','no-show'].includes(a.status));return done.length?Math.round(done.filter(a=>a.status==='completed').length/done.length*100):0}
+
 function log(message,id){activity.unshift({id:uid('ACT'),type:'appointment',message,appointmentId:id,at:new Date().toISOString()})}
-function renderKpis(){const t=todayAppts(),w=weekAppts(),p=pending(),n=appointments.filter(a=>a.status==='no-show'),rate=attendanceRate();$('#kpiToday').textContent=faNum(t.length);$('#kpiWeek').textContent=faNum(w.length);$('#kpiPending').textContent=faNum(p.length);$('#kpiAttendance').textContent=faNum(rate)+'٪';$('#heroToday').textContent=faNum(t.length);$('#heroWeek').textContent=faNum(w.length);$('#heroPending').textContent=faNum(p.length);$('#heroNoShow').textContent=faNum(n.length);$('#heroAttendance').textContent=faNum(rate)+'٪';$('#heroAttendanceBar').style.width=rate+'%';renderStatus();renderActions();renderNotifications()}
-function renderStatus(){const counts={confirmed:0,pending:0,completed:0,cancelled:0};appointments.forEach(a=>{if(counts[a.status]!==undefined)counts[a.status]++});const total=appointments.length||1;Object.entries(counts).forEach(([k,v])=>{$('#'+k+'Count').textContent=faNum(v);$('#'+k+'Card').textContent=faNum(v)});$('#statusTotal').textContent=faNum(appointments.length);const p={};Object.entries(counts).forEach(([k,v])=>p[k]=Math.round(v/total*100));$('#confirmedPct').textContent=faNum(p.confirmed)+'٪';$('#pendingPct').textContent=faNum(p.pending)+'٪';$('#completedPct').textContent=faNum(p.completed)+'٪';$('#cancelledPct').textContent=faNum(p.cancelled)+'٪';let s=0;const seg=[['confirmed','var(--green)'],['pending','var(--yellow)'],['completed','var(--purple)'],['cancelled','var(--red)']].map(([k,c])=>{const e=s+p[k];const x=`${c} ${s}% ${e}%`;s=e;return x}).join(',');$('#appointmentDonut').style.background=`conic-gradient(${seg})`;$('.appointment-status-cards .status-card:nth-child(1) .status-number').textContent=faNum(counts.confirmed);$('.appointment-status-cards .status-card:nth-child(2) .status-number').textContent=faNum(counts.pending);$('.appointment-status-cards .status-card:nth-child(3) .status-number').textContent=faNum(counts.completed);$('.appointment-status-cards .status-card:nth-child(4) .status-number').textContent=faNum(counts.cancelled)}
-function renderActions(){const p=pending().length,t=todayAppts().length,n=appointments.filter(a=>a.status==='no-show').length;$('#actionPendingText').textContent=`${faNum(p)} نوبت نیازمند تأیید`;$('#actionTodayText').textContent=`${faNum(t)} نوبت برای امروز`;$('#actionNoShowText').textContent=`${faNum(n)} مورد نیازمند پیگیری`}
-function renderNotifications(){const arr=[];pending().slice(0,8).forEach(a=>{const c=clientById(a.clientId);arr.push({title:'نوبت در انتظار تأیید',text:`${c?c.firstName+' '+c.lastName:'مراجع'} — ${a.date} ${a.time}`,id:a.id})});todayAppts().filter(a=>a.reminder).slice(0,8).forEach(a=>{const c=clientById(a.clientId);arr.push({title:'نوبت امروز',text:`${c?c.firstName+' '+c.lastName:'مراجع'} — ساعت ${a.time}`,id:a.id})});$('#notificationList').innerHTML=arr.length?arr.map(x=>`<button class="notification-item" data-notification="${x.id}"><strong>${esc(x.title)}</strong><span>${esc(x.text)}</span></button>`).join(''):`<div class="notification-empty">اعلان جدیدی وجود ندارد.</div>`;$('#notificationDot').style.display=arr.length?'block':'none'}
-function filters(){return{q:$('#search').value.trim().toLowerCase(),status:$('#filterStatus').value,mode:$('#filterMode').value,service:$('#filterService').value,from:$('#filterFrom').value,to:$('#filterTo').value}}
-function filtered(){const f=filters();return appointments.filter(a=>{const c=clientById(a.clientId)||{};const hay=[c.firstName,c.lastName,c.mobile,a.service,a.notes,a.date,a.time].join(' ').toLowerCase();if(f.q&&!hay.includes(f.q))return false;if(f.status&&a.status!==f.status)return false;if(f.mode&&a.mode!==f.mode)return false;if(f.service&&a.service!==f.service)return false;if(f.from&&jKey(a.date)<jKey(f.from))return false;if(f.to&&jKey(a.date)>jKey(f.to))return false;return true}).sort((a,b)=>{const da=jKey(a.date)-jKey(b.date);return da||String(a.time).localeCompare(String(b.time))})}
-function renderTable(){const list=filtered(),pages=Math.max(1,Math.ceil(list.length/pageSize));if(currentPage>pages)currentPage=pages;const start=(currentPage-1)*pageSize,rows=list.slice(start,start+pageSize);$('#listMeta').textContent=`${faNum(list.length)} نوبت از ${faNum(appointments.length)}`;$('#pageMeta').textContent=list.length?`نمایش ${faNum(start+1)} تا ${faNum(Math.min(start+pageSize,list.length))}`:'نمایش ۰ تا ۰';$('#appointmentRows').innerHTML=rows.map((a,i)=>{const c=clientById(a.clientId)||{};return `<tr><td>${faNum(start+i+1)}</td><td><div class="client-cell"><div class="avatar">${esc(initials(c))}</div><div><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(c.mobile||'بدون موبایل')}</small></div></div></td><td>${faNum(a.date)}</td><td>${esc(a.time)}</td><td>${esc(a.service||c.service||'—')}</td><td>${esc(a.mode)}</td><td><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></td><td class="${a.reminder?'reminder-on':'reminder-off'}">${a.reminder?'✓ فعال':'خاموش'}</td><td><div class="row-actions"><button class="mini-btn" data-action="view" data-id="${a.id}">جزئیات</button><button class="mini-btn" data-action="edit" data-id="${a.id}">ویرایش</button><button class="mini-btn" data-action="status" data-id="${a.id}">وضعیت</button><button class="mini-btn delete-btn" data-action="delete" data-id="${a.id}">حذف</button></div></td></tr>`}).join('');$('#mobileAppointments').innerHTML=rows.map(a=>appointmentCard(a)).join('');$('#emptyState').classList.toggle('show',!rows.length);renderPages(pages)}
-function appointmentCard(a){const c=clientById(a.clientId)||{};return `<article class="appointment-card"><div class="appointment-card-head"><div class="appointment-card-client"><div class="avatar">${esc(initials(c))}</div><div><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(c.mobile||'')}</small></div></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div><div class="appointment-card-meta"><div><span>تاریخ</span><b>${faNum(a.date)}</b></div><div><span>ساعت</span><b>${esc(a.time)}</b></div><div><span>خدمت</span><b>${esc(a.service||'—')}</b></div><div><span>نوع</span><b>${esc(a.mode)}</b></div></div><div class="appointment-card-actions"><button class="mini-btn" data-action="view" data-id="${a.id}">جزئیات</button><button class="mini-btn" data-action="edit" data-id="${a.id}">ویرایش</button><button class="mini-btn" data-action="status" data-id="${a.id}">وضعیت</button></div></article>`}
-function renderPages(pages){$('#pages').innerHTML=Array.from({length:pages},(_,i)=>`<button class="page ${i+1===currentPage?'active':''}" data-page="${i+1}">${faNum(i+1)}</button>`).join('')}
-function renderCalendar(){const title=$('#calendarTitle'),sub=$('#calendarSubtitle');if(view==='day'){title.textContent=fmtMonth(cursorDate);sub.textContent=`${fmtWeekday(cursorDate)} · ${faNum(jalaliStr(cursorDate))}`;$('#calendarBody').innerHTML=renderDay()}else if(view==='week'){title.textContent='هفته کاری';sub.textContent=`${faNum(jalaliStr(startOfWeek(cursorDate)))} تا ${faNum(jalaliStr(endOfWeek(cursorDate)))}`;$('#calendarBody').innerHTML=renderWeek()}else if(view==='month'){title.textContent=fmtMonth(cursorDate);sub.textContent='تقویم ماهانه نوبت‌ها';$('#calendarBody').innerHTML=renderMonth()}else{title.textContent='فهرست نوبت‌ها';sub.textContent='مرتب‌شده بر اساس تاریخ و ساعت';$('#calendarBody').innerHTML=renderListBoard()}}
-function apptHtml(a){const c=clientById(a.clientId)||{};return `<button class="calendar-appt" data-calendar-id="${a.id}"><strong>${esc(a.time)} · ${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||c.service||'—')} · ${esc(a.mode)}</small><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></button>`}
-function renderDay(){let h=`<div class="day-board"><aside class="day-side"><div class="big-day">${faNum(jalaliParts(cursorDate)[2])}</div><div><strong>${fmtWeekday(cursorDate)}</strong><span>${esc(fmtMonth(cursorDate))}</span><span>${faNum(apptsOn(cursorDate).length)} نوبت</span></div></aside><div class="day-slots">`;for(let hour=8;hour<=20;hour++){const list=apptsOn(cursorDate).filter(a=>Number(a.time.split(':')[0])===hour);h+=`<div class="time-slot"><div class="time-label">${faNum(pad(hour))+':۰۰'}</div><div class="slot-items">${list.length?list.map(apptHtml).join(''):'<span class="slot-empty">آزاد</span>'}</div></div>`}return h+'</div></div>'}
-function renderWeek(){let h='<div class="week-board">';for(let i=0;i<7;i++){const d=addDays(startOfWeek(cursorDate),i),list=apptsOn(d);h+=`<div class="week-col ${sameDay(d,new Date())?'today':''}"><div class="week-head"><strong>${faNum(jalaliParts(d)[2])}</strong><span>${fmtWeekday(d)}</span></div><div class="week-items">${list.length?list.map(apptHtml).join(''):'<div class="week-empty">نوبتی ثبت نشده</div>'}</div></div>`}return h+'</div>'}
-function renderMonth(){const [jy,jm]=jalaliParts(cursorDate),days=new Date(...jalaliToGregorian(jy,jm+1,1));const first=jalaliToGregorian(jy,jm,1);const fd=new Date(first[0],first[1]-1,first[2]);let start=fd.getDay();start=start===0?6:start-1;const dim=jm<=6?31:jm<=11?30:((jy%33===1||jy%33===5||jy%33===9||jy%33===13||jy%33===17||jy%33===22||jy%33===26||jy%33===30)?30:29);let h='<div class="month-board"><div class="month-head">شنبه</div><div class="month-head">یکشنبه</div><div class="month-head">دوشنبه</div><div class="month-head">سه‌شنبه</div><div class="month-head">چهارشنبه</div><div class="month-head">پنجشنبه</div><div class="month-head">جمعه</div>';for(let i=0;i<start;i++)h+='<div class="month-cell muted"></div>';for(let day=1;day<=dim;day++){const d=new Date(...jalaliToGregorian(jy,jm,day)),list=apptsOn(d);h+=`<div class="month-cell ${sameDay(d,new Date())?'today':''}" data-calendar-date="${jalaliStr(d)}"><div class="month-number">${faNum(day)}</div><div class="month-count">${faNum(list.length)} نوبت</div><div class="month-mini">${list.slice(0,3).map(a=>{const c=clientById(a.clientId)||{};return `<span>${esc(a.time)} · ${esc(c.firstName||'مراجع')}</span>`}).join('')}</div></div>`}return h+'</div>'}
-function renderListBoard(){const groups={};filtered().forEach(a=>(groups[a.date]??=[]).push(a));const keys=Object.keys(groups);return keys.length?'<div class="list-board">'+keys.map(k=>`<div class="list-day"><div class="list-day-head"><strong>${faNum(k)}</strong><span>${faNum(groups[k].length)} نوبت</span></div><div class="list-day-items">${groups[k].map(a=>{const c=clientById(a.clientId)||{};return `<div class="list-appt"><div class="list-time">${esc(a.time)}</div><div class="list-client"><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||'—')} · ${esc(a.mode)}</small></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div>`}).join('')}</div></div>`).join('')+'</div>':'<div class="empty show"><strong>نوبتی برای این بازه پیدا نشد.</strong><span>با تغییر تاریخ یا ثبت نوبت جدید، تقویم را تکمیل کنید.</span></div>'}
-function renderAll(){renderKpis();renderTable();renderCalendar()}
-function openModal(id){$(id)?.classList.add('open');document.body.classList.add('modal-open')}function closeModal(id){$(id)?.classList.remove('open');if(!$$('.modal-backdrop.open').length)document.body.classList.remove('modal-open')}
-function setTheme(){const t=localStorage.getItem(LS.theme)||'dark';document.documentElement.dataset.theme=t;$('#theme').textContent=t==='dark'?'☾':'☀'}function toggleTheme(){const t=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(LS.theme,t);setTheme()}
-function fillClientOptions(){const sel=$('#appointmentClient');sel.innerHTML='<option value="">انتخاب مراجع</option>'+clients.map(c=>`<option value="${c.id}">${esc(c.firstName+' '+c.lastName)} — ${esc(c.mobile||'')}</option>`).join('');$('#filterService').innerHTML='<option value="">همه خدمات</option>'+SERVICES.map(s=>`<option>${esc(s)}</option>`).join('')}
-function openForm(id='',clientId=''){editingId=id;selectedClientId=clientId;const a=id?appointments.find(x=>x.id===id):null;$('#appointmentForm').reset();$('#appointmentId').value=id;$('#appointmentClient').value=a?.clientId||clientId||'';$('#appointmentDate').value=a?.date||jalaliStr(cursorDate);$('#appointmentTime').value=a?.time||'10:00';$('#appointmentDuration').value=a?.duration||60;$('#appointmentService').value=a?.service||clientById(clientId)?.service||'';$('#appointmentMode').value=a?.mode||'حضوری';$('#appointmentStatus').value=a?.status||'pending';$('#appointmentReminder').checked=a?a.reminder!==false:true;$('#appointmentNotes').value=a?.notes||'';$('#modalTitle').textContent=id?'ویرایش نوبت':'ثبت نوبت جدید';$('#clientSearch').value='';$('#clientResults').classList.remove('open');updateSelectedClient();openModal('#appointmentModal')}
-function updateSelectedClient(){const c=clientById($('#appointmentClient').value);const box=$('#selectedClient');if(c){box.classList.add('show');box.innerHTML=`<span><strong>${esc(c.firstName+' '+c.lastName)}</strong> · ${esc(c.mobile||'')}</span><button type="button" id="clearSelectedClient">×</button>`}else{box.classList.remove('show');box.innerHTML=''}}
-function collectForm(){return{clientId:$('#appointmentClient').value,date:$('#appointmentDate').value.trim(),time:$('#appointmentTime').value,duration:Number($('#appointmentDuration').value)||60,service:$('#appointmentService').value.trim(),mode:$('#appointmentMode').value,status:$('#appointmentStatus').value,reminder:$('#appointmentReminder').checked,notes:$('#appointmentNotes').value.trim()}}
-function saveAppointment(e){e.preventDefault();const d=collectForm();if(!d.clientId||!clientById(d.clientId)){toast('انتخاب مراجع الزامی است','یک مراجع واقعی از پرونده‌ها انتخاب کنید.',false);return}if(!parseJ(d.date)){toast('تاریخ شمسی نامعتبر است','تاریخ را مثل ۱۴۰۵/۰۷/۰۱ وارد کنید.',false);return}if(!d.time){toast('ساعت نوبت','ساعت نوبت را مشخص کنید.',false);return}if(!d.service){toast('خدمت نوبت','خدمت را وارد کنید.',false);return}const conflict=appointments.find(a=>a.id!==editingId&&a.date===d.date&&a.time===d.time&&a.status!=='cancelled');if(conflict){toast('تداخل زمانی','در این تاریخ و ساعت یک نوبت دیگر ثبت شده است.',false);return}if(editingId){const i=appointments.findIndex(a=>a.id===editingId);appointments[i]={...appointments[i],...d,updatedAt:new Date().toISOString()};log('نوبت ویرایش شد',editingId);toast('نوبت ویرایش شد','تغییرات با موفقیت ذخیره شد.')}else{const a={id:uid('APT'),...d,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};appointments.push(a);log('نوبت جدید ثبت شد',a.id);toast('نوبت ثبت شد','نوبت به تقویم و فهرست نوبت‌ها اضافه شد.')}save();closeModal('#appointmentModal');renderAll()}
-function openDetail(id){const a=appointments.find(x=>x.id===id);if(!a)return;const c=clientById(a.clientId)||{};$('#detailTitle').textContent=`نوبت ${c.firstName||'مراجع'} ${c.lastName||''}`;$('#detailBody').innerHTML=`<div class="detail-grid"><div class="detail-item"><span>مراجع</span><b>${esc(c.firstName+' '+c.lastName)}</b></div><div class="detail-item"><span>موبایل</span><b>${esc(c.mobile||'—')}</b></div><div class="detail-item"><span>تاریخ</span><b>${faNum(a.date)}</b></div><div class="detail-item"><span>ساعت</span><b>${esc(a.time)}</b></div><div class="detail-item"><span>خدمت</span><b>${esc(a.service||'—')}</b></div><div class="detail-item"><span>نوع جلسه</span><b>${esc(a.mode)}</b></div><div class="detail-item"><span>مدت</span><b>${faNum(a.duration)} دقیقه</b></div><div class="detail-item"><span>یادآوری</span><b>${a.reminder?'فعال':'خاموش'}</b></div><div class="detail-item"><span>وضعیت</span><b><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></b></div></div><div class="detail-notes"><strong>یادداشت نوبت</strong><div>${esc(a.notes||'یادداشتی برای این نوبت ثبت نشده است.')}</div></div><div class="status-actions"><button class="btn" data-detail-status="confirmed" data-id="${a.id}">✓ تأیید</button><button class="btn" data-detail-status="completed" data-id="${a.id}">✓ پایان جلسه</button><button class="btn danger" data-detail-status="no-show" data-id="${a.id}">! عدم حضور</button></div><div class="hero-actions"><button class="btn primary" data-detail-edit="${a.id}">ویرایش نوبت</button><button class="btn" data-detail-client="${a.clientId}">پرونده مراجع</button><button class="btn" data-detail-sms="${a.id}">⌁ ارسال یادآوری</button></div>`;openModal('#detailModal')}
-function changeStatus(id,status){const a=appointments.find(x=>x.id===id);if(!a)return;a.status=status;a.updatedAt=new Date().toISOString();log(`وضعیت نوبت به «${statusLabel(status)}» تغییر کرد`,id);save();toast('وضعیت به‌روزرسانی شد',statusLabel(status));renderAll();if($('#detailModal').classList.contains('open'))openDetail(id)}
-function deleteAppointment(id){const a=appointments.find(x=>x.id===id);if(!a)return;$('#deleteText').textContent='این نوبت از فهرست و تقویم حذف خواهد شد. این عمل قابل بازگشت نیست.';$('#confirmDelete').dataset.id=id;openModal('#deleteModal')}
-function confirmDelete(){const id=$('#confirmDelete').dataset.id;appointments=appointments.filter(a=>a.id!==id);log('نوبت حذف شد',id);save();closeModal('#deleteModal');renderAll();toast('نوبت حذف شد','نوبت از سیستم محلی حذف شد.')}
-function sendReminder(id){const a=appointments.find(x=>x.id===id);const c=a&&clientById(a.clientId);if(!a||!c)return;toast('یادآوری آماده شد',`یادآوری ${c.firstName} ${c.lastName} برای ${a.date} ساعت ${a.time} ثبت شد.`);a.reminder=true;save();renderAll()}
-function toast(title,text,good=true){const t=document.createElement('div');t.className='toast '+(good?'':'error');t.innerHTML=`<strong>${esc(title)}</strong><span>${esc(text)}</span>`;document.body.appendChild(t);setTimeout(()=>t.classList.add('show'),20);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250)},3600)}
-function csv(){const rows=[['مراجع','موبایل','تاریخ شمسی','ساعت','خدمت','نوع','وضعیت','یادآوری','یادداشت']];filtered().forEach(a=>{const c=clientById(a.clientId)||{};rows.push([`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.notes||''])});const out='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([out],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.csv';a.click();URL.revokeObjectURL(url)}
-function moveCursor(n){if(view==='day')cursorDate=addDays(cursorDate,n);else if(view==='week')cursorDate=addDays(cursorDate,n*7);else if(view==='month'){const [y,m,d]=jalaliParts(cursorDate);const x=jalaliToGregorian(y,m+n,Math.min(d,28));cursorDate=new Date(x[0],x[1]-1,x[2])}else cursorDate=addDays(cursorDate,n);renderCalendar()}
-function today(){cursorDate=new Date();renderCalendar();document.querySelector('#calendarPanel').scrollIntoView({behavior:'smooth',block:'start'})}
-function openFilteredStatus(status){if(status){$('#filterStatus').value=status}else{$('#filterStatus').value=''}currentPage=1;view='list';$$('.view-btn').forEach(b=>b.classList.toggle('active',b.dataset.view==='list'));renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth',block:'start'})}
-function wire(){
- $('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
- $('#addAppointment').onclick=()=>openForm();$('#addAppointment2').onclick=()=>openForm();$('#openTodayList').onclick=()=>{view='list';$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());currentPage=1;renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#openPending').onclick=()=>openFilteredStatus('pending');
- $('#actionPending').onclick=()=>openFilteredStatus('pending');$('#actionToday').onclick=()=>{$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());view='list';renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#actionNoShow').onclick=()=>openFilteredStatus('no-show');$('#actionExport').onclick=csv;
- $$('.appointment-kpi').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.kpi==='today'?'':b.dataset.kpi==='pending'?'pending':''));
- $$('.legend-row,.appointment-status-cards .status-card').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.status));$('#showAllAppointments').onclick=()=>openFilteredStatus('');
- $$('.view-btn').forEach(b=>b.onclick=()=>{view=b.dataset.view;$$('.view-btn').forEach(x=>x.classList.toggle('active',x===b));renderCalendar()});
- $('#applyFilters').onclick=()=>{currentPage=1;renderTable();renderCalendar()};$('#clearFilters').onclick=()=>{$('#search').value='';$('#filterStatus').value='';$('#filterMode').value='';$('#filterService').value='';$('#filterFrom').value='';$('#filterTo').value='';currentPage=1;renderTable();renderCalendar()};$('#resetFilters').onclick=$('#clearFilters').onclick;$('#search').oninput=()=>{currentPage=1;renderTable();if(view==='list')renderCalendar()};['filterStatus','filterMode','filterService','filterFrom','filterTo'].forEach(id=>$('#'+id).onchange=()=>{currentPage=1;renderTable();renderCalendar()});$('#exportCsv').onclick=csv;
- $('#appointmentRows').addEventListener('click',handleAction);$('#mobileAppointments').addEventListener('click',handleAction);$('#calendarBody').addEventListener('click',e=>{const a=e.target.closest('[data-calendar-id]');if(a){openDetail(a.dataset.calendarId);return}const d=e.target.closest('[data-calendar-date]');if(d){cursorDate=jToDate(d.dataset.calendarDate);view='day';$$('.view-btn').forEach(x=>x.classList.toggle('active',x.dataset.view==='day'));renderCalendar()}});$('#pages').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){currentPage=Number(b.dataset.page);renderTable()}});
- $('#clientSearch').oninput=e=>{const q=e.target.value.trim().toLowerCase();const arr=clients.filter(c=>[c.firstName,c.lastName,c.mobile,c.caseCode,c.service].join(' ').toLowerCase().includes(q)).slice(0,10);$('#clientResults').innerHTML=arr.map(c=>`<div class="client-option" data-client="${c.id}"><strong>${esc(c.firstName+' '+c.lastName)}</strong><small>${esc(c.mobile||'')} · ${esc(c.service||'')}</small></div>`).join('');$('#clientResults').classList.toggle('open',!!q&&arr.length>0)};
- $('#clientResults').addEventListener('click',e=>{const b=e.target.closest('[data-client]');if(!b)return;$('#appointmentClient').value=b.dataset.client;selectedClientId=b.dataset.client;$('#clientSearch').value='';$('#clientResults').classList.remove('open');const c=clientById(b.dataset.client);$('#appointmentService').value=c?.service||'';updateSelectedClient()});$('#appointmentClient').onchange=updateSelectedClient;
- $('#appointmentForm').onsubmit=saveAppointment;$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
- $$('.date-shortcuts button').forEach(b=>b.onclick=()=>$('#appointmentDate').value=jalaliStr(addDays(new Date(),Number(b.dataset.add||0))));
- $$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal('#'+m.id)}));$$('[data-close]').forEach(b=>b.onclick=()=>closeModal('#'+b.dataset.close));
- $('#confirmDelete').onclick=confirmDelete;$('#detailBody').addEventListener('click',e=>{const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
- $('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover').classList.toggle('open')};document.addEventListener('click',e=>{if(!e.target.closest('#notificationPopover')&&!e.target.closest('#notificationsBtn'))$('#notificationPopover').classList.remove('open')});$('#notificationList').addEventListener('click',e=>{const b=e.target.closest('[data-notification]');if(b){$('#notificationPopover').classList.remove('open');openDetail(b.dataset.notification)}});$('#markRead').onclick=()=>toast('اعلان‌ها بررسی شد','اعلان‌های نوبت‌ها در همین صفحه مدیریت می‌شوند.');
- $('#logout').onclick=()=>{localStorage.removeItem(LS.user);location.href='../index.html'};$('#scrollTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>$('#scrollTop').classList.toggle('show',window.scrollY>420),{passive:true});$('#sidebar').addEventListener('scroll',updateSidebarScroll,{passive:true});window.addEventListener('resize',updateSidebarScroll);window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal-backdrop.open').forEach(m=>closeModal('#'+m.id))});
+
+function financeRecords(){
+try{return JSON.parse(localStorage.getItem('moshaver_finance')||'[]')}catch(e){return []}
 }
-function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
+
+function saveFinance(records){localStorage.setItem('moshaver_finance',JSON.stringify(records))}
+
+function money(v){return faNum(Number(v||0).toLocaleString('en-US'))}
+
+function financeTotals(){
+const records=financeRecords();
+const now=jalaliStr(new Date()).slice(0,7);
+const today=jalaliStr(new Date());
+const monthRecords=records.filter(r=>r.date.startsWith(now));
+return {today:records.filter(r=>r.date===today).reduce((s,r)=>s+Number(r.amount||0),0),month:monthRecords.reduce((s,r)=>s+Number(r.amount||0),0),commission:monthRecords.reduce((s,r)=>s+Number(r.commission||0),0),completed:monthRecords.length};
+}
+
+function renderFinance(){
+const t=financeTotals();
+$('#financeTodayValue').textContent=money(t.today);
+$('#financeMonthValue').textContent=money(t.month);
+$('#financeCommissionValue').textContent=money(t.commission);
+$('#financeCompletedValue').textContent=faNum(t.completed);
+const records=financeRecords().slice().sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))).slice(0,5);
+$('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${faNum(r.date)} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
+}
+// =========================================================
+// 04. DASHBOARD / KPI RENDERING
+// =========================================================
+
+function renderKpis(){const t=todayAppts(),w=weekAppts(),p=pending(),n=appointments.filter(a=>a.status==='no-show'),rate=attendanceRate();$('#kpiToday').textContent=faNum(t.length);$('#kpiWeek').textContent=faNum(w.length);$('#kpiPending').textContent=faNum(p.length);$('#kpiAttendance').textContent=faNum(rate)+'٪';$('#heroToday').textContent=faNum(t.length);$('#heroWeek').textContent=faNum(w.length);$('#heroPending').textContent=faNum(p.length);$('#heroNoShow').textContent=faNum(n.length);$('#heroAttendance').textContent=faNum(rate)+'٪';$('#heroAttendanceBar').style.width=rate+'%';renderStatus();renderActions();renderNotifications()}
+
+function renderStatus(){const counts={confirmed:0,pending:0,completed:0,cancelled:0};appointments.forEach(a=>{if(counts[a.status]!==undefined)counts[a.status]++});const total=appointments.length||1;Object.entries(counts).forEach(([k,v])=>{$('#'+k+'Count').textContent=faNum(v);$('#'+k+'Card').textContent=faNum(v)});$('#statusTotal').textContent=faNum(appointments.length);const p={};Object.entries(counts).forEach(([k,v])=>p[k]=Math.round(v/total*100));$('#confirmedPct').textContent=faNum(p.confirmed)+'٪';$('#pendingPct').textContent=faNum(p.pending)+'٪';$('#completedPct').textContent=faNum(p.completed)+'٪';$('#cancelledPct').textContent=faNum(p.cancelled)+'٪';let s=0;const seg=[['confirmed','var(--green)'],['pending','var(--yellow)'],['completed','var(--purple)'],['cancelled','var(--red)']].map(([k,c])=>{const e=s+p[k];const x=`${c} ${s}% ${e}%`;s=e;return x}).join(',');$('#appointmentDonut').style.background=`conic-gradient(${seg})`;$('.appointment-status-cards .status-card:nth-child(1) .status-number').textContent=faNum(counts.confirmed);$('.appointment-status-cards .status-card:nth-child(2) .status-number').textContent=faNum(counts.pending);$('.appointment-status-cards .status-card:nth-child(3) .status-number').textContent=faNum(counts.completed);$('.appointment-status-cards .status-card:nth-child(4) .status-number').textContent=faNum(counts.cancelled)}
+
+function renderActions(){const p=pending().length,t=todayAppts().length,n=appointments.filter(a=>a.status==='no-show').length;$('#actionPendingText').textContent=`${faNum(p)} نوبت نیازمند تأیید`;$('#actionTodayText').textContent=`${faNum(t)} نوبت برای امروز`;$('#actionNoShowText').textContent=`${faNum(n)} مورد نیازمند پیگیری`}
+
+function renderNotifications(){const arr=[];pending().slice(0,8).forEach(a=>{const c=clientById(a.clientId);arr.push({title:'نوبت در انتظار تأیید',text:`${c?c.firstName+' '+c.lastName:'مراجع'} — ${a.date} ${a.time}`,id:a.id})});todayAppts().filter(a=>a.reminder).slice(0,8).forEach(a=>{const c=clientById(a.clientId);arr.push({title:'نوبت امروز',text:`${c?c.firstName+' '+c.lastName:'مراجع'} — ساعت ${a.time}`,id:a.id})});$('#notificationList').innerHTML=arr.length?arr.map(x=>`<button class="notification-item" data-notification="${x.id}"><strong>${esc(x.title)}</strong><span>${esc(x.text)}</span></button>`).join(''):`<div class="notification-empty">اعلان جدیدی وجود ندارد.</div>`;$('#notificationDot').style.display=arr.length?'block':'none'}
+
+function filters(){return{q:$('#search').value.trim().toLowerCase(),status:$('#filterStatus').value,mode:$('#filterMode').value,service:$('#filterService').value,from:$('#filterFrom').value,to:$('#filterTo').value}}
+
+function filtered(){const f=filters();return appointments.filter(a=>{const c=clientById(a.clientId)||{};const hay=[c.firstName,c.lastName,c.mobile,a.service,a.notes,a.date,a.time].join(' ').toLowerCase();if(f.q&&!hay.includes(f.q))return false;if(f.status&&a.status!==f.status)return false;if(f.mode&&a.mode!==f.mode)return false;if(f.service&&a.service!==f.service)return false;if(f.from&&jKey(a.date)<jKey(f.from))return false;if(f.to&&jKey(a.date)>jKey(f.to))return false;return true}).sort((a,b)=>{const da=jKey(a.date)-jKey(b.date);return da||String(a.time).localeCompare(String(b.time))})}
+// =========================================================
+// 05. APPOINTMENT LIST / PAGINATION
+// =========================================================
+
+function renderTable(){const list=filtered(),pages=Math.max(1,Math.ceil(list.length/pageSize));if(currentPage>pages)currentPage=pages;const start=(currentPage-1)*pageSize,rows=list.slice(start,start+pageSize);$('#listMeta').textContent=`${faNum(list.length)} نوبت از ${faNum(appointments.length)}`;$('#pageMeta').textContent=list.length?`نمایش ${faNum(start+1)} تا ${faNum(Math.min(start+pageSize,list.length))}`:'نمایش ۰ تا ۰';$('#appointmentRows').innerHTML=rows.map((a,i)=>{const c=clientById(a.clientId)||{};return `<tr><td>${faNum(start+i+1)}</td><td><div class="client-cell"><div class="avatar">${esc(initials(c))}</div><div><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(c.mobile||'بدون موبایل')}</small></div></div></td><td>${faNum(a.date)}</td><td>${esc(a.time)}</td><td>${esc(a.service||c.service||'—')}</td><td>${esc(a.mode)}</td><td><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></td><td class="${a.reminder?'reminder-on':'reminder-off'}">${a.reminder?'✓ فعال':'خاموش'}</td><td><div class="row-actions"><button class="mini-btn" data-action="view" data-id="${a.id}">جزئیات</button><button class="mini-btn" data-action="edit" data-id="${a.id}">ویرایش</button><button class="mini-btn" data-action="status" data-id="${a.id}">وضعیت</button><button class="mini-btn success-btn" data-action="complete" data-id="${a.id}">اتمام خدمات</button><button class="mini-btn delete-btn" data-action="delete" data-id="${a.id}">حذف</button></div></td></tr>`}).join('');$('#mobileAppointments').innerHTML=rows.map(a=>appointmentCard(a)).join('');$('#emptyState').classList.toggle('show',!rows.length);renderPages(pages)}
+
+function appointmentCard(a){const c=clientById(a.clientId)||{};return `<article class="appointment-card"><div class="appointment-card-head"><div class="appointment-card-client"><div class="avatar">${esc(initials(c))}</div><div><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(c.mobile||'')}</small></div></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div><div class="appointment-card-meta"><div><span>تاریخ</span><b>${faNum(a.date)}</b></div><div><span>ساعت</span><b>${esc(a.time)}</b></div><div><span>خدمات</span><b>${esc(a.service||'—')}</b></div><div><span>نوع</span><b>${esc(a.mode)}</b></div></div><div class="appointment-card-actions"><button class="mini-btn" data-action="view" data-id="${a.id}">جزئیات</button><button class="mini-btn" data-action="edit" data-id="${a.id}">ویرایش</button><button class="mini-btn" data-action="status" data-id="${a.id}">وضعیت</button><button class="mini-btn success-btn" data-action="complete" data-id="${a.id}">اتمام خدمات</button></div></article>`}
+
+function renderPages(pages){$('#pages').innerHTML=Array.from({length:pages},(_,i)=>`<button class="page ${i+1===currentPage?'active':''}" data-page="${i+1}">${faNum(i+1)}</button>`).join('')}
+// =========================================================
+// 06. SMART CALENDAR
+// =========================================================
+
+function renderCalendar(){const title=$('#calendarTitle'),sub=$('#calendarSubtitle');if(view==='day'){title.textContent=fmtMonth(cursorDate);sub.textContent=`${fmtWeekday(cursorDate)} · ${faNum(jalaliStr(cursorDate))}`;$('#calendarBody').innerHTML=renderDay()}else if(view==='week'){title.textContent='هفته کاری';sub.textContent=`${faNum(jalaliStr(startOfWeek(cursorDate)))} تا ${faNum(jalaliStr(endOfWeek(cursorDate)))}`;$('#calendarBody').innerHTML=renderWeek()}else if(view==='month'){title.textContent=fmtMonth(cursorDate);sub.textContent='تقویم ماهانه نوبت‌ها';$('#calendarBody').innerHTML=renderMonth()}else{title.textContent='فهرست نوبت‌ها';sub.textContent='مرتب‌شده بر اساس تاریخ و ساعت';$('#calendarBody').innerHTML=renderListBoard()}}
+
+function apptHtml(a){const c=clientById(a.clientId)||{};return `<button class="calendar-appt" data-calendar-id="${a.id}"><strong>${esc(a.time)} · ${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||c.service||'—')} · ${esc(a.mode)}</small><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></button>`}
+
+function renderDay(){
+const dayAppointments = apptsOn(cursorDate).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
+let html = `<div class="day-board smart-day-board"><aside class="day-side"><div class="big-day">${faNum(jalaliParts(cursorDate)[2])}</div><div><strong>${fmtWeekday(cursorDate)}</strong><span>${esc(fmtMonth(cursorDate))}</span><span>${faNum(dayAppointments.length)} نوبت</span></div></aside><div class="day-slots">`;
+
+for(let hour=8; hour<=20; hour++){
+for(const minute of [0,30]){
+const hh=pad(hour), mm=pad(minute);
+const slot=`${hh}:${mm}`;
+const list=dayAppointments.filter(a=>String(a.time).slice(0,5)===slot);
+html += `<div class="time-slot precise-slot" data-slot="${slot}"><div class="time-label">${faNum(hh)}:${faNum(mm)}</div><div class="slot-items">${list.length?list.map(apptHtml).join(''):'<span class="slot-empty">آزاد</span>'}</div></div>`;
+}
+}
+return html+'</div></div>';
+}
+
+function renderWeek(){let h='<div class="week-board">';for(let i=0;i<7;i++){const d=addDays(startOfWeek(cursorDate),i),list=apptsOn(d);h+=`<div class="week-col ${sameDay(d,new Date())?'today':''}"><div class="week-head"><strong>${faNum(jalaliParts(d)[2])}</strong><span>${fmtWeekday(d)}</span></div><div class="week-items">${list.length?list.map(apptHtml).join(''):'<div class="week-empty">نوبتی ثبت نشده</div>'}</div></div>`}return h+'</div>'}
+
+function jalaliMonthDaysCount(y,m){
+if(m<=6)return 31;
+if(m<=11)return 30;
+const r=y%33;
+return [1,5,9,13,17,22,26,30].includes(r)?30:29;
+}
+
+function renderMonth(){
+const [jy,jm]=jalaliParts(cursorDate);
+const first=jalaliToGregorian(jy,jm,1);
+const fd=new Date(first[0],first[1]-1,first[2]);
+let start=fd.getDay(); start=start===0?6:start-1;
+const dim=jalaliMonthDaysCount(jy,jm);
+let h='<div class="month-board"><div class="month-head">شنبه</div><div class="month-head">یکشنبه</div><div class="month-head">دوشنبه</div><div class="month-head">سه‌شنبه</div><div class="month-head">چهارشنبه</div><div class="month-head">پنجشنبه</div><div class="month-head">جمعه</div>';
+for(let i=0;i<start;i++)h+='<div class="month-cell muted"></div>';
+for(let day=1;day<=dim;day++){
+const d=new Date(...jalaliToGregorian(jy,jm,day));
+const list=apptsOn(d).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
+h+=`<div class="month-cell ${sameDay(d,new Date())?'today':''}" data-calendar-date="${jalaliStr(d)}"><div class="month-number">${faNum(day)}</div><div class="month-count">${faNum(list.length)} نوبت</div><div class="month-mini">${list.slice(0,4).map(a=>{const c=clientById(a.clientId)||{};return `<span>${esc(a.time)} · ${esc(c.firstName||'مراجع')}</span>`}).join('')}</div></div>`;
+}
+return h+'</div>';
+}
+
+function renderListBoard(){const groups={};filtered().forEach(a=>(groups[a.date]??=[]).push(a));const keys=Object.keys(groups);return keys.length?'<div class="list-board">'+keys.map(k=>`<div class="list-day"><div class="list-day-head"><strong>${faNum(k)}</strong><span>${faNum(groups[k].length)} نوبت</span></div><div class="list-day-items">${groups[k].map(a=>{const c=clientById(a.clientId)||{};return `<div class="list-appt"><div class="list-time">${esc(a.time)}</div><div class="list-client"><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||'—')} · ${esc(a.mode)}</small></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div>`}).join('')}</div></div>`).join('')+'</div>':'<div class="empty show"><strong>نوبتی برای این بازه پیدا نشد.</strong><span>با تغییر تاریخ یا ثبت نوبت جدید، تقویم را تکمیل کنید.</span></div>'}
+
+function renderAll(){renderKpis();renderTable();renderCalendar();renderFinance()}
+// =========================================================
+// 07. MODALS / FORMS
+// =========================================================
+
+function openModal(id){$(id)?.classList.add('open');document.body.classList.add('modal-open')}function closeModal(id){$(id)?.classList.remove('open');if(!$$('.modal-backdrop.open').length)document.body.classList.remove('modal-open')}
+
+function setTheme(){const t=localStorage.getItem(LS.theme)||'dark';document.documentElement.dataset.theme=t;$('#theme').textContent=t==='dark'?'☾':'☀'}function toggleTheme(){const t=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(LS.theme,t);setTheme()}
+
+function fillClientOptions(){const sel=$('#appointmentClient');sel.innerHTML='<option value="">انتخاب مراجع</option>'+clients.map(c=>`<option value="${c.id}">${esc(c.firstName+' '+c.lastName)} — ${esc(c.mobile||'')}</option>`).join('');$('#filterService').innerHTML='<option value="">همه خدمات</option>'+SERVICES.map(s=>`<option>${esc(s)}</option>`).join('')}
+
+function openForm(id='',clientId=''){editingId=id;selectedClientId=clientId;const a=id?appointments.find(x=>x.id===id):null;$('#appointmentForm').reset();$('#appointmentId').value=id;$('#appointmentClient').value=a?.clientId||clientId||'';$('#appointmentDate').value=a?.date||jalaliStr(cursorDate);$('#appointmentTime').value=a?.time||'10:00';$('#appointmentDuration').value=a?.duration||60;$('#appointmentService').value=a?.service||clientById(clientId)?.service||'';$('#appointmentMode').value=a?.mode||'حضوری';$('#appointmentStatus').value=a?.status||'pending';$('#appointmentReminder').checked=a?a.reminder!==false:true;$('#appointmentNotes').value=a?.notes||'';$('#modalTitle').textContent=id?'ویرایش نوبت':'ثبت نوبت جدید';$('#clientSearch').value='';$('#clientResults').classList.remove('open');updateSelectedClient();openModal('#appointmentModal')}
+
+function updateSelectedClient(){const c=clientById($('#appointmentClient').value);const box=$('#selectedClient');if(c){box.classList.add('show');box.innerHTML=`<span><strong>${esc(c.firstName+' '+c.lastName)}</strong> · ${esc(c.mobile||'')}</span><button type="button" id="clearSelectedClient">×</button>`}else{box.classList.remove('show');box.innerHTML=''}}
+
+function collectForm(){return{clientId:$('#appointmentClient').value,date:$('#appointmentDate').value.trim(),time:$('#appointmentTime').value,duration:Number($('#appointmentDuration').value)||60,service:$('#appointmentService').value.trim(),mode:$('#appointmentMode').value,status:$('#appointmentStatus').value,reminder:$('#appointmentReminder').checked,notes:$('#appointmentNotes').value.trim()}}
+
+function saveAppointment(e){e.preventDefault();const d=collectForm();if(!d.clientId||!clientById(d.clientId)){toast('انتخاب مراجع الزامی است','یک مراجع واقعی از پرونده‌ها انتخاب کنید.',false);return}if(!parseJ(d.date)){toast('تاریخ شمسی نامعتبر است','تاریخ را مثل ۱۴۰۵/۰۷/۰۱ وارد کنید.',false);return}if(!d.time){toast('ساعت نوبت','ساعت نوبت را مشخص کنید.',false);return}if(!d.service){toast('خدمات نوبت','خدمات را وارد کنید.',false);return}const conflict=appointments.find(a=>a.id!==editingId&&a.date===d.date&&a.time===d.time&&a.status!=='cancelled');if(conflict){toast('تداخل زمانی','در این تاریخ و ساعت یک نوبت دیگر ثبت شده است.',false);return}if(editingId){const i=appointments.findIndex(a=>a.id===editingId);appointments[i]={...appointments[i],...d,updatedAt:new Date().toISOString()};log('نوبت ویرایش شد',editingId);toast('نوبت ویرایش شد','تغییرات با موفقیت ذخیره شد.')}else{const a={id:uid('APT'),...d,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};appointments.push(a);log('نوبت جدید ثبت شد',a.id);toast('نوبت ثبت شد','نوبت به تقویم و فهرست نوبت‌ها اضافه شد.')}save();closeModal('#appointmentModal');renderAll()}
+
+function openDetail(id){
+const a=appointments.find(x=>x.id===id); if(!a)return;
+const c=clientById(a.clientId)||{};
+const finalized=Boolean(a.finalized);
+$('#detailTitle').textContent=`نوبت ${c.firstName||'مراجع'} ${c.lastName||''}`;
+$('#detailBody').innerHTML=`     <div class="detail-grid">       <div class="detail-item"><span>مراجع</span><b>${esc((c.firstName||'')+' '+(c.lastName||''))}</b></div>       <div class="detail-item"><span>موبایل</span><b>${esc(c.mobile||'—')}</b></div>       <div class="detail-item"><span>تاریخ</span><b>${faNum(a.date)}</b></div>       <div class="detail-item"><span>ساعت</span><b>${esc(a.time)}</b></div>       <div class="detail-item"><span>خدمات</span><b>${esc(a.service||'—')}</b></div>       <div class="detail-item"><span>نوع جلسه</span><b>${esc(a.mode)}</b></div>       <div class="detail-item"><span>مدت</span><b>${faNum(a.duration)} دقیقه</b></div>       <div class="detail-item"><span>یادآوری</span><b>${a.reminder?'فعال':'خاموش'}</b></div>       <div class="detail-item"><span>وضعیت</span><b><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></b></div>     </div>
+    ${finalized?`<div class="success-box"><strong>✓ خدمات با موفقیت تکمیل شده</strong><span>درآمد و پورسانت این پرونده در بخش مالی ثبت شده است.</span></div>`:''}     <div class="detail-notes"><strong>یادداشت نوبت</strong><div>${esc(a.notes||'یادداشتی برای این نوبت ثبت نشده است.')}</div></div>     <div class="status-actions">       <button class="btn" data-detail-status="confirmed" data-id="${a.id}">✓ تأیید</button>       <button class="btn" data-detail-complete="${a.id}">✓ اتمام خدمات</button>       <button class="btn danger" data-detail-status="no-show" data-id="${a.id}">! عدم حضور</button>     </div>     <div class="hero-actions">       <button class="btn primary" data-detail-edit="${a.id}">ویرایش نوبت</button>       <button class="btn" data-detail-client="${a.clientId}">پرونده مراجع</button>       <button class="btn" data-detail-sms="${a.id}">⌁ ارسال یادآوری</button>
+      ${finalized?`<button class="btn" data-detail-finance="${a.id}">ویرایش مالی</button>`:''}     </div>`;
+openModal('#detailModal');
+}
+
+function openCompletion(id){
+const a=appointments.find(x=>x.id===id); if(!a)return;
+const c=clientById(a.clientId)||{};
+const existing=financeRecords().find(r=>r.appointmentId===id);
+$('#completionAppointmentId').value=id;
+$('#completionTitle').textContent=existing?'ویرایش تسویه و نتیجه خدمات':'اتمام خدمات و تسویه';
+$('#completionSummary').innerHTML=`<div><span>مراجع</span><b>${esc((c.firstName||'')+' '+(c.lastName||''))}</b></div><div><span>تاریخ</span><b>${faNum(a.date)}</b></div><div><span>ساعت</span><b>${esc(a.time)}</b></div><div><span>خدمات</span><b>${esc(a.service||'—')}</b></div>`;
+$('#completionAmount').value=existing?.amount||a.amount||'';
+$('#completionCommission').value=existing?.commission||a.commission||'';
+$('#completionPayment').value=existing?.payment||'کارت';
+$('#completionNote').value=existing?.note||a.completionNote||'';
+openModal('#completionModal');
+}
+
+function finalizeAppointment(e){
+e.preventDefault();
+const id=$('#completionAppointmentId').value; const a=appointments.find(x=>x.id===id); if(!a)return;
+const c=clientById(a.clientId)||{};
+const amount=Number(enNum($('#completionAmount').value).replace(/,/g,''))||0;
+const commission=Number(enNum($('#completionCommission').value).replace(/,/g,''))||0;
+if(amount<0||commission<0){toast('مبلغ نامعتبر','مبلغ و پورسانت نمی‌توانند منفی باشند.',false);return}
+const records=financeRecords();
+let r=records.find(x=>x.appointmentId===id);
+if(r){Object.assign(r,{amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),updatedAt:new Date().toISOString()})}
+else{r={id:uid('FIN'),appointmentId:id,amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),createdAt:new Date().toISOString()};records.push(r)}
+a.status='completed'; a.finalized=true; a.amount=amount; a.commission=commission; a.completionNote=r.note; a.completedAt=new Date().toISOString(); a.updatedAt=new Date().toISOString();
+c.successfulServices=[...(c.successfulServices||[]),{appointmentId:id,date:a.date,service:a.service,amount,commission,completedAt:a.completedAt}].filter((x,i,arr)=>arr.findIndex(y=>y.appointmentId===x.appointmentId)===i);
+activity.unshift({id:uid('ACT'),type:'appointment.completed',message:`خدمات ${c.firstName||'مراجع'} ${c.lastName||''} با موفقیت تکمیل شد`,appointmentId:id,at:new Date().toISOString()});
+saveFinance(records); save(); closeModal('#completionModal'); renderAll(); toast('خدمات تکمیل شد','نوبت، پرونده مراجع و بخش مالی به‌روزرسانی شدند.');
+if($('#detailModal').classList.contains('open'))openDetail(id);
+}
+
+// =========================================================
+// 08. STATUS / COMPLETION / FINANCE
+// =========================================================
+
+function changeStatus(id,status){const a=appointments.find(x=>x.id===id);if(!a)return;a.status=status;a.updatedAt=new Date().toISOString();log(`وضعیت نوبت به «${statusLabel(status)}» تغییر کرد`,id);save();toast('وضعیت به‌روزرسانی شد',statusLabel(status));renderAll();if($('#detailModal').classList.contains('open'))openDetail(id)}
+
+function deleteAppointment(id){const a=appointments.find(x=>x.id===id);if(!a)return;$('#deleteText').textContent='این نوبت از فهرست و تقویم حذف خواهد شد. این عمل قابل بازگشت نیست.';$('#confirmDelete').dataset.id=id;openModal('#deleteModal')}
+
+function confirmDelete(){const id=$('#confirmDelete').dataset.id;appointments=appointments.filter(a=>a.id!==id);log('نوبت حذف شد',id);save();closeModal('#deleteModal');renderAll();toast('نوبت حذف شد','نوبت از سیستم محلی حذف شد.')}
+
+function sendReminder(id){const a=appointments.find(x=>x.id===id);const c=a&&clientById(a.clientId);if(!a||!c)return;toast('یادآوری آماده شد',`یادآوری ${c.firstName} ${c.lastName} برای ${a.date} ساعت ${a.time} ثبت شد.`);a.reminder=true;save();renderAll()}
+
+function toast(title,text,good=true){const t=document.createElement('div');t.className='toast '+(good?'':'error');t.innerHTML=`<strong>${esc(title)}</strong><span>${esc(text)}</span>`;document.body.appendChild(t);setTimeout(()=>t.classList.add('show'),20);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250)},3600)}
+// =========================================================
+// 09. EXPORTS / TOOLS
+// =========================================================
+
+function exportPdf(){
+$('#printTitle').textContent=`گزارش نوبت‌ها — ${jalaliStr(new Date())}`;
+window.print();
+}
+
+function exportExcel(){
+const rows=[['ردیف','مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع جلسه','وضعیت','یادآوری','مبلغ','پورسانت']];
+filtered().forEach((a,i)=>{const c=clientById(a.clientId)||{};rows.push([i+1,`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.amount||'',a.commission||''])});
+const table='<table dir="rtl" border="1"><thead><tr>'+rows[0].map(x=>`<th>${esc(x)}</th>`).join('')+'</tr></thead><tbody>'+rows.slice(1).map(r=>'<tr>'+r.map(x=>`<td>${esc(x)}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
+const blob=new Blob(['\ufeff',`<html><meta charset="utf-8"><body>${table}</body></html>`],{type:'application/vnd.ms-excel;charset=utf-8'});
+const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.xls';a.click();URL.revokeObjectURL(url);
+}
+
+function stepTime(delta){
+const input=$('#appointmentTime'); const [h,m]=(input.value||'10:00').split(':').map(Number); let total=h*60+m+delta; total=(total+1440)%1440; setTime(`${pad(Math.floor(total/60))}:${pad(total%60)}`);
+}
+
+function setTime(value){$('#appointmentTime').value=value;$$('#timePresets button').forEach(b=>b.classList.toggle('active',b.dataset.time===value))}
+
+function stepFilterDate(which,delta){
+const input=which==='from'?$('#filterFrom'):$('#filterTo'); const base=jToDate(input.value)||new Date(); input.value=jalaliStr(addDays(base,delta)); currentPage=1; renderTable(); renderCalendar();
+}
+
+function deleteFinance(id){
+const records=financeRecords().filter(r=>r.id!==id); saveFinance(records); renderFinance(); toast('تراکنش حذف شد','رکورد مالی از خلاصه مالی حذف شد.');
+}
+
+function csv(){const rows=[['مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع','وضعیت','یادآوری','یادداشت']];filtered().forEach(a=>{const c=clientById(a.clientId)||{};rows.push([`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.notes||''])});const out='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([out],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.csv';a.click();URL.revokeObjectURL(url)}
+// =========================================================
+// 10. NAVIGATION / EVENTS
+// =========================================================
+
+function moveCursor(n){if(view==='day')cursorDate=addDays(cursorDate,n);else if(view==='week')cursorDate=addDays(cursorDate,n*7);else if(view==='month'){const [y,m,d]=jalaliParts(cursorDate);const x=jalaliToGregorian(y,m+n,Math.min(d,28));cursorDate=new Date(x[0],x[1]-1,x[2])}else cursorDate=addDays(cursorDate,n);renderCalendar()}
+
+function today(){cursorDate=new Date();renderCalendar();document.querySelector('#calendarPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+
+function openFilteredStatus(status){if(status){$('#filterStatus').value=status}else{$('#filterStatus').value=''}currentPage=1;view='list';$$('.view-btn').forEach(b=>b.classList.toggle('active',b.dataset.view==='list'));renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+// =========================================================
+// 11. EVENT BINDINGS
+// =========================================================
+
+function wire(){
+$('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
+$('#addAppointment').onclick=()=>openForm();$('#addAppointment2').onclick=()=>openForm();$('#openTodayList').onclick=()=>{view='list';$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());currentPage=1;renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#openPending').onclick=()=>openFilteredStatus('pending');
+$('#actionPending').onclick=()=>openFilteredStatus('pending');$('#actionToday').onclick=()=>{$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());view='list';renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#actionNoShow').onclick=()=>openFilteredStatus('no-show');$('#actionExport').onclick=csv;
+
+$$$('.appointment-kpi').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.kpi==='today'?'':b.dataset.kpi==='pending'?'pending':''));
+$$('.legend-row,.appointment-status-cards .status-card').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.status));$('#showAllAppointments').onclick=()=>openFilteredStatus('');
+$$('.view-btn').forEach(b=>b.onclick=()=>{view=b.dataset.view;$$('.view-btn').forEach(x=>x.classList.toggle('active',x===b));renderCalendar()});
+$('#applyFilters').onclick=()=>{currentPage=1;renderTable();renderCalendar()};$('#clearFilters').onclick=()=>{$('#search').value='';$('#filterStatus').value='';$('#filterMode').value='';$('#filterService').value='';$('#filterFrom').value='';$('#filterTo').value='';currentPage=1;renderTable();renderCalendar()};$('#resetFilters').onclick=$('#clearFilters').onclick;$('#search').oninput=()=>{currentPage=1;renderTable();if(view==='list')renderCalendar()};['filterStatus','filterMode','filterService','filterFrom','filterTo'].forEach(id=>$('#'+id).onchange=()=>{currentPage=1;renderTable();renderCalendar()});$('#exportCsv').onclick=csv;
+$('#appointmentRows').addEventListener('click',handleAction);$('#mobileAppointments').addEventListener('click',handleAction);$('#calendarBody').addEventListener('click',e=>{const a=e.target.closest('[data-calendar-id]');if(a){openDetail(a.dataset.calendarId);return}const d=e.target.closest('[data-calendar-date]');if(d){cursorDate=jToDate(d.dataset.calendarDate);view='day';$$('.view-btn').forEach(x=>x.classList.toggle('active',x.dataset.view==='day'));renderCalendar()}});$('#pages').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){currentPage=Number(b.dataset.page);renderTable()}});
+$('#clientSearch').oninput=e=>{const q=e.target.value.trim().toLowerCase();const arr=clients.filter(c=>[c.firstName,c.lastName,c.mobile,c.caseCode,c.service].join(' ').toLowerCase().includes(q)).slice(0,10);$('#clientResults').innerHTML=arr.map(c=>`<div class="client-option" data-client="${c.id}"><strong>${esc(c.firstName+' '+c.lastName)}</strong><small>${esc(c.mobile||'')} · ${esc(c.service||'')}</small></div>`).join('');$('#clientResults').classList.toggle('open',!!q&&arr.length>0)};
+$('#clientResults').addEventListener('click',e=>{const b=e.target.closest('[data-client]');if(!b)return;$('#appointmentClient').value=b.dataset.client;selectedClientId=b.dataset.client;$('#clientSearch').value='';$('#clientResults').classList.remove('open');const c=clientById(b.dataset.client);$('#appointmentService').value=c?.service||'';updateSelectedClient()});$('#appointmentClient').onchange=updateSelectedClient;
+$('#appointmentForm').onsubmit=saveAppointment;$('#completionForm').onsubmit=finalizeAppointment;$('#timeMinus').onclick=()=>stepTime(-15);$('#timePlus').onclick=()=>stepTime(15);$$('#timePresets button').forEach(b=>b.onclick=()=>setTime(b.dataset.time));$$('[data-filter-step]').forEach(b=>b.onclick=()=>stepFilterDate(b.dataset.filterStep,Number(b.dataset.step)));$('#financeRefresh').onclick=renderFinance;$('#financeList').addEventListener('click',e=>{const b=e.target.closest('[data-finance-delete]');if(!b)return;deleteFinance(b.dataset.financeDelete)});$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
+$$('.date-shortcuts button').forEach(b=>b.onclick=()=>$('#appointmentDate').value=jalaliStr(addDays(new Date(),Number(b.dataset.add||0))));
+$$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal('#'+m.id)}));$$('[data-close]').forEach(b=>b.onclick=()=>closeModal('#'+b.dataset.close));
+$('#confirmDelete').onclick=confirmDelete;$('#exportPdf').onclick=exportPdf;$('#exportExcel').onclick=exportExcel;$('#detailBody').addEventListener('click',e=>{const complete=e.target.closest('[data-detail-complete]');if(complete){openCompletion(complete.dataset.detailComplete);return}const finance=e.target.closest('[data-detail-finance]');if(finance){openCompletion(finance.dataset.detailFinance);return}const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
+$('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover').classList.toggle('open')};document.addEventListener('click',e=>{if(!e.target.closest('#notificationPopover')&&!e.target.closest('#notificationsBtn'))$('#notificationPopover').classList.remove('open')});$('#notificationList').addEventListener('click',e=>{const b=e.target.closest('[data-notification]');if(b){$('#notificationPopover').classList.remove('open');openDetail(b.dataset.notification)}});$('#markRead').onclick=()=>toast('اعلان‌ها بررسی شد','اعلان‌های نوبت‌ها در همین صفحه مدیریت می‌شوند.');
+$('#logout').onclick=()=>{localStorage.removeItem(LS.user);location.href='../index.html'};$('#scrollTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>$('#scrollTop').classList.toggle('show',window.scrollY>420),{passive:true});$('#sidebar').addEventListener('scroll',updateSidebarScroll,{passive:true});window.addEventListener('resize',updateSidebarScroll);window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal-backdrop.open').forEach(m=>closeModal('#'+m.id))});
+}
+
+function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='complete')openCompletion(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
+
 function updateSidebarScroll(){const s=$('#sidebar');const t=$('#sidebarScrollThumb');if(!s||!t)return;const max=s.scrollHeight-s.clientHeight;const ratio=max>0?s.clientHeight/s.scrollHeight:1;t.style.height=Math.max(38,Math.round(s.clientHeight*ratio))+'px';t.style.top=(max>0?(s.scrollTop/max)*(s.clientHeight-parseFloat(t.style.height)):0)+'px'}
 load();fillClientOptions();setTheme();wire();
 const params=new URLSearchParams(location.search);if(params.get('client')){setTimeout(()=>openForm('',params.get('client')),120)}else if(params.get('new')==='1'){setTimeout(()=>openForm(),120)}
 renderAll();updateSidebarScroll();
 })();
-   </script>
-  </div>
- </body>
+  
+</script>
+ </div>
+</body>
 </html>
