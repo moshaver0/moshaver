@@ -142,6 +142,44 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
 
   .success-btn{color:var(--green)!important;border-color:rgba(52,211,153,.25)!important;background:rgba(52,211,153,.06)!important}
 .success-box{margin:13px 0;padding:15px;border:1px solid rgba(52,211,153,.25);border-radius:17px;background:rgba(52,211,153,.07);display:grid;gap:5px}.success-box strong{color:var(--green)}.success-box span{color:var(--muted2);font-size:10px}
+
+/* ================= MONEY INPUTS ================= */
+.money-input-wrap{position:relative;display:flex;align-items:center}
+.money-input-wrap .input{padding-left:82px!important;direction:ltr;text-align:left;font-variant-numeric:tabular-nums}
+.money-separator-preview{position:absolute;left:10px;bottom:-18px;font-size:11px;color:var(--muted);pointer-events:none;opacity:.9}
+.money-display{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:plaintext}
+/* ================= CALENDAR FIXES ================= */
+.day-slot{position:relative;min-height:54px}
+.day-slot .day-appt{position:absolute;inset:5px 8px;z-index:2;overflow:hidden;min-width:0;box-sizing:border-box}
+.week-cell{min-width:0;overflow:hidden}
+.week-cell .calendar-appt{width:calc(100% - 10px);max-width:calc(100% - 10px);box-sizing:border-box;overflow:hidden;white-space:normal;word-break:break-word;color:var(--text)!important}
+.calendar-appt strong,.calendar-appt span,.day-appt strong,.day-appt span{color:inherit!important}
+/* ================= DETAIL STATUS / NOTES ================= */
+.detail-status-card{padding:18px;border:1px solid var(--line);border-radius:22px;background:var(--glass-strong);box-shadow:var(--shadow);margin-top:16px}
+.detail-status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.detail-status-option{border:1px solid var(--line);background:var(--glass);color:var(--text);border-radius:16px;padding:13px;cursor:pointer;text-align:center;transition:.2s}
+.detail-status-option.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,85,247,.14);transform:translateY(-1px)}
+.detail-status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:7px;background:currentColor}
+.detail-note-editor{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:20px;background:rgba(168,85,247,.06)}
+.detail-note-editor textarea{min-height:120px}
+/* ================= MOBILE NAV ================= */
+@media(max-width:900px){
+ .mobile-nav{display:grid!important;grid-template-columns:repeat(4,1fr);gap:7px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:rgba(10,8,16,.86);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.12);box-shadow:0 -12px 40px rgba(0,0,0,.28);z-index:80}
+ [data-theme=light] .mobile-nav{background:rgba(255,255,255,.9);border-color:rgba(88,45,130,.16);box-shadow:0 -12px 35px rgba(75,45,110,.12)}
+ .mobile-nav a,.mobile-nav button{min-height:52px;border-radius:16px;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted)!important;background:transparent;border:1px solid transparent;font-size:11px;font-weight:800}
+ .mobile-nav a.active,.mobile-nav button.active{color:var(--text)!important;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(168,85,247,.08));border-color:rgba(168,85,247,.28)}
+ .mobile-nav svg{width:21px;height:21px}
+}
+[data-theme=light] .sidebar .nav-badge{color:#111!important;background:#fff!important;border-color:rgba(17,17,17,.16)!important;}
+
+/* V4 precision fixes */
+.calendar-body{max-height:760px;overflow:auto;scrollbar-gutter:stable;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--purple) transparent}
+.calendar-body::-webkit-scrollbar{width:8px;height:8px}.calendar-body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple),var(--cyan));border-radius:99px}.calendar-body::-webkit-scrollbar-track{background:transparent}
+.mobile-nav{position:fixed!important;pointer-events:auto!important;touch-action:manipulation!important;z-index:9999!important}
+.mobile-nav a,.mobile-nav button{pointer-events:auto!important;touch-action:manipulation!important}
+.finance-mini{grid-template-columns:minmax(0,1fr) auto auto auto!important}.finance-mini button{width:38px;height:38px;border-radius:12px;border:1px solid var(--border);background:var(--surface3);color:var(--text);cursor:pointer}.finance-mini button:hover{border-color:rgba(168,85,247,.4);transform:translateY(-1px)}
+.finance-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.finance-edit-grid .full{grid-column:1/-1}
+@media(max-width:600px){.calendar-body{max-height:68vh}.finance-edit-grid{grid-template-columns:1fr}.finance-edit-grid .full{grid-column:auto}}
 </style>
  </head>
  <body>
@@ -714,6 +752,19 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
        </div>
       </article>
      </section>
+     <section class="glass finance-panel" id="financePanel">
+      <div class="panel-head">
+       <div class="panel-title"><strong>مالی نوبت‌ها</strong><span>درآمد و پورسانت ثبت‌شده از خدمات تکمیل‌شده</span></div>
+       <button class="btn small" id="financeRefresh">↻ بروزرسانی</button>
+      </div>
+      <div class="finance-grid">
+       <button class="finance-card" id="financeToday"><span>درآمد امروز</span><b id="financeTodayValue">۰</b><small>مبلغ ثبت‌شده امروز</small></button>
+       <button class="finance-card" id="financeMonth"><span>درآمد ماه</span><b id="financeMonthValue">۰</b><small>مجموع ماه جاری</small></button>
+       <button class="finance-card" id="financeCommission"><span>پورسانت ماه</span><b id="financeCommissionValue">۰</b><small>مجموع پورسانت</small></button>
+       <button class="finance-card" id="financeCompleted"><span>خدمات تکمیل‌شده</span><b id="financeCompletedValue">۰</b><small>پرونده‌های موفق</small></button>
+      </div>
+      <div class="finance-mini-list" id="financeList"></div>
+     </section>
      <section class="glass calendar-panel" id="calendarPanel">
       <div class="calendar-toolbar">
        <div class="calendar-heading">
@@ -857,19 +908,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
        </div>
       </div>
      </section>
-     <section class="glass finance-panel" id="financePanel">
-      <div class="panel-head">
-       <div class="panel-title"><strong>مالی نوبت‌ها</strong><span>درآمد و پورسانت ثبت‌شده از خدمات تکمیل‌شده</span></div>
-       <button class="btn small" id="financeRefresh">↻ بروزرسانی</button>
-      </div>
-      <div class="finance-grid">
-       <button class="finance-card" id="financeToday"><span>درآمد امروز</span><b id="financeTodayValue">۰</b><small>مبلغ ثبت‌شده امروز</small></button>
-       <button class="finance-card" id="financeMonth"><span>درآمد ماه</span><b id="financeMonthValue">۰</b><small>مجموع ماه جاری</small></button>
-       <button class="finance-card" id="financeCommission"><span>پورسانت ماه</span><b id="financeCommissionValue">۰</b><small>مجموع پورسانت</small></button>
-       <button class="finance-card" id="financeCompleted"><span>خدمات تکمیل‌شده</span><b id="financeCompletedValue">۰</b><small>پرونده‌های موفق</small></button>
-      </div>
-      <div class="finance-mini-list" id="financeList"></div>
-     </section>
+     
      <section class="glass table-panel" id="appointmentsPanel">
       <div class="table-head">
        <div class="panel-title">
@@ -1152,8 +1191,8 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         <div class="form-section">
          <div class="form-section-title"><strong>تسویه مالی</strong><span>این اطلاعات به سوابق مالی منتقل می‌شود.</span></div>
          <div class="form-grid">
-          <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="completionAmount" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰۰"/></div>
-          <div class="field"><label>مبلغ پورسانت</label><input class="input" id="completionCommission" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰۰"/></div>
+          <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="completionAmount" inputmode="numeric" autocomplete="off" placeholder="مثلاً ۵۰۰۰۰۰۰"/></div>
+          <div class="field"><label>مبلغ پورسانت</label><input class="input" id="completionCommission" inputmode="numeric" autocomplete="off" placeholder="مثلاً ۱۰۰۰۰۰۰"/></div>
           <div class="field"><label>روش پرداخت</label><select class="select" id="completionPayment"><option>کارت</option><option>نقدی</option><option>انتقال بانکی</option><option>ترکیبی</option></select></div>
          </div>
         </div>
@@ -1168,7 +1207,39 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
        </form>
       </div>
      </div>
-     <div class="modal-backdrop" id="deleteModal">
+     <div class="modal-backdrop" id="financeEditModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <div><small>اصلاح تراکنش</small><strong>ویرایش تراکنش مالی</strong></div>
+      <button class="modal-close floating-close" data-close="financeEditModal" aria-label="بستن"><span>&times;</span></button>
+     </div>
+     <form class="modal-body" id="financeEditForm">
+      <input id="financeEditId" type="hidden"/>
+      <div class="finance-edit-grid">
+       <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="financeEditAmount" inputmode="numeric" autocomplete="off" placeholder="1,000,000"/></div>
+       <div class="field"><label>مبلغ پورسانت</label><input class="input" id="financeEditCommission" inputmode="numeric" autocomplete="off" placeholder="300,000"/></div>
+       <div class="field"><label>روش پرداخت</label><select class="select" id="financeEditPayment"><option>کارت</option><option>نقدی</option><option>انتقال بانکی</option><option>ترکیبی</option></select></div>
+       <div class="field full"><label>یادداشت مالی</label><textarea class="input textarea" id="financeEditNote" rows="4" placeholder="توضیحات تراکنش..."></textarea></div>
+      </div>
+      <div class="modal-actions"><button class="btn" data-close="financeEditModal" type="button">انصراف</button><button class="btn primary" type="submit">ذخیره اصلاحات</button></div>
+     </form>
+    </div>
+   </div>
+   <div class="modal-backdrop" id="financeDeleteModal">
+    <div class="modal narrow">
+     <div class="modal-head">
+      <div><small>تأیید امنیتی</small><strong>حذف تراکنش مالی</strong></div>
+      <button class="modal-close floating-close" data-close="financeDeleteModal" aria-label="بستن"><span>&times;</span></button>
+     </div>
+     <div class="modal-body">
+      <div class="preview-card">
+       <div class="detail"><span>هشدار</span><b style="line-height:2;color:#fecdd3">این تراکنش از سوابق مالی حذف می‌شود. برای جلوگیری از حذف اشتباهی، مرحله دوم را هم تأیید کنید.</b></div>
+      </div>
+     </div>
+     <div class="modal-foot"><button class="btn" data-close="financeDeleteModal" type="button">انصراف</button><button class="btn danger" id="financeDeleteConfirm" type="button">تأیید حذف تراکنش</button></div>
+    </div>
+   </div>
+   <div class="modal-backdrop" id="deleteModal">
       <div class="modal">
        <div class="modal-head">
         <div>
@@ -1477,7 +1548,7 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
           <label>
            مبلغ بیعانه
           </label>
-          <input class="input" id="deposit" inputmode="numeric" min="0" placeholder="تومان" type="number"/>
+          <input class="input" id="deposit" inputmode="numeric" autocomplete="off" min="0" placeholder="تومان" type="number"/>
          </div>
          <div class="field">
           <label>
@@ -1710,8 +1781,8 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
         <div class="form-section">
          <div class="form-section-title"><strong>تسویه مالی</strong><span>این اطلاعات به سوابق مالی منتقل می‌شود.</span></div>
          <div class="form-grid">
-          <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="completionAmount" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰۰"/></div>
-          <div class="field"><label>مبلغ پورسانت</label><input class="input" id="completionCommission" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰۰"/></div>
+          <div class="field"><label>مبلغ دریافت‌شده</label><input class="input" id="completionAmount" inputmode="numeric" autocomplete="off" placeholder="مثلاً ۵۰۰۰۰۰۰"/></div>
+          <div class="field"><label>مبلغ پورسانت</label><input class="input" id="completionCommission" inputmode="numeric" autocomplete="off" placeholder="مثلاً ۱۰۰۰۰۰۰"/></div>
           <div class="field"><label>روش پرداخت</label><select class="select" id="completionPayment"><option>کارت</option><option>نقدی</option><option>انتقال بانکی</option><option>ترکیبی</option></select></div>
          </div>
         </div>
@@ -1859,6 +1930,23 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
 
     (function(){'use strict';
 // =========================================================
+// 00. FORMATTING / UI HELPERS
+// =========================================================
+function digitsOnly(v){return String(v??'').replace(/[^0-9]/g,'')}
+function formatMoney(v){
+  const d=digitsOnly(v);
+  if(!d)return '';
+  return d.replace(/\B(?=(\d{3})+(?!\d))/g,',');
+}
+function bindMoneyInput(id){
+  const el=$(id); if(!el||el.dataset.moneyBound)return;
+  el.dataset.moneyBound='1'; el.type='text'; el.inputMode='numeric';
+  el.addEventListener('input',()=>{const pos=el.selectionStart||0; const before=el.value.slice(0,pos).replace(/,/g,'').length; el.value=formatMoney(el.value); let i=0; for(let k=0;k<el.value.length&&i<before;k++)if(el.value[k]!==',')i++; el.setSelectionRange(i,i)});
+  el.addEventListener('blur',()=>el.value=formatMoney(el.value));
+}
+function moneyValue(id){return Number(digitsOnly($(id)?.value||''))||0}
+function bindMoneyInputs(){['#completionAmount','#completionCommission','#deposit','#financeEditAmount','#financeEditCommission'].forEach(bindMoneyInput)}
+// =========================================================
 // 01. DOM / STORAGE / CONSTANTS
 // =========================================================
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
@@ -1946,7 +2034,7 @@ function renderFinance(){
   $('#financeCommissionValue').textContent=money(t.commission);
   $('#financeCompletedValue').textContent=faNum(t.completed);
   const records=financeRecords().slice().sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))).slice(0,5);
-  $('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${faNum(r.date)} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
+  $('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${faNum(r.date)} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-edit="${r.id}" title="ویرایش تراکنش">✎</button><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
 }
 // =========================================================
 // 04. DASHBOARD / KPI RENDERING
@@ -1988,7 +2076,7 @@ function renderDay(){
     for(const minute of [0,30]){
       const hh=pad(hour), mm=pad(minute);
       const slot=`${hh}:${mm}`;
-      const list=dayAppointments.filter(a=>String(a.time).slice(0,5)===slot);
+      const list=dayAppointments.filter(a=>{const raw=String(a.time||'').slice(0,5);const parts=raw.split(':').map(Number);if(parts.length!==2||!Number.isFinite(parts[0])||!Number.isFinite(parts[1]))return false;const bucket=`${pad(parts[0])}:${parts[1]<30?'00':'30'}`;return bucket===slot;});
       html += `<div class="time-slot precise-slot" data-slot="${slot}"><div class="time-label">${faNum(hh)}:${faNum(mm)}</div><div class="slot-items">${list.length?list.map(apptHtml).join(''):'<span class="slot-empty">آزاد</span>'}</div></div>`;
     }
   }
@@ -2060,6 +2148,8 @@ function openDetail(id){
     </div>
     ${finalized?`<div class="success-box"><strong>✓ خدمات با موفقیت تکمیل شده</strong><span>درآمد و پورسانت این پرونده در بخش مالی ثبت شده است.</span></div>`:''}
     <div class="detail-notes"><strong>یادداشت نوبت</strong><div>${esc(a.notes||'یادداشتی برای این نوبت ثبت نشده است.')}</div></div>
+    <div class="detail-status-card"><strong>وضعیت نوبت</strong><div class="detail-status-grid" style="margin-top:12px">${[['pending','در انتظار'],['confirmed','تأییدشده'],['completed','انجام‌شده'],['no-show','عدم حضور'],['cancelled','لغوشده'],['rescheduled','جابجاشده']].map(([v,l])=>`<button type="button" class="detail-status-option ${a.status===v?'active':''}" data-detail-status="${v}" data-id="${a.id}"><span class="detail-status-dot" style="color:${v==='completed'?'#10b981':v==='cancelled'?'#ef4444':v==='no-show'?'#f59e0b':'#a855f7'}"></span>${l}</button>`).join('')}</div></div>
+    <div class="detail-note-editor"><strong>یادداشت نوبت</strong><textarea class="input textarea" id="detailNoteInput" placeholder="یادداشت جدید یا اصلاح یادداشت فعلی...">${esc(a.notes||'')}</textarea><button type="button" class="btn primary" id="saveDetailNote" data-id="${a.id}" style="margin-top:10px">ذخیره یادداشت</button></div>
     <div class="status-actions">
       <button class="btn" data-detail-status="confirmed" data-id="${a.id}">✓ تأیید</button>
       <button class="btn" data-detail-complete="${a.id}">✓ اتمام خدمات</button>
@@ -2146,9 +2236,22 @@ function stepFilterDate(which,delta){
   const input=which==='from'?$('#filterFrom'):$('#filterTo'); const base=jToDate(input.value)||new Date(); input.value=jalaliStr(addDays(base,delta)); currentPage=1; renderTable(); renderCalendar();
 }
 
-function deleteFinance(id){
-  const records=financeRecords().filter(r=>r.id!==id); saveFinance(records); renderFinance(); toast('تراکنش حذف شد','رکورد مالی از خلاصه مالی حذف شد.');
+function openFinanceEdit(id){
+  const r=financeRecords().find(x=>x.id===id); if(!r)return;
+  $('#financeEditId').value=id; $('#financeEditAmount').value=money(r.amount).replace(/۰/g,'0').replace(/۱/g,'1').replace(/۲/g,'2').replace(/۳/g,'3').replace(/۴/g,'4').replace(/۵/g,'5').replace(/۶/g,'6').replace(/۷/g,'7').replace(/۸/g,'8').replace(/۹/g,'9');
+  $('#financeEditCommission').value=money(r.commission).replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/۰/g,'0');
+  $('#financeEditPayment').value=r.payment||'کارت'; $('#financeEditNote').value=r.note||''; bindMoneyInputs(); openModal('#financeEditModal');
 }
+function saveFinanceEdit(e){
+  e.preventDefault(); const id=$('#financeEditId').value; const records=financeRecords(); const r=records.find(x=>x.id===id); if(!r)return;
+  r.amount=moneyValue('#financeEditAmount'); r.commission=moneyValue('#financeEditCommission'); r.payment=$('#financeEditPayment').value; r.note=$('#financeEditNote').value.trim(); r.updatedAt=new Date().toISOString();
+  const a=appointments.find(x=>x.id===r.appointmentId); if(a){a.amount=r.amount;a.commission=r.commission;a.completionNote=r.note;a.updatedAt=new Date().toISOString();save();}
+  saveFinance(records); closeModal('#financeEditModal'); renderAll(); toast('تراکنش اصلاح شد','اطلاعات مالی با موفقیت به‌روزرسانی شد.');
+}
+let pendingFinanceDeleteId='';
+function requestDeleteFinance(id){pendingFinanceDeleteId=id;openModal('#financeDeleteModal')}
+function deleteFinance(id){requestDeleteFinance(id)}
+function confirmFinanceDelete(){if(!pendingFinanceDeleteId)return;const id=pendingFinanceDeleteId;saveFinance(financeRecords().filter(r=>r.id!==id));pendingFinanceDeleteId='';closeModal('#financeDeleteModal');renderAll();toast('تراکنش حذف شد','رکورد مالی با تأیید دومرحله‌ای حذف شد.')}
 
 function csv(){const rows=[['مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع','وضعیت','یادآوری','یادداشت']];filtered().forEach(a=>{const c=clientById(a.clientId)||{};rows.push([`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.notes||''])});const out='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([out],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.csv';a.click();URL.revokeObjectURL(url)}
 // =========================================================
@@ -2165,7 +2268,9 @@ function openFilteredStatus(status){if(status){$('#filterStatus').value=status}e
 // =========================================================
 
 function wire(){
- $('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
+ bindMoneyInputs();
+ $('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');
+ $$('.mobile-nav a,.mobile-nav button').forEach(b=>b.addEventListener('click',()=>{ $$('.mobile-nav a,.mobile-nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }));$('#mobileMenu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
  $('#addAppointment').onclick=()=>openForm();$('#addAppointment2').onclick=()=>openForm();$('#openTodayList').onclick=()=>{view='list';$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());currentPage=1;renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#openPending').onclick=()=>openFilteredStatus('pending');
  $('#actionPending').onclick=()=>openFilteredStatus('pending');$('#actionToday').onclick=()=>{$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());view='list';renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#actionNoShow').onclick=()=>openFilteredStatus('no-show');$('#actionExport').onclick=csv;
  $$('.appointment-kpi').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.kpi==='today'?'':b.dataset.kpi==='pending'?'pending':''));
@@ -2175,10 +2280,10 @@ function wire(){
  $('#appointmentRows').addEventListener('click',handleAction);$('#mobileAppointments').addEventListener('click',handleAction);$('#calendarBody').addEventListener('click',e=>{const a=e.target.closest('[data-calendar-id]');if(a){openDetail(a.dataset.calendarId);return}const d=e.target.closest('[data-calendar-date]');if(d){cursorDate=jToDate(d.dataset.calendarDate);view='day';$$('.view-btn').forEach(x=>x.classList.toggle('active',x.dataset.view==='day'));renderCalendar()}});$('#pages').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){currentPage=Number(b.dataset.page);renderTable()}});
  $('#clientSearch').oninput=e=>{const q=e.target.value.trim().toLowerCase();const arr=clients.filter(c=>[c.firstName,c.lastName,c.mobile,c.caseCode,c.service].join(' ').toLowerCase().includes(q)).slice(0,10);$('#clientResults').innerHTML=arr.map(c=>`<div class="client-option" data-client="${c.id}"><strong>${esc(c.firstName+' '+c.lastName)}</strong><small>${esc(c.mobile||'')} · ${esc(c.service||'')}</small></div>`).join('');$('#clientResults').classList.toggle('open',!!q&&arr.length>0)};
  $('#clientResults').addEventListener('click',e=>{const b=e.target.closest('[data-client]');if(!b)return;$('#appointmentClient').value=b.dataset.client;selectedClientId=b.dataset.client;$('#clientSearch').value='';$('#clientResults').classList.remove('open');const c=clientById(b.dataset.client);$('#appointmentService').value=c?.service||'';updateSelectedClient()});$('#appointmentClient').onchange=updateSelectedClient;
- $('#appointmentForm').onsubmit=saveAppointment;$('#completionForm').onsubmit=finalizeAppointment;$('#timeMinus').onclick=()=>stepTime(-15);$('#timePlus').onclick=()=>stepTime(15);$$('#timePresets button').forEach(b=>b.onclick=()=>setTime(b.dataset.time));$$('[data-filter-step]').forEach(b=>b.onclick=()=>stepFilterDate(b.dataset.filterStep,Number(b.dataset.step)));$('#financeRefresh').onclick=renderFinance;$('#financeList').addEventListener('click',e=>{const b=e.target.closest('[data-finance-delete]');if(!b)return;deleteFinance(b.dataset.financeDelete)});$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
+ $('#appointmentForm').onsubmit=saveAppointment;$('#completionForm').onsubmit=finalizeAppointment;$('#timeMinus').onclick=()=>stepTime(-15);$('#timePlus').onclick=()=>stepTime(15);$$('#timePresets button').forEach(b=>b.onclick=()=>setTime(b.dataset.time));$$('[data-filter-step]').forEach(b=>b.onclick=()=>stepFilterDate(b.dataset.filterStep,Number(b.dataset.step)));$('#financeRefresh').onclick=renderFinance;$('#financeEditForm').onsubmit=saveFinanceEdit;$('#financeDeleteConfirm').onclick=confirmFinanceDelete;$('#financeList').addEventListener('click',e=>{const ed=e.target.closest('[data-finance-edit]');if(ed){openFinanceEdit(ed.dataset.financeEdit);return}const b=e.target.closest('[data-finance-delete]');if(!b)return;requestDeleteFinance(b.dataset.financeDelete)});$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
  $$('.date-shortcuts button').forEach(b=>b.onclick=()=>$('#appointmentDate').value=jalaliStr(addDays(new Date(),Number(b.dataset.add||0))));
  $$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal('#'+m.id)}));$$('[data-close]').forEach(b=>b.onclick=()=>closeModal('#'+b.dataset.close));
- $('#confirmDelete').onclick=confirmDelete;$('#exportPdf').onclick=exportPdf;$('#exportExcel').onclick=exportExcel;$('#detailBody').addEventListener('click',e=>{const complete=e.target.closest('[data-detail-complete]');if(complete){openCompletion(complete.dataset.detailComplete);return}const finance=e.target.closest('[data-detail-finance]');if(finance){openCompletion(finance.dataset.detailFinance);return}const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
+ $('#confirmDelete').onclick=confirmDelete;$('#exportPdf').onclick=exportPdf;$('#exportExcel').onclick=exportExcel;$('#detailBody').addEventListener('click',e=>{const complete=e.target.closest('[data-detail-complete]');if(complete){openCompletion(complete.dataset.detailComplete);return}const finance=e.target.closest('[data-detail-finance]');if(finance){openCompletion(finance.dataset.detailFinance);return}const noteSave=e.target.closest('#saveDetailNote');if(noteSave){const a=appointments.find(x=>x.id===noteSave.dataset.id);if(a){a.notes=$('#detailNoteInput').value.trim();a.updatedAt=new Date().toISOString();save();toast('یادداشت ذخیره شد','یادداشت نوبت با موفقیت اصلاح شد.');openDetail(a.id)}return}const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
  $('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover').classList.toggle('open')};document.addEventListener('click',e=>{if(!e.target.closest('#notificationPopover')&&!e.target.closest('#notificationsBtn'))$('#notificationPopover').classList.remove('open')});$('#notificationList').addEventListener('click',e=>{const b=e.target.closest('[data-notification]');if(b){$('#notificationPopover').classList.remove('open');openDetail(b.dataset.notification)}});$('#markRead').onclick=()=>toast('اعلان‌ها بررسی شد','اعلان‌های نوبت‌ها در همین صفحه مدیریت می‌شوند.');
  $('#logout').onclick=()=>{localStorage.removeItem(LS.user);location.href='../index.html'};$('#scrollTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>$('#scrollTop').classList.toggle('show',window.scrollY>420),{passive:true});$('#sidebar').addEventListener('scroll',updateSidebarScroll,{passive:true});window.addEventListener('resize',updateSidebarScroll);window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal-backdrop.open').forEach(m=>closeModal('#'+m.id))});
 }
@@ -2186,7 +2291,7 @@ function wire(){
 function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='complete')openCompletion(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
 
 function updateSidebarScroll(){const s=$('#sidebar');const t=$('#sidebarScrollThumb');if(!s||!t)return;const max=s.scrollHeight-s.clientHeight;const ratio=max>0?s.clientHeight/s.scrollHeight:1;t.style.height=Math.max(38,Math.round(s.clientHeight*ratio))+'px';t.style.top=(max>0?(s.scrollTop/max)*(s.clientHeight-parseFloat(t.style.height)):0)+'px'}
-load();fillClientOptions();setTheme();wire();
+load();fillClientOptions();setTheme();wire();$$('.mobile-nav a').forEach(a=>{if(a.pathname===location.pathname)a.classList.add('active')});
 const params=new URLSearchParams(location.search);if(params.get('client')){setTimeout(()=>openForm('',params.get('client')),120)}else if(params.get('new')==='1'){setTimeout(()=>openForm(),120)}
 renderAll();updateSidebarScroll();
 })();
