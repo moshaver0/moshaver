@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html data-theme="dark" dir="rtl" lang="fa">
  <head>
   <meta charset="utf-8"/>
@@ -34,7 +33,7 @@ body{scrollbar-gutter:stable}
 .kpi-icon,.action-icon{position:relative;overflow:hidden;transform:translateZ(0)}
 .kpi-icon:before,.action-icon:before{content:"";position:absolute;inset:4px;border:1px solid rgba(216,180,254,.22);border-radius:10px;animation:iconFloat 3.8s ease-in-out infinite}
 .kpi-icon:after,.action-icon:after{content:"";position:absolute;width:44px;height:10px;left:-55px;top:7px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.30),transparent);transform:rotate(-25deg);animation:iconShine 4.8s ease-in-out infinite}
-.kpi:nth-child(2) .kpi-icon:before.kpi:nth-child(3) .kpi-icon:before.kpi:nth-child(4) .kpi-icon:before
+.kpi:nth-child(2) .kpi-icon:before{animation-delay:-.8s}.kpi:nth-child(3) .kpi-icon:before{animation-delay:-1.6s}.kpi:nth-child(4) .kpi-icon:before{animation-delay:-2.4s}
 .status-visual{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;gap:22px;margin-bottom:15px;padding:16px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(145deg,rgba(168,85,247,.065),rgba(255,255,255,.02));box-shadow:inset 0 0 35px rgba(168,85,247,.035)}
 .status-donut{width:172px;height:172px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(var(--green) 0 40%,var(--yellow) 40% 70%,var(--red) 70% 100%);box-shadow:0 0 0 8px rgba(168,85,247,.035),0 20px 45px rgba(0,0,0,.20),0 0 45px rgba(168,85,247,.10);animation:donutGlow 4s ease-in-out infinite}
 .status-donut:before{content:"";position:absolute;inset:12px;border-radius:50%;background:radial-gradient(circle at 35% 25%,rgba(168,85,247,.15),transparent 45%),var(--bg2);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 0 35px rgba(0,0,0,.28)}
@@ -79,7 +78,7 @@ html{scroll-behavior:smooth}body{margin:0;min-width:320px;min-height:100vh;font-
 @media(max-width:1200px){.filter-grid{grid-template-columns:1.5fr repeat(3,1fr)}.filter-actions{grid-column:1/-1}.kpis{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:1040px){.shell{grid-template-columns:1fr;padding:12px}.sidebar{position:fixed;top:12px;right:12px;width:min(320px,calc(100vw - 24px));height:calc(100vh - 24px);transform:translateX(calc(100% + 35px));transition:.35s var(--ease);z-index:400}.sidebar.open{transform:translateX(0)}.menu-btn{display:grid}.insights{grid-template-columns:1fr}.mobile-list{display:grid}.table-wrap{display:none}.main{padding-bottom:88px}.mobile-nav{display:flex!important}}
 @media(max-width:720px){.shell{padding:8px}.topbar{min-height:64px;padding:9px 11px;border-radius:18px;margin-bottom:10px}.topbar-title h1{font-size:17px}.icon-btn{width:42px;height:42px}.hero{padding:19px;border-radius:23px}.hero-content{display:block}.hero h2{font-size:25px}.hero p{font-size:12px}.hero-actions{display:grid;grid-template-columns:1fr 1fr}.btn{min-height:47px;padding:0 10px;font-size:12px}.kpis{gap:9px;margin-top:10px}.kpi{padding:13px;min-height:125px;border-radius:19px}.kpi-icon{width:35px;height:35px}.kpi strong{font-size:27px}.kpi small{font-size:9px}.status-grid{grid-template-columns:1fr 1fr}.status-card:last-child{grid-column:1/-1}.panel{padding:13px;border-radius:20px}.filters{padding:13px}.filter-grid{grid-template-columns:1fr 1fr}.filter-grid .search-field{grid-column:1/-1}.table-head{padding:13px}.pagination{padding:12px 13px}.form-grid,.form-grid.two{grid-template-columns:1fr}.upload-box{grid-template-columns:1fr}.preview-layout{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(3,1fr)}.modal-backdrop{padding:0;align-items:flex-end}.modal{width:100%;max-height:94vh;border-radius:26px 26px 0 0}.scroll-top{left:12px;bottom:92px;width:50px;height:50px}.float-x{display:none}.popover{left:5px;right:5px;width:auto}.mobile-actions{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:460px){.kpis{grid-template-columns:1fr 1fr}.status-grid{grid-template-columns:1fr}.status-card:last-child.filter-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.kpis{grid-template-columns:1fr 1fr}.status-grid{grid-template-columns:1fr}.status-card:last-child{grid-column:auto}.filter-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
 @keyframes orb{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(20px,-18px,0) scale(1.05)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{0%,100%{margin-top:0}50%{margin-top:-13px}}@keyframes shine{0%,45%{transform:skewX(-25deg) translateX(-180%)}70%,100%{transform:skewX(-25deg) translateX(420%)}}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}@keyframes pop{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}@keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
 
@@ -87,26 +86,27 @@ html{scroll-behavior:smooth}body{margin:0;min-width:320px;min-height:100vh;font-
 html[data-theme=light] .status-pill.active{color:#047857;background:rgba(5,150,105,.12);border-color:rgba(5,150,105,.30)} html[data-theme=light] .status-pill.waiting{color:#92400e;background:rgba(180,83,9,.12);border-color:rgba(180,83,9,.30)} html[data-theme=light] .status-pill.closed{color:#475569;background:rgba(71,85,105,.10);border-color:rgba(71,85,105,.24)} html[data-theme=light] .status-pill.cancelled{color:#b91c1c;background:rgba(220,38,38,.11);border-color:rgba(220,38,38,.30)} html[data-theme=light] .btn.danger,html[data-theme=light] .delete-btn{color:#b91c1c!important;border-color:rgba(220,38,38,.28)!important;background:rgba(220,38,38,.09)!important}
 
 .history-edit{background:rgba(168,85,247,.10)!important;border:1px solid rgba(168,85,247,.25)!important;color:var(--purple3)!important}.history-delete{background:rgba(220,38,38,.09)!important;border:1px solid rgba(220,38,38,.28)!important;color:#dc2626!important}.history-edit:hover,.history-delete:hover{transform:translateY(-2px) rotate(-3deg)}
-/* APPOINTMENTS MODULE */
+   /* APPOINTMENTS MODULE */
 .appointment-hero .hero-content{align-items:stretch}.appointment-kpi{cursor:pointer}.appointment-kpi:hover{transform:translateY(-5px)}
 .appointment-donut{animation:donutGlow 5s ease-in-out infinite}.purple-dot{background:var(--purple)!important;box-shadow:0 0 12px rgba(168,85,247,.45)}
 .appointment-status-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.appointment-status-cards .status-card{min-height:122px}
 .calendar-panel{padding:20px;overflow:hidden}.calendar-toolbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:16px}.calendar-heading h3{font-size:26px;margin:6px 0 2px}.calendar-heading>span{color:var(--muted2);font-size:13px}.calendar-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.view-switch,.date-nav{display:flex;gap:5px;padding:5px;border:1px solid var(--border);background:var(--surface3);border-radius:16px}.view-btn{border:0;background:transparent;color:var(--muted);padding:10px 14px;border-radius:11px;cursor:pointer;font:inherit}.view-btn.active{background:linear-gradient(135deg,rgba(168,85,247,.28),rgba(34,211,238,.10));color:var(--text);box-shadow:inset 0 0 0 1px rgba(168,85,247,.25)}.small-icon{width:40px!important;height:40px!important;padding:0!important}
 .calendar-body{min-height:330px}.day-board{display:grid;grid-template-columns:120px 1fr;gap:12px}.day-side{padding:18px;border:1px solid var(--border);border-radius:20px;background:var(--surface3);text-align:center}.day-side .big-day{font-size:44px;font-weight:900;line-height:1}.day-side strong{display:block;margin-top:7px}.day-side span{display:block;color:var(--muted2);font-size:12px;margin-top:5px}.day-slots{display:grid;gap:8px}.time-slot{display:grid;grid-template-columns:72px 1fr;min-height:58px;border:1px solid var(--border);border-radius:15px;overflow:hidden;background:rgba(255,255,255,.025)}.time-label{display:grid;place-items:center;color:var(--muted2);font-size:12px;border-left:1px solid var(--border)}.slot-items{display:flex;gap:8px;padding:7px;flex-wrap:wrap;align-items:center}.calendar-appt{min-width:220px;max-width:100%;padding:9px 12px;border-radius:13px;border:1px solid rgba(168,85,247,.24);background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(34,211,238,.05));cursor:pointer;transition:.25s}.calendar-appt:hover{transform:translateY(-2px);border-color:var(--border2)}.calendar-appt strong{display:block;font-size:13px}.calendar-appt small{display:block;color:var(--muted2);margin-top:4px;font-size:11px}.calendar-appt .appt-status{margin-top:5px}
 .week-board{display:grid;grid-template-columns:repeat(7,minmax(130px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}.week-col{min-width:130px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);overflow:hidden}.week-col.today{border-color:rgba(168,85,247,.55);box-shadow:0 0 25px rgba(168,85,247,.12)}.week-head{padding:12px;text-align:center;border-bottom:1px solid var(--border)}.week-head strong{display:block;font-size:17px}.week-head span{font-size:11px;color:var(--muted2)}.week-items{padding:8px;display:grid;gap:7px;min-height:210px}.week-empty{display:grid;place-items:center;min-height:180px;color:var(--muted2);font-size:11px}.month-board{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.month-head{font-size:11px;color:var(--muted2);text-align:center;padding:7px}.month-cell{min-height:105px;border:1px solid var(--border);border-radius:14px;background:var(--surface3);padding:8px;cursor:pointer;transition:.2s}.month-cell:hover{transform:translateY(-2px);border-color:var(--border2)}.month-cell.today{box-shadow:inset 0 0 0 1px rgba(168,85,247,.55)}.month-cell.muted{opacity:.42}.month-number{font-weight:800}.month-count{font-size:10px;color:var(--muted2);margin-top:4px}.month-mini{margin-top:6px;display:grid;gap:3px}.month-mini span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9px;padding:4px 6px;border-radius:7px;background:rgba(168,85,247,.10)}
-.list-board{display:grid;gap:9px}.list-day{border:1px solid var(--border);border-radius:17px;background:var(--surface3);overflow:hidden}.list-day-head{display:flex;justify-content:space-between;padding:12px 15px;border-bottom:1px solid var(--border)}.list-day-items{display:grid}.list-appt{display:grid;grid-template-columns:75px 1fr auto;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border)}.list-appt:last-child.list-time{font-weight:800;color:var(--purple3)}.list-client strong{display:block}.list-client small{color:var(--muted2)}
+.list-board{display:grid;gap:9px}.list-day{border:1px solid var(--border);border-radius:17px;background:var(--surface3);overflow:hidden}.list-day-head{display:flex;justify-content:space-between;padding:12px 15px;border-bottom:1px solid var(--border)}.list-day-items{display:grid}.list-appt{display:grid;grid-template-columns:75px 1fr auto;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--border)}.list-appt:last-child{border-bottom:0}.list-time{font-weight:800;color:var(--purple3)}.list-client strong{display:block}.list-client small{color:var(--muted2)}
 .appt-status{display:inline-flex;align-items:center;gap:5px;border:1px solid transparent;border-radius:999px;padding:4px 8px;font-size:10px;white-space:nowrap}.appt-status.pending{color:#fbbf24;background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.22)}.appt-status.confirmed{color:#34d399;background:rgba(16,185,129,.10);border-color:rgba(16,185,129,.22)}.appt-status.completed{color:#c4b5fd;background:rgba(139,92,246,.11);border-color:rgba(139,92,246,.24)}.appt-status.no-show{color:#fb7185;background:rgba(244,63,94,.10);border-color:rgba(244,63,94,.24)}.appt-status.cancelled{color:#fb7185;background:rgba(220,38,38,.10);border-color:rgba(220,38,38,.24)}.appt-status.rescheduled{color:#67e8f9;background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.22)}
 .appointment-table td{vertical-align:middle}.appointment-table .row-actions{display:flex;gap:5px;flex-wrap:wrap}.appointment-table .mini-btn{min-height:34px}.reminder-on{color:#34d399}.reminder-off{color:var(--muted2)}
 .appointment-card{padding:15px;border:1px solid var(--border);border-radius:18px;background:var(--surface3);display:grid;gap:11px}.appointment-card-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.appointment-card-client{display:flex;gap:10px;align-items:center}.appointment-card .avatar{width:42px;height:42px}.appointment-card-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px}.appointment-card-meta div{padding:9px;border:1px solid var(--border);border-radius:12px}.appointment-card-meta span{display:block;color:var(--muted2);font-size:9px}.appointment-card-meta b{display:block;margin-top:4px;font-size:12px}.appointment-card-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.appt-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.appt-form .full{grid-column:1/-1}.client-search-wrap{position:relative}.client-results{position:absolute;z-index:20;left:0;right:0;top:100%;margin-top:5px;display:none;max-height:240px;overflow-y:auto;border:1px solid var(--border2);border-radius:15px;background:var(--surface2);backdrop-filter:blur(20px);box-shadow:var(--shadow)}.client-results.open{display:grid}.client-option{padding:11px 13px;border-bottom:1px solid var(--border);cursor:pointer}.client-option:last-child.client-option:hover{background:rgba(168,85,247,.10)}.client-option strong{display:block}.client-option small{color:var(--muted2)}.selected-client{display:none;margin-top:7px;padding:10px 12px;border:1px solid rgba(168,85,247,.28);border-radius:13px;background:rgba(168,85,247,.08)}.selected-client.show{display:flex;justify-content:space-between;gap:8px;align-items:center}.selected-client button{border:0;background:none;color:var(--red);cursor:pointer;font-size:18px}.date-shortcuts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.date-shortcuts button{font-size:10px;padding:6px 9px;border-radius:9px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer}.modal-lg{width:min(850px,calc(100vw - 28px))}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.detail-item{padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.detail-item span{display:block;color:var(--muted2);font-size:10px}.detail-item b{display:block;margin-top:5px}.detail-notes{padding:13px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);line-height:1.9;color:var(--muted)}.status-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.status-actions button{min-height:43px}
+.appt-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.appt-form .full{grid-column:1/-1}.client-search-wrap{position:relative}.client-results{position:absolute;z-index:20;left:0;right:0;top:100%;margin-top:5px;display:none;max-height:240px;overflow-y:auto;border:1px solid var(--border2);border-radius:15px;background:var(--surface2);backdrop-filter:blur(20px);box-shadow:var(--shadow)}.client-results.open{display:grid}.client-option{padding:11px 13px;border-bottom:1px solid var(--border);cursor:pointer}.client-option:last-child{border-bottom:0}.client-option:hover{background:rgba(168,85,247,.10)}.client-option strong{display:block}.client-option small{color:var(--muted2)}.selected-client{display:none;margin-top:7px;padding:10px 12px;border:1px solid rgba(168,85,247,.28);border-radius:13px;background:rgba(168,85,247,.08)}.selected-client.show{display:flex;justify-content:space-between;gap:8px;align-items:center}.selected-client button{border:0;background:none;color:var(--red);cursor:pointer;font-size:18px}.date-shortcuts{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.date-shortcuts button{font-size:10px;padding:6px 9px;border-radius:9px;border:1px solid var(--border);background:var(--surface3);color:var(--muted);cursor:pointer}.modal-lg{width:min(850px,calc(100vw - 28px))}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.detail-item{padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface3)}.detail-item span{display:block;color:var(--muted2);font-size:10px}.detail-item b{display:block;margin-top:5px}.detail-notes{padding:13px;border:1px solid var(--border);border-radius:15px;background:var(--surface3);line-height:1.9;color:var(--muted)}.status-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.status-actions button{min-height:43px}
 html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83,9,.12);border-color:rgba(180,83,9,.28)}html[data-theme=light] .appt-status.confirmed{color:#047857;background:rgba(5,150,105,.12);border-color:rgba(5,150,105,.28)}html[data-theme=light] .appt-status.completed{color:#6d28d9;background:rgba(124,58,237,.10);border-color:rgba(124,58,237,.24)}html[data-theme=light] .appt-status.no-show,html[data-theme=light] .appt-status.cancelled{color:#b91c1c;background:rgba(220,38,38,.10);border-color:rgba(220,38,38,.28)}html[data-theme=light] .appt-status.rescheduled{color:#0e7490;background:rgba(8,145,178,.10);border-color:rgba(8,145,178,.24)}
 @media(max-width:900px){.appointment-status-cards{grid-template-columns:1fr 1fr}.calendar-toolbar{align-items:flex-start;flex-direction:column}.calendar-controls{width:100%;justify-content:space-between}.day-board{grid-template-columns:1fr}.day-side{display:flex;align-items:center;gap:12px;text-align:right}.day-side .big-day{font-size:32px}.month-board{min-width:700px}.calendar-body{overflow-x:auto}.list-appt{grid-template-columns:65px 1fr}.list-appt>.appt-status{grid-column:2}.appt-form{grid-template-columns:1fr}.appt-form .full{grid-column:auto}.detail-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.appointment-status-cards{grid-template-columns:1fr 1fr}.view-switch{width:100%;justify-content:space-between}.view-btn{flex:1;padding:9px 6px;font-size:11px}.date-nav{align-self:flex-start}.calendar-controls{display:grid;grid-template-columns:1fr auto}.calendar-controls .view-switch{grid-column:1/-1}.week-board{grid-template-columns:repeat(7,130px)}.calendar-appt{min-width:0;width:100%}.time-slot{grid-template-columns:58px 1fr}.list-appt{grid-template-columns:58px 1fr}.list-appt .row-actions{grid-column:1/-1}.appointment-card-actions{grid-template-columns:1fr 1fr 1fr}.detail-grid{grid-template-columns:1fr}.status-actions{grid-template-columns:1fr 1fr}.hero-actions .btn{min-width:0}.calendar-heading h3{font-size:22px}}
-.switch{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;background:var(--surface3);cursor:pointer}.switch input{display:none}.switch span{width:42px;height:24px;border-radius:99px;background:rgba(255,255,255,.10);position:relative;border:1px solid var(--border)}.switch span:after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#94a3b8;transition:.2s}.switch input:checked+span{background:rgba(168,85,247,.28);border-color:rgba(168,85,247,.55)}.switch input:checked+span:after{right:21px;background:var(--purple3);box-shadow:0 0 10px rgba(168,85,247,.45)}.switch b{font-size:12px}.textarea{resize:vertical;min-height:105px;line-height:1.8}.slot-empty{color:var(--muted2);font-size:10px;padding:7px 10px}.notification-item{display:block;width:100%;text-align:right;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);padding:11px 12px;cursor:pointer}.notification-item:hover{background:rgba(168,85,247,.08)}.notification-item strong{display:block;font-size:11px}.notification-item span{display:block;color:var(--muted2);font-size:10px;margin-top:4px}.notification-empty{padding:18px;color:var(--muted2);font-size:12px;text-align:center}.danger-box{padding:16px;border:1px solid rgba(220,38,38,.25);border-radius:16px;background:rgba(220,38,38,.07);display:grid;gap:7px}.danger-box strong{color:var(--red)}
+   .switch{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border:1px solid var(--border);border-radius:13px;background:var(--surface3);cursor:pointer}.switch input{display:none}.switch span{width:42px;height:24px;border-radius:99px;background:rgba(255,255,255,.10);position:relative;border:1px solid var(--border)}.switch span:after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:#94a3b8;transition:.2s}.switch input:checked+span{background:rgba(168,85,247,.28);border-color:rgba(168,85,247,.55)}.switch input:checked+span:after{right:21px;background:var(--purple3);box-shadow:0 0 10px rgba(168,85,247,.45)}.switch b{font-size:12px}.textarea{resize:vertical;min-height:105px;line-height:1.8}.slot-empty{color:var(--muted2);font-size:10px;padding:7px 10px}.notification-item{display:block;width:100%;text-align:right;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);padding:11px 12px;cursor:pointer}.notification-item:hover{background:rgba(168,85,247,.08)}.notification-item strong{display:block;font-size:11px}.notification-item span{display:block;color:var(--muted2);font-size:10px;margin-top:4px}.notification-empty{padding:18px;color:var(--muted2);font-size:12px;text-align:center}.danger-box{padding:16px;border:1px solid rgba(220,38,38,.25);border-radius:16px;background:rgba(220,38,38,.07);display:grid;gap:7px}.danger-box strong{color:var(--red)}
+
 
 /* =========================================================
-APPOINTMENTS V2 — SPACING / MODAL / CALENDAR / EXPORTS
-========================================================= */
+   APPOINTMENTS V2 — SPACING / MODAL / CALENDAR / EXPORTS
+   ========================================================= */
 
 :root{--panel-gap:18px;--section-pad:22px}
 
@@ -140,9 +140,9 @@ APPOINTMENTS V2 — SPACING / MODAL / CALENDAR / EXPORTS
 @media(max-width:900px){.calendar-panel,.filters,.table-panel,.finance-panel{padding:17px}.finance-grid{grid-template-columns:1fr 1fr}.completion-summary{grid-template-columns:1fr 1fr}.day-board{gap:11px}.calendar-body{min-height:420px}}
 @media(max-width:600px){.kpis{gap:10px}.kpi{padding:14px;min-height:132px}.calendar-panel{border-radius:24px;padding:14px}.calendar-toolbar{margin-bottom:13px}.calendar-heading h3{font-size:23px}.calendar-controls{gap:8px}.view-switch{border-radius:15px}.date-nav{border-radius:15px}.day-side{position:relative;top:auto;border-radius:19px;padding:14px}.day-side .big-day{font-size:38px}.time-presets{grid-template-columns:repeat(4,1fr)}.modal-body{padding:15px}.completion-summary{grid-template-columns:1fr 1fr}.finance-grid{grid-template-columns:1fr 1fr}.finance-card{min-height:110px;padding:13px}.finance-card b{font-size:21px}.finance-mini{grid-template-columns:1fr auto}.finance-mini button{grid-column:2;grid-row:1/3}.pagination{display:grid;gap:10px}.pages{justify-content:center}}
 
-.success-btn{color:var(--green)!important;border-color:rgba(52,211,153,.25)!important;background:rgba(52,211,153,.06)!important}
-.success-box{margin:13px 0;padding:15px;border:1px solid rgba(52,211,153,.25);border-radius:17px;background:rgba(52,211,153,.07);display:grid;gap:5px}.success-box strong{color:var(--green)}.success-box span{color:var(--muted2);font-size:10px} </style>
-
+  .success-btn{color:var(--green)!important;border-color:rgba(52,211,153,.25)!important;background:rgba(52,211,153,.06)!important}
+.success-box{margin:13px 0;padding:15px;border:1px solid rgba(52,211,153,.25);border-radius:17px;background:rgba(52,211,153,.07);display:grid;gap:5px}.success-box strong{color:var(--green)}.success-box span{color:var(--muted2);font-size:10px}
+</style>
  </head>
  <body>
   <div class="print-title" id="printTitle">گزارش نوبت‌ها — MOSHAVER</div>
@@ -1857,10 +1857,7 @@ APPOINTMENTS V2 — SPACING / MODAL / CALENDAR / EXPORTS
    </div>
    <script>
 
-```
-(function(){'use strict';
-```
-
+    (function(){'use strict';
 // =========================================================
 // 01. DOM / STORAGE / CONSTANTS
 // =========================================================
@@ -1872,7 +1869,7 @@ const faDigits='۰۱۲۳۴۵۶۷۸۹';
 
 function faNum(v){return String(v??'').replace(/\d/g,d=>faDigits[+d])} function enNum(v){return String(v??'').replace(/[۰-۹]/g,d=>faDigits.indexOf(d))}
 
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'''}[m]))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
 function uid(p='APT'){return p+'-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,7).toUpperCase()}
 
@@ -1906,7 +1903,7 @@ function statusClass(s){return s||'pending'} function initials(c){return (c?.fir
 
 function load(){try{clients=JSON.parse(localStorage.getItem(LS.clients)||'[]');appointments=JSON.parse(localStorage.getItem(LS.appointments)||'[]');activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){clients=[];appointments=[];activity=[]}if(!clients.length){seedClients()}normalizeAppointments();save()}
 
-function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x,lastName:x,mobile:x,service:x,status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
+function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x[0],lastName:x[1],mobile:x[2],service:x[3],status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
 
 function normalizeAppointments(){appointments=appointments.map(a=>({...a,status:a.status||'pending',reminder:a.reminder!==false,mode:a.mode||'حضوری',date:a.date||a.jalaliDate||jalaliStr(new Date()),time:a.time||'10:00',duration:Number(a.duration)||60,service:a.service||'',notes:a.notes||'',createdAt:a.createdAt||new Date().toISOString(),updatedAt:a.updatedAt||new Date().toISOString()}))}
 
@@ -1927,7 +1924,7 @@ function attendanceRate(){const done=appointments.filter(a=>['completed','no-sho
 function log(message,id){activity.unshift({id:uid('ACT'),type:'appointment',message,appointmentId:id,at:new Date().toISOString()})}
 
 function financeRecords(){
-try{return JSON.parse(localStorage.getItem('moshaver_finance')||'[]')}catch(e){return []}
+  try{return JSON.parse(localStorage.getItem('moshaver_finance')||'[]')}catch(e){return []}
 }
 
 function saveFinance(records){localStorage.setItem('moshaver_finance',JSON.stringify(records))}
@@ -1935,21 +1932,21 @@ function saveFinance(records){localStorage.setItem('moshaver_finance',JSON.strin
 function money(v){return faNum(Number(v||0).toLocaleString('en-US'))}
 
 function financeTotals(){
-const records=financeRecords();
-const now=jalaliStr(new Date()).slice(0,7);
-const today=jalaliStr(new Date());
-const monthRecords=records.filter(r=>r.date.startsWith(now));
-return {today:records.filter(r=>r.date===today).reduce((s,r)=>s+Number(r.amount||0),0),month:monthRecords.reduce((s,r)=>s+Number(r.amount||0),0),commission:monthRecords.reduce((s,r)=>s+Number(r.commission||0),0),completed:monthRecords.length};
+  const records=financeRecords();
+  const now=jalaliStr(new Date()).slice(0,7);
+  const today=jalaliStr(new Date());
+  const monthRecords=records.filter(r=>r.date.startsWith(now));
+  return {today:records.filter(r=>r.date===today).reduce((s,r)=>s+Number(r.amount||0),0),month:monthRecords.reduce((s,r)=>s+Number(r.amount||0),0),commission:monthRecords.reduce((s,r)=>s+Number(r.commission||0),0),completed:monthRecords.length};
 }
 
 function renderFinance(){
-const t=financeTotals();
-$('#financeTodayValue').textContent=money(t.today);
-$('#financeMonthValue').textContent=money(t.month);
-$('#financeCommissionValue').textContent=money(t.commission);
-$('#financeCompletedValue').textContent=faNum(t.completed);
-const records=financeRecords().slice().sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))).slice(0,5);
-$('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${faNum(r.date)} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
+  const t=financeTotals();
+  $('#financeTodayValue').textContent=money(t.today);
+  $('#financeMonthValue').textContent=money(t.month);
+  $('#financeCommissionValue').textContent=money(t.commission);
+  $('#financeCompletedValue').textContent=faNum(t.completed);
+  const records=financeRecords().slice().sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))).slice(0,5);
+  $('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${faNum(r.date)} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
 }
 // =========================================================
 // 04. DASHBOARD / KPI RENDERING
@@ -1984,43 +1981,43 @@ function renderCalendar(){const title=$('#calendarTitle'),sub=$('#calendarSubtit
 function apptHtml(a){const c=clientById(a.clientId)||{};return `<button class="calendar-appt" data-calendar-id="${a.id}"><strong>${esc(a.time)} · ${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||c.service||'—')} · ${esc(a.mode)}</small><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></button>`}
 
 function renderDay(){
-const dayAppointments = apptsOn(cursorDate).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
-let html = `<div class="day-board smart-day-board"><aside class="day-side"><div class="big-day">${faNum(jalaliParts(cursorDate)[2])}</div><div><strong>${fmtWeekday(cursorDate)}</strong><span>${esc(fmtMonth(cursorDate))}</span><span>${faNum(dayAppointments.length)} نوبت</span></div></aside><div class="day-slots">`;
+  const dayAppointments = apptsOn(cursorDate).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
+  let html = `<div class="day-board smart-day-board"><aside class="day-side"><div class="big-day">${faNum(jalaliParts(cursorDate)[2])}</div><div><strong>${fmtWeekday(cursorDate)}</strong><span>${esc(fmtMonth(cursorDate))}</span><span>${faNum(dayAppointments.length)} نوبت</span></div></aside><div class="day-slots">`;
 
-for(let hour=8; hour<=20; hour++){
-for(const minute of [0,30]){
-const hh=pad(hour), mm=pad(minute);
-const slot=`${hh}:${mm}`;
-const list=dayAppointments.filter(a=>String(a.time).slice(0,5)===slot);
-html += `<div class="time-slot precise-slot" data-slot="${slot}"><div class="time-label">${faNum(hh)}:${faNum(mm)}</div><div class="slot-items">${list.length?list.map(apptHtml).join(''):'<span class="slot-empty">آزاد</span>'}</div></div>`;
-}
-}
-return html+'</div></div>';
+  for(let hour=8; hour<=20; hour++){
+    for(const minute of [0,30]){
+      const hh=pad(hour), mm=pad(minute);
+      const slot=`${hh}:${mm}`;
+      const list=dayAppointments.filter(a=>String(a.time).slice(0,5)===slot);
+      html += `<div class="time-slot precise-slot" data-slot="${slot}"><div class="time-label">${faNum(hh)}:${faNum(mm)}</div><div class="slot-items">${list.length?list.map(apptHtml).join(''):'<span class="slot-empty">آزاد</span>'}</div></div>`;
+    }
+  }
+  return html+'</div></div>';
 }
 
 function renderWeek(){let h='<div class="week-board">';for(let i=0;i<7;i++){const d=addDays(startOfWeek(cursorDate),i),list=apptsOn(d);h+=`<div class="week-col ${sameDay(d,new Date())?'today':''}"><div class="week-head"><strong>${faNum(jalaliParts(d)[2])}</strong><span>${fmtWeekday(d)}</span></div><div class="week-items">${list.length?list.map(apptHtml).join(''):'<div class="week-empty">نوبتی ثبت نشده</div>'}</div></div>`}return h+'</div>'}
 
 function jalaliMonthDaysCount(y,m){
-if(m<=6)return 31;
-if(m<=11)return 30;
-const r=y%33;
-return [1,5,9,13,17,22,26,30].includes(r)?30:29;
+  if(m<=6)return 31;
+  if(m<=11)return 30;
+  const r=y%33;
+  return [1,5,9,13,17,22,26,30].includes(r)?30:29;
 }
 
 function renderMonth(){
-const [jy,jm]=jalaliParts(cursorDate);
-const first=jalaliToGregorian(jy,jm,1);
-const fd=new Date(first[0],first[1]-1,first[2]);
-let start=fd.getDay(); start=start===0?6:start-1;
-const dim=jalaliMonthDaysCount(jy,jm);
-let h='<div class="month-board"><div class="month-head">شنبه</div><div class="month-head">یکشنبه</div><div class="month-head">دوشنبه</div><div class="month-head">سه‌شنبه</div><div class="month-head">چهارشنبه</div><div class="month-head">پنجشنبه</div><div class="month-head">جمعه</div>';
-for(let i=0;i<start;i++)h+='<div class="month-cell muted"></div>';
-for(let day=1;day<=dim;day++){
-const d=new Date(...jalaliToGregorian(jy,jm,day));
-const list=apptsOn(d).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
-h+=`<div class="month-cell ${sameDay(d,new Date())?'today':''}" data-calendar-date="${jalaliStr(d)}"><div class="month-number">${faNum(day)}</div><div class="month-count">${faNum(list.length)} نوبت</div><div class="month-mini">${list.slice(0,4).map(a=>{const c=clientById(a.clientId)||{};return `<span>${esc(a.time)} · ${esc(c.firstName||'مراجع')}</span>`}).join('')}</div></div>`;
-}
-return h+'</div>';
+  const [jy,jm]=jalaliParts(cursorDate);
+  const first=jalaliToGregorian(jy,jm,1);
+  const fd=new Date(first[0],first[1]-1,first[2]);
+  let start=fd.getDay(); start=start===0?6:start-1;
+  const dim=jalaliMonthDaysCount(jy,jm);
+  let h='<div class="month-board"><div class="month-head">شنبه</div><div class="month-head">یکشنبه</div><div class="month-head">دوشنبه</div><div class="month-head">سه‌شنبه</div><div class="month-head">چهارشنبه</div><div class="month-head">پنجشنبه</div><div class="month-head">جمعه</div>';
+  for(let i=0;i<start;i++)h+='<div class="month-cell muted"></div>';
+  for(let day=1;day<=dim;day++){
+    const d=new Date(...jalaliToGregorian(jy,jm,day));
+    const list=apptsOn(d).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
+    h+=`<div class="month-cell ${sameDay(d,new Date())?'today':''}" data-calendar-date="${jalaliStr(d)}"><div class="month-number">${faNum(day)}</div><div class="month-count">${faNum(list.length)} نوبت</div><div class="month-mini">${list.slice(0,4).map(a=>{const c=clientById(a.clientId)||{};return `<span>${esc(a.time)} · ${esc(c.firstName||'مراجع')}</span>`}).join('')}</div></div>`;
+  }
+  return h+'</div>';
 }
 
 function renderListBoard(){const groups={};filtered().forEach(a=>(groups[a.date]??=[]).push(a));const keys=Object.keys(groups);return keys.length?'<div class="list-board">'+keys.map(k=>`<div class="list-day"><div class="list-day-head"><strong>${faNum(k)}</strong><span>${faNum(groups[k].length)} نوبت</span></div><div class="list-day-items">${groups[k].map(a=>{const c=clientById(a.clientId)||{};return `<div class="list-appt"><div class="list-time">${esc(a.time)}</div><div class="list-client"><strong>${esc((c.firstName||'مراجع')+' '+(c.lastName||''))}</strong><small>${esc(a.service||'—')} · ${esc(a.mode)}</small></div><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></div>`}).join('')}</div></div>`).join('')+'</div>':'<div class="empty show"><strong>نوبتی برای این بازه پیدا نشد.</strong><span>با تغییر تاریخ یا ثبت نوبت جدید، تقویم را تکمیل کنید.</span></div>'}
@@ -2045,46 +2042,68 @@ function collectForm(){return{clientId:$('#appointmentClient').value,date:$('#ap
 function saveAppointment(e){e.preventDefault();const d=collectForm();if(!d.clientId||!clientById(d.clientId)){toast('انتخاب مراجع الزامی است','یک مراجع واقعی از پرونده‌ها انتخاب کنید.',false);return}if(!parseJ(d.date)){toast('تاریخ شمسی نامعتبر است','تاریخ را مثل ۱۴۰۵/۰۷/۰۱ وارد کنید.',false);return}if(!d.time){toast('ساعت نوبت','ساعت نوبت را مشخص کنید.',false);return}if(!d.service){toast('خدمات نوبت','خدمات را وارد کنید.',false);return}const conflict=appointments.find(a=>a.id!==editingId&&a.date===d.date&&a.time===d.time&&a.status!=='cancelled');if(conflict){toast('تداخل زمانی','در این تاریخ و ساعت یک نوبت دیگر ثبت شده است.',false);return}if(editingId){const i=appointments.findIndex(a=>a.id===editingId);appointments[i]={...appointments[i],...d,updatedAt:new Date().toISOString()};log('نوبت ویرایش شد',editingId);toast('نوبت ویرایش شد','تغییرات با موفقیت ذخیره شد.')}else{const a={id:uid('APT'),...d,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};appointments.push(a);log('نوبت جدید ثبت شد',a.id);toast('نوبت ثبت شد','نوبت به تقویم و فهرست نوبت‌ها اضافه شد.')}save();closeModal('#appointmentModal');renderAll()}
 
 function openDetail(id){
-const a=appointments.find(x=>x.id===id); if(!a)return;
-const c=clientById(a.clientId)||{};
-const finalized=Boolean(a.finalized);
-$('#detailTitle').textContent=`نوبت ${c.firstName||'مراجع'} ${c.lastName||''}`;
-$('#detailBody').innerHTML=`     <div class="detail-grid">       <div class="detail-item"><span>مراجع</span><b>${esc((c.firstName||'')+' '+(c.lastName||''))}</b></div>       <div class="detail-item"><span>موبایل</span><b>${esc(c.mobile||'—')}</b></div>       <div class="detail-item"><span>تاریخ</span><b>${faNum(a.date)}</b></div>       <div class="detail-item"><span>ساعت</span><b>${esc(a.time)}</b></div>       <div class="detail-item"><span>خدمات</span><b>${esc(a.service||'—')}</b></div>       <div class="detail-item"><span>نوع جلسه</span><b>${esc(a.mode)}</b></div>       <div class="detail-item"><span>مدت</span><b>${faNum(a.duration)} دقیقه</b></div>       <div class="detail-item"><span>یادآوری</span><b>${a.reminder?'فعال':'خاموش'}</b></div>       <div class="detail-item"><span>وضعیت</span><b><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></b></div>     </div>
-    ${finalized?`<div class="success-box"><strong>✓ خدمات با موفقیت تکمیل شده</strong><span>درآمد و پورسانت این پرونده در بخش مالی ثبت شده است.</span></div>`:''}     <div class="detail-notes"><strong>یادداشت نوبت</strong><div>${esc(a.notes||'یادداشتی برای این نوبت ثبت نشده است.')}</div></div>     <div class="status-actions">       <button class="btn" data-detail-status="confirmed" data-id="${a.id}">✓ تأیید</button>       <button class="btn" data-detail-complete="${a.id}">✓ اتمام خدمات</button>       <button class="btn danger" data-detail-status="no-show" data-id="${a.id}">! عدم حضور</button>     </div>     <div class="hero-actions">       <button class="btn primary" data-detail-edit="${a.id}">ویرایش نوبت</button>       <button class="btn" data-detail-client="${a.clientId}">پرونده مراجع</button>       <button class="btn" data-detail-sms="${a.id}">⌁ ارسال یادآوری</button>
-      ${finalized?`<button class="btn" data-detail-finance="${a.id}">ویرایش مالی</button>`:''}     </div>`;
-openModal('#detailModal');
+  const a=appointments.find(x=>x.id===id); if(!a)return;
+  const c=clientById(a.clientId)||{};
+  const finalized=Boolean(a.finalized);
+  $('#detailTitle').textContent=`نوبت ${c.firstName||'مراجع'} ${c.lastName||''}`;
+  $('#detailBody').innerHTML=`
+    <div class="detail-grid">
+      <div class="detail-item"><span>مراجع</span><b>${esc((c.firstName||'')+' '+(c.lastName||''))}</b></div>
+      <div class="detail-item"><span>موبایل</span><b>${esc(c.mobile||'—')}</b></div>
+      <div class="detail-item"><span>تاریخ</span><b>${faNum(a.date)}</b></div>
+      <div class="detail-item"><span>ساعت</span><b>${esc(a.time)}</b></div>
+      <div class="detail-item"><span>خدمات</span><b>${esc(a.service||'—')}</b></div>
+      <div class="detail-item"><span>نوع جلسه</span><b>${esc(a.mode)}</b></div>
+      <div class="detail-item"><span>مدت</span><b>${faNum(a.duration)} دقیقه</b></div>
+      <div class="detail-item"><span>یادآوری</span><b>${a.reminder?'فعال':'خاموش'}</b></div>
+      <div class="detail-item"><span>وضعیت</span><b><span class="appt-status ${statusClass(a.status)}">${statusLabel(a.status)}</span></b></div>
+    </div>
+    ${finalized?`<div class="success-box"><strong>✓ خدمات با موفقیت تکمیل شده</strong><span>درآمد و پورسانت این پرونده در بخش مالی ثبت شده است.</span></div>`:''}
+    <div class="detail-notes"><strong>یادداشت نوبت</strong><div>${esc(a.notes||'یادداشتی برای این نوبت ثبت نشده است.')}</div></div>
+    <div class="status-actions">
+      <button class="btn" data-detail-status="confirmed" data-id="${a.id}">✓ تأیید</button>
+      <button class="btn" data-detail-complete="${a.id}">✓ اتمام خدمات</button>
+      <button class="btn danger" data-detail-status="no-show" data-id="${a.id}">! عدم حضور</button>
+    </div>
+    <div class="hero-actions">
+      <button class="btn primary" data-detail-edit="${a.id}">ویرایش نوبت</button>
+      <button class="btn" data-detail-client="${a.clientId}">پرونده مراجع</button>
+      <button class="btn" data-detail-sms="${a.id}">⌁ ارسال یادآوری</button>
+      ${finalized?`<button class="btn" data-detail-finance="${a.id}">ویرایش مالی</button>`:''}
+    </div>`;
+  openModal('#detailModal');
 }
 
 function openCompletion(id){
-const a=appointments.find(x=>x.id===id); if(!a)return;
-const c=clientById(a.clientId)||{};
-const existing=financeRecords().find(r=>r.appointmentId===id);
-$('#completionAppointmentId').value=id;
-$('#completionTitle').textContent=existing?'ویرایش تسویه و نتیجه خدمات':'اتمام خدمات و تسویه';
-$('#completionSummary').innerHTML=`<div><span>مراجع</span><b>${esc((c.firstName||'')+' '+(c.lastName||''))}</b></div><div><span>تاریخ</span><b>${faNum(a.date)}</b></div><div><span>ساعت</span><b>${esc(a.time)}</b></div><div><span>خدمات</span><b>${esc(a.service||'—')}</b></div>`;
-$('#completionAmount').value=existing?.amount||a.amount||'';
-$('#completionCommission').value=existing?.commission||a.commission||'';
-$('#completionPayment').value=existing?.payment||'کارت';
-$('#completionNote').value=existing?.note||a.completionNote||'';
-openModal('#completionModal');
+  const a=appointments.find(x=>x.id===id); if(!a)return;
+  const c=clientById(a.clientId)||{};
+  const existing=financeRecords().find(r=>r.appointmentId===id);
+  $('#completionAppointmentId').value=id;
+  $('#completionTitle').textContent=existing?'ویرایش تسویه و نتیجه خدمات':'اتمام خدمات و تسویه';
+  $('#completionSummary').innerHTML=`<div><span>مراجع</span><b>${esc((c.firstName||'')+' '+(c.lastName||''))}</b></div><div><span>تاریخ</span><b>${faNum(a.date)}</b></div><div><span>ساعت</span><b>${esc(a.time)}</b></div><div><span>خدمات</span><b>${esc(a.service||'—')}</b></div>`;
+  $('#completionAmount').value=existing?.amount||a.amount||'';
+  $('#completionCommission').value=existing?.commission||a.commission||'';
+  $('#completionPayment').value=existing?.payment||'کارت';
+  $('#completionNote').value=existing?.note||a.completionNote||'';
+  openModal('#completionModal');
 }
 
 function finalizeAppointment(e){
-e.preventDefault();
-const id=$('#completionAppointmentId').value; const a=appointments.find(x=>x.id===id); if(!a)return;
-const c=clientById(a.clientId)||{};
-const amount=Number(enNum($('#completionAmount').value).replace(/,/g,''))||0;
-const commission=Number(enNum($('#completionCommission').value).replace(/,/g,''))||0;
-if(amount<0||commission<0){toast('مبلغ نامعتبر','مبلغ و پورسانت نمی‌توانند منفی باشند.',false);return}
-const records=financeRecords();
-let r=records.find(x=>x.appointmentId===id);
-if(r){Object.assign(r,{amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),updatedAt:new Date().toISOString()})}
-else{r={id:uid('FIN'),appointmentId:id,amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),createdAt:new Date().toISOString()};records.push(r)}
-a.status='completed'; a.finalized=true; a.amount=amount; a.commission=commission; a.completionNote=r.note; a.completedAt=new Date().toISOString(); a.updatedAt=new Date().toISOString();
-c.successfulServices=[...(c.successfulServices||[]),{appointmentId:id,date:a.date,service:a.service,amount,commission,completedAt:a.completedAt}].filter((x,i,arr)=>arr.findIndex(y=>y.appointmentId===x.appointmentId)===i);
-activity.unshift({id:uid('ACT'),type:'appointment.completed',message:`خدمات ${c.firstName||'مراجع'} ${c.lastName||''} با موفقیت تکمیل شد`,appointmentId:id,at:new Date().toISOString()});
-saveFinance(records); save(); closeModal('#completionModal'); renderAll(); toast('خدمات تکمیل شد','نوبت، پرونده مراجع و بخش مالی به‌روزرسانی شدند.');
-if($('#detailModal').classList.contains('open'))openDetail(id);
+  e.preventDefault();
+  const id=$('#completionAppointmentId').value; const a=appointments.find(x=>x.id===id); if(!a)return;
+  const c=clientById(a.clientId)||{};
+  const amount=Number(enNum($('#completionAmount').value).replace(/,/g,''))||0;
+  const commission=Number(enNum($('#completionCommission').value).replace(/,/g,''))||0;
+  if(amount<0||commission<0){toast('مبلغ نامعتبر','مبلغ و پورسانت نمی‌توانند منفی باشند.',false);return}
+  const records=financeRecords();
+  let r=records.find(x=>x.appointmentId===id);
+  if(r){Object.assign(r,{amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),updatedAt:new Date().toISOString()})}
+  else{r={id:uid('FIN'),appointmentId:id,amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),createdAt:new Date().toISOString()};records.push(r)}
+  a.status='completed'; a.finalized=true; a.amount=amount; a.commission=commission; a.completionNote=r.note; a.completedAt=new Date().toISOString(); a.updatedAt=new Date().toISOString();
+  c.successfulServices=[...(c.successfulServices||[]),{appointmentId:id,date:a.date,service:a.service,amount,commission,completedAt:a.completedAt}].filter((x,i,arr)=>arr.findIndex(y=>y.appointmentId===x.appointmentId)===i);
+  activity.unshift({id:uid('ACT'),type:'appointment.completed',message:`خدمات ${c.firstName||'مراجع'} ${c.lastName||''} با موفقیت تکمیل شد`,appointmentId:id,at:new Date().toISOString()});
+  saveFinance(records); save(); closeModal('#completionModal'); renderAll(); toast('خدمات تکمیل شد','نوبت، پرونده مراجع و بخش مالی به‌روزرسانی شدند.');
+  if($('#detailModal').classList.contains('open'))openDetail(id);
 }
 
 // =========================================================
@@ -2105,30 +2124,30 @@ function toast(title,text,good=true){const t=document.createElement('div');t.cla
 // =========================================================
 
 function exportPdf(){
-$('#printTitle').textContent=`گزارش نوبت‌ها — ${jalaliStr(new Date())}`;
-window.print();
+  $('#printTitle').textContent=`گزارش نوبت‌ها — ${jalaliStr(new Date())}`;
+  window.print();
 }
 
 function exportExcel(){
-const rows=[['ردیف','مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع جلسه','وضعیت','یادآوری','مبلغ','پورسانت']];
-filtered().forEach((a,i)=>{const c=clientById(a.clientId)||{};rows.push([i+1,`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.amount||'',a.commission||''])});
-const table='<table dir="rtl" border="1"><thead><tr>'+rows[0].map(x=>`<th>${esc(x)}</th>`).join('')+'</tr></thead><tbody>'+rows.slice(1).map(r=>'<tr>'+r.map(x=>`<td>${esc(x)}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
-const blob=new Blob(['\ufeff',`<html><meta charset="utf-8"><body>${table}</body></html>`],{type:'application/vnd.ms-excel;charset=utf-8'});
-const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.xls';a.click();URL.revokeObjectURL(url);
+  const rows=[['ردیف','مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع جلسه','وضعیت','یادآوری','مبلغ','پورسانت']];
+  filtered().forEach((a,i)=>{const c=clientById(a.clientId)||{};rows.push([i+1,`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.amount||'',a.commission||''])});
+  const table='<table dir="rtl" border="1"><thead><tr>'+rows[0].map(x=>`<th>${esc(x)}</th>`).join('')+'</tr></thead><tbody>'+rows.slice(1).map(r=>'<tr>'+r.map(x=>`<td>${esc(x)}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
+  const blob=new Blob(['\ufeff',`<html><meta charset="utf-8"><body>${table}</body></html>`],{type:'application/vnd.ms-excel;charset=utf-8'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.xls';a.click();URL.revokeObjectURL(url);
 }
 
 function stepTime(delta){
-const input=$('#appointmentTime'); const [h,m]=(input.value||'10:00').split(':').map(Number); let total=h*60+m+delta; total=(total+1440)%1440; setTime(`${pad(Math.floor(total/60))}:${pad(total%60)}`);
+  const input=$('#appointmentTime'); const [h,m]=(input.value||'10:00').split(':').map(Number); let total=h*60+m+delta; total=(total+1440)%1440; setTime(`${pad(Math.floor(total/60))}:${pad(total%60)}`);
 }
 
 function setTime(value){$('#appointmentTime').value=value;$$('#timePresets button').forEach(b=>b.classList.toggle('active',b.dataset.time===value))}
 
 function stepFilterDate(which,delta){
-const input=which==='from'?$('#filterFrom'):$('#filterTo'); const base=jToDate(input.value)||new Date(); input.value=jalaliStr(addDays(base,delta)); currentPage=1; renderTable(); renderCalendar();
+  const input=which==='from'?$('#filterFrom'):$('#filterTo'); const base=jToDate(input.value)||new Date(); input.value=jalaliStr(addDays(base,delta)); currentPage=1; renderTable(); renderCalendar();
 }
 
 function deleteFinance(id){
-const records=financeRecords().filter(r=>r.id!==id); saveFinance(records); renderFinance(); toast('تراکنش حذف شد','رکورد مالی از خلاصه مالی حذف شد.');
+  const records=financeRecords().filter(r=>r.id!==id); saveFinance(records); renderFinance(); toast('تراکنش حذف شد','رکورد مالی از خلاصه مالی حذف شد.');
 }
 
 function csv(){const rows=[['مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع','وضعیت','یادآوری','یادداشت']];filtered().forEach(a=>{const c=clientById(a.clientId)||{};rows.push([`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.notes||''])});const out='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([out],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.csv';a.click();URL.revokeObjectURL(url)}
@@ -2146,23 +2165,22 @@ function openFilteredStatus(status){if(status){$('#filterStatus').value=status}e
 // =========================================================
 
 function wire(){
-$('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
-$('#addAppointment').onclick=()=>openForm();$('#addAppointment2').onclick=()=>openForm();$('#openTodayList').onclick=()=>{view='list';$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());currentPage=1;renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#openPending').onclick=()=>openFilteredStatus('pending');
-$('#actionPending').onclick=()=>openFilteredStatus('pending');$('#actionToday').onclick=()=>{$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());view='list';renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#actionNoShow').onclick=()=>openFilteredStatus('no-show');$('#actionExport').onclick=csv;
-
-$$$('.appointment-kpi').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.kpi==='today'?'':b.dataset.kpi==='pending'?'pending':''));
-$$('.legend-row,.appointment-status-cards .status-card').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.status));$('#showAllAppointments').onclick=()=>openFilteredStatus('');
-$$('.view-btn').forEach(b=>b.onclick=()=>{view=b.dataset.view;$$('.view-btn').forEach(x=>x.classList.toggle('active',x===b));renderCalendar()});
-$('#applyFilters').onclick=()=>{currentPage=1;renderTable();renderCalendar()};$('#clearFilters').onclick=()=>{$('#search').value='';$('#filterStatus').value='';$('#filterMode').value='';$('#filterService').value='';$('#filterFrom').value='';$('#filterTo').value='';currentPage=1;renderTable();renderCalendar()};$('#resetFilters').onclick=$('#clearFilters').onclick;$('#search').oninput=()=>{currentPage=1;renderTable();if(view==='list')renderCalendar()};['filterStatus','filterMode','filterService','filterFrom','filterTo'].forEach(id=>$('#'+id).onchange=()=>{currentPage=1;renderTable();renderCalendar()});$('#exportCsv').onclick=csv;
-$('#appointmentRows').addEventListener('click',handleAction);$('#mobileAppointments').addEventListener('click',handleAction);$('#calendarBody').addEventListener('click',e=>{const a=e.target.closest('[data-calendar-id]');if(a){openDetail(a.dataset.calendarId);return}const d=e.target.closest('[data-calendar-date]');if(d){cursorDate=jToDate(d.dataset.calendarDate);view='day';$$('.view-btn').forEach(x=>x.classList.toggle('active',x.dataset.view==='day'));renderCalendar()}});$('#pages').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){currentPage=Number(b.dataset.page);renderTable()}});
-$('#clientSearch').oninput=e=>{const q=e.target.value.trim().toLowerCase();const arr=clients.filter(c=>[c.firstName,c.lastName,c.mobile,c.caseCode,c.service].join(' ').toLowerCase().includes(q)).slice(0,10);$('#clientResults').innerHTML=arr.map(c=>`<div class="client-option" data-client="${c.id}"><strong>${esc(c.firstName+' '+c.lastName)}</strong><small>${esc(c.mobile||'')} · ${esc(c.service||'')}</small></div>`).join('');$('#clientResults').classList.toggle('open',!!q&&arr.length>0)};
-$('#clientResults').addEventListener('click',e=>{const b=e.target.closest('[data-client]');if(!b)return;$('#appointmentClient').value=b.dataset.client;selectedClientId=b.dataset.client;$('#clientSearch').value='';$('#clientResults').classList.remove('open');const c=clientById(b.dataset.client);$('#appointmentService').value=c?.service||'';updateSelectedClient()});$('#appointmentClient').onchange=updateSelectedClient;
-$('#appointmentForm').onsubmit=saveAppointment;$('#completionForm').onsubmit=finalizeAppointment;$('#timeMinus').onclick=()=>stepTime(-15);$('#timePlus').onclick=()=>stepTime(15);$$('#timePresets button').forEach(b=>b.onclick=()=>setTime(b.dataset.time));$$('[data-filter-step]').forEach(b=>b.onclick=()=>stepFilterDate(b.dataset.filterStep,Number(b.dataset.step)));$('#financeRefresh').onclick=renderFinance;$('#financeList').addEventListener('click',e=>{const b=e.target.closest('[data-finance-delete]');if(!b)return;deleteFinance(b.dataset.financeDelete)});$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
-$$('.date-shortcuts button').forEach(b=>b.onclick=()=>$('#appointmentDate').value=jalaliStr(addDays(new Date(),Number(b.dataset.add||0))));
-$$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal('#'+m.id)}));$$('[data-close]').forEach(b=>b.onclick=()=>closeModal('#'+b.dataset.close));
-$('#confirmDelete').onclick=confirmDelete;$('#exportPdf').onclick=exportPdf;$('#exportExcel').onclick=exportExcel;$('#detailBody').addEventListener('click',e=>{const complete=e.target.closest('[data-detail-complete]');if(complete){openCompletion(complete.dataset.detailComplete);return}const finance=e.target.closest('[data-detail-finance]');if(finance){openCompletion(finance.dataset.detailFinance);return}const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
-$('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover').classList.toggle('open')};document.addEventListener('click',e=>{if(!e.target.closest('#notificationPopover')&&!e.target.closest('#notificationsBtn'))$('#notificationPopover').classList.remove('open')});$('#notificationList').addEventListener('click',e=>{const b=e.target.closest('[data-notification]');if(b){$('#notificationPopover').classList.remove('open');openDetail(b.dataset.notification)}});$('#markRead').onclick=()=>toast('اعلان‌ها بررسی شد','اعلان‌های نوبت‌ها در همین صفحه مدیریت می‌شوند.');
-$('#logout').onclick=()=>{localStorage.removeItem(LS.user);location.href='../index.html'};$('#scrollTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>$('#scrollTop').classList.toggle('show',window.scrollY>420),{passive:true});$('#sidebar').addEventListener('scroll',updateSidebarScroll,{passive:true});window.addEventListener('resize',updateSidebarScroll);window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal-backdrop.open').forEach(m=>closeModal('#'+m.id))});
+ $('#theme').onclick=toggleTheme;$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#quickToday').onclick=today;$('#todayBtn').onclick=today;$('#calendarToday').onclick=today;$('#prevDate').onclick=()=>moveCursor(-1);$('#nextDate').onclick=()=>moveCursor(1);
+ $('#addAppointment').onclick=()=>openForm();$('#addAppointment2').onclick=()=>openForm();$('#openTodayList').onclick=()=>{view='list';$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());currentPage=1;renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#openPending').onclick=()=>openFilteredStatus('pending');
+ $('#actionPending').onclick=()=>openFilteredStatus('pending');$('#actionToday').onclick=()=>{$('#filterFrom').value=jalaliStr(new Date());$('#filterTo').value=jalaliStr(new Date());view='list';renderTable();renderCalendar();$('#appointmentsPanel').scrollIntoView({behavior:'smooth'})};$('#actionNoShow').onclick=()=>openFilteredStatus('no-show');$('#actionExport').onclick=csv;
+ $$('.appointment-kpi').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.kpi==='today'?'':b.dataset.kpi==='pending'?'pending':''));
+ $$('.legend-row,.appointment-status-cards .status-card').forEach(b=>b.onclick=()=>openFilteredStatus(b.dataset.status));$('#showAllAppointments').onclick=()=>openFilteredStatus('');
+ $$('.view-btn').forEach(b=>b.onclick=()=>{view=b.dataset.view;$$('.view-btn').forEach(x=>x.classList.toggle('active',x===b));renderCalendar()});
+ $('#applyFilters').onclick=()=>{currentPage=1;renderTable();renderCalendar()};$('#clearFilters').onclick=()=>{$('#search').value='';$('#filterStatus').value='';$('#filterMode').value='';$('#filterService').value='';$('#filterFrom').value='';$('#filterTo').value='';currentPage=1;renderTable();renderCalendar()};$('#resetFilters').onclick=$('#clearFilters').onclick;$('#search').oninput=()=>{currentPage=1;renderTable();if(view==='list')renderCalendar()};['filterStatus','filterMode','filterService','filterFrom','filterTo'].forEach(id=>$('#'+id).onchange=()=>{currentPage=1;renderTable();renderCalendar()});$('#exportCsv').onclick=csv;
+ $('#appointmentRows').addEventListener('click',handleAction);$('#mobileAppointments').addEventListener('click',handleAction);$('#calendarBody').addEventListener('click',e=>{const a=e.target.closest('[data-calendar-id]');if(a){openDetail(a.dataset.calendarId);return}const d=e.target.closest('[data-calendar-date]');if(d){cursorDate=jToDate(d.dataset.calendarDate);view='day';$$('.view-btn').forEach(x=>x.classList.toggle('active',x.dataset.view==='day'));renderCalendar()}});$('#pages').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){currentPage=Number(b.dataset.page);renderTable()}});
+ $('#clientSearch').oninput=e=>{const q=e.target.value.trim().toLowerCase();const arr=clients.filter(c=>[c.firstName,c.lastName,c.mobile,c.caseCode,c.service].join(' ').toLowerCase().includes(q)).slice(0,10);$('#clientResults').innerHTML=arr.map(c=>`<div class="client-option" data-client="${c.id}"><strong>${esc(c.firstName+' '+c.lastName)}</strong><small>${esc(c.mobile||'')} · ${esc(c.service||'')}</small></div>`).join('');$('#clientResults').classList.toggle('open',!!q&&arr.length>0)};
+ $('#clientResults').addEventListener('click',e=>{const b=e.target.closest('[data-client]');if(!b)return;$('#appointmentClient').value=b.dataset.client;selectedClientId=b.dataset.client;$('#clientSearch').value='';$('#clientResults').classList.remove('open');const c=clientById(b.dataset.client);$('#appointmentService').value=c?.service||'';updateSelectedClient()});$('#appointmentClient').onchange=updateSelectedClient;
+ $('#appointmentForm').onsubmit=saveAppointment;$('#completionForm').onsubmit=finalizeAppointment;$('#timeMinus').onclick=()=>stepTime(-15);$('#timePlus').onclick=()=>stepTime(15);$$('#timePresets button').forEach(b=>b.onclick=()=>setTime(b.dataset.time));$$('[data-filter-step]').forEach(b=>b.onclick=()=>stepFilterDate(b.dataset.filterStep,Number(b.dataset.step)));$('#financeRefresh').onclick=renderFinance;$('#financeList').addEventListener('click',e=>{const b=e.target.closest('[data-finance-delete]');if(!b)return;deleteFinance(b.dataset.financeDelete)});$('#selectedClient').addEventListener('click',e=>{if(e.target.id==='clearSelectedClient'){$('#appointmentClient').value='';updateSelectedClient()}});
+ $$('.date-shortcuts button').forEach(b=>b.onclick=()=>$('#appointmentDate').value=jalaliStr(addDays(new Date(),Number(b.dataset.add||0))));
+ $$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal('#'+m.id)}));$$('[data-close]').forEach(b=>b.onclick=()=>closeModal('#'+b.dataset.close));
+ $('#confirmDelete').onclick=confirmDelete;$('#exportPdf').onclick=exportPdf;$('#exportExcel').onclick=exportExcel;$('#detailBody').addEventListener('click',e=>{const complete=e.target.closest('[data-detail-complete]');if(complete){openCompletion(complete.dataset.detailComplete);return}const finance=e.target.closest('[data-detail-finance]');if(finance){openCompletion(finance.dataset.detailFinance);return}const st=e.target.closest('[data-detail-status]');if(st){changeStatus(st.dataset.id,st.dataset.detailStatus);return}const ed=e.target.closest('[data-detail-edit]');if(ed){closeModal('#detailModal');openForm(ed.dataset.detailEdit);return}const cl=e.target.closest('[data-detail-client]');if(cl){location.href='clients.html?client='+encodeURIComponent(cl.dataset.detailClient);return}const sm=e.target.closest('[data-detail-sms]');if(sm)sendReminder(sm.dataset.detailSms)});
+ $('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover').classList.toggle('open')};document.addEventListener('click',e=>{if(!e.target.closest('#notificationPopover')&&!e.target.closest('#notificationsBtn'))$('#notificationPopover').classList.remove('open')});$('#notificationList').addEventListener('click',e=>{const b=e.target.closest('[data-notification]');if(b){$('#notificationPopover').classList.remove('open');openDetail(b.dataset.notification)}});$('#markRead').onclick=()=>toast('اعلان‌ها بررسی شد','اعلان‌های نوبت‌ها در همین صفحه مدیریت می‌شوند.');
+ $('#logout').onclick=()=>{localStorage.removeItem(LS.user);location.href='../index.html'};$('#scrollTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('scroll',()=>$('#scrollTop').classList.toggle('show',window.scrollY>420),{passive:true});$('#sidebar').addEventListener('scroll',updateSidebarScroll,{passive:true});window.addEventListener('resize',updateSidebarScroll);window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal-backdrop.open').forEach(m=>closeModal('#'+m.id))});
 }
 
 function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='complete')openCompletion(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
@@ -2172,8 +2190,8 @@ load();fillClientOptions();setTheme();wire();
 const params=new URLSearchParams(location.search);if(params.get('client')){setTimeout(()=>openForm('',params.get('client')),120)}else if(params.get('new')==='1'){setTimeout(()=>openForm(),120)}
 renderAll();updateSidebarScroll();
 })();
-  
+   
 </script>
- </div>
-</body>
+  </div>
+ </body>
 </html>
