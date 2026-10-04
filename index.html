@@ -1508,13 +1508,78 @@ html[data-theme="light"] .modal-wrap{background:rgba(31,20,42,.28)}
 
   });
 
-  adminForm.addEventListener("submit",(e)=>{
+ adminForm.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    showToast("ورود مدیریت پس از اتصال Backend فعال می‌شود.");
+  const username = document.getElementById("adminUser").value.trim();
+  const password = document.getElementById("adminPass").value;
 
-  });
+  if (!username || !password) {
+    showToast("نام کاربری و رمز عبور را وارد کنید.");
+    return;
+  }
+
+  const submitButton = adminForm.querySelector('button[type="submit"]');
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.dataset.originalText = submitButton.textContent;
+    submitButton.textContent = "در حال ورود...";
+  }
+
+  try {
+
+    const response = await window.MOSHAVER_AUTH.login(
+      username,
+      password
+    );
+
+    const user =
+      response &&
+      response.data &&
+      response.data.user
+        ? response.data.user
+        : null;
+
+    if (!user) {
+      throw new Error("USER_DATA_MISSING");
+    }
+
+    if (String(user.role).toUpperCase() !== "SUPER_ADMIN") {
+      await window.MOSHAVER_AUTH.logout();
+      throw new Error("ACCESS_DENIED");
+    }
+
+    showToast("ورود با موفقیت انجام شد.");
+
+    setTimeout(() => {
+      window.location.href = "super-admin/dashboard.html";
+    }, 500);
+
+  } catch (error) {
+
+    console.error("Admin login error:", error);
+
+    if (error.message === "ACCESS_DENIED") {
+      showToast("این حساب دسترسی مدیریت کل ندارد.");
+    } else if (error.message === "INVALID_CREDENTIALS") {
+      showToast("نام کاربری یا رمز عبور اشتباه است.");
+    } else {
+      showToast("ورود انجام نشد. اتصال یا اطلاعات ورود را بررسی کنید.");
+    }
+
+  } finally {
+
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent =
+        submitButton.dataset.originalText || "ورود";
+    }
+
+  }
+
+});
 
   function showToast(message){
 
