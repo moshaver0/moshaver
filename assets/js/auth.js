@@ -127,29 +127,35 @@
       return currentRole === String(role).toUpperCase();
     },
 
-    saveSession(response) {
-      if (response.accessToken) {
-        localStorage.setItem(
-          config.TOKEN_KEY,
-          String(response.accessToken)
-        );
-      }
+  saveSession(response) {
+  const data = response && response.data
+    ? response.data
+    : response;
 
-      if (response.user) {
-        this.saveUser(response.user);
-      }
+  if (data && data.accessToken) {
+    localStorage.setItem(
+      config.TOKEN_KEY,
+      String(data.accessToken)
+    );
+  }
 
-      const session = {
-        loggedIn: true,
-        expiresIn: response.expiresIn || null,
-        savedAt: Date.now()
-      };
+  if (data && data.user) {
+    this.saveUser(data.user);
+  }
 
-      localStorage.setItem(
-        config.SESSION_KEY,
-        JSON.stringify(session)
-      );
-    },
+  const session = {
+    loggedIn: true,
+    expiresIn: data && data.expiresIn
+      ? data.expiresIn
+      : null,
+    savedAt: Date.now()
+  };
+
+  localStorage.setItem(
+    config.SESSION_KEY,
+    JSON.stringify(session)
+  );
+},
 
     saveUser(user) {
       localStorage.setItem(
