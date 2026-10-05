@@ -206,7 +206,7 @@
   } finally {
     clearTimeout(timeout);
   }
-}
+  };
 
   window.MOSHAVER_AUTH = Auth;
 
