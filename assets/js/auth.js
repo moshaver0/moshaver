@@ -170,35 +170,43 @@
       localStorage.removeItem(config.TOKEN_KEY);
     },
 
-    async request(payload) {
-      const controller = new AbortController();
+   async request(payload) {
+  const controller = new AbortController();
 
-      const timeout = setTimeout(() => {
-        controller.abort();
-      }, Number(config.REQUEST_TIMEOUT) || 30000);
+  const timeout = setTimeout(
+    () => controller.abort(),
+    Number(config.REQUEST_TIMEOUT) || 30000
+  );
 
-      try {
-        const response = await fetch(config.API_BASE_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal
-        });
+  try {
+    const formData = new URLSearchParams();
 
-        if (!response.ok) {
-          throw new Error("HTTP_" + response.status);
-        }
+    Object.keys(payload || {}).forEach((key) => {
+      const value = payload[key];
 
-        const data = await response.json();
-
-        return data;
-      } finally {
-        clearTimeout(timeout);
+      if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
       }
+    });
+
+    const response = await fetch(config.API_BASE_URL, {
+      method: "POST",
+      body: formData,
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP_" + response.status);
     }
-  };
+
+    const data = await response.json();
+
+    return data;
+
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
   window.MOSHAVER_AUTH = Auth;
 
