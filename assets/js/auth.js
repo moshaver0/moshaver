@@ -26,7 +26,9 @@
         username: normalizedUsername,
         password: normalizedPassword
       });
-
+      
+    console.log("MOSHAVER LOGIN RESPONSE:", response);
+      
       if (!response || response.success !== true) {
   const message =
     response &&
