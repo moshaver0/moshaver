@@ -64,34 +64,40 @@
       return true;
     },
 
-    async getCurrentUser() {
-      const token = this.getToken();
+  async getCurrentUser() {
+  const token = this.getToken();
 
-      if (!token) {
-        return null;
-      }
+  if (!token) {
+    return null;
+  }
 
-      try {
-        const response = await this.request({
-          action: "currentUser",
-          accessToken: token
-        });
+  try {
+    const response = await this.request({
+      action: "me",
+      accessToken: token
+    });
 
-        if (!response || response.success !== true) {
-          this.clearSession();
-          return null;
-        }
+    if (!response || response.success !== true) {
+      this.clearSession();
+      return null;
+    }
 
-        if (response.user) {
-          this.saveUser(response.user);
-        }
+    const user = response?.data?.user || null;
 
-        return response.user || null;
-      } catch (error) {
-        console.warn("Current user request failed:", error);
-        return null;
-      }
-    },
+    if (!user) {
+      this.clearSession();
+      return null;
+    }
+
+    this.saveUser(user);
+    return user;
+
+  } catch (error) {
+    console.warn("Current user request failed:", error);
+    this.clearSession();
+    return null;
+  }
+},
 
     isLoggedIn() {
       return Boolean(this.getToken());
