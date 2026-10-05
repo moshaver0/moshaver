@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -1241,7 +1240,6 @@ textarea:focus-visible{
   }
 }
 </style>
-
 </head>
 
 <body>
@@ -1249,7 +1247,6 @@ textarea:focus-visible{
 <!-- =========================================================
      01. BACKGROUND
      ========================================================= -->
-
 <div class="ambient" aria-hidden="true">
   <i></i>
   <i></i>
@@ -1265,358 +1262,352 @@ textarea:focus-visible{
 <!-- =========================================================
      02. APPLICATION SHELL
      ========================================================= -->
-
 <div class="app">
 
   <!-- ===================== SIDEBAR ====================== -->
-
   <aside class="sidebar glass" id="sidebar">
 
-<a class="brand" href="dashboard.html">
-  <span class="logo">م</span>
-  <span>
-    <strong>مشاور</strong>
-    <small>SUPER ADMIN</small>
-  </span>
-</a>
+    <a class="brand" href="dashboard.html">
+      <span class="logo">م</span>
+      <span>
+        <strong>مشاور</strong>
+        <small>SUPER ADMIN</small>
+      </span>
+    </a>
 
-<div class="nav-title">مدیریت سامانه</div>
+    <div class="nav-title">مدیریت سامانه</div>
 
-<nav class="nav" aria-label="منوی مدیریت سامانه">
+    <nav class="nav" aria-label="منوی مدیریت سامانه">
 
-  <a href="dashboard.html">
-    <span class="nav-icon">⌂</span>
-    <span class="nav-label">داشبورد</span>
-  </a>
+      <a href="dashboard.html">
+        <span class="nav-icon">⌂</span>
+        <span class="nav-label">داشبورد</span>
+      </a>
 
-  <a href="organizations.html">
-    <span class="nav-icon">▦</span>
-    <span class="nav-label">کلینیک‌ها</span>
-  </a>
+      <a href="organizations.html">
+        <span class="nav-icon">▦</span>
+        <span class="nav-label">کلینیک‌ها</span>
+      </a>
 
-  <a href="users.html">
-    <span class="nav-icon">♙</span>
-    <span class="nav-label">کاربران</span>
-  </a>
+      <a href="users.html">
+        <span class="nav-icon">♙</span>
+        <span class="nav-label">کاربران</span>
+      </a>
 
-  <a href="subscriptions.html">
-    <span class="nav-icon">◇</span>
-    <span class="nav-label">اشتراک‌ها</span>
-  </a>
+      <a href="subscriptions.html">
+        <span class="nav-icon">◇</span>
+        <span class="nav-label">اشتراک‌ها</span>
+      </a>
 
-  <a href="access.html" class="active" aria-current="page">
-    <span class="nav-icon">⌘</span>
-    <span class="nav-label">دسترسی و نقش‌ها</span>
-  </a>
+      <a href="access.html" class="active" aria-current="page">
+        <span class="nav-icon">⌘</span>
+        <span class="nav-label">دسترسی و نقش‌ها</span>
+      </a>
 
-  <a href="reports.html">
-    <span class="nav-icon">◒</span>
-    <span class="nav-label">گزارش‌ها</span>
-  </a>
+      <a href="reports.html">
+        <span class="nav-icon">◒</span>
+        <span class="nav-label">گزارش‌ها</span>
+      </a>
 
-  <a href="settings.html">
-    <span class="nav-icon">⚙</span>
-    <span class="nav-label">تنظیمات سامانه</span>
-  </a>
+      <a href="settings.html">
+        <span class="nav-icon">⚙</span>
+        <span class="nav-label">تنظیمات سامانه</span>
+      </a>
 
-</nav>
+    </nav>
 
-<div class="sidebar-bottom">
+    <div class="sidebar-bottom">
 
-  <div class="system-status">
-    <div class="status-line">
-      <span class="status-dot"></span>
-      <span>وضعیت سامانه</span>
-      <span>Online</span>
+      <div class="system-status">
+        <div class="status-line">
+          <span class="status-dot"></span>
+          <span>وضعیت سامانه</span>
+          <span>Online</span>
+        </div>
+        <div class="status-sub">
+          ارتباط API و سرویس احراز هویت فعال است.
+        </div>
+      </div>
+
+      <div class="profile-mini">
+        <span class="avatar" id="profileAvatar">SA</span>
+        <span class="profile-copy">
+          <strong id="profileName">مدیر ارشد سامانه</strong>
+          <span id="profileRole">SUPER ADMIN</span>
+        </span>
+      </div>
+
+      <button class="logout" id="logoutButton" type="button">
+        خروج از حساب
+      </button>
+
     </div>
-    <div class="status-sub">
-      ارتباط API و سرویس احراز هویت فعال است.
-    </div>
-  </div>
-
-  <div class="profile-mini">
-    <span class="avatar" id="profileAvatar">SA</span>
-    <span class="profile-copy">
-      <strong id="profileName">مدیر ارشد سامانه</strong>
-      <span id="profileRole">SUPER ADMIN</span>
-    </span>
-  </div>
-
-  <button class="logout" id="logoutButton" type="button">
-    خروج از حساب
-  </button>
-
-</div>
-
   </aside>
 
   <!-- ======================= MAIN ======================= -->
-
   <main class="main">
 
-<!-- ===================== TOPBAR ====================== -->
-<header class="topbar glass">
+    <!-- ===================== TOPBAR ====================== -->
+    <header class="topbar glass">
 
-  <button
-    class="menu-mobile"
-    id="menuMobile"
-    type="button"
-    aria-label="باز کردن منو"
-    aria-expanded="false"
-  >
-    ☰
-  </button>
+      <button
+        class="menu-mobile"
+        id="menuMobile"
+        type="button"
+        aria-label="باز کردن منو"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
 
-  <div class="page-context">
-    <div class="eyebrow">SUPER ADMIN</div>
-    <h1>دسترسی و نقش‌ها</h1>
-  </div>
+      <div class="page-context">
+        <div class="eyebrow">SUPER ADMIN</div>
+        <h1>دسترسی و نقش‌ها</h1>
+      </div>
 
-  <div class="top-actions">
+      <div class="top-actions">
 
-    <button
-      class="icon-btn"
-      id="themeButton"
-      type="button"
-      title="تغییر حالت نمایش"
-      aria-label="تغییر حالت نمایش"
-    >
-      <span id="themeIcon">☾</span>
-    </button>
-
-    <button
-      class="icon-btn optional-action"
-      id="notificationsButton"
-      type="button"
-      title="اعلان‌ها"
-      aria-label="اعلان‌ها"
-    >
-      ◉
-      <span class="dot"></span>
-    </button>
-
-    <button
-      class="icon-btn optional-action"
-      id="profileButton"
-      type="button"
-      title="پروفایل"
-      aria-label="پروفایل"
-    >
-      ♙
-    </button>
-
-  </div>
-
-</header>
-
-<section class="content">
-
-  <!-- ===================================================
-       03. HERO
-       =================================================== -->
-  <section class="hero glass">
-
-    <div class="hero-copy">
-
-      <span class="live">
-        <i></i>
-        کنترل دسترسی فعال
-      </span>
-
-      <h2>مدیریت نقش‌ها و سطح دسترسی</h2>
-
-      <p>
-        نقش‌های اصلی سامانه را کنترل کنید، سطح دسترسی هر نقش را ببینید
-        و ساختار مجوزها را قبل از اتصال کامل به Backend مدیریت کنید.
-      </p>
-
-      <div class="hero-actions">
-        <button class="primary" id="openRoleButton" type="button">
-          + ایجاد نقش
+        <button
+          class="icon-btn"
+          id="themeButton"
+          type="button"
+          title="تغییر حالت نمایش"
+          aria-label="تغییر حالت نمایش"
+        >
+          <span id="themeIcon">☾</span>
         </button>
 
-        <button class="secondary" id="resetDemoButton" type="button">
-          بازنشانی نمایشی
+        <button
+          class="icon-btn optional-action"
+          id="notificationsButton"
+          type="button"
+          title="اعلان‌ها"
+          aria-label="اعلان‌ها"
+        >
+          ◉
+          <span class="dot"></span>
         </button>
+
+        <button
+          class="icon-btn optional-action"
+          id="profileButton"
+          type="button"
+          title="پروفایل"
+          aria-label="پروفایل"
+        >
+          ♙
+        </button>
+
       </div>
 
-    </div>
+    </header>
 
-    <div class="hero-art" aria-hidden="true">
-      <div class="core-card">
-        <div>
-          <strong id="roleCountHero">۳</strong>
-          <span>نقش اصلی</span>
-        </div>
-      </div>
-    </div>
+    <section class="content">
 
-  </section>
+      <!-- ===================================================
+           03. HERO
+           =================================================== -->
+      <section class="hero glass">
 
-  <!-- ===================================================
-       04. KPI
-       =================================================== -->
-  <div class="grid">
+        <div class="hero-copy">
 
-    <article class="kpi glass">
-      <div class="kpi-head">
-        <span>نقش‌های اصلی</span>
-        <span class="kpi-icon">⌘</span>
-      </div>
-      <div class="kpi-value" id="roleCount">۳</div>
-      <div class="kpi-foot">
-        <span class="up">فعال</span>
-        <span class="muted">ساختار فعلی سامانه</span>
-      </div>
-    </article>
-
-    <article class="kpi glass">
-      <div class="kpi-head">
-        <span>کاربران تحت مدیریت</span>
-        <span class="kpi-icon">♙</span>
-      </div>
-      <div class="kpi-value" id="userCount">۱۸۶</div>
-      <div class="kpi-foot">
-        <span class="up">فعال</span>
-        <span class="muted">در تمام کلینیک‌ها</span>
-      </div>
-    </article>
-
-    <article class="kpi glass">
-      <div class="kpi-head">
-        <span>مجوزهای تعریف‌شده</span>
-        <span class="kpi-icon">✓</span>
-      </div>
-      <div class="kpi-value" id="permissionCount">۲۴</div>
-      <div class="kpi-foot">
-        <span class="up">هسته سیستم</span>
-        <span class="muted">قابل توسعه</span>
-      </div>
-    </article>
-
-    <article class="kpi glass">
-      <div class="kpi-head">
-        <span>وضعیت امنیت</span>
-        <span class="kpi-icon">◇</span>
-      </div>
-      <div class="kpi-value">فعال</div>
-      <div class="kpi-foot">
-        <span class="up">Secure</span>
-        <span class="muted">احراز هویت Backend</span>
-      </div>
-    </article>
-
-    <!-- =================================================
-         05. ROLE TABLE
-         ================================================= -->
-    <section class="panel glass access-panel">
-
-      <div class="panel-head">
-
-        <div class="section-title">
-          <strong>نقش‌های سیستم</strong>
-          <span>
-            نقش‌های اصلی سامانه مشاور و سطح دسترسی پایه هر کدام
+          <span class="live">
+            <i></i>
+            کنترل دسترسی فعال
           </span>
+
+          <h2>مدیریت نقش‌ها و سطح دسترسی</h2>
+
+          <p>
+            نقش‌های اصلی سامانه را کنترل کنید، سطح دسترسی هر نقش را ببینید
+            و ساختار مجوزها را قبل از اتصال کامل به Backend مدیریت کنید.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary" id="openRoleButton" type="button">
+              + ایجاد نقش
+            </button>
+
+            <button class="secondary" id="resetDemoButton" type="button">
+              بازنشانی نمایشی
+            </button>
+          </div>
+
         </div>
 
-        <div class="panel-actions">
-          <button class="small-btn" id="refreshRoles" type="button">
-            ↻ بروزرسانی
-          </button>
+        <div class="hero-art" aria-hidden="true">
+          <div class="core-card">
+            <div>
+              <strong id="roleCountHero">۳</strong>
+              <span>نقش اصلی</span>
+            </div>
+          </div>
         </div>
 
-      </div>
+      </section>
 
-      <div class="role-table">
-        <table>
-          <thead>
-            <tr>
-              <th>نقش</th>
-              <th>محدوده</th>
-              <th>کاربران</th>
-              <th>مجوزها</th>
-              <th>وضعیت</th>
-              <th></th>
-            </tr>
-          </thead>
+      <!-- ===================================================
+           04. KPI
+           =================================================== -->
+      <div class="grid">
 
-          <tbody id="roleRows"></tbody>
-        </table>
+        <article class="kpi glass">
+          <div class="kpi-head">
+            <span>نقش‌های اصلی</span>
+            <span class="kpi-icon">⌘</span>
+          </div>
+          <div class="kpi-value" id="roleCount">۳</div>
+          <div class="kpi-foot">
+            <span class="up">فعال</span>
+            <span class="muted">ساختار فعلی سامانه</span>
+          </div>
+        </article>
+
+        <article class="kpi glass">
+          <div class="kpi-head">
+            <span>کاربران تحت مدیریت</span>
+            <span class="kpi-icon">♙</span>
+          </div>
+          <div class="kpi-value" id="userCount">۱۸۶</div>
+          <div class="kpi-foot">
+            <span class="up">فعال</span>
+            <span class="muted">در تمام کلینیک‌ها</span>
+          </div>
+        </article>
+
+        <article class="kpi glass">
+          <div class="kpi-head">
+            <span>مجوزهای تعریف‌شده</span>
+            <span class="kpi-icon">✓</span>
+          </div>
+          <div class="kpi-value" id="permissionCount">۲۴</div>
+          <div class="kpi-foot">
+            <span class="up">هسته سیستم</span>
+            <span class="muted">قابل توسعه</span>
+          </div>
+        </article>
+
+        <article class="kpi glass">
+          <div class="kpi-head">
+            <span>وضعیت امنیت</span>
+            <span class="kpi-icon">◇</span>
+          </div>
+          <div class="kpi-value">فعال</div>
+          <div class="kpi-foot">
+            <span class="up">Secure</span>
+            <span class="muted">احراز هویت Backend</span>
+          </div>
+        </article>
+
+        <!-- =================================================
+             05. ROLE TABLE
+             ================================================= -->
+        <section class="panel glass access-panel">
+
+          <div class="panel-head">
+
+            <div class="section-title">
+              <strong>نقش‌های سیستم</strong>
+              <span>
+                نقش‌های اصلی سامانه مشاور و سطح دسترسی پایه هر کدام
+              </span>
+            </div>
+
+            <div class="panel-actions">
+              <button class="small-btn" id="refreshRoles" type="button">
+                ↻ بروزرسانی
+              </button>
+            </div>
+
+          </div>
+
+          <div class="role-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>نقش</th>
+                  <th>محدوده</th>
+                  <th>کاربران</th>
+                  <th>مجوزها</th>
+                  <th>وضعیت</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody id="roleRows"></tbody>
+            </table>
+          </div>
+
+        </section>
+
+        <!-- =================================================
+             06. PERMISSION SUMMARY
+             ================================================= -->
+        <section class="panel glass summary-panel">
+
+          <div class="panel-head">
+            <div class="section-title">
+              <strong>هسته مجوزها</strong>
+              <span>
+                بخش‌های اصلی که از سیستم دسترسی کنترل می‌شوند
+              </span>
+            </div>
+          </div>
+
+          <div class="permission-grid" id="permissionList"></div>
+
+        </section>
+
+        <!-- =================================================
+             07. ACCESS MATRIX
+             ================================================= -->
+        <section class="panel glass matrix">
+
+          <div class="panel-head">
+
+            <div class="section-title">
+              <strong>ماتریس دسترسی</strong>
+              <span>
+                نمای فشرده از دسترسی نقش‌های اصلی به ماژول‌های سامانه
+              </span>
+            </div>
+
+            <div class="panel-actions">
+              <button class="small-btn" id="matrixInfo" type="button">
+                راهنمای دسترسی
+              </button>
+            </div>
+
+          </div>
+
+          <div class="matrix-wrap">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th>ماژول</th>
+                  <th>مشاهده</th>
+                  <th>ایجاد</th>
+                  <th>ویرایش</th>
+                  <th>حذف</th>
+                  <th>گزارش</th>
+                  <th>مدیریت کل</th>
+                </tr>
+              </thead>
+              <tbody id="matrixRows"></tbody>
+            </table>
+          </div>
+
+        </section>
+
       </div>
 
     </section>
-
-    <!-- =================================================
-         06. PERMISSION SUMMARY
-         ================================================= -->
-    <section class="panel glass summary-panel">
-
-      <div class="panel-head">
-        <div class="section-title">
-          <strong>هسته مجوزها</strong>
-          <span>
-            بخش‌های اصلی که از سیستم دسترسی کنترل می‌شوند
-          </span>
-        </div>
-      </div>
-
-      <div class="permission-grid" id="permissionList"></div>
-
-    </section>
-
-    <!-- =================================================
-         07. ACCESS MATRIX
-         ================================================= -->
-    <section class="panel glass matrix">
-
-      <div class="panel-head">
-
-        <div class="section-title">
-          <strong>ماتریس دسترسی</strong>
-          <span>
-            نمای فشرده از دسترسی نقش‌های اصلی به ماژول‌های سامانه
-          </span>
-        </div>
-
-        <div class="panel-actions">
-          <button class="small-btn" id="matrixInfo" type="button">
-            راهنمای دسترسی
-          </button>
-        </div>
-
-      </div>
-
-      <div class="matrix-wrap">
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th>ماژول</th>
-              <th>مشاهده</th>
-              <th>ایجاد</th>
-              <th>ویرایش</th>
-              <th>حذف</th>
-              <th>گزارش</th>
-              <th>مدیریت کل</th>
-            </tr>
-          </thead>
-          <tbody id="matrixRows"></tbody>
-        </table>
-      </div>
-
-    </section>
-
-  </div>
-
-</section>
-
   </main>
 </div>
 
 <!-- =========================================================
      03. MOBILE NAVIGATION
      ========================================================= -->
-
 <nav class="mobile-nav glass" aria-label="ناوبری موبایل">
   <a href="dashboard.html">
     <b>⌂</b>
@@ -1647,98 +1638,96 @@ textarea:focus-visible{
 <!-- =========================================================
      04. OVERLAY
      ========================================================= -->
-
 <div class="overlay" id="overlay"></div>
 
 <!-- =========================================================
      05. ROLE MODAL
      ========================================================= -->
-
 <div class="modal" id="roleModal" aria-hidden="true">
 
   <div class="modal-card glass">
 
-<div class="modal-head">
+    <div class="modal-head">
 
-  <div>
-    <strong>ایجاد نقش جدید</strong>
-    <span>
-      این فرم فعلاً ساختار رابط کاربری را آماده می‌کند.
-    </span>
-  </div>
+      <div>
+        <strong>ایجاد نقش جدید</strong>
+        <span>
+          این فرم فعلاً ساختار رابط کاربری را آماده می‌کند.
+        </span>
+      </div>
 
-  <button class="close" id="closeRoleModal" type="button" aria-label="بستن">
-    ×
-  </button>
+      <button class="close" id="closeRoleModal" type="button" aria-label="بستن">
+        ×
+      </button>
 
-</div>
-
-<form id="roleForm">
-
-  <div class="form-grid">
-
-    <div class="field">
-      <label for="roleName">نام نقش</label>
-      <input
-        id="roleName"
-        name="roleName"
-        required
-        maxlength="60"
-        placeholder="مثلاً مدیر ارشد کلینیک"
-      >
     </div>
 
-    <div class="field">
-      <label for="roleKey">کلید نقش</label>
-      <input
-        id="roleKey"
-        name="roleKey"
-        required
-        maxlength="40"
-        placeholder="مثلاً CLINIC_ADMIN"
-      >
-    </div>
+    <form id="roleForm">
 
-    <div class="field">
-      <label for="roleScope">محدوده دسترسی</label>
-      <select id="roleScope" name="roleScope">
-        <option value="organization">کلینیک</option>
-        <option value="global">کل سامانه</option>
-        <option value="module">ماژول مشخص</option>
-      </select>
-    </div>
+      <div class="form-grid">
 
-    <div class="field">
-      <label for="roleStatus">وضعیت</label>
-      <select id="roleStatus" name="roleStatus">
-        <option value="active">فعال</option>
-        <option value="inactive">غیرفعال</option>
-      </select>
-    </div>
+        <div class="field">
+          <label for="roleName">نام نقش</label>
+          <input
+            id="roleName"
+            name="roleName"
+            required
+            maxlength="60"
+            placeholder="مثلاً مدیر ارشد کلینیک"
+          >
+        </div>
 
-    <div class="field full">
-      <label for="roleDescription">توضیح نقش</label>
-      <textarea
-        id="roleDescription"
-        name="roleDescription"
-        maxlength="300"
-        placeholder="توضیح کوتاه درباره وظیفه این نقش..."
-      ></textarea>
-    </div>
+        <div class="field">
+          <label for="roleKey">کلید نقش</label>
+          <input
+            id="roleKey"
+            name="roleKey"
+            required
+            maxlength="40"
+            placeholder="مثلاً CLINIC_ADMIN"
+          >
+        </div>
 
-  </div>
+        <div class="field">
+          <label for="roleScope">محدوده دسترسی</label>
+          <select id="roleScope" name="roleScope">
+            <option value="organization">کلینیک</option>
+            <option value="global">کل سامانه</option>
+            <option value="module">ماژول مشخص</option>
+          </select>
+        </div>
 
-  <div class="modal-actions">
-    <button class="primary" type="submit">
-      ایجاد نقش
-    </button>
+        <div class="field">
+          <label for="roleStatus">وضعیت</label>
+          <select id="roleStatus" name="roleStatus">
+            <option value="active">فعال</option>
+            <option value="inactive">غیرفعال</option>
+          </select>
+        </div>
 
-    <button class="secondary" id="cancelRole" type="button">
-      انصراف
-    </button>
-  </div>
+        <div class="field full">
+          <label for="roleDescription">توضیح نقش</label>
+          <textarea
+            id="roleDescription"
+            name="roleDescription"
+            maxlength="300"
+            placeholder="توضیح کوتاه درباره وظیفه این نقش..."
+          ></textarea>
+        </div>
 
-</form>
+      </div>
+
+      <div class="modal-actions">
+        <button class="primary" type="submit">
+          ایجاد نقش
+        </button>
+
+        <button class="secondary" id="cancelRole" type="button">
+          انصراف
+        </button>
+      </div>
+
+    </form>
 
   </div>
 </div>
@@ -1746,41 +1735,40 @@ textarea:focus-visible{
 <!-- =========================================================
      06. NOTIFICATIONS
      ========================================================= -->
-
 <div class="modal" id="notificationModal" aria-hidden="true">
 
   <div class="modal-card glass">
 
-<div class="modal-head">
-  <div>
-    <strong>اعلان‌های مدیریتی</strong>
-    <span>رویدادهای مرتبط با دسترسی و امنیت</span>
-  </div>
+    <div class="modal-head">
+      <div>
+        <strong>اعلان‌های مدیریتی</strong>
+        <span>رویدادهای مرتبط با دسترسی و امنیت</span>
+      </div>
 
-  <button class="close" id="closeNotificationModal" type="button">
-    ×
-  </button>
-</div>
-
-<div class="permission-grid">
-  <div class="permission-item">
-    <div class="permission-icon">✓</div>
-    <div class="permission-copy">
-      <strong>احراز هویت فعال است</strong>
-      <span>Session و بررسی نقش در Backend فعال شده‌اند.</span>
+      <button class="close" id="closeNotificationModal" type="button">
+        ×
+      </button>
     </div>
-    <b class="permission-state">OK</b>
-  </div>
 
-  <div class="permission-item">
-    <div class="permission-icon">⌘</div>
-    <div class="permission-copy">
-      <strong>۳ نقش اصلی سیستم</strong>
-      <span>SUPER ADMIN، MANAGER و CONSULTANT در هسته سامانه تعریف شده‌اند.</span>
+    <div class="permission-grid">
+      <div class="permission-item">
+        <div class="permission-icon">✓</div>
+        <div class="permission-copy">
+          <strong>احراز هویت فعال است</strong>
+          <span>Session و بررسی نقش در Backend فعال شده‌اند.</span>
+        </div>
+        <b class="permission-state">OK</b>
+      </div>
+
+      <div class="permission-item">
+        <div class="permission-icon">⌘</div>
+        <div class="permission-copy">
+          <strong>۳ نقش اصلی سیستم</strong>
+          <span>SUPER ADMIN، MANAGER و CONSULTANT در هسته سامانه تعریف شده‌اند.</span>
+        </div>
+        <b class="permission-state">READY</b>
+      </div>
     </div>
-    <b class="permission-state">READY</b>
-  </div>
-</div>
 
   </div>
 </div>
@@ -1788,53 +1776,52 @@ textarea:focus-visible{
 <!-- =========================================================
      07. PROFILE MODAL
      ========================================================= -->
-
 <div class="modal" id="profileModal" aria-hidden="true">
 
   <div class="modal-card glass">
 
-<div class="modal-head">
+    <div class="modal-head">
 
-  <div>
-    <strong>پروفایل مدیر ارشد</strong>
-    <span>اطلاعات نشست فعلی</span>
-  </div>
+      <div>
+        <strong>پروفایل مدیر ارشد</strong>
+        <span>اطلاعات نشست فعلی</span>
+      </div>
 
-  <button class="close" id="closeProfileModal" type="button">
-    ×
-  </button>
+      <button class="close" id="closeProfileModal" type="button">
+        ×
+      </button>
 
-</div>
+    </div>
 
-<div class="form-grid">
+    <div class="form-grid">
 
-  <div class="field">
-    <label>نام کاربر</label>
-    <input id="profileNameField" value="مدیر ارشد سامانه" readonly>
-  </div>
+      <div class="field">
+        <label>نام کاربر</label>
+        <input id="profileNameField" value="مدیر ارشد سامانه" readonly>
+      </div>
 
-  <div class="field">
-    <label>نقش</label>
-    <input id="profileRoleField" value="SUPER ADMIN" readonly>
-  </div>
+      <div class="field">
+        <label>نقش</label>
+        <input id="profileRoleField" value="SUPER ADMIN" readonly>
+      </div>
 
-  <div class="field">
-    <label>وضعیت نشست</label>
-    <input value="احراز هویت شده" readonly>
-  </div>
+      <div class="field">
+        <label>وضعیت نشست</label>
+        <input value="احراز هویت شده" readonly>
+      </div>
 
-  <div class="field">
-    <label>منبع احراز هویت</label>
-    <input value="MOSHAVER API" readonly>
-  </div>
+      <div class="field">
+        <label>منبع احراز هویت</label>
+        <input value="MOSHAVER API" readonly>
+      </div>
 
-</div>
+    </div>
 
-<div class="modal-actions">
-  <button class="secondary" id="closeProfileButton" type="button">
-    بستن
-  </button>
-</div>
+    <div class="modal-actions">
+      <button class="secondary" id="closeProfileButton" type="button">
+        بستن
+      </button>
+    </div>
 
   </div>
 </div>
@@ -1842,7 +1829,6 @@ textarea:focus-visible{
 <!-- =========================================================
      08. TOAST
      ========================================================= -->
-
 <div class="toast glass" id="toast" role="status" aria-live="polite">
   <div class="toast-icon">✓</div>
   <div>
@@ -1854,25 +1840,20 @@ textarea:focus-visible{
 <!-- =========================================================
      09. SCROLL TO TOP
      ========================================================= -->
-
 <button
-class="scroll-top"
-id="scrollTop"
-type="button"
-aria-label="بازگشت به بالای صفحه"
-title="بازگشت به بالا"
-
-
-
-↑
+  class="scroll-top"
+  id="scrollTop"
+  type="button"
+  aria-label="بازگشت به بالای صفحه"
+  title="بازگشت به بالا"
+>
+  ↑
 </button>
 
 <!-- =========================================================
      10. EXISTING PROJECT MODULES
      ========================================================= -->
-
 <script src="../assets/js/config.js"></script>
-
 <script src="../assets/js/auth.js"></script>
 
 <script>
