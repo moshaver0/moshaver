@@ -28,12 +28,15 @@
       });
 
       if (!response || response.success !== true) {
-        throw new Error(
-          response && response.message
-            ? response.message
-            : "LOGIN_FAILED"
-        );
-      }
+  const message =
+    response &&
+    response.error &&
+    response.error.message
+      ? response.error.message
+      : "LOGIN_FAILED";
+
+  throw new Error(message);
+}
 
       this.saveSession(response);
 
