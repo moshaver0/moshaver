@@ -1,0 +1,2566 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07040d">
+<meta name="description" content="مدیریت دسترسی و نقش‌های سامانه مشاور">
+<title>دسترسی و نقش‌ها | Super Admin | مشاور</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   01. DESIGN TOKENS
+   ========================================================= */
+:root{
+  --bg:#07040d;
+  --bg2:#0d0817;
+  --surface:rgba(22,14,37,.62);
+  --surface2:rgba(29,18,48,.82);
+  --surface3:rgba(255,255,255,.045);
+  --text:#fbf9ff;
+  --text2:#bdb4ca;
+  --text3:#82788f;
+  --border:rgba(255,255,255,.09);
+  --border2:rgba(168,85,247,.30);
+  --purple:#a855f7;
+  --purple2:#7c3aed;
+  --cyan:#22d3ee;
+  --green:#34d399;
+  --yellow:#fbbf24;
+  --red:#fb7185;
+  --blue:#60a5fa;
+  --shadow:0 26px 90px rgba(0,0,0,.36);
+  --glow:0 0 46px rgba(168,85,247,.11);
+  --sidebar:280px;
+  --r:25px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+html[data-theme="light"]{
+  --bg:#f5f1fa;
+  --bg2:#eee8f6;
+  --surface:rgba(255,255,255,.68);
+  --surface2:rgba(255,255,255,.90);
+  --surface3:rgba(88,59,118,.055);
+  --text:#21172c;
+  --text2:#675b73;
+  --text3:#958aa0;
+  --border:rgba(52,28,72,.10);
+  --border2:rgba(124,58,237,.24);
+  --shadow:0 25px 75px rgba(70,42,92,.13);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Vazirmatn,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 7% 3%,rgba(168,85,247,.15),transparent 27%),
+    radial-gradient(circle at 92% 9%,rgba(34,211,238,.07),transparent 24%),
+    radial-gradient(circle at 65% 100%,rgba(124,58,237,.10),transparent 31%),
+    var(--bg);
+  overflow-x:hidden;
+  transition:.4s var(--ease);
+}
+
+button,input,select,textarea{font:inherit}
+button{border:0}
+a{text-decoration:none;color:inherit}
+::selection{background:rgba(168,85,247,.42);color:#fff}
+
+/* =========================================================
+   02. AMBIENT BACKGROUND + FLOATING DECORATIONS
+   ========================================================= */
+.ambient{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  overflow:hidden;
+}
+.ambient i{
+  position:absolute;
+  width:360px;
+  height:360px;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.14;
+}
+.ambient i:first-child{
+  right:6%;
+  top:-180px;
+  background:var(--purple);
+  animation:orb 16s ease-in-out infinite alternate;
+}
+.ambient i:last-child{
+  left:-170px;
+  bottom:-150px;
+  background:var(--cyan);
+  animation:orb 20s -7s ease-in-out infinite alternate;
+}
+@keyframes orb{
+  to{transform:translate(40px,30px) scale(1.12)}
+}
+
+.floating-crosses{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+.floating-cross{
+  position:absolute;
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  color:rgba(198,154,255,.62);
+  font-size:29px;
+  font-weight:300;
+  filter:drop-shadow(0 0 12px rgba(168,85,247,.35));
+  animation:crossFloat 9s ease-in-out infinite,crossSpin 12s linear infinite;
+}
+.floating-cross:before{content:"×"}
+.floating-cross:nth-child(1){right:8%;top:18%;animation-delay:-2s}
+.floating-cross:nth-child(2){left:7%;top:58%;font-size:22px;animation-duration:11s,16s;animation-delay:-5s}
+.floating-cross:nth-child(3){right:36%;bottom:8%;font-size:18px;animation-duration:10s,14s;animation-delay:-3s}
+.floating-cross:nth-child(4){left:31%;top:9%;font-size:16px;animation-duration:13s,18s;animation-delay:-8s}
+
+@keyframes crossFloat{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(0,-12px,0)}
+}
+@keyframes crossSpin{to{rotate:360deg}}
+
+html[data-theme="light"] .floating-cross{
+  color:rgba(124,58,237,.40);
+}
+
+.glass{
+  background:linear-gradient(135deg,var(--surface2),var(--surface));
+  border:1px solid var(--border);
+  box-shadow:var(--shadow),var(--glow);
+  backdrop-filter:blur(25px) saturate(150%);
+  -webkit-backdrop-filter:blur(25px) saturate(150%);
+}
+
+/* =========================================================
+   03. APP LAYOUT
+   ========================================================= */
+.app{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:var(--sidebar) minmax(0,1fr);
+}
+
+.sidebar{
+  position:fixed;
+  right:17px;
+  top:17px;
+  bottom:17px;
+  width:calc(var(--sidebar) - 34px);
+  border-radius:28px;
+  padding:17px 13px;
+  z-index:70;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.sidebar:after{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  left:-80px;
+  top:40px;
+  background:rgba(168,85,247,.13);
+  filter:blur(40px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:5px 7px 20px;
+  position:relative;
+  z-index:2;
+}
+.logo{
+  width:45px;
+  height:45px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-weight:900;
+  font-size:18px;
+  background:linear-gradient(145deg,var(--purple),var(--purple2));
+  box-shadow:0 0 34px rgba(168,85,247,.33),inset 0 1px rgba(255,255,255,.3);
+}
+.brand strong{display:block;font-size:17px}
+.brand small{display:block;color:var(--text3);font-size:10px;margin-top:2px}
+
+.nav-title{
+  font-size:11px;
+  color:var(--text3);
+  font-weight:700;
+  padding:7px 10px;
+}
+.nav{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.nav a{
+  min-height:46px;
+  padding:0 11px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--text2);
+  transition:.28s var(--ease);
+  position:relative;
+}
+.nav a:hover{
+  color:var(--text);
+  background:var(--surface3);
+  transform:translateX(-3px);
+}
+.nav a.active{
+  color:var(--text);
+  background:linear-gradient(135deg,rgba(168,85,247,.19),rgba(124,58,237,.05));
+  border:1px solid rgba(168,85,247,.12);
+}
+.nav a.active:before{
+  content:"";
+  position:absolute;
+  right:-14px;
+  width:3px;
+  height:25px;
+  border-radius:9px;
+  background:linear-gradient(var(--purple),var(--cyan));
+  box-shadow:0 0 16px rgba(168,85,247,.8);
+}
+.nav-icon{width:25px;text-align:center;font-size:16px}
+.nav-label{font-size:13px;font-weight:600;flex:1}
+.badge{
+  min-width:21px;
+  height:21px;
+  padding:0 6px;
+  border-radius:99px;
+  display:grid;
+  place-items:center;
+  font-size:10px;
+  background:rgba(168,85,247,.18);
+  border:1px solid rgba(168,85,247,.2);
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  position:relative;
+  z-index:2;
+}
+.system-status{
+  padding:11px;
+  border:1px solid var(--border);
+  background:var(--surface3);
+  border-radius:17px;
+  margin-bottom:9px;
+}
+.status-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  font-weight:700;
+}
+.status-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 13px rgba(52,211,153,.9);
+}
+.status-line span:last-child{
+  margin-right:auto;
+  color:var(--green);
+  font-size:9px;
+}
+.status-sub{
+  font-size:9px;
+  color:var(--text3);
+  margin-top:5px;
+  line-height:1.7;
+}
+.profile-mini{
+  display:flex;
+  gap:9px;
+  align-items:center;
+  padding:10px;
+  border:1px solid var(--border);
+  background:var(--surface3);
+  border-radius:17px;
+  margin-bottom:8px;
+}
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  background:linear-gradient(145deg,#8b5cf6,#6d28d9);
+  box-shadow:0 0 20px rgba(124,58,237,.25);
+}
+.profile-copy{min-width:0}
+.profile-copy strong{
+  display:block;
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.profile-copy span{
+  display:block;
+  color:var(--text3);
+  font-size:10px;
+  margin-top:2px;
+}
+.logout{
+  width:100%;
+  height:40px;
+  border-radius:13px;
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text2);
+  cursor:pointer;
+  transition:.25s;
+}
+.logout:hover{
+  color:var(--red);
+  border-color:rgba(251,113,133,.28);
+  background:rgba(251,113,133,.05);
+}
+
+.main{
+  grid-column:2;
+  min-width:0;
+  padding:17px 17px 70px;
+}
+
+/* =========================================================
+   04. TOPBAR
+   ========================================================= */
+.topbar{
+  height:70px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:9px 10px;
+  position:sticky;
+  top:12px;
+  z-index:60;
+}
+.menu-mobile{
+  display:none;
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:var(--surface3);
+  border:1px solid var(--border);
+  color:var(--text);
+  cursor:pointer;
+}
+.page-context{flex:1;min-width:0}
+.eyebrow{
+  font-size:10px;
+  color:var(--purple);
+  font-weight:800;
+}
+.page-context h1{
+  font-size:21px;
+  margin:2px 0 0;
+  letter-spacing:-.6px;
+}
+.top-actions{display:flex;gap:7px}
+.icon-btn{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:var(--surface3);
+  border:1px solid var(--border);
+  color:var(--text2);
+  cursor:pointer;
+  transition:.28s var(--ease);
+  position:relative;
+}
+.icon-btn:hover{
+  color:var(--text);
+  border-color:var(--border2);
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(168,85,247,.12);
+}
+.dot{
+  position:absolute;
+  right:8px;
+  top:8px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 12px rgba(34,211,238,.8);
+}
+
+/* =========================================================
+   05. PAGE CONTENT + HERO
+   ========================================================= */
+.content{padding:20px 3px 0}
+
+.hero{
+  border-radius:29px;
+  padding:27px 29px;
+  min-height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 7% 100%,rgba(168,85,247,.22),transparent 34%),
+    radial-gradient(circle at 91% 0%,rgba(34,211,238,.11),transparent 25%),
+    linear-gradient(135deg,rgba(38,21,61,.84),rgba(15,9,26,.62));
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  left:-170px;
+  top:-170px;
+  border:1px solid rgba(255,255,255,.04);
+  box-shadow:
+    0 0 0 35px rgba(255,255,255,.015),
+    0 0 0 70px rgba(255,255,255,.01);
+}
+html[data-theme="light"] .hero{
+  background:
+    radial-gradient(circle at 7% 100%,rgba(168,85,247,.12),transparent 34%),
+    radial-gradient(circle at 91% 0%,rgba(34,211,238,.07),transparent 25%),
+    linear-gradient(135deg,rgba(255,255,255,.92),rgba(246,240,252,.73));
+}
+.hero-copy{position:relative;z-index:2}
+.live{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:9px;
+  color:var(--text2);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.045);
+  border-radius:99px;
+  padding:6px 10px;
+  margin-bottom:11px;
+}
+.live i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 11px rgba(52,211,153,.85);
+}
+.hero h2{
+  font-size:30px;
+  margin:0;
+  letter-spacing:-1.2px;
+}
+.hero p{
+  font-size:11px;
+  color:var(--text2);
+  line-height:2;
+  margin:7px 0 0;
+  max-width:730px;
+}
+.hero-actions{
+  display:flex;
+  gap:8px;
+  margin-top:17px;
+}
+.primary{
+  height:41px;
+  padding:0 17px;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 27px rgba(168,85,247,.2);
+  font-size:11px;
+  font-weight:700;
+  transition:.3s var(--ease);
+}
+.primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 34px rgba(168,85,247,.23);
+}
+.secondary{
+  height:41px;
+  padding:0 15px;
+  border-radius:13px;
+  background:var(--surface3);
+  border:1px solid var(--border);
+  color:var(--text2);
+  cursor:pointer;
+  font-size:11px;
+  transition:.25s;
+}
+.secondary:hover{
+  color:var(--text);
+  border-color:var(--border2);
+}
+.hero-art{
+  width:245px;
+  height:150px;
+  position:relative;
+  flex:0 0 245px;
+}
+.hero-art:before,.hero-art:after{
+  content:"";
+  position:absolute;
+  border:1px solid rgba(168,85,247,.18);
+  border-radius:50%;
+  inset:10px;
+  transform:rotate(-18deg) scaleX(1.55);
+}
+.hero-art:after{
+  inset:25px;
+  border-color:rgba(34,211,238,.14);
+  transform:rotate(57deg) scaleX(1.38);
+}
+.core-card{
+  position:absolute;
+  left:60px;
+  top:27px;
+  width:126px;
+  height:96px;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(168,85,247,.31),rgba(124,58,237,.10));
+  border:1px solid rgba(255,255,255,.12);
+  display:grid;
+  place-items:center;
+  box-shadow:0 20px 50px rgba(0,0,0,.24),0 0 45px rgba(168,85,247,.17);
+  transform:rotate(-3deg);
+  animation:float 4s ease-in-out infinite;
+}
+.core-card strong{font-size:27px}
+.core-card span{
+  font-size:9px;
+  color:var(--text2);
+  margin-top:-23px;
+}
+@keyframes float{
+  50%{transform:translateY(-6px) rotate(2deg)}
+}
+
+/* =========================================================
+   06. KPI CARDS
+   ========================================================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:13px;
+  margin-top:14px;
+}
+.kpi{
+  grid-column:span 3;
+  min-height:145px;
+  border-radius:22px;
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+  transition:.35s var(--ease);
+}
+.kpi:hover{
+  transform:translateY(-5px);
+  border-color:var(--border2);
+  box-shadow:var(--shadow),0 0 42px rgba(168,85,247,.13);
+}
+.kpi:after{
+  content:"";
+  position:absolute;
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  right:-42px;
+  top:-42px;
+  background:var(--purple);
+  opacity:.08;
+  filter:blur(8px);
+}
+.kpi-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:var(--text2);
+  font-size:11px;
+  font-weight:700;
+}
+.kpi-icon{
+  width:37px;
+  height:37px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  color:var(--purple);
+  background:rgba(168,85,247,.10);
+  border:1px solid rgba(168,85,247,.13);
+  font-size:17px;
+}
+.kpi-value{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-1px;
+  margin-top:16px;
+}
+.kpi-foot{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:6px;
+  font-size:9px;
+}
+.up{color:var(--green)}
+.warn{color:var(--yellow)}
+.danger-text{color:var(--red)}
+.muted{color:var(--text3)}
+
+/* =========================================================
+   07. PANELS / ROLE TABLE
+   ========================================================= */
+.panel{
+  border-radius:23px;
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+.panel-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+}
+.section-title strong{
+  display:block;
+  font-size:14px;
+}
+.section-title span{
+  display:block;
+  color:var(--text3);
+  font-size:9px;
+  margin-top:5px;
+  line-height:1.8;
+}
+.panel-actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.small-btn{
+  height:34px;
+  padding:0 11px;
+  border-radius:11px;
+  background:var(--surface3);
+  border:1px solid var(--border);
+  color:var(--text2);
+  cursor:pointer;
+  font-size:9px;
+  transition:.25s;
+}
+.small-btn:hover{
+  color:var(--text);
+  border-color:var(--border2);
+  transform:translateY(-1px);
+}
+
+.access-panel{grid-column:span 8}
+.summary-panel{grid-column:span 4}
+
+.role-table{
+  margin-top:16px;
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:17px;
+}
+.role-table table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:720px;
+}
+.role-table th{
+  font-size:9px;
+  color:var(--text3);
+  font-weight:700;
+  text-align:right;
+  padding:12px 13px;
+  background:rgba(255,255,255,.025);
+  white-space:nowrap;
+}
+.role-table td{
+  padding:13px;
+  border-top:1px solid var(--border);
+  font-size:10px;
+  white-space:nowrap;
+}
+.role-table tbody tr{
+  transition:.2s;
+}
+.role-table tbody tr:hover{
+  background:var(--surface3);
+}
+.role-name{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.role-icon{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:12px;
+  background:linear-gradient(145deg,#8b5cf6,#6d28d9);
+  box-shadow:0 0 18px rgba(124,58,237,.18);
+}
+.role-copy strong{
+  display:block;
+  font-size:10px;
+}
+.role-copy span{
+  display:block;
+  color:var(--text3);
+  font-size:8px;
+  margin-top:2px;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border-radius:99px;
+  padding:5px 8px;
+  font-size:8px;
+  border:1px solid;
+}
+.pill.green{
+  color:var(--green);
+  background:rgba(52,211,153,.07);
+  border-color:rgba(52,211,153,.16);
+}
+.pill.yellow{
+  color:var(--yellow);
+  background:rgba(251,191,36,.07);
+  border-color:rgba(251,191,36,.16);
+}
+.pill.red{
+  color:var(--red);
+  background:rgba(251,113,133,.07);
+  border-color:rgba(251,113,133,.16);
+}
+.pill.blue{
+  color:var(--blue);
+  background:rgba(96,165,250,.07);
+  border-color:rgba(96,165,250,.16);
+}
+
+.row-action{
+  width:31px;
+  height:31px;
+  border-radius:10px;
+  background:var(--surface3);
+  border:1px solid var(--border);
+  color:var(--text2);
+  cursor:pointer;
+  transition:.25s;
+}
+.row-action:hover{
+  color:var(--text);
+  border-color:var(--border2);
+  transform:rotate(10deg);
+}
+
+.permission-grid{
+  display:grid;
+  gap:9px;
+  margin-top:16px;
+}
+.permission-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-radius:15px;
+  background:var(--surface3);
+  border:1px solid var(--border);
+}
+.permission-icon{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  color:var(--purple);
+  background:rgba(168,85,247,.10);
+  border:1px solid rgba(168,85,247,.13);
+}
+.permission-copy{
+  min-width:0;
+  flex:1;
+}
+.permission-copy strong{
+  display:block;
+  font-size:10px;
+}
+.permission-copy span{
+  display:block;
+  color:var(--text3);
+  font-size:8px;
+  line-height:1.7;
+  margin-top:3px;
+}
+.permission-state{
+  font-size:8px;
+  color:var(--green);
+  font-weight:800;
+}
+
+.matrix{
+  grid-column:span 12;
+}
+.matrix-wrap{
+  margin-top:16px;
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:17px;
+}
+.matrix-table{
+  width:100%;
+  min-width:860px;
+  border-collapse:collapse;
+}
+.matrix-table th,
+.matrix-table td{
+  padding:12px 10px;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+  font-size:9px;
+}
+.matrix-table th{
+  color:var(--text3);
+  background:rgba(255,255,255,.025);
+  font-weight:700;
+}
+.matrix-table th:first-child,
+.matrix-table td:first-child{
+  text-align:right;
+}
+.matrix-table tr:last-child td{border-bottom:0}
+.check{
+  width:25px;
+  height:25px;
+  border-radius:9px;
+  display:inline-grid;
+  place-items:center;
+  border:1px solid;
+  font-size:11px;
+}
+.check.on{
+  color:var(--green);
+  background:rgba(52,211,153,.08);
+  border-color:rgba(52,211,153,.16);
+}
+.check.off{
+  color:var(--text3);
+  background:var(--surface3);
+  border-color:var(--border);
+}
+.check.partial{
+  color:var(--yellow);
+  background:rgba(251,191,36,.08);
+  border-color:rgba(251,191,36,.16);
+}
+
+/* =========================================================
+   08. MODAL
+   ========================================================= */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(5px);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:110;
+}
+.overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.modal{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  z-index:120;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+.modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.modal-card{
+  width:min(700px,100%);
+  max-height:min(760px,calc(100vh - 40px));
+  overflow:auto;
+  border-radius:27px;
+  padding:22px;
+  transform:translateY(14px) scale(.98);
+  transition:.35s var(--ease);
+}
+.modal.open .modal-card{transform:none}
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.modal-head strong{
+  font-size:15px;
+}
+.modal-head span{
+  display:block;
+  color:var(--text3);
+  font-size:9px;
+  margin-top:4px;
+}
+.close{
+  width:37px;
+  height:37px;
+  border-radius:12px;
+  background:var(--surface3);
+  border:1px solid var(--border);
+  color:var(--text2);
+  cursor:pointer;
+  font-size:22px;
+  line-height:1;
+  transition:.3s var(--ease);
+}
+.close:hover{
+  color:var(--text);
+  transform:rotate(90deg);
+  border-color:var(--border2);
+}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+.field{
+  display:grid;
+  gap:7px;
+}
+.field.full{grid-column:1/-1}
+.field label{
+  color:var(--text2);
+  font-size:9px;
+  font-weight:700;
+}
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  border:1px solid var(--border);
+  outline:none;
+  color:var(--text);
+  background:var(--surface3);
+  border-radius:13px;
+  padding:11px 12px;
+  font-size:10px;
+  transition:.25s;
+}
+.field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--border2);
+  box-shadow:0 0 0 3px rgba(168,85,247,.08);
+}
+.modal-actions{
+  display:flex;
+  justify-content:flex-start;
+  gap:8px;
+  margin-top:18px;
+}
+
+/* =========================================================
+   09. TOAST + SCROLL TOP
+   ========================================================= */
+.toast{
+  position:fixed;
+  left:22px;
+  bottom:22px;
+  z-index:160;
+  min-width:280px;
+  max-width:min(420px,calc(100vw - 44px));
+  padding:13px 15px;
+  border-radius:17px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transform:translateY(25px);
+  opacity:0;
+  pointer-events:none;
+  transition:.35s var(--ease);
+}
+.toast.show{
+  transform:none;
+  opacity:1;
+}
+.toast-icon{
+  width:35px;
+  height:35px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  color:var(--green);
+  background:rgba(52,211,153,.10);
+  border:1px solid rgba(52,211,153,.14);
+}
+.toast strong{
+  display:block;
+  font-size:10px;
+}
+.toast span{
+  display:block;
+  color:var(--text3);
+  font-size:8px;
+  margin-top:3px;
+  line-height:1.7;
+}
+
+.scroll-top{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:100;
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:var(--nav-bg,rgba(8,7,13,.72));
+  border:1px solid var(--border);
+  color:var(--text2);
+  box-shadow:0 15px 35px var(--shadow);
+  backdrop-filter:blur(18px);
+  cursor:pointer;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(10px);
+  transition:.35s var(--ease);
+}
+.scroll-top.show{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+.scroll-top:hover{
+  color:var(--text);
+  transform:translateY(-4px);
+  border-color:var(--border2);
+  box-shadow:0 18px 38px rgba(168,85,247,.18);
+}
+
+/* =========================================================
+   10. MOBILE NAV
+   ========================================================= */
+.mobile-nav{
+  display:none;
+}
+
+/* =========================================================
+   11. RESPONSIVE
+   ========================================================= */
+@media(max-width:1180px){
+  .kpi{grid-column:span 6}
+  .access-panel{grid-column:span 12}
+  .summary-panel{grid-column:span 12}
+}
+
+@media(max-width:980px){
+  .app{display:block}
+  .sidebar{
+    right:12px;
+    top:12px;
+    bottom:12px;
+    width:270px;
+    transform:translateX(calc(100% + 30px));
+    transition:.35s var(--ease);
+  }
+  .sidebar.open{transform:none}
+  .main{
+    padding:12px 12px 90px;
+  }
+  .menu-mobile{display:grid;place-items:center}
+  .hero{
+    padding:23px;
+  }
+  .hero-art{display:none}
+  .mobile-nav{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    right:12px;
+    left:12px;
+    bottom:12px;
+    height:67px;
+    z-index:90;
+    border-radius:21px;
+    padding:6px;
+  }
+  .mobile-nav a,
+  .mobile-nav button{
+    display:grid;
+    place-items:center;
+    gap:2px;
+    color:var(--text3);
+    background:transparent;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:8px;
+  }
+  .mobile-nav b{
+    font-size:16px;
+    font-weight:500;
+  }
+  .mobile-nav .active{
+    color:var(--text);
+    background:rgba(168,85,247,.12);
+  }
+  .scroll-top{bottom:91px}
+  .toast{bottom:91px}
+}
+
+@media(max-width:650px){
+  .topbar{height:64px}
+  .page-context h1{font-size:17px}
+  .top-actions .optional-action{display:none}
+  .content{padding-top:14px}
+  .hero{
+    min-height:0;
+    padding:20px;
+    border-radius:23px;
+  }
+  .hero h2{font-size:24px}
+  .hero p{font-size:10px}
+  .hero-actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .primary,.secondary{width:100%}
+  .kpi{
+    grid-column:span 12;
+    min-height:125px;
+  }
+  .panel{padding:15px}
+  .panel-head{align-items:flex-start}
+  .panel-actions{flex-wrap:wrap}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .modal{padding:12px}
+  .modal-card{padding:17px;border-radius:22px}
+  .toast{
+    left:12px;
+    right:12px;
+    min-width:0;
+    max-width:none;
+  }
+  .scroll-top{
+    right:14px;
+    bottom:91px;
+  }
+}
+
+/* =========================================================
+   12. ACCESSIBILITY / REDUCED MOTION
+   ========================================================= */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline:2px solid var(--purple);
+  outline-offset:3px;
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     01. BACKGROUND
+     ========================================================= -->
+
+<div class="ambient" aria-hidden="true">
+  <i></i>
+  <i></i>
+</div>
+
+<div class="floating-crosses" aria-hidden="true">
+  <span class="floating-cross"></span>
+  <span class="floating-cross"></span>
+  <span class="floating-cross"></span>
+  <span class="floating-cross"></span>
+</div>
+
+<!-- =========================================================
+     02. APPLICATION SHELL
+     ========================================================= -->
+
+<div class="app">
+
+  <!-- ===================== SIDEBAR ====================== -->
+
+  <aside class="sidebar glass" id="sidebar">
+
+<a class="brand" href="dashboard.html">
+  <span class="logo">م</span>
+  <span>
+    <strong>مشاور</strong>
+    <small>SUPER ADMIN</small>
+  </span>
+</a>
+
+<div class="nav-title">مدیریت سامانه</div>
+
+<nav class="nav" aria-label="منوی مدیریت سامانه">
+
+  <a href="dashboard.html">
+    <span class="nav-icon">⌂</span>
+    <span class="nav-label">داشبورد</span>
+  </a>
+
+  <a href="organizations.html">
+    <span class="nav-icon">▦</span>
+    <span class="nav-label">کلینیک‌ها</span>
+  </a>
+
+  <a href="users.html">
+    <span class="nav-icon">♙</span>
+    <span class="nav-label">کاربران</span>
+  </a>
+
+  <a href="subscriptions.html">
+    <span class="nav-icon">◇</span>
+    <span class="nav-label">اشتراک‌ها</span>
+  </a>
+
+  <a href="access.html" class="active" aria-current="page">
+    <span class="nav-icon">⌘</span>
+    <span class="nav-label">دسترسی و نقش‌ها</span>
+  </a>
+
+  <a href="reports.html">
+    <span class="nav-icon">◒</span>
+    <span class="nav-label">گزارش‌ها</span>
+  </a>
+
+  <a href="settings.html">
+    <span class="nav-icon">⚙</span>
+    <span class="nav-label">تنظیمات سامانه</span>
+  </a>
+
+</nav>
+
+<div class="sidebar-bottom">
+
+  <div class="system-status">
+    <div class="status-line">
+      <span class="status-dot"></span>
+      <span>وضعیت سامانه</span>
+      <span>Online</span>
+    </div>
+    <div class="status-sub">
+      ارتباط API و سرویس احراز هویت فعال است.
+    </div>
+  </div>
+
+  <div class="profile-mini">
+    <span class="avatar" id="profileAvatar">SA</span>
+    <span class="profile-copy">
+      <strong id="profileName">مدیر ارشد سامانه</strong>
+      <span id="profileRole">SUPER ADMIN</span>
+    </span>
+  </div>
+
+  <button class="logout" id="logoutButton" type="button">
+    خروج از حساب
+  </button>
+
+</div>
+
+  </aside>
+
+  <!-- ======================= MAIN ======================= -->
+
+  <main class="main">
+
+<!-- ===================== TOPBAR ====================== -->
+<header class="topbar glass">
+
+  <button
+    class="menu-mobile"
+    id="menuMobile"
+    type="button"
+    aria-label="باز کردن منو"
+    aria-expanded="false"
+  >
+    ☰
+  </button>
+
+  <div class="page-context">
+    <div class="eyebrow">SUPER ADMIN</div>
+    <h1>دسترسی و نقش‌ها</h1>
+  </div>
+
+  <div class="top-actions">
+
+    <button
+      class="icon-btn"
+      id="themeButton"
+      type="button"
+      title="تغییر حالت نمایش"
+      aria-label="تغییر حالت نمایش"
+    >
+      <span id="themeIcon">☾</span>
+    </button>
+
+    <button
+      class="icon-btn optional-action"
+      id="notificationsButton"
+      type="button"
+      title="اعلان‌ها"
+      aria-label="اعلان‌ها"
+    >
+      ◉
+      <span class="dot"></span>
+    </button>
+
+    <button
+      class="icon-btn optional-action"
+      id="profileButton"
+      type="button"
+      title="پروفایل"
+      aria-label="پروفایل"
+    >
+      ♙
+    </button>
+
+  </div>
+
+</header>
+
+<section class="content">
+
+  <!-- ===================================================
+       03. HERO
+       =================================================== -->
+  <section class="hero glass">
+
+    <div class="hero-copy">
+
+      <span class="live">
+        <i></i>
+        کنترل دسترسی فعال
+      </span>
+
+      <h2>مدیریت نقش‌ها و سطح دسترسی</h2>
+
+      <p>
+        نقش‌های اصلی سامانه را کنترل کنید، سطح دسترسی هر نقش را ببینید
+        و ساختار مجوزها را قبل از اتصال کامل به Backend مدیریت کنید.
+      </p>
+
+      <div class="hero-actions">
+        <button class="primary" id="openRoleButton" type="button">
+          + ایجاد نقش
+        </button>
+
+        <button class="secondary" id="resetDemoButton" type="button">
+          بازنشانی نمایشی
+        </button>
+      </div>
+
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="core-card">
+        <div>
+          <strong id="roleCountHero">۳</strong>
+          <span>نقش اصلی</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================================================
+       04. KPI
+       =================================================== -->
+  <div class="grid">
+
+    <article class="kpi glass">
+      <div class="kpi-head">
+        <span>نقش‌های اصلی</span>
+        <span class="kpi-icon">⌘</span>
+      </div>
+      <div class="kpi-value" id="roleCount">۳</div>
+      <div class="kpi-foot">
+        <span class="up">فعال</span>
+        <span class="muted">ساختار فعلی سامانه</span>
+      </div>
+    </article>
+
+    <article class="kpi glass">
+      <div class="kpi-head">
+        <span>کاربران تحت مدیریت</span>
+        <span class="kpi-icon">♙</span>
+      </div>
+      <div class="kpi-value" id="userCount">۱۸۶</div>
+      <div class="kpi-foot">
+        <span class="up">فعال</span>
+        <span class="muted">در تمام کلینیک‌ها</span>
+      </div>
+    </article>
+
+    <article class="kpi glass">
+      <div class="kpi-head">
+        <span>مجوزهای تعریف‌شده</span>
+        <span class="kpi-icon">✓</span>
+      </div>
+      <div class="kpi-value" id="permissionCount">۲۴</div>
+      <div class="kpi-foot">
+        <span class="up">هسته سیستم</span>
+        <span class="muted">قابل توسعه</span>
+      </div>
+    </article>
+
+    <article class="kpi glass">
+      <div class="kpi-head">
+        <span>وضعیت امنیت</span>
+        <span class="kpi-icon">◇</span>
+      </div>
+      <div class="kpi-value">فعال</div>
+      <div class="kpi-foot">
+        <span class="up">Secure</span>
+        <span class="muted">احراز هویت Backend</span>
+      </div>
+    </article>
+
+    <!-- =================================================
+         05. ROLE TABLE
+         ================================================= -->
+    <section class="panel glass access-panel">
+
+      <div class="panel-head">
+
+        <div class="section-title">
+          <strong>نقش‌های سیستم</strong>
+          <span>
+            نقش‌های اصلی سامانه مشاور و سطح دسترسی پایه هر کدام
+          </span>
+        </div>
+
+        <div class="panel-actions">
+          <button class="small-btn" id="refreshRoles" type="button">
+            ↻ بروزرسانی
+          </button>
+        </div>
+
+      </div>
+
+      <div class="role-table">
+        <table>
+          <thead>
+            <tr>
+              <th>نقش</th>
+              <th>محدوده</th>
+              <th>کاربران</th>
+              <th>مجوزها</th>
+              <th>وضعیت</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="roleRows"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- =================================================
+         06. PERMISSION SUMMARY
+         ================================================= -->
+    <section class="panel glass summary-panel">
+
+      <div class="panel-head">
+        <div class="section-title">
+          <strong>هسته مجوزها</strong>
+          <span>
+            بخش‌های اصلی که از سیستم دسترسی کنترل می‌شوند
+          </span>
+        </div>
+      </div>
+
+      <div class="permission-grid" id="permissionList"></div>
+
+    </section>
+
+    <!-- =================================================
+         07. ACCESS MATRIX
+         ================================================= -->
+    <section class="panel glass matrix">
+
+      <div class="panel-head">
+
+        <div class="section-title">
+          <strong>ماتریس دسترسی</strong>
+          <span>
+            نمای فشرده از دسترسی نقش‌های اصلی به ماژول‌های سامانه
+          </span>
+        </div>
+
+        <div class="panel-actions">
+          <button class="small-btn" id="matrixInfo" type="button">
+            راهنمای دسترسی
+          </button>
+        </div>
+
+      </div>
+
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>ماژول</th>
+              <th>مشاهده</th>
+              <th>ایجاد</th>
+              <th>ویرایش</th>
+              <th>حذف</th>
+              <th>گزارش</th>
+              <th>مدیریت کل</th>
+            </tr>
+          </thead>
+          <tbody id="matrixRows"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </div>
+
+</section>
+
+  </main>
+</div>
+
+<!-- =========================================================
+     03. MOBILE NAVIGATION
+     ========================================================= -->
+
+<nav class="mobile-nav glass" aria-label="ناوبری موبایل">
+  <a href="dashboard.html">
+    <b>⌂</b>
+    خانه
+  </a>
+
+  <a href="organizations.html">
+    <b>▦</b>
+    کلینیک‌ها
+  </a>
+
+  <a href="users.html">
+    <b>♙</b>
+    کاربران
+  </a>
+
+  <a href="access.html" class="active" aria-current="page">
+    <b>⌘</b>
+    دسترسی
+  </a>
+
+  <button id="mobileMore" type="button">
+    <b>☰</b>
+    منو
+  </button>
+</nav>
+
+<!-- =========================================================
+     04. OVERLAY
+     ========================================================= -->
+
+<div class="overlay" id="overlay"></div>
+
+<!-- =========================================================
+     05. ROLE MODAL
+     ========================================================= -->
+
+<div class="modal" id="roleModal" aria-hidden="true">
+
+  <div class="modal-card glass">
+
+<div class="modal-head">
+
+  <div>
+    <strong>ایجاد نقش جدید</strong>
+    <span>
+      این فرم فعلاً ساختار رابط کاربری را آماده می‌کند.
+    </span>
+  </div>
+
+  <button class="close" id="closeRoleModal" type="button" aria-label="بستن">
+    ×
+  </button>
+
+</div>
+
+<form id="roleForm">
+
+  <div class="form-grid">
+
+    <div class="field">
+      <label for="roleName">نام نقش</label>
+      <input
+        id="roleName"
+        name="roleName"
+        required
+        maxlength="60"
+        placeholder="مثلاً مدیر ارشد کلینیک"
+      >
+    </div>
+
+    <div class="field">
+      <label for="roleKey">کلید نقش</label>
+      <input
+        id="roleKey"
+        name="roleKey"
+        required
+        maxlength="40"
+        placeholder="مثلاً CLINIC_ADMIN"
+      >
+    </div>
+
+    <div class="field">
+      <label for="roleScope">محدوده دسترسی</label>
+      <select id="roleScope" name="roleScope">
+        <option value="organization">کلینیک</option>
+        <option value="global">کل سامانه</option>
+        <option value="module">ماژول مشخص</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="roleStatus">وضعیت</label>
+      <select id="roleStatus" name="roleStatus">
+        <option value="active">فعال</option>
+        <option value="inactive">غیرفعال</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="roleDescription">توضیح نقش</label>
+      <textarea
+        id="roleDescription"
+        name="roleDescription"
+        maxlength="300"
+        placeholder="توضیح کوتاه درباره وظیفه این نقش..."
+      ></textarea>
+    </div>
+
+  </div>
+
+  <div class="modal-actions">
+    <button class="primary" type="submit">
+      ایجاد نقش
+    </button>
+
+    <button class="secondary" id="cancelRole" type="button">
+      انصراف
+    </button>
+  </div>
+
+</form>
+
+  </div>
+</div>
+
+<!-- =========================================================
+     06. NOTIFICATIONS
+     ========================================================= -->
+
+<div class="modal" id="notificationModal" aria-hidden="true">
+
+  <div class="modal-card glass">
+
+<div class="modal-head">
+  <div>
+    <strong>اعلان‌های مدیریتی</strong>
+    <span>رویدادهای مرتبط با دسترسی و امنیت</span>
+  </div>
+
+  <button class="close" id="closeNotificationModal" type="button">
+    ×
+  </button>
+</div>
+
+<div class="permission-grid">
+  <div class="permission-item">
+    <div class="permission-icon">✓</div>
+    <div class="permission-copy">
+      <strong>احراز هویت فعال است</strong>
+      <span>Session و بررسی نقش در Backend فعال شده‌اند.</span>
+    </div>
+    <b class="permission-state">OK</b>
+  </div>
+
+  <div class="permission-item">
+    <div class="permission-icon">⌘</div>
+    <div class="permission-copy">
+      <strong>۳ نقش اصلی سیستم</strong>
+      <span>SUPER ADMIN، MANAGER و CONSULTANT در هسته سامانه تعریف شده‌اند.</span>
+    </div>
+    <b class="permission-state">READY</b>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- =========================================================
+     07. PROFILE MODAL
+     ========================================================= -->
+
+<div class="modal" id="profileModal" aria-hidden="true">
+
+  <div class="modal-card glass">
+
+<div class="modal-head">
+
+  <div>
+    <strong>پروفایل مدیر ارشد</strong>
+    <span>اطلاعات نشست فعلی</span>
+  </div>
+
+  <button class="close" id="closeProfileModal" type="button">
+    ×
+  </button>
+
+</div>
+
+<div class="form-grid">
+
+  <div class="field">
+    <label>نام کاربر</label>
+    <input id="profileNameField" value="مدیر ارشد سامانه" readonly>
+  </div>
+
+  <div class="field">
+    <label>نقش</label>
+    <input id="profileRoleField" value="SUPER ADMIN" readonly>
+  </div>
+
+  <div class="field">
+    <label>وضعیت نشست</label>
+    <input value="احراز هویت شده" readonly>
+  </div>
+
+  <div class="field">
+    <label>منبع احراز هویت</label>
+    <input value="MOSHAVER API" readonly>
+  </div>
+
+</div>
+
+<div class="modal-actions">
+  <button class="secondary" id="closeProfileButton" type="button">
+    بستن
+  </button>
+</div>
+
+  </div>
+</div>
+
+<!-- =========================================================
+     08. TOAST
+     ========================================================= -->
+
+<div class="toast glass" id="toast" role="status" aria-live="polite">
+  <div class="toast-icon">✓</div>
+  <div>
+    <strong id="toastTitle">عملیات انجام شد</strong>
+    <span id="toastText">تغییرات با موفقیت ثبت شد.</span>
+  </div>
+</div>
+
+<!-- =========================================================
+     09. SCROLL TO TOP
+     ========================================================= -->
+
+<button
+class="scroll-top"
+id="scrollTop"
+type="button"
+aria-label="بازگشت به بالای صفحه"
+title="بازگشت به بالا"
+
+
+
+↑
+</button>
+
+<!-- =========================================================
+     10. EXISTING PROJECT MODULES
+     ========================================================= -->
+
+<script src="../assets/js/config.js"></script>
+
+<script src="../assets/js/auth.js"></script>
+
+<script>
+/* =========================================================
+   11. PAGE STATE
+   ========================================================= */
+
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+const html = document.documentElement;
+
+const state = {
+  roles: [
+    {
+      key: "SUPER_ADMIN",
+      name: "مدیر ارشد سامانه",
+      scope: "کل سامانه",
+      users: 1,
+      permissions: 24,
+      status: "active",
+      icon: "SA",
+      description: "کنترل کامل سامانه، کلینیک‌ها، کاربران و تنظیمات مرکزی."
+    },
+    {
+      key: "MANAGER",
+      name: "مدیر کلینیک",
+      scope: "کلینیک",
+      users: 24,
+      permissions: 19,
+      status: "active",
+      icon: "MG",
+      description: "مدیریت کلینیک، کاربران، مراجعین، نوبت‌ها و گزارش‌های سازمان."
+    },
+    {
+      key: "CONSULTANT",
+      name: "مشاور",
+      scope: "کلینیک",
+      users: 161,
+      permissions: 15,
+      status: "active",
+      icon: "CO",
+      description: "مدیریت مراجعین، نوبت‌ها، پیگیری‌ها، یادداشت‌ها و گزارش‌های شخصی."
+    }
+  ],
+
+  permissions: [
+    ["organizations", "مدیریت کلینیک‌ها", "ایجاد، ویرایش و مشاهده سازمان‌ها", "فعال"],
+    ["users", "مدیریت کاربران", "ساخت، غیرفعال‌سازی و مدیریت کاربران", "فعال"],
+    ["clients", "مراجعین", "مشاهده و مدیریت پرونده مراجعین", "فعال"],
+    ["appointments", "نوبت‌ها", "مدیریت تقویم و جلسات", "فعال"],
+    ["reports", "گزارش‌ها", "گزارش‌های مدیریتی و عملکردی", "فعال"],
+    ["settings", "تنظیمات", "تنظیمات عمومی و امنیت سامانه", "فعال"]
+  ],
+
+  matrix: [
+    ["کلینیک‌ها", ["on","on","on","on","on","on"]],
+    ["کاربران", ["on","on","on","on","on","on"]],
+    ["مراجعین", ["on","on","on","partial","on","off"]],
+    ["نوبت‌ها", ["on","on","on","partial","on","off"]],
+    ["پیگیری‌ها", ["on","on","on","partial","on","off"]],
+    ["یادداشت‌ها", ["on","on","on","partial","on","off"]],
+    ["گزارش‌ها", ["on","off","off","off","on","on"]],
+    ["تنظیمات", ["on","off","on","off","on","on"]]
+  ],
+
+  currentUser: null
+};
+
+/* =========================================================
+   12. HELPERS
+   ========================================================= */
+
+function faNumber(value){
+  return Number(value || 0).toLocaleString("fa-IR");
+}
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function showToast(title, text){
+  $("#toastTitle").textContent = title;
+  $("#toastText").textContent = text;
+
+  const toast = $("#toast");
+
+  toast.classList.add("show");
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3300);
+}
+
+function openModal(modal){
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  $("#overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal(modal){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+
+  if(!document.querySelector(".modal.open")){
+    $("#overlay").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+}
+
+function setTheme(theme){
+  html.dataset.theme = theme;
+  localStorage.setItem("moshaver-theme", theme);
+  $("#themeIcon").textContent = theme === "light" ? "☀" : "☾";
+}
+
+function currentTheme(){
+  return html.dataset.theme || "dark";
+}
+
+/* =========================================================
+   13. THEME
+   ========================================================= */
+
+setTheme(localStorage.getItem("moshaver-theme") || "dark");
+
+$("#themeButton").addEventListener("click", () => {
+  setTheme(currentTheme() === "light" ? "dark" : "light");
+});
+
+/* =========================================================
+   14. RENDER ROLE TABLE
+   ========================================================= */
+
+function roleStatus(status){
+  if(status === "active"){
+    return '<span class="pill green">● فعال</span>';
+  }
+
+  return '<span class="pill red">● غیرفعال</span>';
+}
+
+function scopeClass(scope){
+  if(scope === "کل سامانه") return "blue";
+  if(scope === "کلینیک") return "green";
+  return "yellow";
+}
+
+function renderRoles(){
+
+  const rows = $("#roleRows");
+
+  rows.innerHTML = state.roles.map((role, index) => `
+    <tr>
+      <td>
+        <div class="role-name">
+          <div class="role-icon">${escapeHtml(role.icon)}</div>
+          <div class="role-copy">
+            <strong>${escapeHtml(role.name)}</strong>
+            <span>${escapeHtml(role.key)}</span>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <span class="pill ${scopeClass(role.scope)}">
+          ${escapeHtml(role.scope)}
+        </span>
+      </td>
+
+      <td>${faNumber(role.users)}</td>
+
+      <td>${faNumber(role.permissions)}</td>
+
+      <td>${roleStatus(role.status)}</td>
+
+      <td>
+        <button
+          class="row-action"
+          type="button"
+          data-role-index="${index}"
+          title="نمایش جزئیات نقش"
+          aria-label="نمایش جزئیات نقش"
+        >
+          ⋯
+        </button>
+      </td>
+    </tr>
+  `).join("");
+
+  $$("#roleRows [data-role-index]").forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+      const index = Number(button.dataset.roleIndex);
+      const role = state.roles[index];
+
+      if(!role) return;
+
+      showToast(
+        role.name,
+        role.description
+      );
+    });
+
+  });
+
+  $("#roleCount").textContent = faNumber(state.roles.length);
+  $("#roleCountHero").textContent = faNumber(state.roles.length);
+}
+
+/* =========================================================
+   15. RENDER PERMISSION LIST
+   ========================================================= */
+
+function renderPermissions(){
+
+  $("#permissionList").innerHTML = state.permissions.map((item) => `
+    <div class="permission-item">
+
+      <div class="permission-icon">
+        ${item[0] === "organizations" ? "▦" :
+          item[0] === "users" ? "♙" :
+          item[0] === "reports" ? "◒" :
+          item[0] === "settings" ? "⚙" :
+          item[0] === "appointments" ? "◷" : "◎"}
+      </div>
+
+      <div class="permission-copy">
+        <strong>${escapeHtml(item[1])}</strong>
+        <span>${escapeHtml(item[2])}</span>
+      </div>
+
+      <b class="permission-state">${escapeHtml(item[3])}</b>
+
+    </div>
+  `).join("");
+}
+
+/* =========================================================
+   16. RENDER ACCESS MATRIX
+   ========================================================= */
+
+function matrixCell(type){
+
+  if(type === "on"){
+    return '<span class="check on">✓</span>';
+  }
+
+  if(type === "partial"){
+    return '<span class="check partial">−</span>';
+  }
+
+  return '<span class="check off">×</span>';
+}
+
+function renderMatrix(){
+
+  $("#matrixRows").innerHTML = state.matrix.map((row) => `
+    <tr>
+      <td><strong>${escapeHtml(row[0])}</strong></td>
+      ${row[1].map(matrixCell).join("")}
+    </tr>
+  `).join("");
+}
+
+/* =========================================================
+   17. MODALS
+   ========================================================= */
+
+const roleModal = $("#roleModal");
+const notificationModal = $("#notificationModal");
+const profileModal = $("#profileModal");
+
+$("#openRoleButton").addEventListener("click", () => {
+  openModal(roleModal);
+
+  setTimeout(() => {
+    $("#roleName").focus();
+  }, 80);
+});
+
+$("#closeRoleModal").addEventListener("click", () => {
+  closeModal(roleModal);
+});
+
+$("#cancelRole").addEventListener("click", () => {
+  closeModal(roleModal);
+});
+
+$("#notificationsButton").addEventListener("click", () => {
+  openModal(notificationModal);
+});
+
+$("#closeNotificationModal").addEventListener("click", () => {
+  closeModal(notificationModal);
+});
+
+$("#profileButton").addEventListener("click", () => {
+  openModal(profileModal);
+});
+
+$("#closeProfileModal").addEventListener("click", () => {
+  closeModal(profileModal);
+});
+
+$("#closeProfileButton").addEventListener("click", () => {
+  closeModal(profileModal);
+});
+
+$("#overlay").addEventListener("click", () => {
+  closeModal(roleModal);
+  closeModal(notificationModal);
+  closeModal(profileModal);
+
+  $("#sidebar").classList.remove("open");
+  $("#menuMobile").setAttribute("aria-expanded","false");
+});
+
+/* =========================================================
+   18. CREATE ROLE - UI STATE
+   ========================================================= */
+
+$("#roleForm").addEventListener("submit", (event) => {
+
+  event.preventDefault();
+
+  const name = $("#roleName").value.trim();
+  const key = $("#roleKey").value.trim().toUpperCase();
+  const scopeValue = $("#roleScope").value;
+  const status = $("#roleStatus").value;
+  const description = $("#roleDescription").value.trim();
+
+  if(!name || !key){
+    showToast(
+      "اطلاعات ناقص است",
+      "نام نقش و کلید نقش را وارد کنید."
+    );
+    return;
+  }
+
+  const scope =
+    scopeValue === "global"
+      ? "کل سامانه"
+      : scopeValue === "module"
+        ? "ماژول"
+        : "کلینیک";
+
+  const duplicate = state.roles.some(
+    (role) => role.key.toUpperCase() === key
+  );
+
+  if(duplicate){
+    showToast(
+      "کلید تکراری",
+      "این کلید نقش قبلاً در لیست وجود دارد."
+    );
+    return;
+  }
+
+  state.roles.push({
+    key,
+    name,
+    scope,
+    users: 0,
+    permissions: 0,
+    status,
+    icon: key.slice(0,2),
+    description: description || "نقش جدید سامانه."
+  });
+
+  renderRoles();
+
+  closeModal(roleModal);
+
+  event.target.reset();
+
+  showToast(
+    "نقش ایجاد شد",
+    "این تغییر فعلاً در رابط کاربری نگهداری می‌شود و آماده اتصال به Backend است."
+  );
+});
+
+/* =========================================================
+   19. REFRESH / RESET
+   ========================================================= */
+
+$("#refreshRoles").addEventListener("click", () => {
+
+  renderRoles();
+
+  showToast(
+    "دسترسی‌ها بروزرسانی شد",
+    "ساختار نقش‌ها دوباره از وضعیت فعلی رابط کاربری خوانده شد."
+  );
+});
+
+$("#resetDemoButton").addEventListener("click", () => {
+
+  state.roles = [
+    {
+      key: "SUPER_ADMIN",
+      name: "مدیر ارشد سامانه",
+      scope: "کل سامانه",
+      users: 1,
+      permissions: 24,
+      status: "active",
+      icon: "SA",
+      description: "کنترل کامل سامانه، کلینیک‌ها، کاربران و تنظیمات مرکزی."
+    },
+    {
+      key: "MANAGER",
+      name: "مدیر کلینیک",
+      scope: "کلینیک",
+      users: 24,
+      permissions: 19,
+      status: "active",
+      icon: "MG",
+      description: "مدیریت کلینیک، کاربران، مراجعین، نوبت‌ها و گزارش‌های سازمان."
+    },
+    {
+      key: "CONSULTANT",
+      name: "مشاور",
+      scope: "کلینیک",
+      users: 161,
+      permissions: 15,
+      status: "active",
+      icon: "CO",
+      description: "مدیریت مراجعین، نوبت‌ها، پیگیری‌ها، یادداشت‌ها و گزارش‌های شخصی."
+    }
+  ];
+
+  renderRoles();
+
+  showToast(
+    "بازنشانی انجام شد",
+    "ساختار نمایشی نقش‌ها به حالت پایه برگشت."
+  );
+});
+
+$("#matrixInfo").addEventListener("click", () => {
+
+  showToast(
+    "راهنمای ماتریس",
+    "✓ یعنی دسترسی کامل، − یعنی دسترسی محدود و × یعنی عدم دسترسی."
+  );
+});
+
+/* =========================================================
+   20. MOBILE SIDEBAR
+   ========================================================= */
+
+const sidebar = $("#sidebar");
+const menuMobile = $("#menuMobile");
+
+menuMobile.addEventListener("click", () => {
+
+  const open = sidebar.classList.toggle("open");
+
+  menuMobile.setAttribute(
+    "aria-expanded",
+    String(open)
+  );
+
+  $("#overlay").classList.toggle("open", open);
+});
+
+$("#mobileMore").addEventListener("click", () => {
+
+  sidebar.classList.add("open");
+
+  menuMobile.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+  $("#overlay").classList.add("open");
+});
+
+/* =========================================================
+   21. SCROLL TO TOP
+   ========================================================= */
+
+const scrollTopButton = $("#scrollTop");
+
+function updateScrollTop(){
+
+  scrollTopButton.classList.toggle(
+    "show",
+    window.scrollY > 420
+  );
+}
+
+window.addEventListener(
+  "scroll",
+  updateScrollTop,
+  {passive:true}
+);
+
+scrollTopButton.addEventListener("click", () => {
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+});
+
+updateScrollTop();
+
+/* =========================================================
+   22. KEYBOARD
+   ========================================================= */
+
+window.addEventListener("keydown", (event) => {
+
+  if(event.key !== "Escape") return;
+
+  closeModal(roleModal);
+  closeModal(notificationModal);
+  closeModal(profileModal);
+
+  sidebar.classList.remove("open");
+
+  menuMobile.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+});
+
+/* =========================================================
+   23. AUTHENTICATION / SUPER ADMIN GUARD
+   ========================================================= */
+
+async function guardSuperAdmin(){
+
+  const config = window.MOSHAVER_CONFIG || {};
+  const tokenKey = config.TOKEN_KEY || "moshaver_access_token";
+  const token = localStorage.getItem(tokenKey);
+
+  if(!token){
+    window.location.replace("../login.html");
+    return;
+  }
+
+  try{
+
+    if(
+      !window.MOSHAVER_AUTH ||
+      typeof window.MOSHAVER_AUTH.request !== "function"
+    ){
+      throw new Error("AUTH_MODULE_UNAVAILABLE");
+    }
+
+    const response = await window.MOSHAVER_AUTH.request({
+      action:"me",
+      accessToken:token
+    });
+
+    const user =
+      response &&
+      response.success &&
+      response.data &&
+      response.data.user
+        ? response.data.user
+        : null;
+
+    if(!user){
+      throw new Error("SESSION_INVALID");
+    }
+
+    if(
+      String(user.role || "").toUpperCase() !== "SUPER_ADMIN"
+    ){
+      throw new Error("ACCESS_DENIED");
+    }
+
+    state.currentUser = user;
+
+    updateProfile(user);
+
+  }catch(error){
+
+    console.error(
+      "SUPER ADMIN access guard:",
+      error
+    );
+
+    localStorage.removeItem(tokenKey);
+
+    if(config.USER_KEY){
+      localStorage.removeItem(config.USER_KEY);
+    }
+
+    window.location.replace("../login.html");
+  }
+}
+
+function updateProfile(user){
+
+  const first =
+    user.firstName ||
+    user.first_name ||
+    "";
+
+  const last =
+    user.lastName ||
+    user.last_name ||
+    "";
+
+  const fullName =
+    `${first} ${last}`.trim() ||
+    user.username ||
+    "مدیر ارشد سامانه";
+
+  const initials =
+    `${first.charAt(0)}${last.charAt(0)}`.toUpperCase() ||
+    "SA";
+
+  $("#profileName").textContent = fullName;
+  $("#profileRole").textContent = "SUPER ADMIN";
+  $("#profileAvatar").textContent = initials;
+
+  $("#profileNameField").value = fullName;
+  $("#profileRoleField").value = "SUPER ADMIN";
+}
+
+/* =========================================================
+   24. SECURE LOGOUT
+   ========================================================= */
+
+$("#logoutButton").addEventListener("click", async () => {
+
+  const button = $("#logoutButton");
+
+  button.disabled = true;
+  button.textContent = "در حال خروج...";
+
+  try{
+
+    if(
+      window.MOSHAVER_AUTH &&
+      typeof window.MOSHAVER_AUTH.logout === "function"
+    ){
+      await window.MOSHAVER_AUTH.logout();
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Logout request failed:",
+      error
+    );
+
+  }finally{
+
+    const config = window.MOSHAVER_CONFIG || {};
+
+    localStorage.removeItem(
+      config.TOKEN_KEY || "moshaver_access_token"
+    );
+
+    if(config.USER_KEY){
+      localStorage.removeItem(config.USER_KEY);
+    }
+
+    window.location.replace("../login.html");
+  }
+});
+
+/* =========================================================
+   25. INITIALIZATION
+   ========================================================= */
+
+renderRoles();
+renderPermissions();
+renderMatrix();
+
+guardSuperAdmin();
+
+</script>
+
+</body>
+</html>
