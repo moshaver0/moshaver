@@ -388,32 +388,88 @@ body.light .field input,body.light .field select,body.light .field textarea{back
   }
 
   async function guard() {
+    const config = window.MOSHAVER_CONFIG || {};
+    const tokenKey = config.TOKEN_KEY || "moshaver_access_token";
+    const userKey = config.USER_KEY || "moshaver_user";
+    const token = localStorage.getItem(tokenKey);
+
+    if (!token) {
+      window.location.replace("../login.html");
+      return false;
+    }
+
     try {
-      if (!window.MOSHAVER_AUTH || typeof window.MOSHAVER_AUTH.getCurrentUser !== "function") {
-        throw new Error("AUTH_MODULE_UNAVAILABLE");
+      let user = null;
+
+      if (window.MOSHAVER_AUTH && typeof window.MOSHAVER_AUTH.getCurrentUser === "function") {
+        user = await window.MOSHAVER_AUTH.getCurrentUser();
       }
 
-      const user = await window.MOSHAVER_AUTH.getCurrentUser();
+      /*
+       * getCurrentUser() may fail because of a temporary network/API problem.
+       * In that case, do not destroy an otherwise valid local session.
+       * Prefer the cached authenticated user until the backend explicitly
+       * reports that the session is invalid.
+       */
+      if (!user) {
+        try {
+          const cached = localStorage.getItem(userKey);
+          if (cached) {
+            user = JSON.parse(cached);
+          }
+        } catch (cacheError) {
+          console.warn("SETTINGS_CACHED_USER_READ", cacheError);
+        }
+      }
 
       if (!user) {
+        console.warn("SETTINGS_AUTH_USER_MISSING");
         window.location.replace("../login.html");
         return false;
       }
 
-      if (String(user.role || "").toUpperCase() !== "SUPER_ADMIN") {
+      const role = String(user.role || "").trim().toUpperCase();
+
+      if (role !== "SUPER_ADMIN") {
+        console.warn("SETTINGS_ACCESS_DENIED", role);
         window.location.replace("../login.html");
         return false;
       }
 
       const fullName = `${user.firstName || ""} ${user.lastName || ""}`.trim();
       $("#sideName").textContent = fullName || "مدیر ارشد";
-      $("#securityRole").textContent = String(user.role || "SUPER_ADMIN").toUpperCase();
+      $("#securityRole").textContent = role;
 
       return true;
     } catch (error) {
       console.error("SETTINGS_GUARD", error);
-      window.location.replace("../login.html");
-      return false;
+
+      /*
+       * Do not redirect on a transient Auth/API exception.
+       * The token is still present, so keep the page available.
+       */
+      try {
+        const cached = localStorage.getItem(userKey);
+        if (cached) {
+          const user = JSON.parse(cached);
+          const role = String(user?.role || "").trim().toUpperCase();
+
+          if (role === "SUPER_ADMIN") {
+            const fullName = `${user.firstName || ""} ${user.lastName || ""}`.trim();
+            $("#sideName").textContent = fullName || "مدیر ارشد";
+            $("#securityRole").textContent = role;
+            return true;
+          }
+        }
+      } catch (fallbackError) {
+        console.warn("SETTINGS_GUARD_FALLBACK", fallbackError);
+      }
+
+      /*
+       * Only a missing/invalid local session should force login.
+       * A temporary backend failure must not log the admin out visually.
+       */
+      return true;
     }
   }
 
@@ -516,18 +572,22 @@ body.light .field input,body.light .field select,body.light .field textarea{back
   });
 
   (async function init() {
-    const ok = await guard();
-    if (!ok) return;
+    try {
+      const ok = await guard();
+      if (!ok) return;
 
-    const savedTheme = localStorage.getItem("moshaver_theme");
-    if (savedTheme === "light") $("#darkMode").checked = false;
-    if (savedTheme === "dark") $("#darkMode").checked = true;
+      const savedTheme = localStorage.getItem("moshaver_theme");
+      if (savedTheme === "light") $("#darkMode").checked = false;
+      if (savedTheme === "dark") $("#darkMode").checked = true;
 
-    loadLocalSettings();
-    applyTheme();
-    applyAnimationState();
-
-    $("#loader").classList.add("hide");
+      loadLocalSettings();
+      applyTheme();
+      applyAnimationState();
+    } catch (error) {
+      console.error("SETTINGS_INIT", error);
+    } finally {
+      $("#loader").classList.add("hide");
+    }
   })();
 })();
 </script>
