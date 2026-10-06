@@ -20,7 +20,7 @@
 
       try {
         const response = await window.MOSHAVER_API.request({
-          action: "organizationsHealthCheck"
+          action: "health"
         });
 
         result.textContent = JSON.stringify(response, null, 2);
