@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOSHAVER API Test</title>
+</head>
+<body>
+
+  <h1>تست اتصال Backend</h1>
+
+  <button id="test">تست اتصال</button>
+
+  <pre id="result">آماده تست...</pre>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/api.js"></script>
+
+  <script>
+    document.getElementById("test").addEventListener("click", async () => {
+      const result = document.getElementById("result");
+
+      result.textContent = "در حال اتصال...";
+
+      try {
+        const response = await window.MOSHAVER_API.me();
+
+        result.textContent = JSON.stringify(
+          response,
+          null,
+          2
+        );
+
+        console.log("MOSHAVER API TEST:", response);
+
+      } catch (error) {
+        console.error(error);
+
+        result.textContent =
+          "ERROR: " + (error?.message || error);
+      }
+    });
+  </script>
+
+</body>
+</html>
