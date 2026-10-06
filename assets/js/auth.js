@@ -1,70 +1,72 @@
 (function (window) {
-  "use strict";
+"use strict";
 
-  const config = window.MOSHAVER_CONFIG;
+const config = window.MOSHAVER_CONFIG;
 
-  if (!config) {
-    console.error("MOSHAVER_CONFIG is not loaded.");
-    return;
-  }
-
-  const Auth = {
-    async login(username, password) {
-      const normalizedUsername = String(username || "").trim();
-      const normalizedPassword = String(password || "");
-
-      if (!normalizedUsername) {
-        throw new Error("USERNAME_REQUIRED");
-      }
-
-      if (!normalizedPassword) {
-        throw new Error("PASSWORD_REQUIRED");
-      }
-
-      const response = await this.request({
-        action: "login",
-        username: normalizedUsername,
-        password: normalizedPassword
-      });
-      
-    console.log("MOSHAVER LOGIN RESPONSE:", response);
-      
-      if (!response || response.success !== true) {
-  const message =
-    response &&
-    response.error &&
-    response.error.message
-      ? response.error.message
-      : "LOGIN_FAILED";
-
-  throw new Error(message);
+if (!config) {
+console.error("MOSHAVER_CONFIG is not loaded.");
+return;
 }
 
-      this.saveSession(response);
+const AUTH_ERROR_CODES = new Set([
+"UNAUTHORIZED",
+"AUTH_REQUIRED",
+"INVALID_TOKEN",
+"TOKEN_INVALID",
+"SESSION_EXPIRED",
+"SESSION_INVALID",
+"SESSION_NOT_FOUND",
+"USER_NOT_FOUND",
+"ACCOUNT_DISABLED",
+"ACCOUNT_SUSPENDED"
+]);
 
-      return response;
-    },
+const Auth = {
+async login(username, password) {
+const normalizedUsername = String(username || "").trim();
+const normalizedPassword = String(password || "");
 
-    async logout() {
-      const token = this.getToken();
 
-      try {
-        if (token) {
-          await this.request({
-            action: "logout",
-            accessToken: token
-          });
-        }
-      } catch (error) {
-        console.warn("Logout request failed:", error);
-      } finally {
-        this.clearSession();
-      }
+  if (!normalizedUsername) throw new Error("USERNAME_REQUIRED");
+  if (!normalizedPassword) throw new Error("PASSWORD_REQUIRED");
 
-      return true;
-    },
+  const response = await this.request({
+    action: "login",
+    username: normalizedUsername,
+    password: normalizedPassword
+  });
 
-  async getCurrentUser() {
+  console.log("MOSHAVER LOGIN RESPONSE:", response);
+
+  if (!response || response.success !== true) {
+    const code = response?.error?.code || response?.error?.message || "LOGIN_FAILED";
+    throw new Error(String(code));
+  }
+
+  this.saveSession(response);
+  return response;
+},
+
+async logout() {
+  const token = this.getToken();
+
+  try {
+    if (token) {
+      await this.request({
+        action: "logout",
+        accessToken: token
+      });
+    }
+  } catch (error) {
+    console.warn("Logout request failed:", error);
+  } finally {
+    this.clearSession();
+  }
+
+  return true;
+},
+
+async getCurrentUser() {
   const token = this.getToken();
 
   if (!token) {
@@ -77,88 +79,107 @@
       accessToken: token
     });
 
+    console.log("MOSHAVER ME RESPONSE:", response);
+
     if (!response || response.success !== true) {
-      this.clearSession();
-      return null;
+      const code = String(
+        response?.error?.code ||
+        response?.error?.message ||
+        ""
+      ).trim().toUpperCase();
+
+      /*
+       * Only clear the local session when the backend explicitly says
+       * that the authentication/session is invalid.
+       */
+      if (AUTH_ERROR_CODES.has(code)) {
+        this.clearSession();
+        return null;
+      }
+
+      /*
+       * A non-auth API error must not destroy an otherwise valid session.
+       * Fall back to the locally cached user.
+       */
+      return this.getUser();
     }
 
     const user = response?.data?.user || null;
 
     if (!user) {
-      this.clearSession();
-      return null;
+      console.warn("MOSHAVER ME returned no user.");
+      return this.getUser();
     }
 
     this.saveUser(user);
     return user;
 
   } catch (error) {
+    /*
+     * Network, CORS, timeout, cold-start, or temporary API errors must
+     * never erase the authenticated session.
+     */
     console.warn("Current user request failed:", error);
-    this.clearSession();
+    return this.getUser();
+  }
+},
+
+isLoggedIn() {
+  return Boolean(this.getToken());
+},
+
+getUser() {
+  const raw = localStorage.getItem(config.USER_KEY);
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    console.warn("Invalid stored user:", error);
+    localStorage.removeItem(config.USER_KEY);
     return null;
   }
 },
 
-    isLoggedIn() {
-      return Boolean(this.getToken());
-    },
+getToken() {
+  return localStorage.getItem(config.TOKEN_KEY);
+},
 
-    getUser() {
-      const raw = localStorage.getItem(config.USER_KEY);
+getRole() {
+  const user = this.getUser();
+  return user ? String(user.role || "").trim().toUpperCase() : null;
+},
 
-      if (!raw) {
-        return null;
-      }
+hasRole(role) {
+  const currentRole = this.getRole();
 
-      try {
-        return JSON.parse(raw);
-      } catch (error) {
-        console.warn("Invalid stored user:", error);
-        localStorage.removeItem(config.USER_KEY);
-        return null;
-      }
-    },
+  if (!currentRole || !role) {
+    return false;
+  }
 
-    getToken() {
-      return localStorage.getItem(config.TOKEN_KEY);
-    },
+  return currentRole === String(role).trim().toUpperCase();
+},
 
-    getRole() {
-      const user = this.getUser();
-      return user ? String(user.role || "").toUpperCase() : null;
-    },
+saveSession(response) {
+  const data = response?.data || response;
 
-    hasRole(role) {
-      const currentRole = this.getRole();
-
-      if (!currentRole || !role) {
-        return false;
-      }
-
-      return currentRole === String(role).toUpperCase();
-    },
-
-  saveSession(response) {
-  const data = response && response.data
-    ? response.data
-    : response;
-
-  if (data && data.accessToken) {
+  if (data?.accessToken) {
     localStorage.setItem(
       config.TOKEN_KEY,
       String(data.accessToken)
     );
   }
 
-  if (data && data.user) {
+  if (data?.user) {
     this.saveUser(data.user);
   }
 
   const session = {
     loggedIn: true,
-    expiresIn: data && data.expiresIn
-      ? data.expiresIn
-      : null,
+    expiresIn: data?.expiresIn || null,
     savedAt: Date.now()
   };
 
@@ -168,58 +189,60 @@
   );
 },
 
-    saveUser(user) {
-      localStorage.setItem(
-        config.USER_KEY,
-        JSON.stringify(user)
-      );
-    },
+saveUser(user) {
+  if (!user) return;
 
-    clearSession() {
-      localStorage.removeItem(config.SESSION_KEY);
-      localStorage.removeItem(config.USER_KEY);
-      localStorage.removeItem(config.TOKEN_KEY);
-    },
+  localStorage.setItem(
+    config.USER_KEY,
+    JSON.stringify(user)
+  );
+},
 
-      async request(payload) {
-      const controller = new AbortController();
+clearSession() {
+  localStorage.removeItem(config.SESSION_KEY);
+  localStorage.removeItem(config.USER_KEY);
+  localStorage.removeItem(config.TOKEN_KEY);
+},
 
-      const timeout = setTimeout(
-        () => controller.abort(),
-        Number(config.REQUEST_TIMEOUT) || 30000
-      );
+async request(payload) {
+  const controller = new AbortController();
 
-      try {
-        const formData = new URLSearchParams();
+  const timeout = setTimeout(
+    () => controller.abort(),
+    Number(config.REQUEST_TIMEOUT) || 30000
+  );
 
-        Object.keys(payload || {}).forEach((key) => {
-          const value = payload[key];
+  try {
+    const formData = new URLSearchParams();
 
-          if (value !== undefined && value !== null) {
-            formData.append(key, String(value));
-          }
-        });
+    Object.keys(payload || {}).forEach((key) => {
+      const value = payload[key];
 
-        const response = await fetch(config.API_BASE_URL, {
-          method: "POST",
-          body: formData,
-          signal: controller.signal
-        });
-
-        if (!response.ok) {
-          throw new Error("HTTP_" + response.status);
-        }
-
-        const data = await response.json();
-
-        return data;
-
-      } finally {
-        clearTimeout(timeout);
+      if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
       }
-    }
-  };
+    });
 
-  window.MOSHAVER_AUTH = Auth;
+    const response = await fetch(config.API_BASE_URL, {
+      method: "POST",
+      body: formData,
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP_" + response.status);
+    }
+
+    return await response.json();
+
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+
+};
+
+window.MOSHAVER_AUTH = Auth;
 
 })(window);
