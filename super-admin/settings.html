@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07040d">
+<title>تنظیمات سیستم | MOSHAVER</title>
+<style>
+:root{
+  --bg:#07040d;--bg2:#0d0817;--surface:rgba(22,14,37,.62);--surface2:rgba(29,18,48,.82);
+  --border:rgba(255,255,255,.09);--text:#fbf9ff;--text2:#bdb4ca;--muted:#81778e;
+  --purple:#a855f7;--purple2:#7c3aed;--cyan:#22d3ee;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;
+  --shadow:0 24px 70px rgba(0,0,0,.34);--radius:24px;
+}
+body.light{
+  --bg:#f5f2fa;--bg2:#eee9f7;--surface:rgba(255,255,255,.72);--surface2:rgba(255,255,255,.92);
+  --border:rgba(56,35,82,.12);--text:#21172b;--text2:#655a70;--muted:#8b8193;
+  --shadow:0 22px 60px rgba(55,35,80,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;background:
+  radial-gradient(circle at 12% 12%,rgba(168,85,247,.16),transparent 28%),
+  radial-gradient(circle at 86% 18%,rgba(34,211,238,.10),transparent 24%),
+  linear-gradient(145deg,var(--bg),var(--bg2));color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;overflow-x:hidden;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(168,85,247,.35)}
+.ambient{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.22}
+.orb.one{width:260px;height:260px;background:#a855f7;top:-80px;right:18%}
+.orb.two{width:230px;height:230px;background:#22d3ee;bottom:4%;left:5%}
+.cross{position:fixed;width:18px;height:18px;opacity:.16;pointer-events:none;z-index:-1;animation:spin 12s linear infinite}
+.cross:before,.cross:after{content:"";position:absolute;background:linear-gradient(90deg,transparent,var(--purple),transparent);border-radius:4px}
+.cross:before{width:3px;height:22px;left:7px;top:-2px}.cross:after{height:3px;width:22px;left:-2px;top:7px}
+.c1{top:18%;left:3%}.c2{top:48%;right:4%;animation-duration:16s}.c3{bottom:10%;right:30%;animation-duration:20s}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.app{min-height:100vh}
+.sidebar{
+  position:fixed;right:0;top:0;bottom:0;width:280px;padding:22px 18px;
+  background:rgba(10,6,18,.72);border-left:1px solid var(--border);backdrop-filter:blur(24px);
+  z-index:50;display:flex;flex-direction:column;
+}
+body.light .sidebar{background:rgba(255,255,255,.72)}
+.brand{display:flex;align-items:center;gap:12px;padding:6px 8px 24px}
+.brand-mark{
+  width:44px;height:44px;border-radius:15px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--purple),var(--cyan));box-shadow:0 12px 30px rgba(168,85,247,.25);
+  font-weight:900;color:#fff
+}
+.brand strong{display:block;font-size:18px}.brand small{display:block;color:var(--muted);margin-top:3px}
+.nav{display:grid;gap:7px;overflow:auto;padding:4px}
+.nav a{
+  display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:15px;color:var(--text2);
+  transition:.2s;border:1px solid transparent
+}
+.nav a:hover{background:rgba(168,85,247,.09);color:var(--text)}
+.nav a.active{background:linear-gradient(135deg,rgba(168,85,247,.18),rgba(124,58,237,.08));border-color:rgba(168,85,247,.22);color:var(--text)}
+.nav .ico{width:26px;text-align:center;font-size:17px}
+.side-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:15px}
+.user-mini{display:flex;align-items:center;gap:10px;padding:10px}
+.avatar{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(168,85,247,.16);border:1px solid rgba(168,85,247,.28)}
+.user-mini b{display:block;font-size:13px}.user-mini span{font-size:11px;color:var(--muted)}
+.logout-side{width:100%;border:1px solid var(--border);background:transparent;color:var(--text2);padding:10px;border-radius:13px}
+
+.main{margin-right:280px;min-height:100vh;padding:22px 26px 90px}
+.topbar{height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.breadcrumb{color:var(--muted);font-size:12px}.breadcrumb b{color:var(--text2)}
+.top-actions{display:flex;gap:8px}
+.icon-btn{
+  width:42px;height:42px;border-radius:14px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);backdrop-filter:blur(18px)
+}
+.hero{padding:34px 0 24px;display:flex;align-items:end;justify-content:space-between;gap:20px}
+.hero h1{margin:0;font-size:clamp(28px,4vw,44px);letter-spacing:-1px}
+.hero p{margin:9px 0 0;color:var(--text2);line-height:1.9;max-width:760px}
+.status{
+  display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;
+  background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.18);color:#4ade80;font-size:12px;white-space:nowrap
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.card{
+  grid-column:span 12;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);backdrop-filter:blur(22px);padding:21px
+}
+.card.half{grid-column:span 6}.card.third{grid-column:span 4}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px}
+.card-head h2{font-size:16px;margin:0 0 6px}.card-head p{font-size:12px;color:var(--muted);margin:0;line-height:1.7}
+.tag{font-size:11px;padding:7px 10px;border-radius:999px;background:rgba(168,85,247,.10);color:#c084fc;border:1px solid rgba(168,85,247,.18)}
+
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.field{display:grid;gap:7px}.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:var(--text2)}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid var(--border);outline:0;border-radius:14px;padding:12px 13px;
+  color:var(--text);background:rgba(0,0,0,.12);transition:.2s
+}
+body.light .field input,body.light .field select,body.light .field textarea{background:rgba(255,255,255,.7)}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(168,85,247,.55);box-shadow:0 0 0 4px rgba(168,85,247,.08)}
+.actions{display:flex;gap:9px;justify-content:flex-start;margin-top:17px;flex-wrap:wrap}
+.btn{border:1px solid var(--border);border-radius:13px;padding:11px 15px;background:transparent;color:var(--text2);font-weight:700}
+.btn.primary{border:0;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 12px 28px rgba(124,58,237,.24)}
+.btn.danger{border-color:rgba(239,68,68,.25);color:#f87171;background:rgba(239,68,68,.06)}
+
+.setting-list{display:grid;gap:9px}
+.setting-row{
+  display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px;border:1px solid var(--border);
+  border-radius:16px;background:rgba(255,255,255,.025)
+}
+.setting-row strong{font-size:13px;display:block}.setting-row span{font-size:11px;color:var(--muted);display:block;margin-top:4px;line-height:1.6}
+.switch{position:relative;width:48px;height:27px;flex:0 0 auto}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#3b3444;border-radius:999px;transition:.2s}
+.slider:before{content:"";position:absolute;width:21px;height:21px;right:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+.slider{background:linear-gradient(135deg,var(--purple),var(--cyan))}
+.switch input:checked+.slider:before{transform:translateX(-21px)}
+
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.info{padding:13px;border:1px solid var(--border);border-radius:15px}.info small{color:var(--muted);display:block;font-size:10px}.info b{display:block;margin-top:5px;font-size:13px}
+.notice{padding:12px 14px;border-radius:15px;border:1px solid rgba(34,211,238,.18);background:rgba(34,211,238,.06);color:var(--text2);font-size:12px;line-height:1.8;margin-bottom:15px}
+.danger-box{border-color:rgba(239,68,68,.22);background:rgba(239,68,68,.035)}
+
+.toast{
+  position:fixed;left:22px;bottom:22px;z-index:100;min-width:260px;max-width:380px;
+  padding:13px 15px;border-radius:15px;background:var(--surface2);border:1px solid var(--border);
+  box-shadow:var(--shadow);backdrop-filter:blur(20px);transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s;font-size:12px
+}
+.toast.show{transform:none;opacity:1}
+.loader{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;z-index:200}
+.loader.hide{display:none}
+.spinner{width:42px;height:42px;border:3px solid rgba(168,85,247,.18);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite}
+
+.bottom-nav{display:none}
+.scroll-top{position:fixed;bottom:24px;right:calc(280px + 24px);width:42px;height:42px;border-radius:14px;border:1px solid var(--border);background:var(--surface);color:var(--text);opacity:0;pointer-events:none;transition:.2s;z-index:30}
+.scroll-top.show{opacity:1;pointer-events:auto}
+
+@media(max-width:1050px){
+  .sidebar{width:235px}.main{margin-right:235px;padding:18px}.scroll-top{right:253px}
+  .card.half,.card.third{grid-column:span 12}
+}
+@media(max-width:760px){
+  .sidebar{display:none}.main{margin-right:0;padding:12px 12px 90px}
+  .topbar{height:52px}.hero{padding:22px 0 18px;align-items:flex-start;flex-direction:column}
+  .grid{gap:13px}.card{padding:16px;border-radius:19px}
+  .form-grid,.info-grid{grid-template-columns:1fr}.field.full{grid-column:auto}
+  .bottom-nav{
+    display:grid;grid-template-columns:repeat(5,1fr);position:fixed;right:10px;left:10px;bottom:10px;
+    z-index:60;padding:7px;border:1px solid var(--border);border-radius:20px;background:rgba(10,6,18,.82);
+    backdrop-filter:blur(24px);box-shadow:var(--shadow)
+  }
+  body.light .bottom-nav{background:rgba(255,255,255,.88)}
+  .bottom-nav a{text-align:center;color:var(--muted);font-size:10px;padding:7px 2px;border-radius:13px}
+  .bottom-nav a.active{color:var(--text);background:rgba(168,85,247,.12)}
+  .bottom-nav i{display:block;font-style:normal;font-size:17px;margin-bottom:3px}
+  .scroll-top{right:auto;left:18px;bottom:82px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ambient"><span class="orb one"></span><span class="orb two"></span><span class="cross c1"></span><span class="cross c2"></span><span class="cross c3"></span></div>
+
+<div class="loader" id="loader"><div class="spinner"></div></div>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-mark">M</div>
+    <div><strong>MOSHAVER</strong><small>Super Admin</small></div>
+  </div>
+
+  <nav class="nav">
+    <a href="dashboard.html"><span class="ico">⌂</span>داشبورد</a>
+    <a href="organizations.html"><span class="ico">◈</span>سازمان‌ها</a>
+    <a href="users.html"><span class="ico">♙</span>کاربران</a>
+    <a href="subscriptions.html"><span class="ico">◫</span>اشتراک‌ها</a>
+    <a href="access.html"><span class="ico">◉</span>دسترسی‌ها</a>
+    <a href="reports.html"><span class="ico">▥</span>گزارش‌ها</a>
+    <a href="settings.html" class="active"><span class="ico">⚙</span>تنظیمات</a>
+  </nav>
+
+  <div class="side-bottom">
+    <div class="user-mini">
+      <div class="avatar">♙</div>
+      <div><b id="sideName">مدیر ارشد</b><span>SUPER ADMIN</span></div>
+    </div>
+    <button class="logout-side" id="logoutSide">خروج از حساب</button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="breadcrumb">پنل مدیریت کل / <b>تنظیمات</b></div>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" title="تغییر تم">☼</button>
+      <button class="icon-btn" id="refreshBtn" title="بازخوانی">↻</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1>تنظیمات سیستم</h1>
+      <p>تنظیمات عمومی، رفتار سامانه، امنیت و سرویس‌های اصلی MOSHAVER را از یک محل مدیریت کنید.</p>
+    </div>
+    <div class="status"><span class="dot"></span>سامانه فعال است</div>
+  </section>
+
+  <section class="grid">
+    <article class="card half">
+      <div class="card-head">
+        <div><h2>تنظیمات عمومی</h2><p>اطلاعات پایه‌ای که در پنل مدیریت نمایش داده می‌شوند.</p></div>
+        <span class="tag">GENERAL</span>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label>نام سامانه</label><input id="appName" value="MOSHAVER"></div>
+        <div class="field"><label>زبان پیش‌فرض</label><select id="language"><option value="fa">فارسی</option><option value="en">English</option></select></div>
+        <div class="field"><label>منطقه زمانی</label><select id="timezone"><option>Asia/Tehran</option><option>Asia/Baku</option><option>UTC</option></select></div>
+        <div class="field"><label>واحد پول</label><select id="currency"><option value="IRR">ریال ایران</option><option value="IRT">تومان</option><option value="USD">دلار</option></select></div>
+        <div class="field full"><label>توضیح کوتاه سامانه</label><textarea id="appDescription">سامانه مدیریت حرفه‌ای مشاوران، سازمان‌ها و مراجعین.</textarea></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="saveGeneral">ذخیره تنظیمات</button></div>
+    </article>
+
+    <article class="card half">
+      <div class="card-head">
+        <div><h2>رفتار سامانه</h2><p>این گزینه‌ها در این نسخه روی تنظیمات محلی مرورگر اعمال می‌شوند.</p></div>
+        <span class="tag">BEHAVIOR</span>
+      </div>
+      <div class="setting-list">
+        <div class="setting-row"><div><strong>حالت تاریک</strong><span>ظاهر تیره و حرفه‌ای پنل را فعال می‌کند.</span></div><label class="switch"><input id="darkMode" type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="setting-row"><div><strong>انیمیشن‌های رابط</strong><span>حرکت‌های ظریف و افکت‌های بصری رابط کاربری.</span></div><label class="switch"><input id="animations" type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="setting-row"><div><strong>اعلان‌های رابط</strong><span>نمایش پیام‌های موفقیت و خطا داخل پنل.</span></div><label class="switch"><input id="notifications" type="checkbox" checked><span class="slider"></span></label></div>
+        <div class="setting-row"><div><strong>بازخوانی خودکار</strong><span>به‌روزرسانی خودکار اطلاعات صفحات مدیریتی.</span></div><label class="switch"><input id="autoRefresh" type="checkbox"><span class="slider"></span></label></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="saveBehavior">ذخیره رفتار</button></div>
+    </article>
+
+    <article class="card half">
+      <div class="card-head">
+        <div><h2>امنیت</h2><p>وضعیت تنظیمات امنیتی حساب مدیر کل.</p></div>
+        <span class="tag">SECURITY</span>
+      </div>
+      <div class="notice">احراز هویت و اعتبارسنجی دسترسی‌ها از Backend انجام می‌شود. گزینه‌های این بخش صرفاً وضعیت مدیریتی را نمایش می‌دهند.</div>
+      <div class="info-grid">
+        <div class="info"><small>نقش حساب</small><b id="securityRole">SUPER ADMIN</b></div>
+        <div class="info"><small>وضعیت نشست</small><b>فعال</b></div>
+        <div class="info"><small>اعتبار نشست</small><b>طبق Backend</b></div>
+        <div class="info"><small>احراز هویت</small><b>Backend Auth</b></div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="securityCheck">بررسی وضعیت امنیت</button>
+        <button class="btn danger" id="logoutSecurity">خروج از همه نشست‌ها</button>
+      </div>
+    </article>
+
+    <article class="card half">
+      <div class="card-head">
+        <div><h2>سرویس‌ها</h2><p>وضعیت اتصال سرویس‌های اصلی پروژه.</p></div>
+        <span class="tag">SERVICES</span>
+      </div>
+      <div class="setting-list">
+        <div class="setting-row"><div><strong>API Backend</strong><span>اتصال به Google Apps Script Web App</span></div><b style="color:#4ade80;font-size:11px">ONLINE</b></div>
+        <div class="setting-row"><div><strong>Google Drive</strong><span>ذخیره‌سازی فایل‌ها و ساختار سازمان‌ها</span></div><b style="color:#4ade80;font-size:11px">READY</b></div>
+        <div class="setting-row"><div><strong>Database</strong><span>Google Sheets / Central Data Layer</span></div><b style="color:#4ade80;font-size:11px">READY</b></div>
+        <div class="setting-row"><div><strong>SMS Gateway</strong><span>لایه سرویس پیامک Kavenegar</span></div><b style="color:#f59e0b;font-size:11px">CONFIG</b></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div><h2>پیام سیستم</h2><p>پیام اطلاع‌رسانی عمومی برای بخش مدیریت.</p></div>
+        <span class="tag">SYSTEM MESSAGE</span>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label>عنوان پیام</label><input id="messageTitle" value="اطلاعیه سیستم"></div>
+        <div class="field"><label>نوع پیام</label><select id="messageType"><option value="info">اطلاع‌رسانی</option><option value="success">موفقیت</option><option value="warning">هشدار</option><option value="danger">بحرانی</option></select></div>
+        <div class="field full"><label>متن پیام</label><textarea id="systemMessage">سامانه MOSHAVER در وضعیت عادی و آماده استفاده است.</textarea></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="saveMessage">ذخیره پیام</button><button class="btn" id="previewMessage">پیش‌نمایش</button></div>
+    </article>
+
+    <article class="card danger-box">
+      <div class="card-head">
+        <div><h2>منطقه خطر</h2><p>عملیات زیر را فقط در صورت اطمینان انجام دهید.</p></div>
+        <span class="tag" style="color:#f87171;border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.07)">DANGER</span>
+      </div>
+      <div class="setting-row">
+        <div><strong>پاک‌سازی تنظیمات محلی</strong><span>تنظیمات ذخیره‌شده در این مرورگر را به حالت اولیه برمی‌گرداند. داده‌های Backend حذف نمی‌شوند.</span></div>
+        <button class="btn danger" id="resetLocal">بازنشانی</button>
+      </div>
+    </article>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html"><i>⌂</i>داشبورد</a>
+  <a href="organizations.html"><i>◈</i>سازمان‌ها</a>
+  <a href="users.html"><i>♙</i>کاربران</a>
+  <a href="reports.html"><i>▥</i>گزارش</a>
+  <a href="settings.html" class="active"><i>⚙</i>تنظیمات</a>
+</nav>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+<div class="toast" id="toast"></div>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  const $ = (s) => document.querySelector(s);
+  const STORAGE_KEY = "moshaver_super_admin_settings";
+
+  function toast(message) {
+    const el = $("#toast");
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+  }
+
+  function loadLocalSettings() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+
+      if (data.appName) $("#appName").value = data.appName;
+      if (data.language) $("#language").value = data.language;
+      if (data.timezone) $("#timezone").value = data.timezone;
+      if (data.currency) $("#currency").value = data.currency;
+      if (data.appDescription) $("#appDescription").value = data.appDescription;
+      if (data.messageTitle) $("#messageTitle").value = data.messageTitle;
+      if (data.messageType) $("#messageType").value = data.messageType;
+      if (data.systemMessage) $("#systemMessage").value = data.systemMessage;
+
+      if (typeof data.darkMode === "boolean") $("#darkMode").checked = data.darkMode;
+      if (typeof data.animations === "boolean") $("#animations").checked = data.animations;
+      if (typeof data.notifications === "boolean") $("#notifications").checked = data.notifications;
+      if (typeof data.autoRefresh === "boolean") $("#autoRefresh").checked = data.autoRefresh;
+    } catch (error) {
+      console.warn("SETTINGS_LOAD", error);
+    }
+    applyTheme();
+  }
+
+  function collectSettings() {
+    return {
+      appName: $("#appName").value.trim(),
+      language: $("#language").value,
+      timezone: $("#timezone").value,
+      currency: $("#currency").value,
+      appDescription: $("#appDescription").value.trim(),
+      messageTitle: $("#messageTitle").value.trim(),
+      messageType: $("#messageType").value,
+      systemMessage: $("#systemMessage").value.trim(),
+      darkMode: $("#darkMode").checked,
+      animations: $("#animations").checked,
+      notifications: $("#notifications").checked,
+      autoRefresh: $("#autoRefresh").checked,
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  function saveLocalSettings() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectSettings()));
+  }
+
+  function applyTheme() {
+    const dark = $("#darkMode").checked;
+    document.body.classList.toggle("light", !dark);
+    $("#themeBtn").textContent = dark ? "☼" : "☾";
+    localStorage.setItem("moshaver_theme", dark ? "dark" : "light");
+  }
+
+  function applyAnimationState() {
+    document.documentElement.style.setProperty(
+      "--transition-scale",
+      $("#animations").checked ? "1" : "0"
+    );
+  }
+
+  async function guard() {
+    try {
+      if (!window.MOSHAVER_AUTH || typeof window.MOSHAVER_AUTH.getCurrentUser !== "function") {
+        throw new Error("AUTH_MODULE_UNAVAILABLE");
+      }
+
+      const user = await window.MOSHAVER_AUTH.getCurrentUser();
+
+      if (!user) {
+        window.location.replace("../login.html");
+        return false;
+      }
+
+      if (String(user.role || "").toUpperCase() !== "SUPER_ADMIN") {
+        window.location.replace("../login.html");
+        return false;
+      }
+
+      const fullName = `${user.firstName || ""} ${user.lastName || ""}`.trim();
+      $("#sideName").textContent = fullName || "مدیر ارشد";
+      $("#securityRole").textContent = String(user.role || "SUPER_ADMIN").toUpperCase();
+
+      return true;
+    } catch (error) {
+      console.error("SETTINGS_GUARD", error);
+      window.location.replace("../login.html");
+      return false;
+    }
+  }
+
+  async function logout() {
+    try {
+      if (window.MOSHAVER_AUTH && typeof window.MOSHAVER_AUTH.logout === "function") {
+        await window.MOSHAVER_AUTH.logout();
+      } else {
+        const tokenKey = window.MOSHAVER_CONFIG?.TOKEN_KEY || "moshaver_access_token";
+        localStorage.removeItem(tokenKey);
+        localStorage.removeItem(window.MOSHAVER_CONFIG?.USER_KEY || "moshaver_user");
+      }
+    } catch (error) {
+      console.warn("LOGOUT", error);
+    } finally {
+      window.location.replace("../index.html");
+    }
+  }
+
+  $("#saveGeneral").addEventListener("click", () => {
+    saveLocalSettings();
+    toast("تنظیمات عمومی ذخیره شد.");
+  });
+
+  $("#saveBehavior").addEventListener("click", () => {
+    saveLocalSettings();
+    applyTheme();
+    applyAnimationState();
+    toast("تنظیمات رفتار ذخیره شد.");
+  });
+
+  $("#saveMessage").addEventListener("click", () => {
+    saveLocalSettings();
+    toast("پیام سیستم ذخیره شد.");
+  });
+
+  $("#previewMessage").addEventListener("click", () => {
+    const title = $("#messageTitle").value.trim() || "پیام سیستم";
+    const text = $("#systemMessage").value.trim() || "پیامی ثبت نشده است.";
+    toast(`${title}: ${text}`);
+  });
+
+  $("#darkMode").addEventListener("change", () => {
+    applyTheme();
+    saveLocalSettings();
+  });
+
+  $("#animations").addEventListener("change", () => {
+    applyAnimationState();
+    saveLocalSettings();
+  });
+
+  $("#themeBtn").addEventListener("click", () => {
+    $("#darkMode").checked = !$("#darkMode").checked;
+    applyTheme();
+    saveLocalSettings();
+  });
+
+  $("#refreshBtn").addEventListener("click", () => {
+    loadLocalSettings();
+    toast("تنظیمات بازخوانی شد.");
+  });
+
+  $("#securityCheck").addEventListener("click", () => {
+    toast("نشست فعلی معتبر است و دسترسی SUPER ADMIN فعال است.");
+  });
+
+  $("#logoutSide").addEventListener("click", logout);
+  $("#logoutSecurity").addEventListener("click", logout);
+
+  $("#resetLocal").addEventListener("click", () => {
+    const ok = confirm("تنظیمات محلی این مرورگر بازنشانی شود؟");
+    if (!ok) return;
+
+    localStorage.removeItem(STORAGE_KEY);
+    $("#appName").value = "MOSHAVER";
+    $("#language").value = "fa";
+    $("#timezone").value = "Asia/Tehran";
+    $("#currency").value = "IRR";
+    $("#appDescription").value = "سامانه مدیریت حرفه‌ای مشاوران، سازمان‌ها و مراجعین.";
+    $("#messageTitle").value = "اطلاعیه سیستم";
+    $("#messageType").value = "info";
+    $("#systemMessage").value = "سامانه MOSHAVER در وضعیت عادی و آماده استفاده است.";
+    $("#darkMode").checked = true;
+    $("#animations").checked = true;
+    $("#notifications").checked = true;
+    $("#autoRefresh").checked = false;
+
+    applyTheme();
+    applyAnimationState();
+    toast("تنظیمات محلی بازنشانی شد.");
+  });
+
+  window.addEventListener("scroll", () => {
+    $("#scrollTop").classList.toggle("show", window.scrollY > 500);
+  });
+
+  $("#scrollTop").addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  (async function init() {
+    const ok = await guard();
+    if (!ok) return;
+
+    const savedTheme = localStorage.getItem("moshaver_theme");
+    if (savedTheme === "light") $("#darkMode").checked = false;
+    if (savedTheme === "dark") $("#darkMode").checked = true;
+
+    loadLocalSettings();
+    applyTheme();
+    applyAnimationState();
+
+    $("#loader").classList.add("hide");
+  })();
+})();
+</script>
+</body>
+</html>
