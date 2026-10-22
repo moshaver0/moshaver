@@ -104,7 +104,16 @@ async getCurrentUser() {
       return this.getUser();
     }
 
-    const user = response?.data?.user || null;
+    // The API currently has returned the public user in either
+    // data.user (preferred contract) or data (legacy contract).
+    // Accept both while the Apps Script response is standardized.
+    const data = response?.data;
+    const user =
+      data?.user ||
+      (data && typeof data === "object" &&
+       (data.userId || data.username || data.role)
+        ? data
+        : null);
 
     if (!user) {
       console.warn("MOSHAVER ME returned no user.");

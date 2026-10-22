@@ -1,0 +1,278 @@
+MOSHAVER — DELVAN LIVE CONSULTANT API PATCH
+==========================================
+
+This patch adds the API routes required by consultant/live.html.
+It does not delete or reset any existing sheet or record.
+
+PART A — ADD THESE ENTRIES INSIDE the existing protectedActions object in Code.gs.
+Add each action once. If an entry already exists, keep the existing one and do not duplicate it.
+
+  clientsList: delwanClientsListRoute_,
+  clientsCreate: delwanClientsCreateRoute_,
+  clientsUpdate: delwanClientsUpdateRoute_,
+  appointmentsList: delwanAppointmentsListRoute_,
+  appointmentsCreate: delwanAppointmentsCreateRoute_,
+  appointmentsUpdate: delwanAppointmentsUpdateRoute_,
+  appointmentsDelete: delwanAppointmentsDeleteRoute_,
+  followUpsList: delwanFollowUpsListRoute_,
+  followUpsCreate: delwanFollowUpsCreateRoute_,
+  followUpsUpdate: delwanFollowUpsUpdateRoute_,
+  followUpsDelete: delwanFollowUpsDeleteRoute_,
+  notesList: delwanNotesListRoute_,
+  notesCreate: delwanNotesCreateRoute_,
+  notesUpdate: delwanNotesUpdateRoute_,
+  notesDelete: delwanNotesDeleteRoute_
+
+PART B — APPEND THE FOLLOWING CODE TO THE END OF Code.gs.
+
+function delwanInput_(params) {
+  params = params || {};
+  var input = params.input;
+  if (typeof input === 'string' && input.trim()) {
+    try { input = JSON.parse(input); }
+    catch (e) { throw new MoshaverHttpError_(400, 'Invalid input JSON'); }
+  }
+  if (!input || typeof input !== 'object' || Array.isArray(input)) input = {};
+  var result = Object.assign({}, input);
+  Object.keys(params).forEach(function(k) {
+    if (['input','action','accessToken','token','Authorization','authorization'].indexOf(k) < 0 &&
+        result[k] === undefined) result[k] = params[k];
+  });
+  return result;
+}
+
+function delwanScope_(context) {
+  var user = context && context.user ? context.user : {};
+  var session = context && context.session ? context.session : {};
+  var role = String(user.role || session.role || '').toUpperCase();
+  var userId = String(user.userId || session.userId || '').trim();
+  var organizationId = String(user.organizationId || session.organizationId || '').trim();
+
+  if (role === 'SUPER_ADMIN' || role === 'ORG_ADMIN') {
+    var requested = String((context.params || {}).organizationId || '').trim();
+    if (requested) organizationId = requested;
+  }
+  if (!userId) throw new MoshaverHttpError_(401, 'Authenticated user is missing');
+  if (!organizationId) throw new MoshaverHttpError_(403, 'This account has no clinic assigned');
+  if (typeof orgFind_ === 'function') {
+    var org = orgFind_(organizationId);
+    if (!org) throw new MoshaverHttpError_(404, 'Clinic not found');
+    if (String(org.status || '').toUpperCase() !== 'ACTIVE') {
+      throw new MoshaverHttpError_(403, 'Clinic is not active');
+    }
+  }
+  return { user:user, session:session, role:role, userId:userId, organizationId:organizationId };
+}
+
+function delwanAssertRole_(context) {
+  requireRole_(context, ['CONSULTANT','MANAGER','ORG_ADMIN','SUPER_ADMIN']);
+  return delwanScope_(context);
+}
+
+function delwanClientForScope_(clientId, scope) {
+  var client = clientFindById_(clientId);
+  if (!client || String(client.organizationId) !== scope.organizationId ||
+      String(client.status || '').toUpperCase() === 'ARCHIVED') {
+    throw new MoshaverHttpError_(404, 'Client not found in this clinic');
+  }
+  if (scope.role === 'CONSULTANT' &&
+      String(client.consultantUserId || '') !== scope.userId) {
+    throw new MoshaverHttpError_(403, 'This client is not assigned to this consultant');
+  }
+  return client;
+}
+
+function delwanAssignedClientIds_(scope) {
+  var sheet = clientsEnsureSheet_();
+  var values = sheet.getDataRange().getValues();
+  var ids = {};
+  for (var i = 1; i < values.length; i++) {
+    var client = clientFromRow_(values[i]);
+    if (String(client.organizationId) !== scope.organizationId) continue;
+    if (String(client.status || '').toUpperCase() === 'ARCHIVED') continue;
+    if (scope.role === 'CONSULTANT' &&
+        String(client.consultantUserId || '') !== scope.userId) continue;
+    if (client.clientId) ids[String(client.clientId)] = true;
+  }
+  return ids;
+}
+
+function delwanClientsListRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var sheet = clientsEnsureSheet_();
+  var values = sheet.getDataRange().getValues();
+  var items = [];
+  for (var i = 1; i < values.length; i++) {
+    var client = clientFromRow_(values[i]);
+    if (!client.clientId || String(client.organizationId) !== scope.organizationId) continue;
+    if (String(client.status || '').toUpperCase() === 'ARCHIVED') continue;
+    if (scope.role === 'CONSULTANT' &&
+        String(client.consultantUserId || '') !== scope.userId) continue;
+    items.push(clientPublic_(client));
+  }
+  items.sort(function(a,b) {
+    return String(a.lastName || '').localeCompare(String(b.lastName || '')) ||
+           String(a.firstName || '').localeCompare(String(b.firstName || ''));
+  });
+  return successResponse_({items:items,total:items.length}, null);
+}
+
+function delwanClientsCreateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  input.organizationId = scope.organizationId;
+  if (scope.role === 'CONSULTANT') input.consultantUserId = scope.userId;
+  else if (!input.consultantUserId) input.consultantUserId = scope.userId;
+  var result = clientsCreate(input);
+  return successResponse_(result, null);
+}
+
+function delwanClientsUpdateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.clientId || input.id || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'clientId is required');
+  var client = delwanClientForScope_(id, scope);
+  var allowed = ['firstName','lastName','nationalId','phone','alternatePhone','email','gender',
+    'birthDate','occupation','address','city','source','status','priority','tags','notes'];
+  var clean = {};
+  allowed.forEach(function(k) { if (input[k] !== undefined) clean[k] = input[k]; });
+  if (String(clean.status || '').toUpperCase() === 'ARCHIVED') clean.status = 'ARCHIVED';
+  var result = clientsUpdate(client.clientId, clean);
+  return successResponse_(result, null);
+}
+
+function delwanAppointmentsListRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var result = appointmentsList(context.params || {}, scope.user, scope.session);
+  var items = result.items || [];
+  if (scope.role === 'CONSULTANT') {
+    var assigned = delwanAssignedClientIds_(scope);
+    items = items.filter(function(item) { return !!assigned[String(item.clientId || '')]; });
+  }
+  return successResponse_({items:items,total:items.length}, null);
+}
+
+function delwanAppointmentsCreateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  delwanClientForScope_(input.clientId, scope);
+  return successResponse_(appointmentsCreate(input, scope.user, scope.session), null);
+}
+
+function delwanAppointmentForScope_(id, scope) {
+  var result = appointmentsList({}, scope.user, scope.session);
+  var item = (result.items || []).filter(function(x) { return String(x.id) === String(id); })[0];
+  if (!item) throw new MoshaverHttpError_(404, 'Appointment not found');
+  delwanClientForScope_(item.clientId, scope);
+  return item;
+}
+
+function delwanAppointmentsUpdateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.id || input.appointmentId || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'id is required');
+  delwanAppointmentForScope_(id, scope);
+  return successResponse_(appointmentsUpdate(input, scope.user, scope.session), null);
+}
+
+function delwanAppointmentsDeleteRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.id || input.appointmentId || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'id is required');
+  delwanAppointmentForScope_(id, scope);
+  return successResponse_(appointmentsDelete(input, scope.user, scope.session), null);
+}
+
+function delwanFollowUpsListRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var result = followUpsList(context.params || {}, scope.user, scope.session);
+  var items = result.items || [];
+  if (scope.role === 'CONSULTANT') {
+    var assigned = delwanAssignedClientIds_(scope);
+    items = items.filter(function(item) { return !!assigned[String(item.clientId || '')]; });
+  }
+  return successResponse_({items:items,total:items.length}, null);
+}
+
+function delwanFollowUpsCreateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  delwanClientForScope_(input.clientId, scope);
+  return successResponse_(followUpsCreate(input, scope.user, scope.session), null);
+}
+
+function delwanFollowUpForScope_(id, scope) {
+  var result = followUpsList({}, scope.user, scope.session);
+  var item = (result.items || []).filter(function(x) { return String(x.id) === String(id); })[0];
+  if (!item) throw new MoshaverHttpError_(404, 'Follow-up not found');
+  delwanClientForScope_(item.clientId, scope);
+  return item;
+}
+
+function delwanFollowUpsUpdateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.id || input.followUpId || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'id is required');
+  delwanFollowUpForScope_(id, scope);
+  return successResponse_(followUpsUpdate(input, scope.user, scope.session), null);
+}
+
+function delwanFollowUpsDeleteRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.id || input.followUpId || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'id is required');
+  delwanFollowUpForScope_(id, scope);
+  return successResponse_(followUpsDelete(input, scope.user, scope.session), null);
+}
+
+function delwanNotesListRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var options = {organizationId:scope.organizationId};
+  if (scope.role === 'CONSULTANT') options.consultantId = scope.userId;
+  var result = notesList(options);
+  return successResponse_({items:result.items || [],total:result.total || 0}, null);
+}
+
+function delwanNotesCreateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  input.organizationId = scope.organizationId;
+  input.consultantId = scope.userId;
+  input.createdBy = scope.userId;
+  return successResponse_(notesCreate(input, scope.user), null);
+}
+
+function delwanNotesUpdateRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.noteId || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'noteId is required');
+  var current = notesGet(id, scope.organizationId);
+  if (!current) throw new MoshaverHttpError_(404, 'Note not found');
+  if (scope.role === 'CONSULTANT' && String(current.consultantId || '') !== scope.userId) {
+    throw new MoshaverHttpError_(403, 'This note is not assigned to this consultant');
+  }
+  input.organizationId = scope.organizationId;
+  input.consultantId = scope.userId;
+  return successResponse_(notesUpdate(input, scope.user), null);
+}
+
+function delwanNotesDeleteRoute_(context) {
+  var scope = delwanAssertRole_(context);
+  var input = delwanInput_(context.params);
+  var id = String(input.noteId || '').trim();
+  if (!id) throw new MoshaverHttpError_(400, 'noteId is required');
+  var current = notesGet(id, scope.organizationId);
+  if (!current) throw new MoshaverHttpError_(404, 'Note not found');
+  if (scope.role === 'CONSULTANT' && String(current.consultantId || '') !== scope.userId) {
+    throw new MoshaverHttpError_(403, 'This note is not assigned to this consultant');
+  }
+  return successResponse_(notesDeleteSoft(id, scope.organizationId, scope.user), null);
+}
+
+END OF PATCH

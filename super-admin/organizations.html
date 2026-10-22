@@ -346,6 +346,9 @@ tbody tr{transition:.22s}tbody tr:hover{background:var(--surface3)}
 
 <div class="toast glass" id="toast"><div class="toast-icon">✓</div><div><strong id="toastTitle">عملیات انجام شد</strong><span id="toastText">تغییرات ثبت شد.</span></div></div>
 
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/api.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
@@ -386,19 +389,15 @@ const seed=[
  {id:'org-24',name:'کلینیک پویش',code:'POY-0064',manager:'هانیه مرادی',phone:'۰۹۳۳۳۴۴۵۵۶۶',email:'info@pouyesh.ir',plan:'Trial',users:2,status:'trial',activity:'۱۰ روز قبل',initial:'پ',note:''}
 ];
 
-let organizations=load();
-let editingId=null;
-let selectedOrg=null;
-let page=1;
+let organizations=[];
+let editingId=null,selectedOrg=null,page=1;
 const pageSize=6;
+function apiError(r){const e=r&&r.error;if(typeof e==='string')return e;return e&&(e.message||e.code)||r&&r.message||'ارتباط با سرور برقرار نشد.';}
+async function apiRequest(p){if(!window.MOSHAVER_API)throw new Error('ماژول اتصال به سرور بارگذاری نشده است.');const r=await window.MOSHAVER_API.request(p);if(!r||r.success!==true)throw new Error(apiError(r));return r.data||{};}
+function toUiStatus(s){const v=String(s||'').toUpperCase();if(v==='SUSPENDED'||v==='BLOCKED')return 'suspended';if(v==='TRIAL')return 'trial';return 'active';}
+function mapOrganization(i){const n=i.name||'';return {id:i.organizationId||i.id||'',name:n,code:i.code||i.organizationId||'',manager:i.managerName||i.managerUserId||'ثبت نشده',phone:i.phone||'',email:i.email||'',plan:i.plan||'—',users:Number(i.users||i.userCount||0),status:toUiStatus(i.status),activity:i.updatedAt||i.createdAt||'—',initial:n.charAt(0)||'م',note:i.address||i.note||''};}
+async function loadOrganizations(){try{const r=await apiRequest({action:'organizationsList',limit:500});const items=Array.isArray(r)?r:Array.isArray(r.items)?r.items:Array.isArray(r.organizations)?r.organizations:[];organizations=items.filter(i=>String(i.status||'').toUpperCase()!=='ARCHIVED').map(mapOrganization);renderTable();}catch(e){console.error('Organizations API error:',e);organizations=[];renderTable();showToast('خطا در دریافت کلینیک‌ها',e.message||'اطلاعات از سرور دریافت نشد.');}}
 
-function load(){
- try{
-  const saved=localStorage.getItem(STORAGE);
-  return saved?JSON.parse(saved):seed;
- }catch(e){return seed}
-}
-function save(){localStorage.setItem(STORAGE,JSON.stringify(organizations))}
 function fa(value){return Number(value).toLocaleString('fa-IR')}
 function statusPill(status){
  if(status==='active') return '<span class="pill green">● فعال</span>';
@@ -549,16 +548,7 @@ function openDetails(id){
   <div class="form-note">${o.note||'برای این سازمان یادداشت مدیریتی ثبت نشده است.'}</div>`;
  openModal(detailsModal);
 }
-function deleteOrg(id){
- const o=organizations.find(x=>x.id===id);
- if(!o)return;
- if(!confirm(`آیا از حذف «${o.name}» مطمئن هستید؟`))return;
- organizations=organizations.filter(x=>x.id!==id);
- save();
- page=1;
- renderTable();
- showToast('کلینیک حذف شد',`${o.name} از لیست نمایشی حذف شد.`);
-}
+async function deleteOrg(id){const o=organizations.find(x=>x.id===id);if(!o)return;if(!confirm(`آیا از بایگانی «${o.name}» مطمئن هستید؟`))return;try{await apiRequest({action:'organizationsArchive',organizationId:id});await loadOrganizations();showToast('کلینیک بایگانی شد','اطلاعات در سرور حفظ شد.');}catch(e){console.error(e);showToast('خطا در بایگانی',e.message||'عملیات انجام نشد.');}}
 $('#search').addEventListener('input',()=>{page=1;renderTable()});
 $('#statusFilter').addEventListener('change',()=>{page=1;renderTable()});
 $('#planFilter').addEventListener('change',()=>{page=1;renderTable()});
@@ -584,32 +574,7 @@ $('#editFromDetails').addEventListener('click',()=>{
  closeModal(detailsModal);
  setTimeout(()=>openEdit(selectedOrg.id),180);
 });
-$('#orgForm').addEventListener('submit',e=>{
- e.preventDefault();
- const data={
-  name:$('#orgName').value.trim(),
-  manager:$('#managerName').value.trim(),
-  phone:$('#orgPhone').value.trim(),
-  email:$('#orgEmail').value.trim(),
-  code:$('#orgCode').value.trim().toUpperCase(),
-  plan:$('#orgPlan').value,
-  status:$('#orgStatus').value,
-  users:Math.max(1,Number($('#orgUsers').value)||1),
-  note:$('#orgNote').value.trim()
- };
- if(editingId){
-  const idx=organizations.findIndex(x=>x.id===editingId);
-  if(idx>-1) organizations[idx]={...organizations[idx],...data,activity:'همین الان'};
-  showToast('تغییرات ذخیره شد','اطلاعات کلینیک با موفقیت بروزرسانی شد.');
- }else{
-  organizations.unshift({...data,id:'org-'+Date.now(),initial:data.name.charAt(0)||'م',activity:'همین الان'});
-  showToast('کلینیک ایجاد شد','سازمان جدید به لیست اضافه شد.');
- }
- save();
- closeModal(orgModal);
- page=1;
- renderTable();
-});
+$('#orgForm').addEventListener('submit',async e=>{e.preventDefault();const btn=$('#submitOrg');const d={name:$('#orgName').value.trim(),phone:$('#orgPhone').value.trim(),email:$('#orgEmail').value.trim(),address:$('#orgNote').value.trim(),status:String($('#orgStatus').value).toLowerCase()==='suspended'?'SUSPENDED':'ACTIVE'};if(!d.name){showToast('نام کلینیک الزامی است','لطفاً نام کلینیک را وارد کنید.');return;}btn.disabled=true;try{if(editingId)await apiRequest({action:'organizationsUpdate',organizationId:editingId,...d});else await apiRequest({action:'organizationsCreate',...d});closeModal(orgModal);page=1;await loadOrganizations();showToast(editingId?'تغییرات ذخیره شد':'کلینیک ایجاد شد','اطلاعات با موفقیت در سرور ثبت شد.');}catch(e){console.error(e);showToast('ذخیره انجام نشد',e.message||'لطفاً اتصال سرور را بررسی کنید.');}finally{btn.disabled=false;}});
 $('#exportBtn').addEventListener('click',()=>{
  const list=filtered();
  const header=['نام کلینیک','کد','مدیر','تماس','ایمیل','پلن','کاربران','وضعیت'];
@@ -646,7 +611,7 @@ window.addEventListener('keydown',e=>{
   sidebar.classList.remove('open');
  }
 });
-renderTable();
+loadOrganizations();
 </script>
 
 </body>
