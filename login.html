@@ -872,41 +872,71 @@ window.MOSHAVER_API_BASE =
     هیچ credential واقعی داخل Frontend قرار داده نشده است.
   */
 
-  async function loginRequest(payload){
-    const apiBase = window.MOSHAVER_API_BASE || "";
+ 
+async function loginRequest(payload) {
+  const apiBase =
+    "https://script.google.com/macros/s/AKfycbyphWU5UoLhh90KJeYUQ3st8Ixdqn44WvF5ivvjZ5r48etSOxzbXE_1TLEupA4RT7yP3A/exec";
 
-    if(!apiBase){
-      await new Promise(resolve => setTimeout(resolve, 850));
-      return {
-        success:false,
-        code:"BACKEND_NOT_CONNECTED",
-        message:"سامانه احراز هویت هنوز به Backend متصل نشده است."
-      };
-    }
-
-    const response = await fetch(apiBase + "/api/auth/login",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Accept":"application/json"
-      },
-      credentials:"include",
-      body:JSON.stringify(payload)
+  try {
+    const body = new URLSearchParams({
+      action: "login",
+      username: String(payload.username || "").trim(),
+      password: String(payload.password || "")
     });
 
-    let data = null;
-    try{ data = await response.json(); }catch(_){}
+    const response = await fetch(apiBase, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        "Accept": "application/json"
+      },
+      body: body.toString()
+    });
 
-    if(!response.ok){
+    if (!response.ok) {
+      throw new Error("HTTP_" + response.status);
+    }
+
+    const result = await response.json();
+
+    if (!result || result.success !== true) {
+      const errorMessage =
+        result && result.error
+          ? (result.error.message || result.error.code || "")
+          : "";
+
       return {
-        success:false,
-        code:data && data.code ? data.code : "AUTH_FAILED",
-        message:data && data.message ? data.message : "نام کاربری یا رمز عبور صحیح نیست."
+        success: false,
+        message: errorMessage || "ورود ناموفق بود؛ اطلاعات را بررسی کنید."
       };
     }
 
-    return data;
+    const data = result.data || {};
+    const user = data.user || {};
+
+    return {
+      success: true,
+      data: {
+        accessToken: data.accessToken || "",
+        user: {
+          id: user.userId || user.id || "",
+          username: user.username || payload.username,
+          role: user.role || "",
+          organizationId: user.organizationId || "",
+          subscriptionStatus: user.subscriptionStatus || ""
+        }
+      }
+    };
+  } catch (error) {
+    console.error("MOSHAVER login error:", error);
+
+    return {
+      success: false,
+      message: "ارتباط با سرور برقرار نشد. اتصال یا تنظیمات دسترسی سرور را بررسی کنید."
+    };
   }
+}
+
 
   function redirectByRole(role){
     const routes = {
