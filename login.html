@@ -842,142 +842,9 @@ label{font-size:10px;color:var(--muted)}
     },3200);
   }
 
-  /*
-    Production API contract:
-    POST /api/auth/login
-    body: { username, password, remember }
-    response:
-    {
-      success: true,
-      data: {
-        accessToken,
-        user: {
-          id,
-          username,
-          role,
-          organizationId,
-          subscriptionStatus
-        }
-      }
-    }
-
-    بعد از اتصال Backend:
-    SUPER_ADMIN  -> /super-admin/dashboard.html
-    ADMIN        -> /manager/dashboard.html
-    CONSULTANT   -> /consultant/dashboard.html
-
-    در نسخه فعلی GitHub Pages، برای جلوگیری از جعل ورود،
-    هیچ credential واقعی داخل Frontend قرار داده نشده است.
-  */
-
-  async function loginRequest(payload){
-    const apiBase = window.MOSHAVER_API_BASE || "";
-
-    if(!apiBase){
-      await new Promise(resolve => setTimeout(resolve, 850));
-      return {
-        success:false,
-        code:"BACKEND_NOT_CONNECTED",
-        message:"سامانه احراز هویت هنوز به Backend متصل نشده است."
-      };
-    }
-
-    const response = await fetch(apiBase + "/api/auth/login",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Accept":"application/json"
-      },
-      credentials:"include",
-      body:JSON.stringify(payload)
-    });
-
-    let data = null;
-    try{ data = await response.json(); }catch(_){}
-
-    if(!response.ok){
-      return {
-        success:false,
-        code:data && data.code ? data.code : "AUTH_FAILED",
-        message:data && data.message ? data.message : "نام کاربری یا رمز عبور صحیح نیست."
-      };
-    }
-
-    return data;
-  }
-
-  function redirectByRole(role){
-    const routes = {
-      SUPER_ADMIN:"super-admin/dashboard.html",
-      ADMIN:"manager/dashboard.html",
-      CONSULTANT:"consultant/dashboard.html"
-    };
-
-    const destination = routes[String(role || "").toUpperCase()];
-    if(!destination) throw new Error("UNKNOWN_ROLE");
-    window.location.href = destination;
-  }
-
-  form.addEventListener("submit", async function(event){
-    event.preventDefault();
-    hideMessages();
-
-    if(!validate()) return;
-
-    if(remember.checked){
-      localStorage.setItem("moshaver-remembered-username", username.value.trim());
-    }else{
-      localStorage.removeItem("moshaver-remembered-username");
-    }
-
-    setLoading(true);
-
-    try{
-      const result = await loginRequest({
-        username:username.value.trim(),
-        password:password.value,
-        remember:remember.checked
-      });
-
-      if(!result || !result.success){
-        if(result && result.code === "BACKEND_NOT_CONNECTED"){
-          showError("Backend احراز هویت هنوز متصل نشده است. صفحه آماده اتصال به API واقعی است.");
-        }else{
-          showError((result && result.message) || "ورود انجام نشد. اطلاعات ورود را بررسی کنید.");
-        }
-        return;
-      }
-
-      const authData = result.data || {};
-      const user = authData.user || {};
-
-      if(authData.accessToken){
-        sessionStorage.setItem("moshaver-access-token", authData.accessToken);
-      }
-
-      if(authData.refreshToken){
-        sessionStorage.setItem("moshaver-refresh-token", authData.refreshToken);
-      }
-
-      sessionStorage.setItem("moshaver-user", JSON.stringify({
-        id:user.id || null,
-        username:user.username || username.value.trim(),
-        role:user.role || null,
-        organizationId:user.organizationId || null,
-        subscriptionStatus:user.subscriptionStatus || null
-      }));
-
-      showSuccess("ورود با موفقیت انجام شد. در حال انتقال...");
-      await new Promise(resolve => setTimeout(resolve, 450));
-      redirectByRole(user.role);
-
-    }catch(error){
-      console.error(error);
-      showError("ارتباط با سرور برقرار نشد. لطفاً دوباره تلاش کنید.");
-    }finally{
-      setLoading(false);
-    }
-  });
+  async function loginRequest(payload){if(!window.MOSHAVER_AUTH)throw new Error("AUTH_MODULE_NOT_LOADED");return window.MOSHAVER_AUTH.login(payload.username,payload.password);}
+  function redirectByRole(role){const routes={SUPER_ADMIN:"super-admin/dashboard.html",ADMIN:"manager/dashboard.html",MANAGER:"manager/dashboard.html",CONSULTANT:"consultant/dashboard.html"};const dest=routes[String(role||"").toUpperCase()];if(!dest)throw new Error("UNKNOWN_ROLE");window.location.href=dest;}
+  form.addEventListener("submit",async function(event){event.preventDefault();hideMessages();if(!validate())return;if(remember.checked)localStorage.setItem("moshaver-remembered-username",username.value.trim());else localStorage.removeItem("moshaver-remembered-username");setLoading(true);try{const result=await loginRequest({username:username.value.trim(),password:password.value});const user=result&&result.data&&result.data.user;if(!user||!user.role)throw new Error("USER_DATA_MISSING");showSuccess("ورود با موفقیت انجام شد. در حال انتقال...");await new Promise(resolve=>setTimeout(resolve,450));redirectByRole(user.role);}catch(error){console.error("Login error:",error);const code=String(error&&error.message||"");if(code==="INVALID_CREDENTIALS"||code==="LOGIN_FAILED")showError("نام کاربری یا رمز عبور صحیح نیست.");else if(code==="ACCOUNT_DISABLED"||code==="ACCOUNT_SUSPENDED")showError("این حساب غیرفعال یا مسدود شده است.");else if(code==="UNKNOWN_ROLE")showError("برای این حساب پنل معتبری تعریف نشده است.");else showError("ورود انجام نشد. اتصال سرور یا اطلاعات حساب را بررسی کنید.");}finally{setLoading(false);}});
 
   forgot.addEventListener("click", function(){
     showToast("بازیابی رمز عبور از طریق پنل مدیریت و Backend فعال خواهد شد.");
@@ -993,5 +860,7 @@ label{font-size:10px;color:var(--muted)}
 })();
 </script>
 
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
 </body>
 </html>
