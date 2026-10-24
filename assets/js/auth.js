@@ -129,7 +129,7 @@ isLoggedIn() {
 },
 
 getUser() {
-  const raw = localStorage.getItem(config.USER_KEY);
+  const raw = localStorage.getItem(config.USER_KEY) || sessionStorage.getItem("moshaver-user");
 
   if (!raw) {
     return null;
@@ -145,7 +145,7 @@ getUser() {
 },
 
 getToken() {
-  return localStorage.getItem(config.TOKEN_KEY);
+  return localStorage.getItem(config.TOKEN_KEY) || sessionStorage.getItem("moshaver-access-token");
 },
 
 getRole() {
