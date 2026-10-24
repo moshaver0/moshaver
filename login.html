@@ -983,21 +983,30 @@ async function loginRequest(payload) {
       const authData = result.data || {};
       const user = authData.user || {};
 
-      if(authData.accessToken){
-        sessionStorage.setItem("moshaver-access-token", authData.accessToken);
+      if(!authData.accessToken){
+        throw new Error("LOGIN_TOKEN_MISSING");
       }
 
-      if(authData.refreshToken){
-        sessionStorage.setItem("moshaver-refresh-token", authData.refreshToken);
-      }
-
-      sessionStorage.setItem("moshaver-user", JSON.stringify({
+      const savedUser = {
         id:user.id || null,
         username:user.username || username.value.trim(),
         role:user.role || null,
         organizationId:user.organizationId || null,
         subscriptionStatus:user.subscriptionStatus || null
+      };
+
+      localStorage.setItem("moshaver_access_token", String(authData.accessToken));
+      localStorage.setItem("moshaver_user", JSON.stringify(savedUser));
+      localStorage.setItem("moshaver_session", JSON.stringify({
+        loggedIn: true,
+        savedAt: Date.now()
       }));
+
+      sessionStorage.setItem("moshaver-access-token", String(authData.accessToken));
+      if(authData.refreshToken){
+        sessionStorage.setItem("moshaver-refresh-token", authData.refreshToken);
+      }
+      sessionStorage.setItem("moshaver-user", JSON.stringify(savedUser));
 
       showSuccess("ورود با موفقیت انجام شد. در حال انتقال...");
       await new Promise(resolve => setTimeout(resolve, 450));
