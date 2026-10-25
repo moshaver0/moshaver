@@ -698,6 +698,19 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   }
 })();
 </script>
+<script>
+/* MOSHAVER: require login before showing panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\//, "");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) { window.location.replace("../login.html"); }
+})();
+</script>
 </head>
 
 <body>
