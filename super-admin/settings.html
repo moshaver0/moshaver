@@ -163,6 +163,19 @@ body.light .field input,body.light .field select,body.light .field textarea{back
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
+<script>
+/* MOSHAVER: require login before showing panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\//, "");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) { window.location.replace("../login.html"); }
+})();
+</script>
 </head>
 <body>
 <div class="ambient"><span class="orb one"></span><span class="orb two"></span><span class="cross c1"></span><span class="cross c2"></span><span class="cross c3"></span></div>
