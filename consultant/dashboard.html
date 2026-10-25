@@ -1043,6 +1043,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 
   const root = document.documentElement;
   const $ = (selector, scope=document) => scope.querySelector(selector);
+  const safe = value => String(value ?? "").replace(/[&<>"']/g, m => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[m]));
 
   /* ===== Theme ===== */
   const themeKey = "moshaver_theme";
@@ -1163,7 +1164,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
           const status=String(a.status||"pending").toLowerCase();
           const klass=status==="confirmed"?"green":status==="completed"?"purple":status==="cancelled"?"red":"yellow";
           const label=({confirmed:"تأیید شده",pending:"در انتظار",completed:"انجام شده",cancelled:"لغو شده"})[status]||status;
-          return '<div class="appointment"><div class="time"><strong>'+String(a.time||"—")+'</strong><span></span></div><div class="person"><div class="avatar">'+String(name).slice(0,1)+'</div><div><strong>'+name+'</strong><small>'+String(a.service||"نوبت")+'</small></div></div><span class="status '+klass+'">'+label+'</span></div>';
+          return '<div class="appointment"><div class="time"><strong>'+safe(a.time||"—")+'</strong><span></span></div><div class="person"><div class="avatar">'+safe(String(name).slice(0,1))+'</div><div><strong>'+safe(name)+'</strong><small>'+safe(a.service||"نوبت")+'</small></div></div><span class="status '+klass+'">'+label+'</span></div>';
         }).join(""):'<div class="appointment"><div class="person"><div><strong>نوبتی برای امروز ثبت نشده است.</strong></div></div></div>';
       }
       const progress=document.querySelectorAll(".progress-row");
@@ -1177,7 +1178,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
         follows.forEach(x=>events.push({date:x.updatedAt||x.createdAt,title:"پیگیری",detail:String(x.title||"")}));
         notes.forEach(x=>events.push({date:x.updatedAt||x.createdAt,title:"یادداشت",detail:String(x.title||"")}));
         events.sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
-        activityRoot.innerHTML=events.length?events.slice(0,4).map((x,i)=>'<div class="activity-item"><div class="activity-dot">'+["♙","◫","↻","✎"][i]+'</div><div><strong>'+x.title+'</strong><small>'+x.detail+'</small></div><span class="activity-time">'+String(x.date||"").slice(0,10)+'</span></div>').join(""):'<div class="activity-item"><div><strong>فعالیتی ثبت نشده است.</strong></div></div>';
+        activityRoot.innerHTML=events.length?events.slice(0,4).map((x,i)=>'<div class="activity-item"><div class="activity-dot">'+["♙","◫","↻","✎"][i]+'</div><div><strong>'+safe(x.title)+'</strong><small>'+safe(x.detail)+'</small></div><span class="activity-time">'+safe(String(x.date||"").slice(0,10))+'</span></div>').join(""):'<div class="activity-item"><div><strong>فعالیتی ثبت نشده است.</strong></div></div>';
       }
       const badge=document.querySelector(".nav-badge");if(badge)badge.textContent=String(todayFollows.length+overdueFollows.length);
       window.MOSHAVER_DASHBOARD_NOTICE="امروز "+todayFollows.length+" پیگیری و "+todaysAppointments.length+" نوبت از سرور دریافت شد.";
