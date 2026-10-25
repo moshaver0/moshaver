@@ -683,6 +683,21 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 @keyframes progressIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 </style>
 
+<script>
+/* MOSHAVER: require an existing login before displaying panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\\/m?/,"");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) {
+    window.location.replace("../login.html");
+  }
+})();
+</script>
 </head>
 
 <body>
