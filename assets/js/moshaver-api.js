@@ -67,7 +67,7 @@
       gender: c.gender || "UNSPECIFIED", birthDate: c.birthDate || "",
       occupation: c.occupation || "", address: c.address || "", city: c.city || "",
       source: c.source || "WEB", status: String(c.status || "ACTIVE").toUpperCase(),
-      priority: c.priority || "NORMAL", tags: c.tags || [], notes: c.notes || c.description || "",
+      priority: c.priority || "NORMAL", tags: c.tags || [], notes: c.notes || "",
       age: c.age || "", service: c.service || "", mode: c.mode || "حضوری",
       payment: c.payment || "cash", deposit: Number(c.deposit) || 0,
       allergy: !!c.allergy, allergyDescription: c.allergyDescription || "",
