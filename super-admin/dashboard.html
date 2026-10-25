@@ -46,6 +46,21 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
 @media(max-width:580px){.content{padding-top:15px}.top-actions .profile-btn{display:none}.kpi{grid-column:span 12;min-height:125px}.grid{gap:10px}.panel{padding:15px}.metric-side{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-actions{flex-wrap:wrap}.notifications{left:12px;right:12px;width:auto}.hero-actions{flex-wrap:wrap}.primary,.secondary{flex:1}.toast{left:12px;bottom:85px;right:12px;min-width:0}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
+<script>
+/* MOSHAVER: require an existing login before displaying panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\\/m?/,"");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) {
+    window.location.replace("../login.html");
+  }
+})();
+</script>
 </head>
 <body>
 <div class="ambient"><i></i><i></i></div>
