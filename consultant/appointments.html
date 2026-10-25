@@ -181,7 +181,22 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
 .finance-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.finance-edit-grid .full{grid-column:1/-1}
 @media(max-width:600px){.calendar-body{max-height:68vh}.finance-edit-grid{grid-template-columns:1fr}.finance-edit-grid .full{grid-column:auto}}
 </style>
- </head>
+ <script>
+/* MOSHAVER: require an existing login before displaying panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\\/m?/,"");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) {
+    window.location.replace("../login.html");
+  }
+})();
+</script>
+</head>
  <body>
   <div class="print-title" id="printTitle">گزارش نوبت‌ها — MOSHAVER</div>
   <div class="app">
