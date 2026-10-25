@@ -85,6 +85,21 @@ html[data-theme=light] .status-pill.active{color:#047857;background:rgba(5,150,1
 
 .history-edit{background:rgba(168,85,247,.10)!important;border:1px solid rgba(168,85,247,.25)!important;color:var(--purple3)!important}.history-delete{background:rgba(220,38,38,.09)!important;border:1px solid rgba(220,38,38,.28)!important;color:#dc2626!important}.history-edit:hover,.history-delete:hover{transform:translateY(-2px) rotate(-3deg)}
 </style>
+
+<script>
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      window.location.replace("../login.html?next=consultant/clients.html");
+    }
+  } catch (e) {
+    window.location.replace("../login.html?next=consultant/clients.html");
+  }
+})();
+</script>
+
 </head>
 <body>
 <div class="app">
