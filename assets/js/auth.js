@@ -36,7 +36,6 @@ const normalizedPassword = String(password || "");
     password: normalizedPassword
   });
 
-  console.log("MOSHAVER LOGIN RESPONSE:", response);
 
   if (!response || response.success !== true) {
     const code = response?.error?.code || response?.error?.message || "LOGIN_FAILED";
@@ -79,7 +78,6 @@ async getCurrentUser() {
       accessToken: token
     });
 
-    console.log("MOSHAVER ME RESPONSE:", response);
 
     if (!response || response.success !== true) {
       const code = String(
