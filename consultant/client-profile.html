@@ -18,7 +18,7 @@ html[data-theme=light]{--bg:#f5f1fa;--bg2:#eee8f6;--s(255,255,255,.62);--s2(255,
     var token = localStorage.getItem("moshaver_access_token") ||
       sessionStorage.getItem("moshaver-access-token");
     if (!token) {
-      var next = location.pathname.replace(/^\\/m?/,"");
+      var next = location.pathname.replace(/^\/+/,"");
       window.location.replace("../login.html?next=" + encodeURIComponent(next));
     }
   } catch (e) {
