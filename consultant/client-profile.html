@@ -84,7 +84,7 @@ async function bootProfile(){
  $('#ov')?.addEventListener('click',()=>{$('#side').classList.remove('open');$('#ov').classList.remove('open')});
  $('#more')?.addEventListener('click',()=>{$('#side').classList.add('open');$('#ov').classList.add('open')});
  $$('[data-route]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.route)}));
- $('#logout')?.addEventListener('click',()=>{localStorage.removeItem('moshaver_access_token');sessionStorage.removeItem('moshaver-access-token');localStorage.removeItem('moshaver_user');location.href='../login.html'});
+ $('#logout')?.addEventListener('click',async()=>{try{if(window.MOSHAVER_AUTH)await window.MOSHAVER_AUTH.logout()}finally{localStorage.removeItem('moshaver_access_token');sessionStorage.removeItem('moshaver-access-token');localStorage.removeItem('moshaver_user');localStorage.removeItem('moshaver_session');location.href='../login.html'}});
  $('#notifications')?.addEventListener('click',()=>profileToast('اعلان‌ها','اعلان‌ها از این صفحه هنوز پشتیبانی نمی‌شوند.'));
  $('#sms')?.addEventListener('click',()=>profileToast('ارسال پیامک','اتصال سرویس پیامک در این صفحه فعال نشده است.'));
  $('#apt')?.addEventListener('click',()=>go('appointments'));$('#fol')?.addEventListener('click',()=>go('follow-ups'));$('#note')?.addEventListener('click',()=>go('notes'));
