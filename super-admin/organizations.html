@@ -191,6 +191,21 @@ tbody tr{transition:.22s}tbody tr:hover{background:var(--surface3)}
 @media(max-width:430px){.details-grid{grid-template-columns:1fr}.main{padding-left:8px;padding-right:8px}.topbar{padding:8px}.hero-art{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
+<script>
+/* MOSHAVER: require an existing login before displaying panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\\/m?/,"");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) {
+    window.location.replace("../login.html");
+  }
+})();
+</script>
 </head>
 <body>
 <div class="ambient"><i></i><i></i></div>
