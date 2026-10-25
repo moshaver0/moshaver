@@ -100,6 +100,21 @@ html[data-theme=light] .status-pill.active{color:#047857;background:rgba(5,150,1
 })();
 </script>
 
+<script>
+/* MOSHAVER: require an existing login before displaying panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\\/m?/,"");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) {
+    window.location.replace("../login.html");
+  }
+})();
+</script>
 </head>
 <body>
 <div class="app">
