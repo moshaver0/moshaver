@@ -1983,7 +1983,7 @@ function bindMoneyInputs(){['#completionAmount','#completionCommission','#deposi
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const LS={clients:'moshaver_clients',appointments:'moshaver_appointments',activity:'moshaver_activity',theme:'moshaver_theme',user:'moshaver_user'};
 const SERVICES=['عمل بینی','کاشت ابرو','کاشت مو','تزریق ژل','تزریق بوتاکس','فیلر لب','فیلر گونه','لیفت صورت','لیزر موهای زائد','جوانسازی پوست','میکرونیدلینگ','مزوتراپی','هایفو','RF','کانتورینگ صورت','بلفاروپلاستی','پیکرتراشی','لیپوساکشن','مراقبت پوست','مشاوره زیبایی','ویزیت عمومی'];
-let clients=[],appointments=[],activity=[],selectedClientId='',editingId='',view='day',cursorDate=new Date(),currentPage=1,pageSize=10;
+let clients=[],appointments=[],activity=[],finance=[],remoteAppointments=new Map(),remoteFinance=new Map(),saveQueue=Promise.resolve(),financeSaveQueue=Promise.resolve(),selectedClientId='',editingId='',view='day',cursorDate=new Date(),currentPage=1,pageSize=10;
 const faDigits='۰۱۲۳۴۵۶۷۸۹';
 
 function faNum(v){return String(v??'').replace(/\d/g,d=>faDigits[+d])} function enNum(v){return String(v??'').replace(/[۰-۹]/g,d=>faDigits.indexOf(d))}
@@ -2020,14 +2020,13 @@ function statusClass(s){return s||'pending'} function initials(c){return (c?.fir
 // 03. DATA / LOCAL STORAGE
 // =========================================================
 
-async function load(){try{activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){activity=[]}if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn()){clients=[];appointments=[];toast('ورود لازم است','برای دریافت اطلاعات از سرور دوباره وارد حساب شوید.',false);return}try{const result=await Promise.all([window.MOSHAVER_API.clients.list(),window.MOSHAVER_API.appointments.list()]);clients=result[0]||[];appointments=(result[1]||[]).map(a=>({...a,id:a.id||a.appointmentId}));normalizeAppointments();remoteAppointments=new Map(appointments.map(a=>[String(a.id),JSON.stringify(a)]))}catch(e){clients=[];appointments=[];remoteAppointments=new Map();toast('خطا در دریافت اطلاعات','نوبت‌ها از سرور دریافت نشدند: '+(e.message||'خطای اتصال'),false);console.error(e)}}
+async function load(){try{activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){activity=[]}if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn()){clients=[];appointments=[];toast('ورود لازم است','برای دریافت اطلاعات از سرور دوباره وارد حساب شوید.',false);return}try{const result=await Promise.all([window.MOSHAVER_API.clients.list(),window.MOSHAVER_API.appointments.list(),window.MOSHAVER_API.finance.list()]);clients=result[0]||[];appointments=(result[1]||[]).map(a=>({...a,id:a.id||a.appointmentId}));finance=result[2]||[];normalizeAppointments();remoteAppointments=new Map(appointments.map(a=>[String(a.id),JSON.stringify(a)]));remoteFinance=new Map(finance.map(x=>[String(x.id),JSON.stringify(x)]))}catch(e){clients=[];appointments=[];finance=[];remoteAppointments=new Map();remoteFinance=new Map();toast('خطا در دریافت اطلاعات','نوبت‌ها از سرور دریافت نشدند: '+(e.message||'خطای اتصال'),false);console.error(e)}}
 
 function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x[0],lastName:x[1],mobile:x[2],service:x[3],status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
 
 function normalizeAppointments(){appointments=appointments.map(a=>({...a,status:a.status||'pending',reminder:a.reminder!==false,mode:a.mode||'حضوری',date:a.date||a.jalaliDate||jalaliStr(new Date()),time:a.time||'10:00',duration:Number(a.duration)||60,service:a.service||'',notes:a.notes||'',createdAt:a.createdAt||new Date().toISOString(),updatedAt:a.updatedAt||new Date().toISOString()}))}
 
-function save(){localStorage.setItem(LS.activity,JSON.stringify(activity.slice(0,500)));if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn())return Promise.resolve();const desired=appointments.map(a=>({...a}));saveQueue=saveQueue.then(async()=>{const next=new Map(desired.map(a=>[String(a.id),a]));for(const a of desired){const id=String(a.id);const prior=remoteAppointments.get(id);if(!prior)await window.MOSHAVER_API.appointments.create(a);else if(prior!==JSON.stringify(a))await window.MOSHAVER_API.appointments.update(a)}for(const [id] of remoteAppointments){if(!next.has(id))await window.MOSHAVER_API.appointments.remove(id)}remoteAppointments=new Map(desired.map(a=>[String(a.id),JSON.stringify(a)]))}).catch(e=>{console.error(e);toast('ذخیره در سرور ناموفق بود',e.message||'خطای اتصال',false)});return saveQueue}
-
+function save(){localStorage.setItem(LS.activity,JSON.stringify(activity.slice(0,500)));if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn())return Promise.resolve();const desired=appointments.map(a=>({...a}));saveQueue=saveQueue.then(async()=>{const next=new Map(desired.map(a=>[String(a.id),a]));for(const a of desired){const id=String(a.id);const prior=remoteAppointments.get(id);if(!prior)await window.MOSHAVER_API.appointments.create(a);else if(prior!==JSON.stringify(a))await window.MOSHAVER_API.appointments.update(a)}for(const [id] of remoteAppointments){if(!next.has(id))await window.MOSHAVER_API.appointments.remove(id)}remoteAppointments=new Map(desired.map(a=>[String(a.id),JSON.stringify(a)]))}).catch(e=>{console.error(e);toast('ذخیره نوبت در سرور ناموفق بود',e.message||'خطای اتصال',false)});return saveQueue}
 function clientById(id){return clients.find(c=>c.id===id)} function apptDate(a){return jToDate(a.date)}
 
 function apptsOn(d){return appointments.filter(a=>{const x=apptDate(a);return x&&sameDay(x,d)&&a.status!=='cancelled'})}
@@ -2042,12 +2041,7 @@ function attendanceRate(){const done=appointments.filter(a=>['completed','no-sho
 
 function log(message,id){activity.unshift({id:uid('ACT'),type:'appointment',message,appointmentId:id,at:new Date().toISOString()})}
 
-function financeRecords(){
-  try{return JSON.parse(localStorage.getItem('moshaver_finance')||'[]')}catch(e){return []}
-}
-
-function saveFinance(records){localStorage.setItem('moshaver_finance',JSON.stringify(records))}
-
+function financeRecords(){return finance} function saveFinance(records){finance=records||[];if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn())return Promise.resolve();const desired=finance.map(x=>({...x}));financeSaveQueue=financeSaveQueue.then(async()=>{const next=new Map(desired.map(x=>[String(x.id),x]));for(const item of desired){const id=String(item.id);const prior=remoteFinance.get(id);if(!prior)await window.MOSHAVER_API.finance.create(item);else if(prior!==JSON.stringify(item))await window.MOSHAVER_API.finance.update(item)}for(const [id] of remoteFinance){if(!next.has(id))await window.MOSHAVER_API.finance.remove(id)}remoteFinance=new Map(desired.map(x=>[String(x.id),JSON.stringify(x)]))}).catch(e=>{console.error(e);toast('ذخیره اطلاعات مالی در سرور ناموفق بود',e.message||'خطای اتصال',false)});return financeSaveQueue}
 function money(v){return faNum(Number(v||0).toLocaleString('en-US'))}
 
 function financeTotals(){
@@ -2218,8 +2212,8 @@ function finalizeAppointment(e){
   if(amount<0||commission<0){toast('مبلغ نامعتبر','مبلغ و پورسانت نمی‌توانند منفی باشند.',false);return}
   const records=financeRecords();
   let r=records.find(x=>x.appointmentId===id);
-  if(r){Object.assign(r,{amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),updatedAt:new Date().toISOString()})}
-  else{r={id:uid('FIN'),appointmentId:id,amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientName:(c.firstName||'')+' '+(c.lastName||''),createdAt:new Date().toISOString()};records.push(r)}
+  if(r){Object.assign(r,{amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientId:a.clientId,clientName:(c.firstName||'')+' '+(c.lastName||''),updatedAt:new Date().toISOString()})}
+  else{r={id:uid('FIN'),appointmentId:id,amount,commission,payment:$('#completionPayment').value,note:$('#completionNote').value.trim(),date:a.date,clientId:a.clientId,clientName:(c.firstName||'')+' '+(c.lastName||''),createdAt:new Date().toISOString()};records.push(r)}
   a.status='completed'; a.finalized=true; a.amount=amount; a.commission=commission; a.completionNote=r.note; a.completedAt=new Date().toISOString(); a.updatedAt=new Date().toISOString();
   c.successfulServices=[...(c.successfulServices||[]),{appointmentId:id,date:a.date,service:a.service,amount,commission,completedAt:a.completedAt}].filter((x,i,arr)=>arr.findIndex(y=>y.appointmentId===x.appointmentId)===i);
   activity.unshift({id:uid('ACT'),type:'appointment.completed',message:`خدمات ${c.firstName||'مراجع'} ${c.lastName||''} با موفقیت تکمیل شد`,appointmentId:id,at:new Date().toISOString()});
