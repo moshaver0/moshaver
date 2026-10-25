@@ -20,6 +20,24 @@
   }
   function input(record) { return {input: JSON.stringify(record || {})}; }
   function items(result) { return Array.isArray(result) ? result : (result && Array.isArray(result.items) ? result.items : []); }
+  function parseJson(value, fallback) {
+    if (value === undefined || value === null || value === "") return fallback;
+    if (typeof value === "object") return value;
+    try { return JSON.parse(String(value)); } catch (_) { return fallback; }
+  }
+  function safeFileRef(value) {
+    if (!value) return null;
+    const x = typeof value === "object" ? value : parseJson(value, null);
+    if (!x || typeof x !== "object") return null;
+    const ref = {};
+    ["name","fileId","url","mimeType","size","createdAt"].forEach(k => {
+      if (x[k] !== undefined && x[k] !== null) ref[k] = x[k];
+    });
+    return ref;
+  }
+  function safeFileRefs(value) {
+    return (Array.isArray(value) ? value : parseJson(value, [])).map(safeFileRef).filter(Boolean);
+  }
   function clientFromApi(c) {
     return Object.assign({}, c, {
       id: c.clientId || c.id,
@@ -28,8 +46,13 @@
       status: String(c.status || "ACTIVE").toLowerCase(),
       mode: c.mode || "حضوری",
       payment: c.payment || "cash",
-      contacts: Array.isArray(c.contacts) ? c.contacts : [],
-      allergy: Boolean(c.allergy), disease: Boolean(c.disease), lab: Boolean(c.lab)
+      contacts: parseJson(c.contacts, []),
+      beforeImages: safeFileRefs(c.beforeImages),
+      afterImages: safeFileRefs(c.afterImages),
+      depositImage: safeFileRef(c.depositImage),
+      allergy: c.allergy === true || String(c.allergy).toLowerCase() === "true",
+      disease: c.disease === true || String(c.disease).toLowerCase() === "true",
+      lab: c.lab === true || String(c.lab).toLowerCase() === "true"
     });
   }
   function clientToApi(c) {
@@ -41,7 +64,16 @@
       gender: c.gender || "UNSPECIFIED", birthDate: c.birthDate || "",
       occupation: c.occupation || "", address: c.address || "", city: c.city || "",
       source: c.source || "WEB", status: String(c.status || "ACTIVE").toUpperCase(),
-      priority: c.priority || "NORMAL", tags: c.tags || [], notes: c.notes || c.description || ""
+      priority: c.priority || "NORMAL", tags: c.tags || [], notes: c.notes || c.description || "",
+      age: c.age || "", service: c.service || "", mode: c.mode || "حضوری",
+      payment: c.payment || "cash", deposit: Number(c.deposit) || 0,
+      allergy: !!c.allergy, allergyDescription: c.allergyDescription || "",
+      disease: !!c.disease, diseaseDescription: c.diseaseDescription || "", lab: !!c.lab,
+      lastDate: c.lastDate || "", lastTime: c.lastTime || "",
+      followDate: c.followDate || "", followTime: c.followTime || "",
+      description: c.description || "", contacts: c.contacts || [],
+      beforeImages: safeFileRefs(c.beforeImages), afterImages: safeFileRefs(c.afterImages),
+      depositImage: safeFileRef(c.depositImage)
     };
   }
   const api = {
@@ -71,6 +103,9 @@
       create: record => call("notesCreate", input(record)),
       update: record => call("notesUpdate", input(record)),
       remove: id => call("notesDelete", input({noteId:id}))
+    },
+    files: {
+      uploadClient: payload => call("clientFileUpload", input(payload || {}))
     }
   };
   window.MOSHAVER_API = api;
