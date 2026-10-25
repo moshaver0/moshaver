@@ -690,7 +690,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     var token = localStorage.getItem("moshaver_access_token") ||
       sessionStorage.getItem("moshaver-access-token");
     if (!token) {
-      var next = location.pathname.replace(/^\\/m?/,"");
+      var next = location.pathname.replace(/^\/+/,"");
       window.location.replace("../login.html?next=" + encodeURIComponent(next));
     }
   } catch (e) {
