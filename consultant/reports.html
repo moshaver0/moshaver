@@ -411,7 +411,10 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
       بیشتر
      </span>
 </button>
-</nav></div></div><script>
+</nav></div></div><script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/moshaver-api.js"></script>
+<script>
 /* 01 — DOM / STORAGE / CONSTANTS */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const LS={clients:'moshaver_clients',appointments:'moshaver_appointments',finance:'moshaver_finance',followups:'moshaver_followups_v1',activity:'moshaver_activity',theme:'moshaver_theme',user:'moshaver_user'};
@@ -426,7 +429,7 @@ function jalali(d){d=gDate(d);const gy=d.getFullYear(),gm=d.getMonth()+1,gd=d.ge
 function nowText(v){return jalali(v)+' · '+gDate(v).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})}
 function startOfWeek(d){d=gDate(d);const x=new Date(d);const day=x.getDay();x.setDate(x.getDate()-(day===0?6:day-1));x.setHours(0,0,0,0);return x}
 /* 03 — DATA / NORMALIZATION */
-function load(){clients=read(LS.clients);appointments=read(LS.appointments);finance=read(LS.finance);followups=read(LS.followups);activity=read(LS.activity)}
+async function load(){finance=read(LS.finance);activity=read(LS.activity);if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn()){clients=[];appointments=[];followups=[];toast('برای دریافت گزارش‌ها دوباره وارد حساب شوید.');return}try{const result=await Promise.all([window.MOSHAVER_API.clients.list(),window.MOSHAVER_API.appointments.list(),window.MOSHAVER_API.followUps.list()]);clients=result[0]||[];appointments=result[1]||[];followups=result[2]||[]}catch(e){clients=[];appointments=[];followups=[];console.error(e);toast('دریافت داده‌های گزارش از سرور ناموفق بود')}}
 function clientName(id){const c=clients.find(x=>String(x.id||x.clientId)===String(id));return c?`${c.firstName||c.name||''} ${c.lastName||''}`.trim()||c.name||'مراجع بدون نام':'مراجع حذف‌شده'}
 function amountOf(x){return Number(String(x?.amount??x?.income??x?.receivedAmount??0).replace(/,/g,''))||0}
 function commissionOf(x){return Number(String(x?.commission??x?.commissionAmount??0).replace(/,/g,''))||0}
@@ -452,5 +455,5 @@ function exportExcel(){const m=compute();const html=`<table><tr><th>شاخص</th
 function wire(){bindShell();$('#refreshReport').onclick=()=>{load();renderAll();toast('گزارش‌ها بروزرسانی شد')};$('#printReport').onclick=()=>window.print();$('#exportPdf').onclick=()=>window.print();$('#exportExcel').onclick=exportExcel;$('#financeSearch').oninput=()=>{page=1;renderFinance()};$('#financeMethod').onchange=()=>{page=1;renderFinance()};$('#financeSort').onchange=()=>{page=1;renderFinance()};$('#clearFinance').onclick=()=>{$('#financeSearch').value='';$('#financeMethod').value='all';$('#financeSort').value='new';page=1;renderFinance()};$('#financePagination').onclick=e=>{const b=e.target.closest('[data-page]');if(!b)return;page=Number(b.dataset.page);renderFinance()};$('#reportKpis').onclick=e=>{const k=e.target.closest('[data-kpi]')?.dataset.kpi;if(!k)return;if(k==='clients')location.href='clients.html';if(k==='appointments')location.href='appointments.html';if(k==='followups')location.href='follow-ups.html';if(k==='income'||k==='commission')document.querySelectorAll('.report-panel')[2]?.scrollIntoView({behavior:'smooth'});if(k==='completed')location.href='appointments.html?status=completed'};$('#openActivity').onclick=()=>toast('فهرست فعالیت‌ها از لاگ‌های همین پنل ساخته می‌شود')}
 /* 11 — RENDER */
 function renderAll(){renderKpis();renderTrend();renderStatus();renderFinance();renderActivity()}
-load();wire();renderAll();
+wire();load().then(()=>renderAll()).catch(e=>{console.error(e);renderAll()});
 </script></body></html>
