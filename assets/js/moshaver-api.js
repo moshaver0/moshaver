@@ -50,6 +50,7 @@
       mode: c.mode || "حضوری",
       payment: c.payment || "cash",
       contacts: parseJson(c.contacts, []),
+      successfulServices: parseJson(c.successfulServices, []),
       beforeImages: safeFileRefs(c.beforeImages),
       afterImages: safeFileRefs(c.afterImages),
       depositImage: safeFileRef(c.depositImage),
@@ -74,7 +75,7 @@
       disease: !!c.disease, diseaseDescription: c.diseaseDescription || "", lab: !!c.lab,
       lastDate: c.lastDate || "", lastTime: c.lastTime || "",
       followDate: c.followDate || "", followTime: c.followTime || "",
-      description: c.description || "", contacts: c.contacts || [],
+      description: c.description || "", contacts: c.contacts || [], successfulServices: c.successfulServices || [],
       beforeImages: safeFileRefs(c.beforeImages), afterImages: safeFileRefs(c.afterImages),
       depositImage: safeFileRef(c.depositImage)
     };
