@@ -101,6 +101,12 @@
       update: record => call("followUpsUpdate", input(record)),
       remove: id => call("followUpsDelete", input({id}))
     },
+    finance: {
+      list: filters => call("financeList", filters || {}).then(items),
+      create: record => call("financeCreate", input(record)),
+      update: record => call("financeUpdate", input(record)),
+      remove: id => call("financeDelete", input({id}))
+    },
     notes: {
       list: filters => call("notesList", filters || {}).then(items),
       create: record => call("notesCreate", input(record)),
