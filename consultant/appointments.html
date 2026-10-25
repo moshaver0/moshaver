@@ -1954,7 +1954,10 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
      </form>
     </div>
    </div>
-   <script>
+   <script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/moshaver-api.js"></script>
+<script>
 
     (function(){'use strict';
 // =========================================================
@@ -2017,13 +2020,13 @@ function statusClass(s){return s||'pending'} function initials(c){return (c?.fir
 // 03. DATA / LOCAL STORAGE
 // =========================================================
 
-function load(){try{clients=JSON.parse(localStorage.getItem(LS.clients)||'[]');appointments=JSON.parse(localStorage.getItem(LS.appointments)||'[]');activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){clients=[];appointments=[];activity=[]}if(!clients.length){seedClients()}normalizeAppointments();save()}
+async function load(){try{activity=JSON.parse(localStorage.getItem(LS.activity)||'[]')}catch(e){activity=[]}if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn()){clients=[];appointments=[];toast('ورود لازم است','برای دریافت اطلاعات از سرور دوباره وارد حساب شوید.',false);return}try{const result=await Promise.all([window.MOSHAVER_API.clients.list(),window.MOSHAVER_API.appointments.list()]);clients=result[0]||[];appointments=(result[1]||[]).map(a=>({...a,id:a.id||a.appointmentId}));normalizeAppointments();remoteAppointments=new Map(appointments.map(a=>[String(a.id),JSON.stringify(a)]))}catch(e){clients=[];appointments=[];remoteAppointments=new Map();toast('خطا در دریافت اطلاعات','نوبت‌ها از سرور دریافت نشدند: '+(e.message||'خطای اتصال'),false);console.error(e)}}
 
 function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','محمدی','09121234567','عمل بینی'],['رضا','احمدی','09129876543','کاشت مو'],['نرگس','کریمی','09351234567','کاشت ابرو']].map((x,i)=>({id:'CL-'+(1001+i),firstName:x[0],lastName:x[1],mobile:x[2],service:x[3],status:'active',mode:'حضوری',city:'تهران',followDate:t,contacts:[]}));localStorage.setItem(LS.clients,JSON.stringify(clients))}
 
 function normalizeAppointments(){appointments=appointments.map(a=>({...a,status:a.status||'pending',reminder:a.reminder!==false,mode:a.mode||'حضوری',date:a.date||a.jalaliDate||jalaliStr(new Date()),time:a.time||'10:00',duration:Number(a.duration)||60,service:a.service||'',notes:a.notes||'',createdAt:a.createdAt||new Date().toISOString(),updatedAt:a.updatedAt||new Date().toISOString()}))}
 
-function save(){localStorage.setItem(LS.clients,JSON.stringify(clients));localStorage.setItem(LS.appointments,JSON.stringify(appointments));localStorage.setItem(LS.activity,JSON.stringify(activity.slice(0,500)))}
+function save(){localStorage.setItem(LS.activity,JSON.stringify(activity.slice(0,500)));if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn())return Promise.resolve();const desired=appointments.map(a=>({...a}));saveQueue=saveQueue.then(async()=>{const next=new Map(desired.map(a=>[String(a.id),a]));for(const a of desired){const id=String(a.id);const prior=remoteAppointments.get(id);if(!prior)await window.MOSHAVER_API.appointments.create(a);else if(prior!==JSON.stringify(a))await window.MOSHAVER_API.appointments.update(a)}for(const [id] of remoteAppointments){if(!next.has(id))await window.MOSHAVER_API.appointments.remove(id)}remoteAppointments=new Map(desired.map(a=>[String(a.id),JSON.stringify(a)]))}).catch(e=>{console.error(e);toast('ذخیره در سرور ناموفق بود',e.message||'خطای اتصال',false)});return saveQueue}
 
 function clientById(id){return clients.find(c=>c.id===id)} function apptDate(a){return jToDate(a.date)}
 
@@ -2319,9 +2322,9 @@ function wire(){
 function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='complete')openCompletion(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
 
 function updateSidebarScroll(){const s=$('#sidebar');const t=$('#sidebarScrollThumb');if(!s||!t)return;const max=s.scrollHeight-s.clientHeight;const ratio=max>0?s.clientHeight/s.scrollHeight:1;t.style.height=Math.max(38,Math.round(s.clientHeight*ratio))+'px';t.style.top=(max>0?(s.scrollTop/max)*(s.clientHeight-parseFloat(t.style.height)):0)+'px'}
-load();fillClientOptions();setTheme();wire();$$('.mobile-nav a').forEach(a=>{if(a.pathname===location.pathname)a.classList.add('active')});
+load().then(()=>{fillClientOptions();setTheme();wire();$('.mobile-nav a').forEach(a=>{if(a.pathname===location.pathname)a.classList.add('active')});
 const params=new URLSearchParams(location.search);if(params.get('client')){setTimeout(()=>openForm('',params.get('client')),120)}else if(params.get('new')==='1'){setTimeout(()=>openForm(),120)}
-renderAll();updateSidebarScroll();
+renderAll();updateSidebarScroll();});
 })();
    
 </script>
