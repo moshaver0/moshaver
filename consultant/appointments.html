@@ -196,6 +196,19 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
   }
 })();
 </script>
+<script>
+/* MOSHAVER: require login before showing panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\//, "");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) { window.location.replace("../login.html"); }
+})();
+</script>
 </head>
  <body>
   <div class="print-title" id="printTitle">گزارش نوبت‌ها — MOSHAVER</div>
