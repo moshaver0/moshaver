@@ -56,6 +56,19 @@ html[data-theme=light] .floating-cross{color:rgba(124,58,237,.40)}
 @media(max-width:560px){.top-actions .profile-btn{display:none}.content{padding-top:13px}.hero{min-height:0}.hero p{font-size:10px}.hero-actions{flex-direction:column}.hero-actions button{width:100%}.grid{gap:10px}.kpi{grid-column:span 12;min-height:125px}.summary-grid{grid-template-columns:1fr 1fr}.breakdown,.activity{grid-column:span 12}.panel{padding:14px}.panel-head{align-items:center}.panel-actions .small-btn.hide-mobile{display:none}.filters{display:grid;grid-template-columns:1fr 1fr}.filter.grow{grid-column:1/-1}.chart-wrap{height:255px}.scroll-top{left:16px;bottom:82px}.report-actions{flex-direction:column}.report-actions button{width:100%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
+<script>
+/* MOSHAVER: require login before showing panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\//, "");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) { window.location.replace("../login.html"); }
+})();
+</script>
 </head>
 <body>
 <div class="ambient"><i></i><i></i></div>
