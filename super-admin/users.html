@@ -101,6 +101,19 @@ th,td{padding:14px 12px;text-align:right;border-bottom:1px solid var(--line);fon
 @media(max-width:760px){.app{display:block}.sidebar{position:fixed;top:auto;bottom:0;right:0;left:0;width:100%;height:70px;padding:7px 10px;border:0;border-top:1px solid var(--line)}.brand,.sidebar-bottom{display:none}.nav{display:flex;justify-content:space-around}.nav a{width:52px;height:54px;padding:5px}.nav a.active:before{right:8px;left:8px;top:auto;bottom:3px;width:auto;height:2px}.main{padding:17px 13px 88px}.hero-main,.quick,.section{padding:17px}.hero-metrics{grid-template-columns:1fr}.kpis{gap:9px}.kpi{padding:14px}.kpi strong{font-size:19px}.toolbar{flex-direction:column;align-items:stretch}.filters{display:grid;grid-template-columns:1fr 1fr}.input{grid-column:1/-1;min-width:0}.select{min-width:0}.primary{width:100%}.bottom-grid{grid-template-columns:1fr}.form-grid,.detail-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.floating-x{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
+<script>
+/* MOSHAVER: require login before showing panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\//, "");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) { window.location.replace("../login.html"); }
+})();
+</script>
 </head>
 <body>
 <div class="floating-x x1"></div><div class="floating-x x2"></div><div class="floating-x x3"></div>
