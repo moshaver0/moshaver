@@ -31,7 +31,7 @@
     if (!x || typeof x !== "object") return null;
     if (!x.fileId && !x.url) return null;
     const ref = {};
-    ["name","fileId","url","mimeType","size","createdAt"].forEach(k => {
+    ["name","fileId","url","previewUrl","mimeType","size","createdAt"].forEach(k => {
       if (x[k] !== undefined && x[k] !== null) ref[k] = x[k];
     });
     return ref;
