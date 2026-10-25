@@ -37,7 +37,9 @@
     return ref;
   }
   function safeFileRefs(value) {
-    return (Array.isArray(value) ? value : parseJson(value, [])).map(safeFileRef).filter(Boolean);
+    const parsed = Array.isArray(value) ? value : parseJson(value, []);
+    const list = Array.isArray(parsed) ? parsed : (parsed ? [parsed] : []);
+    return list.map(safeFileRef).filter(Boolean);
   }
   function clientFromApi(c) {
     return Object.assign({}, c, {
