@@ -217,7 +217,22 @@ html[data-theme=light] .notes-delete-box p{color:#67566e}
   .task-card *{color:#111!important}
 }
 
-</style></head><body><div class="app">
+</style><script>
+/* MOSHAVER: require an existing login before displaying panel pages */
+(function () {
+  try {
+    var token = localStorage.getItem("moshaver_access_token") ||
+      sessionStorage.getItem("moshaver-access-token");
+    if (!token) {
+      var next = location.pathname.replace(/^\\/m?/,"");
+      window.location.replace("../login.html?next=" + encodeURIComponent(next));
+    }
+  } catch (e) {
+    window.location.replace("../login.html");
+  }
+})();
+</script>
+</head><body><div class="app">
 <div aria-hidden="true" class="ambient">
 <div class="grid"></div>
 <div class="orb one"></div>
