@@ -256,7 +256,7 @@ window.addEventListener('keydown',e=>{if(e.key==='Escape'){notifications.classLi
       var cards=document.querySelectorAll('.grid > article.kpi');
       var values=[number(stats.organizations),number(stats.activeUsers),number(stats.subscriptions),'ثبت نشده'];
       cards.forEach(function(card,i){var value=card.querySelector('.kpi-value');if(value)value.textContent=values[i]===undefined?'—':values[i];});
-      setText('#miniOrganizations',number(stats.organizations));
+      setText('#miniOrganizations',number(stats.organizations));setText('#navOrganizationCount',number(stats.organizations));
       setText('#miniSubscriptions',number(stats.activeSubscriptions));
       setText('#miniUsers',number(stats.activeUsers));
       setText('#miniRevenue','—');
