@@ -1081,11 +1081,14 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now);
       const p = Object.fromEntries(parts.map(x => [x.type, x.value]));
       const todayJ = [p.year, p.month, p.day].join("/");
+      const todayISOKey = todayISO.replace(/-/g,"/");
       const keyDate = value => String(value || "").slice(0,10).replace(/-/g,"/");
+      const isTodayDate = value => { const key = keyDate(value); return key === todayJ || key === todayISOKey; };
+      const isPastDate = value => { const key = keyDate(value); if (!key) return false; return /^1\\d{3}\\//.test(key) ? key < todayJ : key < todayISOKey; };
       const activeClients = clients.filter(c => !["archived","inactive"].includes(String(c.status || "").toLowerCase()));
-      const todaysAppointments = appointments.filter(a => keyDate(a.date) === todayJ && String(a.status || "").toLowerCase() !== "cancelled").sort((a,b)=>String(a.time||"").localeCompare(String(b.time||"")));
-      const todayFollows = follows.filter(x => String(x.dueDate || "").slice(0,10) === todayISO && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
-      const overdueFollows = follows.filter(x => String(x.dueDate || "").slice(0,10) < todayISO && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
+      const todaysAppointments = appointments.filter(a => isTodayDate(a.date) && String(a.status || "").toLowerCase() !== "cancelled").sort((a,b)=>String(a.time||"").localeCompare(String(b.time||"")));
+      const todayFollows = follows.filter(x => isTodayDate(x.dueDate) && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
+      const overdueFollows = follows.filter(x => isPastDate(x.dueDate) && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
       const completed = appointments.filter(a => String(a.status||"").toLowerCase() === "completed" || a.finalized).length;
       const noShow = appointments.filter(a => ["no-show","noshow"].includes(String(a.status||"").toLowerCase())).length;
       const attendance = completed + noShow ? Math.round(completed/(completed+noShow)*100) : 0;
