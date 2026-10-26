@@ -86,7 +86,7 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
  <div class="nav-title">مرکز کنترل سامانه</div>
  <nav class="nav">
   <a class="active" href="dashboard.html"><span class="nav-icon">⌂</span><span class="nav-label">داشبورد</span></a>
-  <a href="organizations.html"><span class="nav-icon">▦</span><span class="nav-label">کلینیک‌ها</span><span class="badge">۲۴</span></a>
+  <a href="organizations.html"><span class="nav-icon">▦</span><span class="nav-label">کلینیک‌ها</span><span class="badge" id="navOrganizationCount">—</span></a>
   <a href="users.html"><span class="nav-icon">♙</span><span class="nav-label">کاربران</span></a>
   <a href="subscriptions.html"><span class="nav-icon">◇</span><span class="nav-label">اشتراک‌ها</span><span class="badge">۳</span></a>
   <a href="access.html"><span class="nav-icon">⌘</span><span class="nav-label">دسترسی و نقش‌ها</span></a>
@@ -119,26 +119,25 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
 </section>
 
 <div class="grid">
- <article class="kpi glass"><div class="kpi-head"><span>کل کلینیک‌ها</span><span class="kpi-icon">▦</span></div><div class="kpi-value">۲۴</div><div class="kpi-foot"><span class="up">+۳</span><span class="muted">این ماه</span></div></article>
- <article class="kpi glass"><div class="kpi-head"><span>کاربران فعال</span><span class="kpi-icon">♙</span></div><div class="kpi-value">۱۸۶</div><div class="kpi-foot"><span class="up">+۸.۶٪</span><span class="muted">نسبت به ماه قبل</span></div></article>
- <article class="kpi glass"><div class="kpi-head"><span>مراجعین کل سامانه</span><span class="kpi-icon">♧</span></div><div class="kpi-value">۱۲.۸K</div><div class="kpi-foot"><span class="up">+۱۴.۲٪</span><span class="muted">رشد ماهانه</span></div></article>
- <article class="kpi glass"><div class="kpi-head"><span>درآمد اشتراک ماه</span><span class="kpi-icon">◇</span></div><div class="kpi-value">۳۴۸M</div><div class="kpi-foot"><span class="up">+۱۷.۸٪</span><span class="muted">تومان</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>کل کلینیک‌ها</span><span class="kpi-icon">▦</span></div><div class="kpi-value">—</div><div class="kpi-foot"><span class="muted">از اطلاعات واقعی</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>کاربران فعال</span><span class="kpi-icon">♙</span></div><div class="kpi-value">—</div><div class="kpi-foot"><span class="muted">از اطلاعات واقعی</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>کل اشتراک‌ها</span><span class="kpi-icon">♧</span></div><div class="kpi-value">—</div><div class="kpi-foot"><span class="muted">از اطلاعات واقعی</span></div></article>
+ <article class="kpi glass"><div class="kpi-head"><span>درآمد اشتراک ثبت‌شده</span><span class="kpi-icon">◇</span></div><div class="kpi-value">—</div><div class="kpi-foot"><span class="muted">قیمت پلن‌ها در داده‌ها ثبت نشده</span></div></article>
 
  <section class="panel glass overview">
   <div class="panel-head"><div class="section-title"><strong>رشد سامانه</strong><span>روند کل کلینیک‌ها و درآمد اشتراک در شش ماه اخیر</span></div><div class="panel-actions"><button class="small-btn" id="rangeBtn">۶ ماه اخیر</button></div></div>
   <div class="overview-body">
    <div class="chart">
     <div class="chart-grid"><i></i><i></i><i></i><i></i><i></i></div>
-    <svg class="chart-svg" viewBox="0 0 620 170" preserveAspectRatio="none" aria-label="نمودار رشد"><defs><linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#22d3ee"/></linearGradient><linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7" stop-opacity=".22"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></linearGradient></defs><path class="chart-area" d="M0 139 C55 132 78 121 120 125 S190 108 240 112 S310 80 360 92 S430 61 480 69 S550 37 620 25 L620 170 L0 170 Z"/><path class="chart-line" d="M0 139 C55 132 78 121 120 125 S190 108 240 112 S310 80 360 92 S430 61 480 69 S550 37 620 25"/><g class="chart-points"><circle cx="0" cy="139" r="4"/><circle cx="120" cy="125" r="4"/><circle cx="240" cy="112" r="4"/><circle cx="360" cy="92" r="4"/><circle cx="480" cy="69" r="4"/><circle cx="620" cy="25" r="4"/></g></svg>
-    <div class="chart-labels"><span>فروردین</span><span>اردیبهشت</span><span>خرداد</span><span>تیر</span><span>مرداد</span><span>شهریور</span></div>
+    <div id="chartEmpty" style="min-height:170px;display:grid;place-items:center;text-align:center;color:var(--text3);font-size:12px;line-height:2;padding:20px">تاریخچهٔ ماهانه برای رسم نمودار در داده‌های فعلی موجود نیست.</div>
    </div>
-   <div class="metric-side"><div class="mini-metric"><span>کلینیک‌ها</span><strong>۲۴</strong><small>+۳ این ماه</small></div><div class="mini-metric"><span>اشتراک فعال</span><strong>۲۱</strong><small>۸۷٪ فعال</small></div><div class="mini-metric"><span>کاربران</span><strong>۱۸۶</strong><small>+۱۵ کاربر</small></div><div class="mini-metric"><span>درآمد</span><strong>۳۴۸M</strong><small>+۱۷.۸٪</small></div></div>
+   <div class="metric-side"><div class="mini-metric"><span>کلینیک‌ها</span><strong id="miniOrganizations">—</strong><small>از شیت سازمان‌ها</small></div><div class="mini-metric"><span>اشتراک فعال</span><strong id="miniSubscriptions">—</strong><small>از شیت اشتراک‌ها</small></div><div class="mini-metric"><span>کاربران فعال</span><strong id="miniUsers">—</strong><small>از شیت کاربران</small></div><div class="mini-metric"><span>درآمد</span><strong id="miniRevenue">—</strong><small>قیمت ثبت نشده</small></div></div>
   </div>
  </section>
 
  <section class="panel glass system">
   <div class="panel-head"><div class="section-title"><strong>سلامت زیرساخت</strong><span>وضعیت سرویس‌های کلیدی</span></div><button class="small-btn" id="refreshHealth">↻ بروزرسانی</button></div>
-  <div class="health-list"><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>API Gateway</strong><span>پاسخ‌گویی ۱۲۴ms</span></div><b class="health-status">Operational</b></div><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>Database</strong><span>اتصال پایدار · ۲۴ اتصال</span></div><b class="health-status">Healthy</b></div><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>File Storage</strong><span>Google Drive connector</span></div><b class="health-status">Connected</b></div><div class="health"><div class="health-icon">!</div><div class="health-copy"><strong>Backup</strong><span>آخرین نسخه پشتیبان ۳ ساعت قبل</span></div><b class="health-status warn">Review</b></div></div>
+  <div class="health-list" id="healthList"><div class="health"><div class="health-icon">…</div><div class="health-copy"><strong>API Gateway</strong><span>در انتظار بررسی</span></div><b class="health-status">Checking</b></div><div class="health"><div class="health-icon">…</div><div class="health-copy"><strong>Google Sheets</strong><span>در انتظار بررسی</span></div><b class="health-status">Checking</b></div><div class="health"><div class="health-icon">—</div><div class="health-copy"><strong>Google Drive</strong><span>وضعیت هنوز بررسی نشده</span></div><b class="health-status">Unknown</b></div><div class="health"><div class="health-icon">—</div><div class="health-copy"><strong>Backup</strong><span>زمان پشتیبان در داده‌ها ثبت نشده</span></div><b class="health-status warn">Unknown</b></div></div>
  </section>
 
  <section class="panel glass organizations">
@@ -153,12 +152,12 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
 
  <section class="panel glass bottom-a">
   <div class="panel-head"><div class="section-title"><strong>وضعیت اشتراک‌ها</strong><span>توزیع اشتراک کلینیک‌ها</span></div></div>
-  <div class="progress-wrap"><div class="progress-row"><div class="progress-head"><span>Pro</span><b>۱۲ کلینیک · ۵۰٪</b></div><div class="progress-track"><div class="progress-bar" style="width:50%"></div></div></div><div class="progress-row"><div class="progress-head"><span>Business</span><b>۶ کلینیک · ۲۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:25%"></div></div></div><div class="progress-row"><div class="progress-head"><span>Starter</span><b>۳ کلینیک · ۱۲.۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:12.5%"></div></div></div><div class="progress-row"><div class="progress-head"><span>Trial</span><b>۳ کلینیک · ۱۲.۵٪</b></div><div class="progress-track"><div class="progress-bar" style="width:12.5%"></div></div></div></div>
+  <div class="progress-wrap" id="subscriptionPlanRows"><div class="progress-row"><div class="progress-head"><span>در حال دریافت اطلاعات</span><b>—</b></div><div class="progress-track"><div class="progress-bar" style="width:0%"></div></div></div></div>
  </section>
 
  <section class="panel glass bottom-b">
   <div class="panel-head"><div class="section-title"><strong>درآمد اشتراک</strong><span>مجموع دریافتی ماه جاری</span></div></div>
-  <div class="revenue-big"><span>درآمد ثبت‌شده</span><strong>۳۴۸,۶۰۰,۰۰۰</strong><small>▲ ۱۷.۸٪ نسبت به ماه قبل</small></div>
+  <div class="revenue-big"><span>درآمد اشتراک ثبت‌شده</span><strong id="monthlyRevenue">—</strong><small>قیمت پلن‌ها/پرداخت‌ها در منبع داده فعلی موجود نیست.</small></div>
   <div class="quick-grid"><button class="quick" id="invoiceBtn"><b>◇</b><span>گزارش مالی</span></button><button class="quick" id="subscriptionBtn"><b>↗</b><span>مدیریت اشتراک</span></button></div>
  </section>
 
@@ -177,7 +176,7 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
 
 <div class="modal" id="orgModal"><div class="modal-card glass"><div class="modal-head"><div><strong>ایجاد کلینیک جدید</strong><span>سازمان جدید را برای استفاده در سامانه ثبت کنید.</span></div><button class="close" id="closeOrg">×</button></div><form id="orgForm"><div class="form-grid"><div class="field"><label>نام کلینیک</label><input id="orgName" required placeholder="مثلاً کلینیک آریا"></div><div class="field"><label>نام مدیر کلینیک</label><input id="managerName" required placeholder="نام و نام خانوادگی"></div><div class="field"><label>شماره تماس</label><input id="orgPhone" inputmode="tel" placeholder="۰۹۱۲..." required></div><div class="field"><label>پلن اشتراک</label><select id="orgPlan"><option value="starter">Starter</option><option value="pro" selected>Pro</option><option value="business">Business</option><option value="trial">Trial</option></select></div><div class="field"><label>شناسه سازمان</label><input id="orgSlug" placeholder="clinic-aria" required></div><div class="field"><label>وضعیت</label><select id="orgStatus"><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="suspended">معلق</option></select></div><div class="field full"><label>یادداشت مدیریتی</label><textarea id="orgNote" placeholder="یادداشت داخلی برای تیم مدیریت..."></textarea></div></div><div class="modal-actions"><button class="primary" type="submit">ایجاد کلینیک</button><button class="secondary" type="button" id="cancelOrg">انصراف</button></div></form></div></div>
 
-<div class="modal" id="profileModal"><div class="modal-card glass"><div class="modal-head"><div><strong>پروفایل مدیر ارشد</strong><span>اطلاعات حساب فعلی</span></div><button class="close" id="closeProfile">×</button></div><div class="form-grid"><div class="field"><label>نام</label><input value="مدیر ارشد سامانه" readonly></div><div class="field"><label>نقش</label><input value="SUPER ADMIN" readonly></div><div class="field"><label>امنیت حساب</label><input value="احراز هویت فعال" readonly></div><div class="field"><label>آخرین ورود</label><input value="امروز · ۰۹:۴۲" readonly></div></div><div class="modal-actions"><button class="secondary" type="button" id="closeProfile2">بستن</button></div></div></div>
+<div class="modal" id="profileModal"><div class="modal-card glass"><div class="modal-head"><div><strong>پروفایل مدیر ارشد</strong><span>اطلاعات حساب فعلی</span></div><button class="close" id="closeProfile">×</button></div><div class="form-grid"><div class="field"><label>نام</label><input value="مدیر ارشد سامانه" readonly></div><div class="field"><label>نقش</label><input value="SUPER ADMIN" readonly></div><div class="field"><label>امنیت حساب</label><input value="احراز هویت فعال" readonly></div><div class="field"><label>آخرین ورود</label><input value="از سرور دریافت نشده" readonly></div></div><div class="modal-actions"><button class="secondary" type="button" id="closeProfile2">بستن</button></div></div></div>
 
 <div class="toast glass" id="toast"><div class="toast-icon">✓</div><div><strong id="toastTitle">عملیات انجام شد</strong><span id="toastText">تغییرات با موفقیت ثبت شد.</span></div></div>
 
@@ -207,13 +206,7 @@ $('#notificationsBtn').addEventListener('click',e=>{e.stopPropagation();notifica
 document.addEventListener('click',e=>{if(!notifications.contains(e.target)&&e.target!==$('#notificationsBtn'))notifications.classList.remove('open')});
 $('#clearNotifications').addEventListener('click',()=>{notifications.classList.remove('open');showToast('اعلان‌ها','همه اعلان‌های مدیریتی خوانده شدند.')});
 
-const orgs=[
- {name:'کلینیک زیبایی آناهید',code:'ANA-2048',manager:'سارا احمدی',plan:'Business',users:'۱۸',status:'active',initial:'آ'},
- {name:'مرکز پوست و مو آریا',code:'ARY-1182',manager:'محمد رضایی',plan:'Pro',users:'۱۲',status:'active',initial:'آ'},
- {name:'کلینیک هیراد',code:'HIR-0934',manager:'نگار کریمی',plan:'Pro',users:'۹',status:'trial',initial:'ه'},
- {name:'مرکز زیبایی نیکا',code:'NIK-0821',manager:'علی مرادی',plan:'Starter',users:'۵',status:'active',initial:'ن'},
- {name:'کلینیک دکتر پارسا',code:'PAR-0716',manager:'مریم پارسا',plan:'Pro',users:'۸',status:'suspended',initial:'پ'}
-];
+let orgs = [];
 function planClass(p){return p==='Business'?'blue':p==='Pro'?'green':p==='Trial'?'yellow':'yellow'}
 function statusPill(s){return s==='active'?'<span class="pill green">● فعال</span>':s==='trial'?'<span class="pill yellow">● آزمایشی</span>':'<span class="pill red">● معلق</span>'}
 function renderOrgs(){
@@ -222,9 +215,7 @@ function renderOrgs(){
 }
 renderOrgs();
 
-const activities=[
- ['▦','کلینیک جدید ایجاد شد','آریا زیبایی · ۱۲ دقیقه قبل'],['♙','کاربر جدید ساخته شد','مشاور «نگار کریمی» · ۳۵ دقیقه قبل'],['◇','اشتراک تمدید شد','کلینیک آناهید · ۱ ساعت قبل'],['⌘','سطح دسترسی تغییر کرد','مدیر کلینیک پارسا · ۲ ساعت قبل'],['↻','نسخه پشتیبان اجرا شد','Database backup · ۳ ساعت قبل']
-];
+let activities = [];
 $('#activityList').innerHTML=activities.length?activities.map(a=>`<div class="activity-item"><div class="activity-icon">${a[0]}</div><div class="activity-copy"><strong>${a[1]}</strong><span>${a[2]}</span></div></div>`).join(''):'<div class="activity-item"><div class="activity-copy"><strong>فعالیت ثبت‌شده‌ای در داده‌های قابل‌دسترسی موجود نیست.</strong></div></div>';
 
 function openOrg(){openModal(orgModal);setTimeout(()=>$('#orgName').focus(),80)}
