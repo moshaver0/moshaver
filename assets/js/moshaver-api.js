@@ -108,6 +108,7 @@
   const api = {
     request: call,
     me: () => call("me"),
+    updateMyProfile: record => call("meUpdate", input(record)),
     dashboard: () => call("dashboard"),
     clients: {
       list: async filters => items(await call("clientsList", filters || {})).map(clientFromApi),
