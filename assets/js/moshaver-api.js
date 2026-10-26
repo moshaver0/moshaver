@@ -145,6 +145,9 @@
     reports: {
       overview: filters => call("reportsOverview", filters || {})
     },
+    connection: {
+      check: () => call("connectionCheck")
+    },
     files: {
       uploadClient: payload => call("clientFileUpload", input(payload || {}))
     }
