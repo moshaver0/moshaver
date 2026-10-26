@@ -53,7 +53,7 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
     var token = localStorage.getItem("moshaver_access_token") ||
       sessionStorage.getItem("moshaver-access-token");
     if (!token) {
-      var next = location.pathname.replace(/^\\/m?/,"");
+      var next = location.pathname.replace(/^\/m?/,"");
       window.location.replace("../login.html?next=" + encodeURIComponent(next));
     }
   } catch (e) {
