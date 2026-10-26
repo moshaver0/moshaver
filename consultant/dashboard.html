@@ -1084,7 +1084,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       const todayISOKey = todayISO.replace(/-/g,"/");
       const keyDate = value => String(value || "").slice(0,10).replace(/-/g,"/");
       const isTodayDate = value => { const key = keyDate(value); return key === todayJ || key === todayISOKey; };
-      const isPastDate = value => { const key = keyDate(value); if (!key) return false; return /^1\\d{3}\\//.test(key) ? key < todayJ : key < todayISOKey; };
+      const isPastDate = value => { const key = keyDate(value); if (!key) return false; return /^1\d{3}\//.test(key) ? key < todayJ : key < todayISOKey; };
       const activeClients = clients.filter(c => !["archived","inactive"].includes(String(c.status || "").toLowerCase()));
       const todaysAppointments = appointments.filter(a => isTodayDate(a.date) && String(a.status || "").toLowerCase() !== "cancelled").sort((a,b)=>String(a.time||"").localeCompare(String(b.time||"")));
       const todayFollows = follows.filter(x => isTodayDate(x.dueDate) && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
