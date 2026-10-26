@@ -690,7 +690,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     var token = localStorage.getItem("moshaver_access_token") ||
       sessionStorage.getItem("moshaver-access-token");
     if (!token) {
-      var next = location.pathname.replace(/^\\/m?/,"");
+      var next = location.pathname.replace(/^\/+/,"");
       window.location.replace("../login.html?next=" + encodeURIComponent(next));
     }
   } catch (e) {
@@ -758,7 +758,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     <a href="follow-ups.html">
       <span class="nav-icon">↻</span>
       <span class="nav-label">پیگیری‌ها</span>
-      <span class="nav-badge">۴</span>
+      <span class="nav-badge">—</span>
     </a>
     <a href="notes.html">
       <span class="nav-icon">✎</span>
@@ -843,23 +843,23 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   <section class="kpis">
     <article class="card kpi">
       <div class="kpi-top"><span>مراجعین فعال</span><span class="kpi-icon">♙</span></div>
-      <strong>۲۴۸</strong>
-      <small><b class="up">+۱۲٪</b> نسبت به ماه قبل</small>
+      <strong>—</strong>
+      <small>در حال دریافت از سرور…</small>
     </article>
     <article class="card kpi">
       <div class="kpi-top"><span>نوبت‌های امروز</span><span class="kpi-icon">◫</span></div>
-      <strong>۱۸</strong>
-      <small><b class="up">۱۴ تأیید</b> · ۴ در انتظار</small>
+      <strong>—</strong>
+      <small>در حال دریافت از سرور…</small>
     </article>
     <article class="card kpi">
       <div class="kpi-top"><span>پیگیری‌های امروز</span><span class="kpi-icon">↻</span></div>
-      <strong>۱۰</strong>
-      <small><b class="warn">۴ مورد</b> نیازمند اقدام</small>
+      <strong>—</strong>
+      <small>در حال دریافت از سرور…</small>
     </article>
     <article class="card kpi">
       <div class="kpi-top"><span>جلسات موفق</span><span class="kpi-icon">✓</span></div>
-      <strong>۷۴٪</strong>
-      <small><b class="up">+۸٪</b> بهبود این ماه</small>
+      <strong>—</strong>
+      <small>در حال دریافت از سرور…</small>
     </article>
   </section>
 
@@ -874,43 +874,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
         <a class="panel-link" href="appointments.html">مشاهده همه ←</a>
       </div>
 
-      <div class="appointment-list">
-        <div class="appointment">
-          <div class="time"><strong>۰۹:۰۰</strong><span>صبح</span></div>
-          <div class="person">
-            <div class="avatar">س</div>
-            <div><strong>سارا محمدی</strong><small>مشاوره فردی · جلسه ۸</small></div>
-          </div>
-          <span class="status green">تأیید شده</span>
-        </div>
-
-        <div class="appointment">
-          <div class="time"><strong>۱۰:۳۰</strong><span>صبح</span></div>
-          <div class="person">
-            <div class="avatar">ن</div>
-            <div><strong>نرگس احمدی</strong><small>مشاوره خانواده · جلسه ۴</small></div>
-          </div>
-          <span class="status yellow">در انتظار</span>
-        </div>
-
-        <div class="appointment">
-          <div class="time"><strong>۱۲:۰۰</strong><span>ظهر</span></div>
-          <div class="person">
-            <div class="avatar">ع</div>
-            <div><strong>علی رضایی</strong><small>زوج‌درمانی · جلسه ۲</small></div>
-          </div>
-          <span class="status purple">تأیید شده</span>
-        </div>
-
-        <div class="appointment">
-          <div class="time"><strong>۱۵:۳۰</strong><span>عصر</span></div>
-          <div class="person">
-            <div class="avatar">م</div>
-            <div><strong>مریم کریمی</strong><small>مشاوره فردی · جلسه ۵</small></div>
-          </div>
-          <span class="status green">تأیید شده</span>
-        </div>
-      </div>
+      <div class="appointment-list"><div class="appointment"><div class="person"><div><strong>در حال دریافت نوبت‌ها از سرور…</strong></div></div></div></div>
     </article>
 
     <article class="card panel">
@@ -924,20 +888,20 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 
       <div class="progress-list">
         <div class="progress-row">
-          <div class="progress-meta"><span>حضور مراجعین</span><b>۹۲٪</b></div>
-          <div class="progress-track"><div class="progress-fill" style="width:92%"></div></div>
+          <div class="progress-meta"><span>حضور مراجعین</span><b>—</b></div>
+          <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
         </div>
         <div class="progress-row">
-          <div class="progress-meta"><span>تکمیل پیگیری‌ها</span><b>۷۸٪</b></div>
-          <div class="progress-track"><div class="progress-fill cyan" style="width:78%"></div></div>
+          <div class="progress-meta"><span>تکمیل پیگیری‌ها</span><b>—</b></div>
+          <div class="progress-track"><div class="progress-fill cyan" style="width:0%"></div></div>
         </div>
         <div class="progress-row">
-          <div class="progress-meta"><span>رضایت مراجعین</span><b>۹۴٪</b></div>
-          <div class="progress-track"><div class="progress-fill green" style="width:94%"></div></div>
+          <div class="progress-meta"><span>رضایت مراجعین</span><b>—</b></div>
+          <div class="progress-track"><div class="progress-fill green" style="width:0%"></div></div>
         </div>
         <div class="progress-row">
-          <div class="progress-meta"><span>تکمیل پرونده‌ها</span><b>۸۶٪</b></div>
-          <div class="progress-track"><div class="progress-fill" style="width:86%"></div></div>
+          <div class="progress-meta"><span>تکمیل پرونده‌ها</span><b>—</b></div>
+          <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
         </div>
       </div>
     </article>
@@ -954,28 +918,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
         </div>
       </div>
 
-      <div class="activity">
-        <div class="activity-item">
-          <div class="activity-dot">♙</div>
-          <div><strong>مراجع جدید ثبت شد</strong><small>سارا محمدی به پرونده‌ها اضافه شد</small></div>
-          <span class="activity-time">۵ دقیقه پیش</span>
-        </div>
-        <div class="activity-item">
-          <div class="activity-dot">◫</div>
-          <div><strong>نوبت تأیید شد</strong><small>جلسه نرگس احمدی تأیید شد</small></div>
-          <span class="activity-time">۲۳ دقیقه پیش</span>
-        </div>
-        <div class="activity-item">
-          <div class="activity-dot">✉</div>
-          <div><strong>یادآوری ارسال شد</strong><small>پیامک یادآوری برای علی رضایی</small></div>
-          <span class="activity-time">۴۵ دقیقه پیش</span>
-        </div>
-        <div class="activity-item">
-          <div class="activity-dot">✓</div>
-          <div><strong>پیگیری تکمیل شد</strong><small>پیگیری پرونده مریم کریمی</small></div>
-          <span class="activity-time">۱ ساعت پیش</span>
-        </div>
-      </div>
+      <div class="activity"><div class="activity-item"><div><strong>در حال دریافت فعالیت‌های اخیر از سرور…</strong></div></div></div>
     </article>
 
     <article class="card panel">
@@ -1034,12 +977,16 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 
 </div>
 
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/moshaver-api.js"></script>
 <script>
 (() => {
   "use strict";
 
   const root = document.documentElement;
   const $ = (selector, scope=document) => scope.querySelector(selector);
+  const safe = value => String(value ?? "").replace(/[&<>"']/g, m => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[m]));
 
   /* ===== Theme ===== */
   const themeKey = "moshaver_theme";
@@ -1083,14 +1030,18 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 
   /* ===== Notifications ===== */
   $("#notifications").addEventListener("click", () => {
-    showToast("اعلان‌ها", "۴ اعلان جدید برای بررسی دارید.");
+    showToast("اعلان‌ها", window.MOSHAVER_DASHBOARD_NOTICE || "اعلان‌های تازه‌ای از سرور دریافت نشده‌اند.");
   });
 
   /* ===== Logout ===== */
-  $("#logout").addEventListener("click", () => {
+  $("#logout").addEventListener("click", async () => {
+    try { if (window.MOSHAVER_AUTH) await window.MOSHAVER_AUTH.logout(); }
+    catch (error) { console.warn("Logout request failed", error); }
     localStorage.removeItem("moshaver_user");
     localStorage.removeItem("moshaver_session");
-    window.location.href = "../index.html";
+    localStorage.removeItem("moshaver_access_token");
+    sessionStorage.removeItem("moshaver-access-token");
+    window.location.href = "../login.html";
   });
 
   /* ===== Toast ===== */
@@ -1109,8 +1060,91 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   });
 
   /* ===== Demo live clock for top-level data ===== */
+  let dashboardLoading = false;
+  async function loadDashboardData(silent) {
+    if (dashboardLoading) return;
+    if (!window.MOSHAVER_API || !window.MOSHAVER_AUTH || !window.MOSHAVER_AUTH.isLoggedIn()) {
+      if (!silent) showToast("ورود لازم است", "برای دریافت آمار واقعی دوباره وارد حساب شوید.");
+      return;
+    }
+    dashboardLoading = true;
+    try {
+      // One aggregated request is faster and lighter than five separate sheet reads.
+      const data = await window.MOSHAVER_API.dashboard();
+      const clients = Array.isArray(data.clients) ? data.clients : [];
+      const appointments = Array.isArray(data.appointments) ? data.appointments : [];
+      const follows = Array.isArray(data.followUps) ? data.followUps : [];
+      const finance = Array.isArray(data.finance) ? data.finance : [];
+      const notes = Array.isArray(data.notes) ? data.notes : [];
+      const now = new Date();
+      const todayISO = now.toISOString().slice(0, 10);
+      const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now);
+      const p = Object.fromEntries(parts.map(x => [x.type, x.value]));
+      const todayJ = [p.year, p.month, p.day].join("/");
+      const todayISOKey = todayISO.replace(/-/g,"/");
+      const keyDate = value => String(value || "").slice(0,10).replace(/-/g,"/");
+      const isTodayDate = value => { const key = keyDate(value); return key === todayJ || key === todayISOKey; };
+      const isPastDate = value => { const key = keyDate(value); if (!key) return false; return /^1\d{3}\//.test(key) ? key < todayJ : key < todayISOKey; };
+      const activeClients = clients.filter(c => !["archived","inactive"].includes(String(c.status || "").toLowerCase()));
+      const todaysAppointments = appointments.filter(a => isTodayDate(a.date) && String(a.status || "").toLowerCase() !== "cancelled").sort((a,b)=>String(a.time||"").localeCompare(String(b.time||"")));
+      const todayFollows = follows.filter(x => isTodayDate(x.dueDate) && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
+      const overdueFollows = follows.filter(x => isPastDate(x.dueDate) && !["COMPLETED","CANCELLED"].includes(String(x.status||"").toUpperCase()) && String(x.isDeleted||"").toLowerCase() !== "true");
+      const completed = appointments.filter(a => String(a.status||"").toLowerCase() === "completed" || a.finalized).length;
+      const noShow = appointments.filter(a => ["no-show","noshow"].includes(String(a.status||"").toLowerCase())).length;
+      const attendance = completed + noShow ? Math.round(completed/(completed+noShow)*100) : 0;
+      const followDone = follows.filter(x => String(x.status||"").toUpperCase() === "COMPLETED").length;
+      const followRate = follows.length ? Math.round(followDone/follows.length*100) : 0;
+      const completeClients = clients.filter(c => (c.firstName||c.name) && (c.phone||c.mobile)).length;
+      const profileRate = clients.length ? Math.round(completeClients/clients.length*100) : 0;
+      const kpis = document.querySelectorAll(".kpis .kpi");
+      const values = [activeClients.length, todaysAppointments.length, todayFollows.length, attendance + "%"];
+      values.forEach((value,i)=>{if(kpis[i]){const strong=kpis[i].querySelector("strong");if(strong)strong.textContent=String(value).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);}});
+      if(kpis[0]?.querySelector("small"))kpis[0].querySelector("small").innerHTML='<b class="up">از سرور</b> پرونده‌های فعال';
+      if(kpis[1]?.querySelector("small"))kpis[1].querySelector("small").innerHTML='<b class="up">'+todaysAppointments.filter(a=>String(a.status||"").toLowerCase()==="confirmed").length+' تأیید</b> · '+todaysAppointments.filter(a=>String(a.status||"").toLowerCase()==="pending").length+' در انتظار';
+      if(kpis[2]?.querySelector("small"))kpis[2].querySelector("small").innerHTML='<b class="warn">'+overdueFollows.length+' مورد</b> عقب‌افتاده';
+      if(kpis[3]?.querySelector("small"))kpis[3].querySelector("small").innerHTML='<b class="up">'+completed+' جلسه</b> تکمیل‌شده';
+      const appointmentPanel=[...document.querySelectorAll(".section-grid .panel")].find(x=>x.querySelector(".panel-title strong")?.textContent.includes("نوبت‌های امروز"));
+      const list=appointmentPanel?.querySelector(".appointment-list");
+      if(list){
+        list.innerHTML=todaysAppointments.length?todaysAppointments.slice(0,5).map(a=>{
+          const client=clients.find(c=>String(c.id||c.clientId)===String(a.clientId||""))||{};
+          const name=[client.firstName||client.name||"",client.lastName||""].filter(Boolean).join(" ")||"مراجع";
+          const status=String(a.status||"pending").toLowerCase();
+          const klass=status==="confirmed"?"green":status==="completed"?"purple":status==="cancelled"?"red":"yellow";
+          const label=({confirmed:"تأیید شده",pending:"در انتظار",completed:"انجام شده",cancelled:"لغو شده"})[status]||status;
+          return '<div class="appointment"><div class="time"><strong>'+safe(a.time||"—")+'</strong><span></span></div><div class="person"><div class="avatar">'+safe(String(name).slice(0,1))+'</div><div><strong>'+safe(name)+'</strong><small>'+safe(a.service||"نوبت")+'</small></div></div><span class="status '+klass+'">'+label+'</span></div>';
+        }).join(""):'<div class="appointment"><div class="person"><div><strong>نوبتی برای امروز ثبت نشده است.</strong></div></div></div>';
+      }
+      const progress=document.querySelectorAll(".progress-row");
+      const rates=[attendance,followRate,null,profileRate];
+      progress.forEach((row,i)=>{const meta=row.querySelector(".progress-meta");const b=meta?.querySelector("b");const fill=row.querySelector(".progress-fill");if(i===2){const label=meta?.querySelector("span");if(label)label.textContent="ثبت رضایت مراجعین";if(b)b.textContent="—";if(fill)fill.style.width="0%";return;}if(b)b.textContent=String(rates[i])+"%";if(fill)fill.style.width=rates[i]+"%";});
+      const activityRoot=document.querySelector(".bottom-grid .activity");
+      if(activityRoot){
+        const events=[];
+        clients.forEach(x=>events.push({date:x.createdAt||x.updatedAt,title:"پرونده مراجع",detail:[x.firstName,x.lastName].filter(Boolean).join(" ")}));
+        appointments.forEach(x=>events.push({date:x.updatedAt||x.createdAt,title:"نوبت",detail:String(x.service||"")+" · "+String(x.status||"")}));
+        follows.forEach(x=>events.push({date:x.updatedAt||x.createdAt,title:"پیگیری",detail:String(x.title||"")}));
+        notes.forEach(x=>events.push({date:x.updatedAt||x.createdAt,title:"یادداشت",detail:String(x.title||"")}));
+        events.sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
+        activityRoot.innerHTML=events.length?events.slice(0,4).map((x,i)=>'<div class="activity-item"><div class="activity-dot">'+["♙","◫","↻","✎"][i]+'</div><div><strong>'+safe(x.title)+'</strong><small>'+safe(x.detail)+'</small></div><span class="activity-time">'+safe(String(x.date||"").slice(0,10))+'</span></div>').join(""):'<div class="activity-item"><div><strong>فعالیتی ثبت نشده است.</strong></div></div>';
+      }
+      const badge=document.querySelector(".nav-badge");if(badge)badge.textContent=String(todayFollows.length+overdueFollows.length);
+      window.MOSHAVER_DASHBOARD_NOTICE="امروز "+todayFollows.length+" پیگیری و "+todaysAppointments.length+" نوبت از سرور دریافت شد.";
+    } catch (error) {
+      console.error(error);
+      if (!silent) showToast("دریافت آمار ناموفق بود", error.message || "اتصال به سرور برقرار نشد.");
+    } finally {
+      dashboardLoading = false;
+    }
+  }
+
   const now = new Date();
   document.title = "داشبورد مشاور | MOSHAVER";
+  loadDashboardData(false);
+  // Refresh every 5 seconds, without overlapping requests or polling hidden tabs.
+  window.setInterval(() => {
+    if (!document.hidden) loadDashboardData(true);
+  }, 5000);
 })();
 </script>
 

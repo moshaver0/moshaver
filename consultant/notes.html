@@ -224,7 +224,7 @@ html[data-theme=light] .notes-delete-box p{color:#67566e}
     var token = localStorage.getItem("moshaver_access_token") ||
       sessionStorage.getItem("moshaver-access-token");
     if (!token) {
-      var next = location.pathname.replace(/^\\/m?/,"");
+      var next = location.pathname.replace(/^\/+/,"");
       window.location.replace("../login.html?next=" + encodeURIComponent(next));
     }
   } catch (e) {
@@ -350,7 +350,10 @@ html[data-theme=light] .notes-delete-box p{color:#67566e}
 </main>
 </div>
 <nav class="mobile-nav" style="position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));min-height:66px;padding:7px;border:1px solid var(--border);border-radius:22px;background:rgba(15,9,24,.80);backdrop-filter:blur(25px) saturate(160%);box-shadow:0 20px 50px rgba(0,0,0,.28);z-index:90;align-items:stretch"><a href="dashboard.html"><b>⌂</b><span>خانه</span></a><a href="clients.html"><b>♙</b><span>مراجعین</span></a><a href="appointments.html"><b>◫</b><span>نوبت‌ها</span></a><a href="follow-ups.html"><b>↻</b><span>پیگیری</span></a><button id="mobileMenu"><b>•••</b><span>بیشتر</span></button></nav>
-</div><script>/* ============================================================
+</div><script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/moshaver-api.js"></script>
+<script>/* ============================================================
    NOTES MODULE — JS SECTION 01: STORAGE / DATA / CONSTANTS
    ============================================================ */
 (() => {
@@ -366,10 +369,14 @@ const seedNotes=[
 {id:'n3',title:'مرور برنامه هفتگی',body:'نوبت‌ها، پیگیری‌ها و کارهای مهم هفته را مرور کنم.',clientId:'',clientName:'',category:'work',priority:'low',status:'done',due:'1405-06-31',time:'09:00',pinned:false,checks:{call:true,follow:true,appointment:true},createdAt:'1405-06-28',updatedAt:'1405-06-31'},
 {id:'n4',title:'ایده برای بهبود روند مشاوره',body:'چند ایده برای ساده‌تر کردن روند ثبت نتیجه جلسات یادداشت شود.',clientId:'',clientName:'',category:'personal',priority:'medium',status:'open',due:'1405-07-03',time:'11:30',pinned:false,checks:{call:false,follow:false,appointment:false},createdAt:'1405-06-29',updatedAt:'1405-06-29'}
 ];
-let notes=load(NOTES_KEY,seedNotes), clients=load(CLIENTS_KEY,[]), currentFilter='all', toastTimer;
-notes.forEach(n=>{if(n&&n.due)n.due=normalizeDate(n.due);if(n&&n.createdAt)n.createdAt=normalizeDate(n.createdAt);if(n&&n.updatedAt)n.updatedAt=normalizeDate(n.updatedAt)});
-function load(k,f){try{const x=JSON.parse(localStorage.getItem(k)||'null');return Array.isArray(x)?x:f}catch{return f}}
-function save(){localStorage.setItem(NOTES_KEY,JSON.stringify(notes))}
+let notes=[], clients=[], currentFilter='all', toastTimer, remoteNotes=new Map(), noteSaveQueue=Promise.resolve();
+function isoToJalali(value){if(!value)return todayJ();const d=new Date(value);if(Number.isNaN(d.getTime()))return normalizeDate(String(value)).slice(0,10);try{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d).map(x=>[x.type,x.value]));return [p.year,p.month,p.day].join('/')}catch(e){return d.toISOString().slice(0,10)}}
+function typeToCategory(type){return ({FOLLOW_UP:'followup',CLIENT:'client',APPOINTMENT:'appointment',SESSION:'session',INTERNAL:'internal',GENERAL:'general'})[String(type||'').toUpperCase()]||'general'}
+function categoryToType(category){return ({followup:'FOLLOW_UP',client:'CLIENT',appointment:'APPOINTMENT',session:'SESSION',internal:'INTERNAL',general:'GENERAL'})[String(category||'').toLowerCase()]||'GENERAL'}
+function noteFromApi(n){let checks={};try{checks=typeof n.checks==='string'?JSON.parse(n.checks||'{}'):(n.checks||{})}catch(e){checks={}}const client=clients.find(c=>String(c.id||c.clientId)===String(n.clientId||''));const rawStatus=String(n.status||'OPEN').toUpperCase();return{id:n.noteId||n.id,title:n.title||'',body:n.content||'',clientId:n.clientId||'',clientName:client?[client.firstName,client.lastName].filter(Boolean).join(' '):'',category:typeToCategory(n.type),priority:String(n.priority||'MEDIUM').toLowerCase(),status:rawStatus==='COMPLETED'?'done':rawStatus==='IN_PROGRESS'?'progress':rawStatus==='DONE'?'done':'open',due:normalizeDate(n.dueDate||todayJ()).replace(/-/g,'/'),time:n.dueTime||'',pinned:String(n.isPinned||'').toUpperCase()==='TRUE',checks:checks,createdAt:isoToJalali(n.createdAt),updatedAt:isoToJalali(n.updatedAt)}}
+function noteToApi(n){return{noteId:n.id,clientId:n.clientId||'',type:categoryToType(n.category),title:n.title||'یادداشت',content:n.body||'',visibility:'PRIVATE',isPinned:!!n.pinned,priority:String(n.priority||'medium').toUpperCase(),dueDate:normalizeDate(n.due||todayJ()).replace(/\//g,'-'),dueTime:n.time||'',status:({done:'COMPLETED',progress:'IN_PROGRESS',open:'OPEN'})[n.status]||'OPEN',checks:n.checks||{}}}
+async function loadData(){if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn()){notes=[];clients=[];toast('برای دریافت یادداشت‌ها دوباره وارد حساب شوید.');return}try{const result=await Promise.all([window.MOSHAVER_API.clients.list(),window.MOSHAVER_API.notes.list()]);clients=result[0]||[];notes=(result[1]||[]).map(noteFromApi);remoteNotes=new Map(notes.map(n=>[String(n.id),JSON.stringify(n)]))}catch(e){notes=[];clients=[];remoteNotes=new Map();console.error(e);toast('دریافت یادداشت‌ها از سرور ناموفق بود')}}
+function save(){const desired=notes.map(n=>({...n,checks:{...(n.checks||{})}}));if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn())return Promise.resolve();noteSaveQueue=noteSaveQueue.then(async()=>{const next=new Map(desired.map(n=>[String(n.id),n]));for(const n of desired){const id=String(n.id),prior=remoteNotes.get(id);if(!prior)await window.MOSHAVER_API.notes.create(noteToApi(n));else if(prior!==JSON.stringify(n))await window.MOSHAVER_API.notes.update(noteToApi(n))}for(const [id] of remoteNotes){if(!next.has(id))await window.MOSHAVER_API.notes.remove(id)}remoteNotes=new Map(desired.map(n=>[String(n.id),JSON.stringify(n)]))}).catch(e=>{console.error(e);toast('ذخیره یادداشت در سرور ناموفق بود')});return noteSaveQueue}
 function normalizeDate(s){return toEn(s).replace(/[-.]/g,'/').trim()}
 function jalaliParts(s){const m=normalizeDate(s).match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);if(!m)return null;const y=+m[1],mo=+m[2],d=+m[3];if(mo<1||mo>12||d<1||d>jdays(y,mo))return null;return {y,m:mo,d}}
 function isJalaliLeap(y){const a=((y+38)*682)%2816;return a<682}
@@ -449,7 +456,7 @@ $('#notificationsBtn').onclick=e=>{e.stopPropagation();$('#notificationPopover')
 function renderNotifications(){const arr=notes.filter(n=>n.status!=='done').slice(0,4);$('#notificationList').innerHTML=arr.length?arr.map(n=>`<button class="notification-item" style="display:block;width:100%;text-align:right;background:none;border:0;color:inherit;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer" data-notify-id="${n.id}"><strong>${esc(n.title)}</strong><small style="display:block;color:var(--muted2);margin-top:4px">${prettyJ(n.due)} · ${priorityLabel(n.priority)}</small></button>`).join(''):'<div style="padding:18px;color:var(--muted2)">اعلان جدیدی نیست.</div>'};$('#notificationDot').style.display=arr.length?'block':'none';
 $('#notificationList').addEventListener('click',e=>{const x=e.target.closest('[data-notify-id]');if(x){$('#notificationPopover').classList.remove('open');openNote(x.dataset.notifyId)}});$('#markRead').onclick=()=>{toast('اعلان‌ها خوانده شدند');$('#notificationDot').style.display='none'};
 $('#quickSearch').onclick=()=>{document.querySelector('#noteSearch')?.focus();window.scrollTo({top:document.querySelector('.notes-list-panel')?.offsetTop-20,behavior:'smooth'})};
-$('#logout').onclick=()=>{localStorage.removeItem(USER_KEY);location.href='../index.html'};
+$('#logout').onclick=async()=>{try{if(window.MOSHAVER_AUTH)await window.MOSHAVER_AUTH.logout()}finally{localStorage.removeItem('moshaver_access_token');localStorage.removeItem(USER_KEY);localStorage.removeItem('moshaver_session');sessionStorage.removeItem('moshaver-access-token');location.href='../login.html'}};
 function syncUser(){try{const u=JSON.parse(localStorage.getItem(USER_KEY)||'null');if(u){const name=u.name||`${u.firstName||''} ${u.lastName||''}`.trim()||'مشاور';$('#userName').textContent=name;$('#sidebarAvatar').textContent=name[0];$('#userRole').textContent=u.role==='MANAGER'?'مدیر کلینیک':'مشاور کلینیک'}}catch{}}
 syncUser();
 /* Sidebar scroll indicator */
@@ -457,5 +464,5 @@ const sb=$('#sidebar'), thumb=$('#sidebarScrollThumb');function syncSidebar(){if
 /* ============================================================
    NOTES MODULE — JS SECTION 07: INIT
    ============================================================ */
-bindDateControls();render();
+loadData().then(()=>{bindDateControls();render()}).catch(e=>{console.error(e);bindDateControls();render()});
 })();</script></body></html>
