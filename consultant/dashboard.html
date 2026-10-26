@@ -1060,20 +1060,22 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   });
 
   /* ===== Demo live clock for top-level data ===== */
-  async function loadDashboardData() {
+  let dashboardLoading = false;
+  async function loadDashboardData(silent) {
+    if (dashboardLoading) return;
     if (!window.MOSHAVER_API || !window.MOSHAVER_AUTH || !window.MOSHAVER_AUTH.isLoggedIn()) {
-      showToast("ورود لازم است", "برای دریافت آمار واقعی دوباره وارد حساب شوید.");
+      if (!silent) showToast("ورود لازم است", "برای دریافت آمار واقعی دوباره وارد حساب شوید.");
       return;
     }
+    dashboardLoading = true;
     try {
-      const result = await Promise.all([
-        window.MOSHAVER_API.clients.list(),
-        window.MOSHAVER_API.appointments.list(),
-        window.MOSHAVER_API.followUps.list(),
-        window.MOSHAVER_API.finance.list(),
-        window.MOSHAVER_API.notes.list()
-      ]);
-      const clients = result[0] || [], appointments = result[1] || [], follows = result[2] || [], finance = result[3] || [], notes = result[4] || [];
+      // One aggregated request is faster and lighter than five separate sheet reads.
+      const data = await window.MOSHAVER_API.dashboard();
+      const clients = Array.isArray(data.clients) ? data.clients : [];
+      const appointments = Array.isArray(data.appointments) ? data.appointments : [];
+      const follows = Array.isArray(data.followUps) ? data.followUps : [];
+      const finance = Array.isArray(data.finance) ? data.finance : [];
+      const notes = Array.isArray(data.notes) ? data.notes : [];
       const now = new Date();
       const todayISO = now.toISOString().slice(0, 10);
       const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now);
@@ -1127,13 +1129,19 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       window.MOSHAVER_DASHBOARD_NOTICE="امروز "+todayFollows.length+" پیگیری و "+todaysAppointments.length+" نوبت از سرور دریافت شد.";
     } catch (error) {
       console.error(error);
-      showToast("دریافت آمار ناموفق بود", error.message || "اتصال به سرور برقرار نشد.");
+      if (!silent) showToast("دریافت آمار ناموفق بود", error.message || "اتصال به سرور برقرار نشد.");
+    } finally {
+      dashboardLoading = false;
     }
   }
 
   const now = new Date();
   document.title = "داشبورد مشاور | MOSHAVER";
-  loadDashboardData();
+  loadDashboardData(false);
+  // Refresh every 5 seconds, without overlapping requests or polling hidden tabs.
+  window.setInterval(() => {
+    if (!document.hidden) loadDashboardData(true);
+  }, 5000);
 })();
 </script>
 
