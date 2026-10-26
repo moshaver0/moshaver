@@ -114,6 +114,12 @@
       update: record => call("notesUpdate", input(record)),
       remove: id => call("notesDelete", input({noteId:id}))
     },
+    activity: {
+      list: filters => call("activityList", filters || {}).then(items)
+    },
+    reports: {
+      overview: filters => call("reportsOverview", filters || {})
+    },
     files: {
       uploadClient: payload => call("clientFileUpload", input(payload || {}))
     }
