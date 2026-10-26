@@ -59,6 +59,31 @@
       lab: c.lab === true || String(c.lab).toLowerCase() === "true"
     });
   }
+  function financeFromApi(item) {
+    const x = item || {};
+    return Object.assign({}, x, {
+      id: x.id || x.financeId || "",
+      payment: x.payment || x.paymentMethod || "cash",
+      paymentMethod: x.paymentMethod || x.payment || "cash",
+      amount: Number(x.amount) || 0,
+      commission: Number(x.commission) || 0
+    });
+  }
+  function financeToApi(item) {
+    const x = item || {};
+    return {
+      id: x.id || x.financeId || "",
+      appointmentId: x.appointmentId || "",
+      clientId: x.clientId || x.clientID || "",
+      clientName: x.clientName || "",
+      date: x.date || "",
+      amount: Number(x.amount) || 0,
+      commission: Number(x.commission) || 0,
+      payment: x.payment || x.paymentMethod || "cash",
+      note: x.note || "",
+      isDeleted: !!x.isDeleted
+    };
+  }
   function clientToApi(c) {
     return {
       clientId: c.clientId || c.id,
@@ -103,9 +128,9 @@
       remove: id => call("followUpsDelete", input({id}))
     },
     finance: {
-      list: filters => call("financeList", filters || {}).then(items),
-      create: record => call("financeCreate", input(record)),
-      update: record => call("financeUpdate", input(record)),
+      list: filters => call("financeList", filters || {}).then(items).then(rows => rows.map(financeFromApi)),
+      create: async record => financeFromApi(await call("financeCreate", input(financeToApi(record)))),
+      update: async record => financeFromApi(await call("financeUpdate", input(financeToApi(record)))),
       remove: id => call("financeDelete", input({id}))
     },
     notes: {
