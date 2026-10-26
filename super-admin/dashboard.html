@@ -88,7 +88,7 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
   <a class="active" href="dashboard.html"><span class="nav-icon">⌂</span><span class="nav-label">داشبورد</span></a>
   <a href="organizations.html"><span class="nav-icon">▦</span><span class="nav-label">کلینیک‌ها</span><span class="badge" id="navOrganizationCount">—</span></a>
   <a href="users.html"><span class="nav-icon">♙</span><span class="nav-label">کاربران</span></a>
-  <a href="subscriptions.html"><span class="nav-icon">◇</span><span class="nav-label">اشتراک‌ها</span><span class="badge">۳</span></a>
+  <a href="subscriptions.html"><span class="nav-icon">◇</span><span class="nav-label">اشتراک‌ها</span><span class="badge" id="navSubscriptionCount">—</span></a>
   <a href="access.html"><span class="nav-icon">⌘</span><span class="nav-label">دسترسی و نقش‌ها</span></a>
   <a href="reports.html"><span class="nav-icon">◒</span><span class="nav-label">گزارش‌ها</span></a>
   <a href="settings.html"><span class="nav-icon">⚙</span><span class="nav-label">تنظیمات سامانه</span></a>
@@ -256,7 +256,7 @@ window.addEventListener('keydown',e=>{if(e.key==='Escape'){notifications.classLi
       var cards=document.querySelectorAll('.grid > article.kpi');
       var values=[number(stats.organizations),number(stats.activeUsers),number(stats.subscriptions),'ثبت نشده'];
       cards.forEach(function(card,i){var value=card.querySelector('.kpi-value');if(value)value.textContent=values[i]===undefined?'—':values[i];});
-      setText('#miniOrganizations',number(stats.organizations));setText('#navOrganizationCount',number(stats.organizations));
+      setText('#miniOrganizations',number(stats.organizations));setText('#navOrganizationCount',number(stats.organizations));setText('#navSubscriptionCount',number(stats.activeSubscriptions));
       setText('#miniSubscriptions',number(stats.activeSubscriptions));
       setText('#miniUsers',number(stats.activeUsers));
       setText('#miniRevenue','—');
