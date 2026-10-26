@@ -173,7 +173,7 @@ button,input,select,textarea{font:inherit}button{border:0}a{text-decoration:none
 
 <nav class="mobile-nav glass"><a class="active" href="dashboard.html"><b>⌂</b>خانه</a><a href="organizations.html"><b>▦</b>کلینیک‌ها</a><a href="users.html"><b>♙</b>کاربران</a><a href="subscriptions.html"><b>◇</b>اشتراک</a><button id="mobileMore"><b>☰</b>منو</button></nav>
 
-<div class="notifications glass" id="notifications"><div class="notif-head"><strong>اعلان‌های مدیریتی</strong><button id="clearNotifications">خوانده شد</button></div><div class="notif"><strong>۳ اشتراک در آستانه انقضا</strong><span>سه کلینیک طی ۷ روز آینده نیاز به تمدید دارند.</span></div><div class="notif"><strong>Backup نیازمند بررسی</strong><span>آخرین نسخه پشتیبان ۳ ساعت قبل ایجاد شده است.</span></div><div class="notif"><strong>کلینیک جدید ایجاد شد</strong><span>کلینیک «آریا زیبایی» امروز به سامانه اضافه شد.</span></div></div>
+<div class="notifications glass" id="notifications"><div class="notif-head"><strong>اعلان‌های مدیریتی</strong><button id="clearNotifications">خوانده شد</button></div><div class="notif"><strong>اعلان واقعی در انتظار دریافت است</strong><span>پس از اتصال، رویدادهای ثبت‌شده در ActivityLog نمایش داده می‌شوند.</span></div></div>
 
 <div class="modal" id="orgModal"><div class="modal-card glass"><div class="modal-head"><div><strong>ایجاد کلینیک جدید</strong><span>سازمان جدید را برای استفاده در سامانه ثبت کنید.</span></div><button class="close" id="closeOrg">×</button></div><form id="orgForm"><div class="form-grid"><div class="field"><label>نام کلینیک</label><input id="orgName" required placeholder="مثلاً کلینیک آریا"></div><div class="field"><label>نام مدیر کلینیک</label><input id="managerName" required placeholder="نام و نام خانوادگی"></div><div class="field"><label>شماره تماس</label><input id="orgPhone" inputmode="tel" placeholder="۰۹۱۲..." required></div><div class="field"><label>پلن اشتراک</label><select id="orgPlan"><option value="starter">Starter</option><option value="pro" selected>Pro</option><option value="business">Business</option><option value="trial">Trial</option></select></div><div class="field"><label>شناسه سازمان</label><input id="orgSlug" placeholder="clinic-aria" required></div><div class="field"><label>وضعیت</label><select id="orgStatus"><option value="active">فعال</option><option value="trial">آزمایشی</option><option value="suspended">معلق</option></select></div><div class="field full"><label>یادداشت مدیریتی</label><textarea id="orgNote" placeholder="یادداشت داخلی برای تیم مدیریت..."></textarea></div></div><div class="modal-actions"><button class="primary" type="submit">ایجاد کلینیک</button><button class="secondary" type="button" id="cancelOrg">انصراف</button></div></form></div></div>
 
@@ -217,20 +217,20 @@ const orgs=[
 function planClass(p){return p==='Business'?'blue':p==='Pro'?'green':p==='Trial'?'yellow':'yellow'}
 function statusPill(s){return s==='active'?'<span class="pill green">● فعال</span>':s==='trial'?'<span class="pill yellow">● آزمایشی</span>':'<span class="pill red">● معلق</span>'}
 function renderOrgs(){
- $('#orgRows').innerHTML=orgs.map((o,i)=>`<tr><td><div class="org-name"><div class="org-logo">${o.initial}</div><div><strong>${o.name}</strong><span>${o.code}</span></div></div></td><td>${o.manager}</td><td><span class="pill ${planClass(o.plan)}">${o.plan}</span></td><td>${o.users}</td><td>${statusPill(o.status)}</td><td><button class="row-action" data-org="${i}" title="نمایش جزئیات">⋯</button></td></tr>`).join('');
- $$('#orgRows [data-org]').forEach(btn=>btn.addEventListener('click',()=>{const o=orgs[Number(btn.dataset.org)];showToast(o.name,'جزئیات این کلینیک در نسخه متصل به API از صفحه organizations مدیریت خواهد شد.')}));
+ $('#orgRows').innerHTML=orgs.length?orgs.map((o,i)=>`<tr><td><div class="org-name"><div class="org-logo">${o.initial}</div><div><strong>${o.name}</strong><span>${o.code}</span></div></div></td><td>${o.manager}</td><td><span class="pill ${planClass(o.plan)}">${o.plan}</span></td><td>${o.users}</td><td>${statusPill(o.status)}</td><td><button class="row-action" data-org="${i}" title="نمایش جزئیات">⋯</button></td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text3)">هنوز سازمانی در داده‌های قابل‌دسترسی ثبت نشده است.</td></tr>';
+ $('#orgRows [data-org]').forEach(btn=>btn.addEventListener('click',()=>{const o=orgs[Number(btn.dataset.org)];showToast(o.name,'برای جزئیات کامل، صفحه کلینیک‌ها را باز کنید.')}));
 }
 renderOrgs();
 
 const activities=[
  ['▦','کلینیک جدید ایجاد شد','آریا زیبایی · ۱۲ دقیقه قبل'],['♙','کاربر جدید ساخته شد','مشاور «نگار کریمی» · ۳۵ دقیقه قبل'],['◇','اشتراک تمدید شد','کلینیک آناهید · ۱ ساعت قبل'],['⌘','سطح دسترسی تغییر کرد','مدیر کلینیک پارسا · ۲ ساعت قبل'],['↻','نسخه پشتیبان اجرا شد','Database backup · ۳ ساعت قبل']
 ];
-$('#activityList').innerHTML=activities.map(a=>`<div class="activity-item"><div class="activity-icon">${a[0]}</div><div class="activity-copy"><strong>${a[1]}</strong><span>${a[2]}</span></div></div>`).join('');
+$('#activityList').innerHTML=activities.length?activities.map(a=>`<div class="activity-item"><div class="activity-icon">${a[0]}</div><div class="activity-copy"><strong>${a[1]}</strong><span>${a[2]}</span></div></div>`).join(''):'<div class="activity-item"><div class="activity-copy"><strong>فعالیت ثبت‌شده‌ای در داده‌های قابل‌دسترسی موجود نیست.</strong></div></div>';
 
 function openOrg(){openModal(orgModal);setTimeout(()=>$('#orgName').focus(),80)}
 ['newOrgBtn','addOrgInline','quickOrg'].forEach(id=>$('#'+id).addEventListener('click',openOrg));
 $('#closeOrg').addEventListener('click',()=>closeModal(orgModal));$('#cancelOrg').addEventListener('click',()=>closeModal(orgModal));
-$('#orgForm').addEventListener('submit',e=>{e.preventDefault();const name=$('#orgName').value.trim();if(!name)return;orgs.unshift({name,code:($('#orgSlug').value.trim()||'NEW').toUpperCase().slice(0,10),manager:$('#managerName').value.trim()||'—',plan:$('#orgPlan').value==='business'?'Business':$('#orgPlan').value==='starter'?'Starter':$('#orgPlan').value==='trial'?'Trial':'Pro',users:'۱',status:$('#orgStatus').value==='trial'?'trial':$('#orgStatus').value==='suspended'?'suspended':'active',initial:name[0]||'م'});renderOrgs();closeModal(orgModal);e.target.reset();showToast('کلینیک ایجاد شد','رکورد در حالت نمایشی به لیست اضافه شد؛ اتصال واقعی در API انجام می‌شود.')});
+$('#orgForm').addEventListener('submit',async e=>{e.preventDefault();const name=$('#orgName').value.trim();if(!name)return;const submit=e.submitter; if(submit)submit.disabled=true; try{if(!window.MOSHAVER_API)throw new Error('API_NOT_READY');const response=await window.MOSHAVER_API.request({action:'organizationsCreate',name:name,organizationId:$('#orgSlug').value.trim(),phone:$('#orgPhone').value.trim(),status:$('#orgStatus').value==='suspended'?'SUSPENDED':'ACTIVE'});if(!response||response.success!==true)throw new Error(response&&response.error&&response.error.message||'CREATE_FAILED');closeModal(orgModal);e.target.reset();showToast('کلینیک ثبت شد','سازمان در Google Sheets ثبت شد. نام مدیر و پلن انتخابی در این فرم هنوز ذخیره نمی‌شوند.');if(window.__refreshMoshaverDashboard)window.__refreshMoshaverDashboard(false);}catch(error){showToast('ثبت کلینیک ناموفق بود',error.message||'اتصال به API برقرار نشد.');}finally{if(submit)submit.disabled=false;}});
 
 $('#profileBtn').addEventListener('click',()=>openModal(profileModal));$('#closeProfile').addEventListener('click',()=>closeModal(profileModal));$('#closeProfile2').addEventListener('click',()=>closeModal(profileModal));
 $('#reportsBtn').addEventListener('click',()=>location.href='reports.html');$('#allOrgsBtn').addEventListener('click',()=>location.href='organizations.html');$('#auditBtn').addEventListener('click',()=>showToast('Audit Log','صفحه گزارش فعالیت‌ها در مرحله بعد به صورت مستقل پیاده‌سازی می‌شود.'));$('#invoiceBtn').addEventListener('click',()=>location.href='reports.html');$('#subscriptionBtn').addEventListener('click',()=>location.href='subscriptions.html');$('#quickUser').addEventListener('click',()=>location.href='users.html');$('#quickAccess').addEventListener('click',()=>location.href='access.html');$('#quickReport').addEventListener('click',()=>location.href='reports.html');
@@ -239,6 +239,71 @@ $('#refreshHealth').addEventListener('click',()=>{showToast('سلامت ساما
 $('#logout').addEventListener('click',()=>{showToast('خروج از حساب','در نسخه متصل به Backend نشست امن کاربر خاتمه داده می‌شود.');setTimeout(()=>location.href='../login.html',900)});
 
 window.addEventListener('keydown',e=>{if(e.key==='Escape'){notifications.classList.remove('open');closeModal(orgModal);closeModal(profileModal);sidebar.classList.remove('open')}});
+</script>
+
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/api.js"></script>
+<script>
+(function(){
+  'use strict';
+  var loading=false;
+  var number = function(value){ return Number(value||0).toLocaleString('fa-IR'); };
+  var esc = function(value){ return String(value==null?'':value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); };
+  var setText = function(selector,value){var el=document.querySelector(selector);if(el)el.textContent=value;};
+  var planLabel = function(value){var p=String(value||'').trim().toLowerCase();return ({pro:'Pro',business:'Business',starter:'Starter',trial:'Trial'})[p]||value||'بدون اشتراک';};
+  async function refreshDashboard(silent){
+    if(loading)return;
+    loading=true;
+    try{
+      if(!window.MOSHAVER_API || !window.MOSHAVER_AUTH || !window.MOSHAVER_AUTH.isLoggedIn()) throw new Error('برای مشاهده آمار واقعی وارد حساب مدیر ارشد شوید.');
+      if(window.MOSHAVER_AUTH.getRole()!=='SUPER_ADMIN') throw new Error('این داشبورد فقط برای نقش مدیر ارشد مجاز است.');
+      var response=await window.MOSHAVER_API.dashboard();
+      if(!response || response.success!==true) throw new Error(response&&response.error&&response.error.message||'دریافت آمار ناموفق بود');
+      var data=response.data||{}, stats=data.stats||{};
+      var cards=document.querySelectorAll('.grid > article.kpi');
+      var values=[number(stats.organizations),number(stats.activeUsers),number(stats.subscriptions),'ثبت نشده'];
+      cards.forEach(function(card,i){var value=card.querySelector('.kpi-value');if(value)value.textContent=values[i]===undefined?'—':values[i];});
+      setText('#miniOrganizations',number(stats.organizations));
+      setText('#miniSubscriptions',number(stats.activeSubscriptions));
+      setText('#miniUsers',number(stats.activeUsers));
+      setText('#miniRevenue','—');
+      setText('#monthlyRevenue','ثبت نشده');
+      var userCounts=data.userCountsByOrganization||{};
+      var subByOrg={};
+      (data.subscriptions||[]).forEach(function(s){var id=String(s.organizationId||'');if(id&&!subByOrg[id])subByOrg[id]=s;});
+      orgs=(data.organizations||[]).map(function(o){
+        var id=String(o.organizationId||''), sub=subByOrg[id]||{};
+        return {name:o.name||'بدون نام',code:id||'—',manager:o.managerUserId||'—',plan:planLabel(sub.plan),users:number(userCounts[id]||0),status:String(o.status||'').toLowerCase(),initial:String(o.name||'م').slice(0,1)};
+      });
+      renderOrgs();
+      activities=(data.activity||[]).map(function(a,i){
+        var title=[a.action,a.entity].filter(Boolean).join(' · ')||'فعالیت مدیریتی';
+        var detail=[a.details,a.entityId,a.createdAt].filter(Boolean).join(' · ');
+        return [['▦','♙','◇','⌘','↻'][i%5],title,detail];
+      });
+      $('#activityList').innerHTML=activities.length?activities.map(function(a){return '<div class="activity-item"><div class="activity-icon">'+esc(a[0])+'</div><div class="activity-copy"><strong>'+esc(a[1])+'</strong><span>'+esc(a[2])+'</span></div></div>';}).join(''):'<div class="activity-item"><div class="activity-copy"><strong>فعالیت ثبت‌شده‌ای در ActivityLog موجود نیست.</strong></div></div>';
+      var plans=data.subscriptionsByPlan||[];
+      $('#subscriptionPlanRows').innerHTML=plans.length?plans.map(function(p){
+        var label=esc(planLabel(p.plan)), count=Number(p.count)||0, percent=Math.max(0,Math.min(100,Number(p.percent)||0));
+        return '<div class="progress-row"><div class="progress-head"><span>'+label+'</span><b>'+number(count)+' اشتراک · '+number(percent)+'٪</b></div><div class="progress-track"><div class="progress-bar" style="width:'+percent+'%"></div></div></div>';
+      }).join(''):'<div class="progress-row"><div class="progress-head"><span>اشتراکی ثبت نشده است</span><b>۰</b></div><div class="progress-track"><div class="progress-bar" style="width:0%"></div></div></div>';
+      var health=document.getElementById('healthList');
+      if(health)health.innerHTML='<div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>API Gateway</strong><span>آخرین دریافت: '+esc(new Date(data.updatedAt||Date.now()).toLocaleTimeString('fa-IR'))+'</span></div><b class="health-status">Connected</b></div><div class="health"><div class="health-icon">✓</div><div class="health-copy"><strong>Google Sheets</strong><span>شیت‌های مدیریتی با موفقیت خوانده شدند</span></div><b class="health-status">Healthy</b></div><div class="health"><div class="health-icon">—</div><div class="health-copy"><strong>Google Drive</strong><span>اتصال مستقل در این بررسی آزمایش نشده</span></div><b class="health-status warn">Not checked</b></div><div class="health"><div class="health-icon">—</div><div class="health-copy"><strong>Backup</strong><span>اطلاعات پشتیبان در منبع داده موجود نیست</span></div><b class="health-status warn">Unknown</b></div>';
+      var chart=document.getElementById('chartEmpty');if(chart)chart.textContent='دادهٔ تاریخی ماهانه در منبع فعلی ثبت نشده؛ نمودار تا زمان وجود سوابق واقعی نمایش داده نمی‌شود.';
+      var subLabel=document.querySelector('.bottom-a .section-title span');if(subLabel)subLabel.textContent='توزیع واقعی بر اساس شیت Subscriptions';
+      var updated=document.querySelector('.system-status .status-sub');if(updated)updated.textContent='آخرین بروزرسانی: '+new Date(data.updatedAt||Date.now()).toLocaleTimeString('fa-IR')+' · بروزرسانی خودکار هر ۵ ثانیه';
+      if(!silent)showToast('اتصال برقرار شد','آمار از Google Sheets دریافت شد.');
+    }catch(error){
+      console.error('Dashboard refresh failed',error);
+      if(!silent)showToast('دریافت آمار ناموفق بود',error.message||'اتصال به API برقرار نشد.');
+    }finally{loading=false;}
+  }
+  window.__refreshMoshaverDashboard=refreshDashboard;
+  refreshDashboard(false);
+  window.setInterval(function(){if(!document.hidden)refreshDashboard(true);},5000);
+})();
 </script>
 
 </body>
