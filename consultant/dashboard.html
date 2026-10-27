@@ -306,23 +306,23 @@ html[data-theme="light"] .sidebar{
 }
 .notification-wrap{position:relative;z-index:121;display:flex;align-items:center}
 .notification{position:relative}
-.notification-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:8px;right:8px;background:var(--cyan);box-shadow:0 0 13px var(--cyan);display:none}
-.notification-panel{position:absolute;top:calc(100% + 12px);right:0;width:min(370px,calc(100vw - 28px));max-height:min(68vh,540px);overflow:auto;z-index:300;background:#160e24;border:1px solid rgba(168,85,247,.34);border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.42),0 0 35px rgba(124,58,237,.13);padding:16px;display:none;backdrop-filter:blur(24px);transform-origin:top right}
-.notification-panel.open{display:block;animation:notificationDrop .22s cubic-bezier(.2,.8,.2,1) both}
-html[data-theme="light"] .notification-panel{background:#fff;color:#21162c;border-color:rgba(124,58,237,.24);box-shadow:0 24px 70px rgba(77,43,104,.20),0 0 28px rgba(124,58,237,.09)}
-html[data-theme="light"] .notification-item{background:#f7f3fc;border-color:rgba(83,49,111,.14)}
+.notification-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:8px;right:8px;background:var(--cyan);box-shadow:0 0 10px var(--cyan);display:none}
+.notification-panel{position:absolute;top:calc(100% + 10px);right:0;width:min(340px,calc(100vw - 28px));z-index:300;background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:17px;box-shadow:0 16px 42px rgba(18,10,35,.22);padding:12px;display:none;backdrop-filter:blur(20px);transform-origin:top right}
+.notification-panel.open{display:block;animation:notificationDrop .18s ease-out both}
+html[data-theme="light"] .notification-panel{background:#fff;color:#21162c;border-color:#e7def2;box-shadow:0 16px 42px rgba(55,35,75,.16)}
+html[data-theme="light"] .notification-item{background:#faf8fd;border-color:#eee6f6}
 html[data-theme="light"] .notification-empty{color:#675873}
-@keyframes notificationDrop{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-.notification-panel-head{display:flex;align-items:center;gap:12px;padding:4px 28px 12px 2px;border-bottom:1px solid var(--border);margin-bottom:10px}
-.notification-panel-head strong{font-size:15px;font-weight:900}
-.notification-close{position:absolute;top:-9px;left:-9px;z-index:2;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-2));color:#fff;font-size:23px;line-height:1;cursor:pointer;box-shadow:0 7px 22px rgba(124,58,237,.4);animation:closeFloat 3s ease-in-out infinite;transition:transform .3s ease,box-shadow .3s ease}
-.notification-close:hover{transform:rotate(180deg) scale(1.08);box-shadow:0 9px 28px rgba(124,58,237,.6)}
-@keyframes closeFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
-.notification-item{padding:12px;border:1px solid var(--border);border-radius:12px;margin-top:8px;background:var(--surface-2)}
-.notification-item strong{display:block;font-size:13px;font-weight:800;margin-bottom:5px}
-.notification-item span{display:block;color:var(--muted);font-size:12px;line-height:1.8;overflow-wrap:anywhere}
-.notification-empty{padding:22px 10px;text-align:center;color:var(--muted);font-size:13px;line-height:1.9}
-@media(max-width:520px){.notification-panel{right:auto;left:-46px;width:min(350px,calc(100vw - 24px))}}
+@keyframes notificationDrop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.notification-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 2px 10px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.notification-panel-head strong{font-size:14px;font-weight:850}
+.notification-close{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--border);border-radius:9px;background:var(--surface-2);color:var(--muted);font-size:20px;line-height:1;cursor:pointer;transition:background .18s ease,color .18s ease,transform .18s ease}
+.notification-close:hover{background:var(--surface-3);color:var(--text);transform:rotate(90deg)}
+.notification-item{padding:9px 10px;border:1px solid var(--border);border-radius:11px;margin-top:7px;background:var(--surface-2)}
+.notification-item strong{display:block;font-size:12px;font-weight:800;margin-bottom:3px}
+.notification-item span{display:block;color:var(--muted);font-size:11px;line-height:1.65;overflow-wrap:anywhere}
+.notification-empty{padding:16px 8px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}
+.notification-more{padding:8px 3px 0;text-align:center;color:var(--muted);font-size:10px}
+@media(max-width:520px){.notification-panel{right:auto;left:-38px;width:min(320px,calc(100vw - 24px))}}
 .menu-btn{display:none}
 
 /* ===== Hero ===== */
@@ -829,9 +829,8 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       <div class="notification-wrap">
         <button class="icon-btn notification" id="notifications" aria-label="اعلان‌ها" aria-expanded="false" aria-controls="notificationPanel">♧<span class="notification-dot" id="notificationDot" aria-hidden="true"></span></button>
         <section class="notification-panel" id="notificationPanel" aria-label="فهرست اعلان‌ها" aria-live="polite">
-          <button type="button" class="notification-close" id="closeNotificationPanel" aria-label="بستن اعلان‌ها">×</button>
-          <div class="notification-panel-head"><strong>اعلان‌های پنل</strong></div>
-          <div id="notificationItems"><div class="notification-empty">برای دریافت اعلان‌ها در حال اتصال به سرور…</div></div>
+          <div class="notification-panel-head"><strong>اعلان‌ها</strong><button type="button" class="notification-close" id="closeNotificationPanel" aria-label="بستن اعلان‌ها">×</button></div>
+          <div id="notificationItems"><div class="notification-empty">در حال دریافت اعلان‌ها…</div></div>
         </section>
       </div>
       <button class="icon-btn" id="theme" aria-label="تغییر پوسته">☀</button>
@@ -1069,12 +1068,13 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     const list = Array.isArray(items) ? items : [];
     notificationDot.style.display = list.length ? "block" : "none";
     notificationButton.setAttribute("aria-label", list.length ? "اعلان‌ها، " + list.length + " مورد" : "اعلان‌ها");
-    if (!list.length) { notificationItems.innerHTML = '<div class="notification-empty">در حال حاضر اعلان فعالی وجود ندارد.</div>'; return; }
-    notificationItems.innerHTML = list.slice(0, 20).map(item =>
+    if (!list.length) { notificationItems.innerHTML = '<div class="notification-empty">اعلان جدیدی ندارید.</div>'; return; }
+    const visible = list.slice(0, 4);
+    notificationItems.innerHTML = visible.map(item =>
       '<article class="notification-item"><strong>' + safe(item.title || "اعلان") + '</strong><span>' +
-      safe(item.detail || "برای این مورد جزئیات بیشتری ثبت نشده است.") +
+      safe(item.detail || "جزئیات بیشتری ثبت نشده است.") +
       (item.date ? '<br>تاریخ: ' + safe(item.date) : '') + '</span></article>'
-    ).join("");
+    ).join("") + (list.length > visible.length ? '<div class="notification-more">۴ اعلان اخیر از ' + list.length + ' اعلان</div>' : '');
   }
   async function loadNotifications(showErrors) {
     if (notificationLoading) return;
