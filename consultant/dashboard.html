@@ -273,6 +273,9 @@ html[data-theme="light"] .sidebar{
 /* ===== Main ===== */
 .main{min-width:0}
 .topbar{
+  position:relative;
+  z-index:120;
+  overflow:visible;
   min-height:72px;
   display:flex;align-items:center;justify-content:space-between;gap:14px;
   padding:12px 16px;
@@ -301,11 +304,14 @@ html[data-theme="light"] .sidebar{
   transform:translateY(-2px) rotate(4deg);
   border-color:var(--border-strong);
 }
-.notification-wrap{position:relative;display:flex;align-items:center}
+.notification-wrap{position:relative;z-index:121;display:flex;align-items:center}
 .notification{position:relative}
 .notification-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:8px;right:8px;background:var(--cyan);box-shadow:0 0 13px var(--cyan);display:none}
-.notification-panel{position:absolute;top:calc(100% + 12px);right:0;width:min(370px,calc(100vw - 28px));max-height:min(68vh,540px);overflow:auto;z-index:300;background:rgba(18,11,29,.96);border:1px solid rgba(168,85,247,.28);border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.42),0 0 35px rgba(124,58,237,.13);padding:16px;display:none;backdrop-filter:blur(24px);transform-origin:top right}
+.notification-panel{position:absolute;top:calc(100% + 12px);right:0;width:min(370px,calc(100vw - 28px));max-height:min(68vh,540px);overflow:auto;z-index:300;background:#160e24;border:1px solid rgba(168,85,247,.34);border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.42),0 0 35px rgba(124,58,237,.13);padding:16px;display:none;backdrop-filter:blur(24px);transform-origin:top right}
 .notification-panel.open{display:block;animation:notificationDrop .22s cubic-bezier(.2,.8,.2,1) both}
+html[data-theme="light"] .notification-panel{background:#fff;color:#21162c;border-color:rgba(124,58,237,.24);box-shadow:0 24px 70px rgba(77,43,104,.20),0 0 28px rgba(124,58,237,.09)}
+html[data-theme="light"] .notification-item{background:#f7f3fc;border-color:rgba(83,49,111,.14)}
+html[data-theme="light"] .notification-empty{color:#675873}
 @keyframes notificationDrop{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .notification-panel-head{display:flex;align-items:center;gap:12px;padding:4px 28px 12px 2px;border-bottom:1px solid var(--border);margin-bottom:10px}
 .notification-panel-head strong{font-size:15px;font-weight:900}
