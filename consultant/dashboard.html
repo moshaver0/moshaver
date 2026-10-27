@@ -1054,7 +1054,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     localStorage.removeItem("moshaver_user");
     localStorage.removeItem("moshaver_session");
     localStorage.removeItem("moshaver_access_token");
-    ["moshaver:prefetch:v1","moshaver:clients-cache:v1","moshaver:appointments-cache:v1","moshaver:followups-cache:v1","moshaver:notes-cache:v1"].forEach(k => { localStorage.removeItem(k); sessionStorage.removeItem(k); });
+    ["moshaver:dashboard-view-cache:v1","moshaver:prefetch:v1","moshaver:clients-cache:v1","moshaver:appointments-cache:v1","moshaver:followups-cache:v1","moshaver:notes-cache:v1"].forEach(k => { localStorage.removeItem(k); sessionStorage.removeItem(k); });
     sessionStorage.removeItem("moshaver-access-token");
     window.location.href = "../login.html";
   });
@@ -1233,6 +1233,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
         activityRoot.innerHTML=events.length?events.slice(0,4).map((x,i)=>'<div class="activity-item"><div class="activity-dot">'+["♙","◫","↻","✎"][i]+'</div><div><strong>'+safe(x.title)+'</strong><small>'+safe(x.detail)+'</small></div><span class="activity-time">'+safe(String(x.date||"").slice(0,10))+'</span></div>').join(""):'<div class="activity-item"><div><strong>فعالیتی ثبت نشده است.</strong></div></div>';
       }
       const badge=document.querySelector(".nav-badge");if(badge)badge.textContent=String(todayFollows.length+overdueFollows.length);
+      saveDashboardViewCache();
       window.MOSHAVER_DASHBOARD_NOTICE="امروز "+todayFollows.length+" پیگیری و "+todaysAppointments.length+" نوبت از سرور دریافت شد.";
     } catch (error) {
       console.error(error);
@@ -1242,8 +1243,47 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     }
   }
 
+  
+  function dashboardCacheUserKey() {
+    try {
+      const user = window.MOSHAVER_AUTH?.getUser?.() || JSON.parse(localStorage.getItem("moshaver_user") || "null");
+      return String(user?.userId || user?.id || user?.username || "");
+    } catch (_) { return ""; }
+  }
+  const dashboardViewCacheKey = "moshaver:dashboard-view-cache:v1";
+  const dashboardViewSelectors = ["#monthlyPerformanceValue","#monthlyPerformanceFoot",".kpis .kpi strong",".kpis .kpi small",".appointment-list",".bottom-grid .activity",".nav-badge"];
+  function saveDashboardViewCache() {
+    try {
+      const userKey = dashboardCacheUserKey();
+      if (!userKey) return;
+      const nodes = [];
+      dashboardViewSelectors.forEach(selector => document.querySelectorAll(selector).forEach((node,index) => nodes.push({selector,index,html:node.innerHTML})));
+      const ring = document.querySelector("#monthlyPerformanceRing");
+      const snapshot = {version:1,userKey,savedAt:Date.now(),nodes,ringStyle:ring?.getAttribute("style")||"",ringLabel:ring?.getAttribute("aria-label")||""};
+      const serialized = JSON.stringify(snapshot);
+      if (serialized.length < 250000) localStorage.setItem(dashboardViewCacheKey,serialized);
+    } catch (error) { console.warn("MOSHAVER dashboard view cache skipped:",error); }
+  }
+  function restoreDashboardViewCache() {
+    try {
+      const userKey = dashboardCacheUserKey();
+      if (!userKey) return false;
+      const snapshot = JSON.parse(localStorage.getItem(dashboardViewCacheKey) || "null");
+      if (!snapshot || snapshot.version !== 1 || snapshot.userKey !== userKey || !Array.isArray(snapshot.nodes)) return false;
+      snapshot.nodes.forEach(item => {
+        const node = document.querySelectorAll(item.selector)[item.index];
+        if (node && typeof item.html === "string") node.innerHTML = item.html;
+      });
+      const ring = document.querySelector("#monthlyPerformanceRing");
+      if (ring && snapshot.ringStyle) ring.setAttribute("style",snapshot.ringStyle);
+      if (ring && snapshot.ringLabel) ring.setAttribute("aria-label",snapshot.ringLabel);
+      return snapshot.nodes.length > 0;
+    } catch (error) { console.warn("MOSHAVER dashboard view cache unavailable:",error); return false; }
+  }
+
   const now = new Date();
   document.title = "داشبورد مشاور | MOSHAVER";
+  restoreDashboardViewCache();
   loadDashboardData(false);
   // Refresh live dashboard data every 30 seconds without overlapping requests.
   window.setInterval(() => {
