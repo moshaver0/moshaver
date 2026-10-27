@@ -1020,8 +1020,34 @@ async function loginRequest(payload) {
     }
   });
 
-  forgot.addEventListener("click", function(){
-    showToast("بازیابی رمز عبور از طریق پنل مدیریت و Backend فعال خواهد شد.");
+  forgot.addEventListener("click", async function(){
+    const identifier = window.prompt("ایمیل ثبت‌شده در حساب یا نام کاربری را وارد کنید:");
+    if (!identifier || !identifier.trim()) return;
+    const apiBase = window.MOSHAVER_API_BASE;
+    const send = async function(action, fields) {
+      const body = new URLSearchParams(Object.assign({action:action}, fields || {}));
+      const response = await fetch(apiBase, {method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8","Accept":"application/json"},body:body.toString()});
+      const result = await response.json();
+      if (!result || result.success !== true) throw new Error(result && result.error && (result.error.message || result.error.code) || "درخواست ناموفق بود");
+      return result;
+    };
+    try {
+      await send("passwordResetRequest", {identifier:identifier.trim()});
+      showToast("اگر ایمیل معتبری روی حساب ثبت شده باشد، کد بازیابی ارسال می‌شود.");
+      const code = window.prompt("کد ۶ رقمی ارسال‌شده به ایمیل را وارد کنید:");
+      if (!code || !code.trim()) return;
+      const newPassword = window.prompt("رمز عبور جدید را وارد کنید (حداقل ۸ کاراکتر):");
+      if (!newPassword) return;
+      if (newPassword.length < 8) { showError("رمز عبور جدید باید حداقل ۸ کاراکتر باشد."); return; }
+      await send("passwordResetConfirm", {identifier:identifier.trim(),code:code.trim(),newPassword:newPassword});
+      showSuccess("رمز عبور تغییر کرد. اکنون با رمز جدید وارد شوید.");
+    } catch (error) {
+      console.error("Password recovery error:", error);
+      const message = String(error.message || "");
+      showError(message.indexOf("RESET_CODE_INVALID") >= 0 ? "کد بازیابی اشتباه است یا اعتبار آن تمام شده است." :
+        message.indexOf("PASSWORD_TOO_SHORT") >= 0 ? "رمز عبور جدید باید حداقل ۸ کاراکتر باشد." :
+        "بازیابی انجام نشد. ایمیل ثبت‌شده و اتصال سرور را بررسی کنید؛ اگر حساب ایمیل ندارد با مدیر سامانه تماس بگیرید.");
+    }
   });
 
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
