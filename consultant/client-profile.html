@@ -85,8 +85,24 @@ async function bootProfile(){
  $('#more')?.addEventListener('click',()=>{$('#side').classList.add('open');$('#ov').classList.add('open')});
  $$('[data-route]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.route)}));
  $('#logout')?.addEventListener('click',async()=>{try{if(window.MOSHAVER_AUTH)await window.MOSHAVER_AUTH.logout()}finally{localStorage.removeItem('moshaver_access_token');sessionStorage.removeItem('moshaver-access-token');localStorage.removeItem('moshaver_user');localStorage.removeItem('moshaver_session');location.href='../login.html'}});
- $('#notifications')?.addEventListener('click',()=>profileToast('اعلان‌ها','اعلان‌ها از این صفحه هنوز پشتیبانی نمی‌شوند.'));
- $('#sms')?.addEventListener('click',()=>profileToast('ارسال پیامک','اتصال سرویس پیامک در این صفحه فعال نشده است.'));
+ $('#notifications')?.addEventListener('click',async()=>{
+   try{
+     const items=await window.MOSHAVER_API.notifications.list();
+     const message=items.slice(0,5).map(x=>(x.title||'اعلان')+(x.detail?' — '+x.detail:'')).join(' | ');
+     profileToast('اعلان‌ها',message||'در حال حاضر اعلان فعالی ثبت نشده است.');
+   }catch(error){profileToast('خطا در دریافت اعلان‌ها',error.message||'اتصال سرور را بررسی کنید.')}
+ });
+ $('#sms')?.addEventListener('click',async()=>{
+   if(!profileClient){profileToast('پرونده در دسترس نیست','ابتدا یک مراجع را انتخاب کنید.');return}
+   const message=window.prompt('متن پیامک برای '+([profileClient.firstName,profileClient.lastName].filter(Boolean).join(' ')||'مراجع')+':','سلام، یادآوری از کلینیک مشاور');
+   if(message===null)return;
+   if(!message.trim()){profileToast('متن خالی است','لطفاً متن پیامک را وارد کنید.');return}
+   try{
+     const result=await window.MOSHAVER_API.sms.send({clientId:clientIdOf(profileClient),message:message.trim()});
+     if(result&&result.success)profileToast('پیامک ارسال شد','ارسال توسط سرویس پیامکی تأیید شد.');
+     else profileToast('ارسال پیامک ناموفق بود',String(result&&result.error||'سرویس پیامکی غیرفعال است یا تنظیمات آن کامل نیست.'));
+   }catch(error){profileToast('ارسال پیامک ناموفق بود',error.message||'شماره تماس یا اتصال سرور را بررسی کنید.')}
+ });
  $('#apt')?.addEventListener('click',()=>go('appointments'));$('#fol')?.addEventListener('click',()=>go('follow-ups'));$('#note')?.addEventListener('click',()=>go('notes'));
  $$('.tab').forEach(b=>b.addEventListener('click',()=>{$$('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderTab(b.dataset.t)}));
  if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn()){profileToast('ورود لازم است','لطفاً دوباره وارد حساب شوید.');return}
