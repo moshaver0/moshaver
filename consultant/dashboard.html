@@ -709,6 +709,53 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 @keyframes ringPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(168,85,247,0))}50%{filter:drop-shadow(0 0 20px rgba(168,85,247,.18))}}
 @keyframes buttonShine{0%,45%{transform:skewX(-25deg) translateX(-180%)}70%,100%{transform:skewX(-25deg) translateX(420%)}}
 @keyframes progressIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Shared professional mobile navigation */
+.mobile-nav{display:none!important}
+@media(max-width:1040px){
+  .mobile-nav{
+    display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    position:fixed!important;left:10px!important;right:10px!important;
+    bottom:max(8px,env(safe-area-inset-bottom))!important;
+    width:auto!important;min-height:68px!important;height:auto!important;
+    box-sizing:border-box!important;padding:7px!important;gap:5px!important;
+    align-items:stretch!important;justify-content:stretch!important;
+    overflow:visible!important;z-index:9999!important;
+    border:1px solid var(--border-strong)!important;border-radius:21px!important;
+    background:rgba(19,12,30,.90)!important;color:#f8f5ff!important;
+    -webkit-backdrop-filter:blur(24px) saturate(150%)!important;backdrop-filter:blur(24px) saturate(150%)!important;
+    box-shadow:0 12px 36px rgba(0,0,0,.28),0 3px 12px rgba(124,58,237,.12)!important;
+    padding-bottom:calc(7px + env(safe-area-inset-bottom))!important;
+  }
+  html[data-theme="light"] .mobile-nav{background:rgba(255,255,255,.94)!important;color:#342344!important;border-color:rgba(124,58,237,.18)!important;box-shadow:0 12px 34px rgba(67,42,91,.16)!important}
+  .mobile-nav a,.mobile-nav button{
+    display:flex!important;min-width:0!important;min-height:51px!important;
+    padding:4px 1px!important;gap:3px!important;flex-direction:column!important;
+    align-items:center!important;justify-content:center!important;
+    border:1px solid transparent!important;border-radius:14px!important;
+    background:transparent!important;color:rgba(245,239,255,.72)!important;
+    text-decoration:none!important;font:inherit!important;line-height:1.1!important;
+    box-shadow:none!important;transform:none!important;cursor:pointer!important;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation!important;
+  }
+  html[data-theme="light"] .mobile-nav a,html[data-theme="light"] .mobile-nav button{color:#6f607d!important}
+  .mobile-nav a b,.mobile-nav button b{
+    display:grid!important;place-items:center!important;width:29px!important;height:27px!important;
+    margin:0!important;border-radius:9px!important;font-size:19px!important;font-weight:700!important;line-height:1!important;
+    background:transparent!important;box-shadow:none!important;color:inherit!important;
+  }
+  .mobile-nav a span,.mobile-nav button span{display:block!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:9px!important;font-weight:750!important;line-height:1.2!important}
+  .mobile-nav a.active{color:#fff!important;background:linear-gradient(145deg,#8b5cf6,#6d28d9)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:0 4px 13px rgba(124,58,237,.25)!important}
+  .mobile-nav a.active b{color:#fff!important;background:rgba(255,255,255,.13)!important}
+  .mobile-nav a:active,.mobile-nav button:active{opacity:.82!important}
+  .main,.app-main,.page-main{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:360px){
+  .mobile-nav{left:6px!important;right:6px!important;padding:5px!important;gap:2px!important;border-radius:18px!important}
+  .mobile-nav a,.mobile-nav button{min-height:48px!important;border-radius:12px!important}
+  .mobile-nav a span,.mobile-nav button span{font-size:8px!important}
+}
+
 </style>
 
 <script>
@@ -995,13 +1042,13 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
 
   </div>
 
-  <nav class="mobile-nav">
-    <a class="active" href="dashboard.html"><b>⌂</b><span>خانه</span></a>
-    <a href="clients.html"><b>♙</b><span>مراجعین</span></a>
-    <a href="appointments.html"><b>◫</b><span>نوبت‌ها</span></a>
-    <a href="follow-ups.html"><b>↻</b><span>پیگیری</span></a>
-    <button id="mobileMore"><b>•••</b><span>بیشتر</span></button>
-  </nav>
+  <nav class="mobile-nav" aria-label="ناوبری موبایل">
+  <a href="dashboard.html" class="active" aria-current="page"><b>⌂</b><span>خانه</span></a>
+  <a href="clients.html"><b>♙</b><span>مراجعین</span></a>
+  <a href="appointments.html"><b>◫</b><span>نوبت‌ها</span></a>
+  <a href="follow-ups.html"><b>↻</b><span>پیگیری</span></a>
+  <button type="button" id="mobileMore" aria-label="باز کردن منوی بیشتر"><b>•••</b><span>بیشتر</span></button>
+</nav>
 
   <div class="toast" id="toast">
     <div class="toast-icon">✓</div>
