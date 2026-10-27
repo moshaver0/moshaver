@@ -143,6 +143,12 @@
     activity: {
       list: filters => call("activityList", filters || {}).then(items)
     },
+    notifications: {
+      list: filters => call("notificationsList", filters || {}).then(items)
+    },
+    sms: {
+      send: record => call("smsSend", input(record || {}))
+    },
     reports: {
       overview: filters => call("reportsOverview", filters || {})
     },
