@@ -1099,6 +1099,29 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       const appointments = directOrDashboard(1, Array.isArray(data.appointments) ? data.appointments : []);
       const follows = directOrDashboard(2, Array.isArray(data.followUps) ? data.followUps : []);
       const notes = directOrDashboard(3, Array.isArray(data.notes) ? data.notes : []);
+      // Keep a short-lived, user-scoped snapshot so destination pages can render immediately.
+      try {
+        const currentUser = window.MOSHAVER_AUTH.getUser();
+        const userKey = String(currentUser?.userId || currentUser?.id || currentUser?.username || "");
+        if (userKey) {
+          const prefetch = {
+            version: 1,
+            userKey,
+            savedAt: Date.now(),
+            clients,
+            appointments,
+            followUps: follows,
+            notes
+          };
+          const serializedPrefetch = JSON.stringify(prefetch);
+          // Avoid exceeding browser sessionStorage quotas on unusually large clinics.
+          if (serializedPrefetch.length < 1500000) {
+            sessionStorage.setItem("moshaver:prefetch:v1", serializedPrefetch);
+          }
+        }
+      } catch (prefetchError) {
+        console.warn("MOSHAVER prefetch cache skipped:", prefetchError);
+      }
       const finance = Array.isArray(data.finance) ? data.finance : [];
       const now = new Date();
       const todayISO = now.toISOString().slice(0, 10);
