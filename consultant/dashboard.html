@@ -1083,14 +1083,15 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     }
     dashboardLoading = true;
     try {
-      // One aggregated request is faster and lighter than five separate sheet reads.
-      const data = await window.MOSHAVER_API.dashboard();
-      // Prefer dedicated live reads so stale aggregate data cannot hide saved records.
-      const directReads = await Promise.allSettled([
-        window.MOSHAVER_API.clients.list(),
-        window.MOSHAVER_API.appointments.list(),
-        window.MOSHAVER_API.followUps.list(),
-        window.MOSHAVER_API.notes.list()
+      // Start the dashboard and detailed page-data reads together to avoid serial network waits.
+      const [data, directReads] = await Promise.all([
+        window.MOSHAVER_API.dashboard(),
+        Promise.allSettled([
+          window.MOSHAVER_API.clients.list(),
+          window.MOSHAVER_API.appointments.list(),
+          window.MOSHAVER_API.followUps.list(),
+          window.MOSHAVER_API.notes.list()
+        ])
       ]);
       const directOrDashboard = (index, fallback) =>
         directReads[index].status === "fulfilled" && Array.isArray(directReads[index].value)
