@@ -540,6 +540,53 @@ html[data-theme=light] body > .modal > .modal-box{
 }
 
 
+
+/* Shared professional mobile navigation */
+.mobile-nav{display:none!important}
+@media(max-width:1040px){
+  .mobile-nav{
+    display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    position:fixed!important;left:10px!important;right:10px!important;
+    bottom:max(8px,env(safe-area-inset-bottom))!important;
+    width:auto!important;min-height:68px!important;height:auto!important;
+    box-sizing:border-box!important;padding:7px!important;gap:5px!important;
+    align-items:stretch!important;justify-content:stretch!important;
+    overflow:visible!important;z-index:9999!important;
+    border:1px solid var(--border-strong)!important;border-radius:21px!important;
+    background:rgba(19,12,30,.90)!important;color:#f8f5ff!important;
+    -webkit-backdrop-filter:blur(24px) saturate(150%)!important;backdrop-filter:blur(24px) saturate(150%)!important;
+    box-shadow:0 12px 36px rgba(0,0,0,.28),0 3px 12px rgba(124,58,237,.12)!important;
+    padding-bottom:calc(7px + env(safe-area-inset-bottom))!important;
+  }
+  html[data-theme="light"] .mobile-nav{background:rgba(255,255,255,.94)!important;color:#342344!important;border-color:rgba(124,58,237,.18)!important;box-shadow:0 12px 34px rgba(67,42,91,.16)!important}
+  .mobile-nav a,.mobile-nav button{
+    display:flex!important;min-width:0!important;min-height:51px!important;
+    padding:4px 1px!important;gap:3px!important;flex-direction:column!important;
+    align-items:center!important;justify-content:center!important;
+    border:1px solid transparent!important;border-radius:14px!important;
+    background:transparent!important;color:rgba(245,239,255,.72)!important;
+    text-decoration:none!important;font:inherit!important;line-height:1.1!important;
+    box-shadow:none!important;transform:none!important;cursor:pointer!important;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation!important;
+  }
+  html[data-theme="light"] .mobile-nav a,html[data-theme="light"] .mobile-nav button{color:#6f607d!important}
+  .mobile-nav a b,.mobile-nav button b{
+    display:grid!important;place-items:center!important;width:29px!important;height:27px!important;
+    margin:0!important;border-radius:9px!important;font-size:19px!important;font-weight:700!important;line-height:1!important;
+    background:transparent!important;box-shadow:none!important;color:inherit!important;
+  }
+  .mobile-nav a span,.mobile-nav button span{display:block!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:9px!important;font-weight:750!important;line-height:1.2!important}
+  .mobile-nav a.active{color:#fff!important;background:linear-gradient(145deg,#8b5cf6,#6d28d9)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:0 4px 13px rgba(124,58,237,.25)!important}
+  .mobile-nav a.active b{color:#fff!important;background:rgba(255,255,255,.13)!important}
+  .mobile-nav a:active,.mobile-nav button:active{opacity:.82!important}
+  .main,.app-main,.page-main{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:360px){
+  .mobile-nav{left:6px!important;right:6px!important;padding:5px!important;gap:2px!important;border-radius:18px!important}
+  .mobile-nav a,.mobile-nav button{min-height:48px!important;border-radius:12px!important}
+  .mobile-nav a span,.mobile-nav button span{font-size:8px!important}
+}
+
 </style><script>
 /* MOSHAVER: require an existing login before displaying panel pages */
 (function () {
@@ -786,47 +833,12 @@ html[data-theme=light] body > .modal > .modal-box{
 <section class="reminder-box"><strong>یادآوری هوشمند</strong><p id="reminderText">مواردی که موعدشان نزدیک است اینجا برجسته می‌شوند.</p><button class="btn small" id="reminderBtn">نمایش موارد نزدیک</button></section>
 <section class="glass-panel mini-panel"><div class="mini-head"><strong>روند وضعیت</strong><span>بر اساس داده‌های فعلی</span></div><div class="timeline" id="statusTimeline"></div></section>
 </aside>
-</div></main></div><nav class="mobile-nav" style="position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));min-height:66px;padding:7px;border:1px solid var(--border);border-radius:22px;background:rgba(15,9,24,.80);backdrop-filter:blur(25px) saturate(160%);box-shadow:0 20px 50px rgba(0,0,0,.28);z-index:90;align-items:stretch">
-<a class="" href="dashboard.html">
-<b>
-      ⌂
-     </b>
-<span>
-      خانه
-     </span>
-</a>
-<a class="" href="clients.html">
-<b>
-      ♙
-     </b>
-<span>
-      مراجعین
-     </span>
-</a>
-<a class="" href="appointments.html">
-<b>
-      ◫
-     </b>
-<span>
-      نوبت‌ها
-     </span>
-</a>
-<a class="active" href="follow-ups.html">
-<b>
-      ↻
-     </b>
-<span>
-      پیگیری
-     </span>
-</a>
-<button id="mobileMenu">
-<b>
-      •••
-     </b>
-<span>
-      بیشتر
-     </span>
-</button>
+</div></main></div><nav class="mobile-nav" aria-label="ناوبری موبایل">
+  <a href="dashboard.html"><b>⌂</b><span>خانه</span></a>
+  <a href="clients.html"><b>♙</b><span>مراجعین</span></a>
+  <a href="appointments.html"><b>◫</b><span>نوبت‌ها</span></a>
+  <a href="follow-ups.html" class="active" aria-current="page"><b>↻</b><span>پیگیری</span></a>
+  <button type="button" id="mobileMenu" aria-label="باز کردن منوی بیشتر"><b>•••</b><span>بیشتر</span></button>
 </nav><div class="scroll-top" id="scrollTop">↑</div><div class="modal" id="followModal"><div class="modal-box"><div class="modal-head"><div><strong id="modalTitle">پیگیری جدید</strong><span>اطلاعات را کامل کن تا پیگیری قابل ردیابی باشد.</span></div><button class="floating-close" id="closeFollow">×</button></div><form class="form" id="followForm"><input name="id" type="hidden"/><div class="form-grid"><div class="field"><label>مراجع *</label><select class="select" id="clientSelect" name="clientId" required=""></select></div><div class="field"><label>نوع پیگیری</label><select class="select" name="type"><option value="CALL">تماس</option><option value="SMS">پیامک</option><option value="APPOINTMENT">نوبت</option><option value="CHECK_IN">چک‌این</option><option value="DOCUMENT">مدارک</option><option value="OTHER">سایر</option></select></div><div class="field"><label>عنوان *</label><input class="input" name="title" placeholder="مثلاً پیگیری نتیجه جلسه" required=""/></div><div class="field"><label>اولویت</label><select class="select" name="priority"><option value="URGENT">فوری</option><option value="HIGH">مهم</option><option selected="" value="NORMAL">عادی</option><option value="LOW">کم</option></select></div><div class="field"><label>تاریخ پیگیری *</label><div class="jalali-date-field due-date-field"><input class="input" id="dueDateJalali" inputmode="numeric" autocomplete="off" placeholder="۱۴۰۵/۰۷/۰۸" required/><div class="date-spin due-date-spin"><button type="button" data-due-date-step="1" title="یک روز بعد">▲</button><button type="button" data-due-date-step="-1" title="یک روز قبل">▼</button></div><button type="button" class="date-picker-btn" id="openDatePicker" title="انتخاب تاریخ">▣</button><input id="dueDate" name="dueDate" required type="hidden"/></div><small class="field-hint" id="dueDateHint">تاریخ به تقویم شمسی ثبت می‌شود.</small></div><div class="field"><label>ساعت</label><input class="input" name="dueTime" type="time"/></div><div class="field full"><label>شرح پیگیری</label><textarea class="textarea" name="description" placeholder="دلیل پیگیری، نکات مهم یا اطلاعات زمینه‌ای…"></textarea></div><div class="field full"><label>نتیجه فعلی</label><textarea class="textarea" name="result" placeholder="اگر نتیجه‌ای ثبت شده، اینجا بنویس…"></textarea></div><div class="field full"><label>اقدام بعدی</label><textarea class="textarea" name="nextAction" placeholder="بعد از این پیگیری چه کاری باید انجام شود؟"></textarea></div></div><div class="form-actions"><button class="btn" id="cancelFollow" type="button">انصراف</button><button class="btn primary">ذخیره پیگیری</button></div></form></div></div><div class="modal" id="detailModal"><div class="modal-box"><div class="modal-head"><div><strong>جزئیات پیگیری</strong><span id="detailSubtitle">—</span></div><button class="floating-close" id="closeDetail">×</button></div><div class="detail-grid"><div class="detail-box"><h4 id="detailTitle">—</h4><p id="detailDesc">—</p><div class="follow-meta" id="detailMeta"></div><div style="margin-top:15px"><label style="font-size:10px;color:var(--muted2);font-weight:800">وضعیت پیگیری</label><div class="status-options" id="statusOptions"></div></div></div><div class="detail-box"><h4>نتیجه و اقدام بعدی</h4><p id="detailResult">—</p><div style="margin-top:13px"><label style="font-size:10px;color:var(--muted2);font-weight:800">ثبت نتیجه جدید</label><textarea class="textarea" id="detailResultInput" placeholder="نتیجه تماس/پیگیری…"></textarea><label style="display:block;font-size:10px;color:var(--muted2);font-weight:800;margin:12px 0 6px">اقدام بعدی</label><textarea class="textarea" id="detailNextInput" placeholder="اقدام بعدی…"></textarea><button class="btn primary" id="saveDetail" style="width:100%;margin-top:10px">ذخیره نتیجه و اقدام</button></div></div></div></div></div><div class="modal" id="deleteModal"><div class="modal-box" style="max-width:430px"><div class="modal-head"><div><strong>حذف پیگیری</strong><span>این عملیات نرم‌حذف است و اطلاعات تاریخی حفظ می‌شود.</span></div><button class="floating-close" id="closeDelete">×</button></div><div class="form"><div class="detail-box"><strong id="deleteTitle">—</strong><p>آیا مطمئنی می‌خواهی این پیگیری از فهرست فعال حذف شود؟</p></div><div class="form-actions"><button class="btn" id="cancelDelete">انصراف</button><button class="btn danger" id="confirmDelete">تأیید حذف</button></div></div></div></div><div class="toast glass" id="toast"><i>✓</i><div><strong id="toastTitle">انجام شد</strong><span id="toastText"></span></div></div><script src="../assets/js/config.js"></script>
 <script src="../assets/js/auth.js"></script>
 <script src="../assets/js/moshaver-api.js"></script>
