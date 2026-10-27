@@ -194,6 +194,53 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
 @media(max-width:1200px){.report-kpis{grid-template-columns:repeat(3,1fr)}.report-grid{grid-template-columns:1fr}.report-hero-grid{grid-template-columns:1fr}.report-hero-orbit{display:none}.report-filters{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.reports-page{padding-bottom:100px}.reports-hero{padding:22px!important;border-radius:24px!important}.reports-hero h2{font-size:27px}.report-actions{display:grid;grid-template-columns:1fr 1fr}.report-actions .btn{width:100%}.report-kpis{grid-template-columns:1fr 1fr;gap:11px}.report-kpi{min-height:135px;padding:15px;border-radius:20px!important}.report-kpi strong{font-size:25px}.report-grid{gap:14px}.report-panel{padding:17px!important;border-radius:22px!important}.report-head{align-items:flex-start;flex-direction:column}.report-head-actions{width:100%}.report-head-actions>*{flex:1}.report-filters{grid-template-columns:1fr 1fr}.report-search{grid-column:1/-1}.report-filters .clear-report{grid-column:1/-1}.donut-wrap{grid-template-columns:1fr;justify-items:center}.legend{width:100%}.chart-box{overflow:auto;min-height:260px}.bar-wrap{min-width:460px}.report-insight-grid{grid-template-columns:1fr}.fin-summary{grid-template-columns:1fr 1fr}.finance-table,.activity-table{display:block;overflow-x:auto;white-space:nowrap}.report-footer{align-items:flex-start;flex-direction:column}.mobile-nav{display:flex!important}}
 @media(max-width:430px){.report-actions{grid-template-columns:1fr}.report-kpis{grid-template-columns:1fr}.fin-summary{grid-template-columns:1fr}.report-filters{grid-template-columns:1fr}.report-filters .clear-report{grid-column:auto}}
+
+/* Shared professional mobile navigation */
+.mobile-nav{display:none!important}
+@media(max-width:1040px){
+  .mobile-nav{
+    display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    position:fixed!important;left:10px!important;right:10px!important;
+    bottom:max(8px,env(safe-area-inset-bottom))!important;
+    width:auto!important;min-height:68px!important;height:auto!important;
+    box-sizing:border-box!important;padding:7px!important;gap:5px!important;
+    align-items:stretch!important;justify-content:stretch!important;
+    overflow:visible!important;z-index:9999!important;
+    border:1px solid var(--border-strong)!important;border-radius:21px!important;
+    background:rgba(19,12,30,.90)!important;color:#f8f5ff!important;
+    -webkit-backdrop-filter:blur(24px) saturate(150%)!important;backdrop-filter:blur(24px) saturate(150%)!important;
+    box-shadow:0 12px 36px rgba(0,0,0,.28),0 3px 12px rgba(124,58,237,.12)!important;
+    padding-bottom:calc(7px + env(safe-area-inset-bottom))!important;
+  }
+  html[data-theme="light"] .mobile-nav{background:rgba(255,255,255,.94)!important;color:#342344!important;border-color:rgba(124,58,237,.18)!important;box-shadow:0 12px 34px rgba(67,42,91,.16)!important}
+  .mobile-nav a,.mobile-nav button{
+    display:flex!important;min-width:0!important;min-height:51px!important;
+    padding:4px 1px!important;gap:3px!important;flex-direction:column!important;
+    align-items:center!important;justify-content:center!important;
+    border:1px solid transparent!important;border-radius:14px!important;
+    background:transparent!important;color:rgba(245,239,255,.72)!important;
+    text-decoration:none!important;font:inherit!important;line-height:1.1!important;
+    box-shadow:none!important;transform:none!important;cursor:pointer!important;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation!important;
+  }
+  html[data-theme="light"] .mobile-nav a,html[data-theme="light"] .mobile-nav button{color:#6f607d!important}
+  .mobile-nav a b,.mobile-nav button b{
+    display:grid!important;place-items:center!important;width:29px!important;height:27px!important;
+    margin:0!important;border-radius:9px!important;font-size:19px!important;font-weight:700!important;line-height:1!important;
+    background:transparent!important;box-shadow:none!important;color:inherit!important;
+  }
+  .mobile-nav a span,.mobile-nav button span{display:block!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:9px!important;font-weight:750!important;line-height:1.2!important}
+  .mobile-nav a.active{color:#fff!important;background:linear-gradient(145deg,#8b5cf6,#6d28d9)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:0 4px 13px rgba(124,58,237,.25)!important}
+  .mobile-nav a.active b{color:#fff!important;background:rgba(255,255,255,.13)!important}
+  .mobile-nav a:active,.mobile-nav button:active{opacity:.82!important}
+  .main,.app-main,.page-main{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:360px){
+  .mobile-nav{left:6px!important;right:6px!important;padding:5px!important;gap:2px!important;border-radius:18px!important}
+  .mobile-nav a,.mobile-nav button{min-height:48px!important;border-radius:12px!important}
+  .mobile-nav a span,.mobile-nav button span{font-size:8px!important}
+}
+
 </style><script>
 /* MOSHAVER: require an existing login before displaying panel pages */
 (function () {
@@ -370,47 +417,12 @@ html[data-theme=light] .appt-status.pending{color:#92400e;background:rgba(180,83
 <section class="report-grid"><article class="glass report-panel"><div class="report-head"><div><strong>عملکرد پیگیری</strong><small>وضعیت پیگیری‌های امروز و عقب‌افتاده</small></div><button class="btn" id="openFollowups">↻ رفتن به پیگیری‌ها</button></div><div class="report-insight-grid"><div class="insight"><div class="insight-icon">◷</div><strong id="insToday">۰</strong><small>پیگیری امروز</small></div><div class="insight"><div class="insight-icon">!</div><strong id="insOverdue">۰</strong><small>عقب‌افتاده</small></div><div class="insight"><div class="insight-icon">✓</div><strong id="insDone">۰٪</strong><small>نرخ تکمیل</small></div></div></article><article class="glass report-panel"><div class="report-head"><div><strong>سلامت فعالیت</strong><small>یک نمای سریع از وضعیت کلی کار</small></div></div><div class="report-insight-grid"><div class="insight"><div class="insight-icon">☎</div><strong id="insContacts">۰</strong><small>تماس‌های ثبت‌شده</small></div><div class="insight"><div class="insight-icon">◫</div><strong id="insWeek">۰</strong><small>نوبت این هفته</small></div><div class="insight"><div class="insight-icon">▣</div><strong id="insCoverage">۰٪</strong><small>پوشش داده</small></div></div></article></section>
 <section class="glass report-panel" style="margin-top:20px"><div class="report-head"><div><strong>فهرست تراکنش‌های مالی</strong><small>قابل فیلتر، چاپ و خروجی</small></div></div><div class="report-filters"><input class="report-search" id="financeSearch" placeholder="جستجو بر اساس نام مراجع یا توضیح..."><select class="report-select" id="financeMethod"><option value="all">همه روش‌های پرداخت</option><option>نقدی</option><option>کارت</option><option>انتقال</option><option>آنلاین</option></select><select class="report-select" id="financeSort"><option value="new">جدیدترین</option><option value="high">بیشترین مبلغ</option><option value="commission">بیشترین کمیسیون</option></select><button class="btn clear-report" id="clearFinance">× پاک‌سازی</button></div><div style="overflow:auto;margin-top:14px"><table class="finance-table"><thead><tr><th>مراجع</th><th>تاریخ</th><th>درآمد</th><th>کمیسیون</th><th>روش</th><th>وضعیت</th></tr></thead><tbody id="financeRows"></tbody></table></div><div class="report-footer"><span id="financeCount">۰ تراکنش</span><div class="pagination" id="financePagination"></div></div></section>
 <section class="glass report-panel" style="margin-top:20px"><div class="report-head"><div><strong>فعالیت‌های اخیر</strong><small>آخرین رویدادهای ثبت‌شده در پنل</small></div><button class="btn" id="openActivity">مشاهده فعالیت‌ها</button></div><div style="overflow:auto"><table class="activity-table"><thead><tr><th>رویداد</th><th>مراجع</th><th>زمان</th><th>وضعیت</th></tr></thead><tbody id="activityRows"></tbody></table></div></section>
-<div class="report-toast" id="reportToast"></div></main><nav class="mobile-nav" style="position:fixed;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));min-height:66px;padding:7px;border:1px solid var(--border);border-radius:22px;background:rgba(15,9,24,.80);backdrop-filter:blur(25px) saturate(160%);box-shadow:0 20px 50px rgba(0,0,0,.28);z-index:90;align-items:stretch">
-<a class="" href="dashboard.html">
-<b>
-      ⌂
-     </b>
-<span>
-      خانه
-     </span>
-</a>
-<a class="" href="clients.html">
-<b>
-      ♙
-     </b>
-<span>
-      مراجعین
-     </span>
-</a>
-<a class="" href="appointments.html">
-<b>
-      ◫
-     </b>
-<span>
-      نوبت‌ها
-     </span>
-</a>
-<a class="" href="follow-ups.html">
-<b>
-      ↻
-     </b>
-<span>
-      پیگیری
-     </span>
-</a>
-<button id="mobileMenu">
-<b>
-      •••
-     </b>
-<span>
-      بیشتر
-     </span>
-</button>
+<div class="report-toast" id="reportToast"></div></main><nav class="mobile-nav" aria-label="ناوبری موبایل">
+  <a href="dashboard.html"><b>⌂</b><span>خانه</span></a>
+  <a href="clients.html"><b>♙</b><span>مراجعین</span></a>
+  <a href="appointments.html"><b>◫</b><span>نوبت‌ها</span></a>
+  <a href="follow-ups.html"><b>↻</b><span>پیگیری</span></a>
+  <button type="button" id="mobileMenu" aria-label="باز کردن منوی بیشتر"><b>•••</b><span>بیشتر</span></button>
 </nav></div></div><script src="../assets/js/config.js"></script>
 <script src="../assets/js/auth.js"></script>
 <script src="../assets/js/moshaver-api.js"></script>
