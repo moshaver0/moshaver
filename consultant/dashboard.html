@@ -405,7 +405,7 @@ html[data-theme="light"] .sidebar{
   width:150px;height:150px;margin:17px auto 10px;
   border-radius:50%;
   display:grid;place-items:center;
-  background:conic-gradient(var(--purple) 0 87%,rgba(255,255,255,.07) 87% 100%);
+  background:conic-gradient(var(--purple) 0 var(--score,0%),rgba(255,255,255,.07) var(--score,0%) 100%);
   position:relative;
   animation:ringPulse 4s ease-in-out infinite;
 }
@@ -837,13 +837,13 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
           <span>عملکرد این ماه</span>
           <span>LIVE</span>
         </div>
-        <div class="score-ring">
+        <div class="score-ring" id="monthlyPerformanceRing" role="img" aria-label="شاخص عملکرد این ماه">
           <div>
-            <strong>۸۷٪</strong>
+            <strong id="monthlyPerformanceValue">—</strong>
             <span>شاخص عملکرد</span>
           </div>
         </div>
-        <div class="score-foot">روند کلی عملکرد شما مثبت است.</div>
+        <div class="score-foot" id="monthlyPerformanceFoot">در حال محاسبه از داده‌های واقعی…</div>
       </div>
     </div>
   </section>
@@ -1085,11 +1085,21 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
     try {
       // One aggregated request is faster and lighter than five separate sheet reads.
       const data = await window.MOSHAVER_API.dashboard();
-      const clients = Array.isArray(data.clients) ? data.clients : [];
-      const appointments = Array.isArray(data.appointments) ? data.appointments : [];
-      const follows = Array.isArray(data.followUps) ? data.followUps : [];
+      // Prefer dedicated live reads so stale aggregate data cannot hide saved records.
+      const directReads = await Promise.allSettled([
+        window.MOSHAVER_API.clients.list(),
+        window.MOSHAVER_API.appointments.list(),
+        window.MOSHAVER_API.followUps.list(),
+        window.MOSHAVER_API.notes.list()
+      ]);
+      const directOrDashboard = (index, fallback) =>
+        directReads[index].status === "fulfilled" && Array.isArray(directReads[index].value)
+          ? directReads[index].value : fallback;
+      const clients = directOrDashboard(0, Array.isArray(data.clients) ? data.clients : []);
+      const appointments = directOrDashboard(1, Array.isArray(data.appointments) ? data.appointments : []);
+      const follows = directOrDashboard(2, Array.isArray(data.followUps) ? data.followUps : []);
+      const notes = directOrDashboard(3, Array.isArray(data.notes) ? data.notes : []);
       const finance = Array.isArray(data.finance) ? data.finance : [];
-      const notes = Array.isArray(data.notes) ? data.notes : [];
       const now = new Date();
       const todayISO = now.toISOString().slice(0, 10);
       const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now);
@@ -1110,6 +1120,60 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       const followRate = follows.length ? Math.round(followDone/follows.length*100) : 0;
       const completeClients = clients.filter(c => (c.firstName||c.name) && (c.phone||c.mobile)).length;
       const profileRate = clients.length ? Math.round(completeClients/clients.length*100) : 0;
+
+      // Calculate the monthly score from this month's actual appointments and follow-ups.
+      const monthOf = value => {
+        const key = keyDate(value);
+        if (!key) return "";
+        const normalized = key.replace(/-/g,"/");
+        return /^1\d{3}\//.test(normalized)
+          ? normalized.slice(0,7)
+          : normalized.slice(0,7).replace(/\//g,"-");
+      };
+      const currentJalaliMonth = todayJ.slice(0,7);
+      const currentGregorianMonth = todayISO.slice(0,7);
+      const isThisMonth = value => {
+        const key = monthOf(value);
+        return key === currentJalaliMonth || key === currentGregorianMonth;
+      };
+      const monthAppointments = appointments.filter(a =>
+        isThisMonth(a.date) && !["cancelled","canceled","deleted"].includes(String(a.status||"").toLowerCase())
+      );
+      const monthCompleted = monthAppointments.filter(a =>
+        ["completed","done"].includes(String(a.status||"").toLowerCase()) || a.finalized === true
+      ).length;
+      const monthNoShow = monthAppointments.filter(a =>
+        ["no-show","no_show","noshow"].includes(String(a.status||"").toLowerCase())
+      ).length;
+      const monthlyAttendance = monthCompleted + monthNoShow
+        ? Math.round(monthCompleted/(monthCompleted+monthNoShow)*100) : null;
+      const monthFollows = follows.filter(x =>
+        isThisMonth(x.dueDate) &&
+        !["COMPLETED","CANCELLED","CANCELED","DELETED"].includes(String(x.status||"").toUpperCase()) &&
+        String(x.isDeleted||"").toLowerCase() !== "true"
+      );
+      const monthFollowCompleted = follows.filter(x =>
+        isThisMonth(x.dueDate) && String(x.status||"").toUpperCase() === "COMPLETED" &&
+        String(x.isDeleted||"").toLowerCase() !== "true"
+      ).length;
+      const monthlyFollowRate = monthFollows.length + monthFollowCompleted
+        ? Math.round(monthFollowCompleted/(monthFollows.length+monthFollowCompleted)*100) : null;
+      const availableScores = [monthlyAttendance, monthlyFollowRate].filter(value => value !== null);
+      const monthlyPerformance = availableScores.length
+        ? Math.round(availableScores.reduce((sum,value)=>sum+value,0)/availableScores.length) : null;
+      const performanceValue = document.querySelector("#monthlyPerformanceValue");
+      const performanceRing = document.querySelector("#monthlyPerformanceRing");
+      const performanceFoot = document.querySelector("#monthlyPerformanceFoot");
+      if (performanceValue) performanceValue.textContent = monthlyPerformance === null
+        ? "—" : String(monthlyPerformance).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)])+"٪";
+      if (performanceRing) {
+        performanceRing.style.setProperty("--score", (monthlyPerformance === null ? 0 : monthlyPerformance)+"%");
+        performanceRing.setAttribute("aria-label", monthlyPerformance === null
+          ? "داده کافی برای محاسبه عملکرد ماهانه نیست" : "شاخص عملکرد این ماه "+monthlyPerformance+" درصد");
+      }
+      if (performanceFoot) performanceFoot.textContent = monthlyPerformance === null
+        ? "برای محاسبه، نوبت تکمیل‌شده یا پیگیری این ماه لازم است."
+        : "محاسبه زنده از "+monthCompleted+" نوبت تکمیل‌شده و "+monthFollowCompleted+" پیگیری تکمیل‌شده این ماه.";
       const kpis = document.querySelectorAll(".kpis .kpi");
       const values = [activeClients.length, todaysAppointments.length, todayFollows.length, attendance + "%"];
       values.forEach((value,i)=>{if(kpis[i]){const strong=kpis[i].querySelector("strong");if(strong)strong.textContent=String(value).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);}});
@@ -1155,10 +1219,10 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   const now = new Date();
   document.title = "داشبورد مشاور | MOSHAVER";
   loadDashboardData(false);
-  // Refresh every 5 seconds, without overlapping requests or polling hidden tabs.
+  // Refresh live dashboard data every 30 seconds without overlapping requests.
   window.setInterval(() => {
     if (!document.hidden) loadDashboardData(true);
-  }, 5000);
+  }, 30000);
 })();
 </script>
 
