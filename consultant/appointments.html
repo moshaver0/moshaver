@@ -2316,7 +2316,7 @@ function wire(){
 function handleAction(e){const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;if(b.dataset.action==='view')openDetail(id);else if(b.dataset.action==='edit')openForm(id);else if(b.dataset.action==='status')openDetail(id);else if(b.dataset.action==='complete')openCompletion(id);else if(b.dataset.action==='delete')deleteAppointment(id)}
 
 function updateSidebarScroll(){const s=$('#sidebar');const t=$('#sidebarScrollThumb');if(!s||!t)return;const max=s.scrollHeight-s.clientHeight;const ratio=max>0?s.clientHeight/s.scrollHeight:1;t.style.height=Math.max(38,Math.round(s.clientHeight*ratio))+'px';t.style.top=(max>0?(s.scrollTop/max)*(s.clientHeight-parseFloat(t.style.height)):0)+'px'}
-load().then(()=>{fillClientOptions();setTheme();wire();$('.mobile-nav a').forEach(a=>{if(a.pathname===location.pathname)a.classList.add('active')});
+load().then(()=>{fillClientOptions();setTheme();wire();$$('.mobile-nav a').forEach(a=>{if(a.pathname===location.pathname)a.classList.add('active')});
 const params=new URLSearchParams(location.search);if(params.get('client')){setTimeout(()=>openForm('',params.get('client')),120)}else if(params.get('new')==='1'){setTimeout(()=>openForm(),120)}
 renderAll();updateSidebarScroll();});
 })();
