@@ -100,7 +100,15 @@ async function bootProfile(){
    try{
      const result=await window.MOSHAVER_API.sms.send({clientId:clientIdOf(profileClient),message:message.trim()});
      if(result&&result.success)profileToast('پیامک ارسال شد','ارسال توسط سرویس پیامکی تأیید شد.');
-     else profileToast('ارسال پیامک ناموفق بود',String(result&&result.error||'سرویس پیامکی غیرفعال است یا تنظیمات آن کامل نیست.'));
+     else {
+       const reason=String(result&&result.error||'');
+       const message=reason==='SMS_DISABLED'?'سرویس پیامک در تنظیمات Google Apps Script غیرفعال است.':
+         reason==='KAVENEGAR_API_KEY_NOT_CONFIGURED'?'کلید API سرویس کاوه‌نگار تنظیم نشده است.':
+         reason==='KAVENEGAR_SENDER_NOT_CONFIGURED'?'شماره فرستنده پیامک تنظیم نشده است.':
+         reason==='PHONE_INVALID'?'شماره موبایل مراجع معتبر نیست.':
+         'ارسال انجام نشد: '+(reason||'تنظیمات سرویس پیامکی را بررسی کنید.');
+       profileToast('ارسال پیامک ناموفق بود',message);
+     }
    }catch(error){profileToast('ارسال پیامک ناموفق بود',error.message||'شماره تماس یا اتصال سرور را بررسی کنید.')}
  });
  $('#apt')?.addEventListener('click',()=>go('appointments'));$('#fol')?.addEventListener('click',()=>go('follow-ups'));$('#note')?.addEventListener('click',()=>go('notes'));
