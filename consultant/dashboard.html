@@ -302,11 +302,16 @@ html[data-theme="light"] .sidebar{
   border-color:var(--border-strong);
 }
 .notification{position:relative}
-.notification::after{
-  content:"";position:absolute;width:7px;height:7px;border-radius:50%;
-  top:8px;right:8px;background:var(--cyan);
-  box-shadow:0 0 13px var(--cyan);
-}
+.notification-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:8px;right:8px;background:var(--cyan);box-shadow:0 0 13px var(--cyan);display:none}
+.notification-panel{position:fixed;top:78px;right:24px;width:min(390px,calc(100vw - 32px));max-height:min(70vh,560px);overflow:auto;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow),0 18px 55px rgba(0,0,0,.28);padding:14px;display:none;backdrop-filter:blur(24px)}
+.notification-panel.open{display:block}
+.notification-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 12px;border-bottom:1px solid var(--border);margin-bottom:10px}
+.notification-panel-head strong{font-size:15px;font-weight:900}
+.notification-panel-head button{border:0;background:transparent;color:var(--muted);font-size:22px;cursor:pointer}
+.notification-item{padding:12px;border:1px solid var(--border);border-radius:12px;margin-top:8px;background:var(--surface-2)}
+.notification-item strong{display:block;font-size:13px;font-weight:800;margin-bottom:5px}
+.notification-item span{display:block;color:var(--muted);font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.notification-empty{padding:22px 10px;text-align:center;color:var(--muted);font-size:13px;line-height:1.9}
 .menu-btn{display:none}
 
 /* ===== Hero ===== */
@@ -810,11 +815,15 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
       <h1>داشبورد</h1>
     </div>
     <div class="top-actions">
-      <button class="icon-btn notification" id="notifications" aria-label="اعلان‌ها">♧</button>
+      <button class="icon-btn notification" id="notifications" aria-label="اعلان‌ها" aria-expanded="false">♧<span class="notification-dot" id="notificationDot" aria-hidden="true"></span></button>
       <button class="icon-btn" id="theme" aria-label="تغییر پوسته">☀</button>
       <button class="icon-btn menu-btn" id="menu" aria-label="منو">☰</button>
     </div>
   </header>
+  <section class="notification-panel" id="notificationPanel" aria-label="فهرست اعلان‌ها" aria-live="polite">
+    <div class="notification-panel-head"><strong>اعلان‌های پنل</strong><button type="button" id="closeNotificationPanel" aria-label="بستن اعلان‌ها">×</button></div>
+    <div id="notificationItems"><div class="notification-empty">برای دریافت اعلان‌ها در حال اتصال به سرور…</div></div>
+  </section>
 
   <section class="hero">
     <div class="hero-grid">
@@ -1037,15 +1046,50 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   });
 
   /* ===== Notifications ===== */
-  $("#notifications").addEventListener("click", async () => {
-    try {
-      const items = await window.MOSHAVER_API.notifications.list();
-      const details = items.slice(0, 4).map(item => (item.title || "اعلان") + (item.detail ? " — " + item.detail : "")).join(" | ");
-      showToast("اعلان‌های پنل", details || "در حال حاضر اعلان فعالی ثبت نشده است.");
-    } catch (error) {
-      showToast("خطا در دریافت اعلان‌ها", error.message || "اتصال سرور را بررسی کنید.");
+  const notificationPanel = $("#notificationPanel");
+  const notificationItems = $("#notificationItems");
+  const notificationButton = $("#notifications");
+  const notificationDot = $("#notificationDot");
+  let notificationLoading = false;
+  function renderNotifications(items) {
+    const list = Array.isArray(items) ? items : [];
+    notificationDot.style.display = list.length ? "block" : "none";
+    notificationButton.setAttribute("aria-label", list.length ? "اعلان‌ها، " + list.length + " مورد" : "اعلان‌ها");
+    if (!list.length) { notificationItems.innerHTML = '<div class="notification-empty">در حال حاضر اعلان فعالی وجود ندارد.</div>'; return; }
+    notificationItems.innerHTML = list.slice(0, 20).map(item =>
+      '<article class="notification-item"><strong>' + safe(item.title || "اعلان") + '</strong><span>' +
+      safe(item.detail || "برای این مورد جزئیات بیشتری ثبت نشده است.") +
+      (item.date ? '<br>تاریخ: ' + safe(item.date) : '') + '</span></article>'
+    ).join("");
+  }
+  async function loadNotifications(showErrors) {
+    if (notificationLoading) return;
+    if (!window.MOSHAVER_API || !window.MOSHAVER_AUTH || !window.MOSHAVER_AUTH.isLoggedIn()) {
+      if (showErrors) showToast("ورود لازم است", "برای دریافت اعلان‌ها دوباره وارد حساب شوید."); return;
     }
+    notificationLoading = true;
+    if (!notificationItems.children.length) notificationItems.innerHTML = '<div class="notification-empty">در حال دریافت اعلان‌ها…</div>';
+    try { renderNotifications(await window.MOSHAVER_API.notifications.list()); }
+    catch (error) {
+      if (showErrors) {
+        notificationItems.innerHTML = '<div class="notification-empty">دریافت اعلان‌ها ناموفق بود. اتصال سرور یا انتشار نسخهٔ جدید را بررسی کنید.</div>';
+        showToast("خطا در دریافت اعلان‌ها", error.message || "اتصال سرور را بررسی کنید.");
+      }
+    } finally { notificationLoading = false; }
+  }
+  function closeNotifications() { notificationPanel.classList.remove("open"); notificationButton.setAttribute("aria-expanded", "false"); }
+  notificationButton.addEventListener("click", async () => {
+    const opening = !notificationPanel.classList.contains("open");
+    if (!opening) { closeNotifications(); return; }
+    notificationPanel.classList.add("open"); notificationButton.setAttribute("aria-expanded", "true");
+    await loadNotifications(true);
   });
+  $("#closeNotificationPanel").addEventListener("click", closeNotifications);
+  document.addEventListener("click", event => {
+    if (notificationPanel.classList.contains("open") && !notificationPanel.contains(event.target) && !notificationButton.contains(event.target)) closeNotifications();
+  });
+  document.addEventListener("keydown", event => { if (event.key === "Escape") closeNotifications(); });
+  loadNotifications(false);
 
   /* ===== Logout ===== */
   $("#logout").addEventListener("click", async () => {
