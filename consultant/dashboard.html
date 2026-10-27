@@ -1037,8 +1037,14 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
   });
 
   /* ===== Notifications ===== */
-  $("#notifications").addEventListener("click", () => {
-    showToast("اعلان‌ها", window.MOSHAVER_DASHBOARD_NOTICE || "اعلان‌های تازه‌ای از سرور دریافت نشده‌اند.");
+  $("#notifications").addEventListener("click", async () => {
+    try {
+      const items = await window.MOSHAVER_API.notifications.list();
+      const details = items.slice(0, 4).map(item => (item.title || "اعلان") + (item.detail ? " — " + item.detail : "")).join(" | ");
+      showToast("اعلان‌های پنل", details || "در حال حاضر اعلان فعالی ثبت نشده است.");
+    } catch (error) {
+      showToast("خطا در دریافت اعلان‌ها", error.message || "اتصال سرور را بررسی کنید.");
+    }
   });
 
   /* ===== Logout ===== */
