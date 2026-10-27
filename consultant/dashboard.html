@@ -1118,7 +1118,7 @@ html[data-theme="light"] .toast{background:rgba(255,255,255,.92)}
           // Avoid exceeding browser sessionStorage quotas on unusually large clinics.
           if (serializedPrefetch.length < 1500000) {
             sessionStorage.setItem("moshaver:prefetch:v1", serializedPrefetch);
-            localStorage.setItem("moshaver:prefetch:v1", serializedPrefetch);
+            if (serializedPrefetch.length < 600000) localStorage.setItem("moshaver:prefetch:v1", serializedPrefetch);
           }
         }
       } catch (prefetchError) {
