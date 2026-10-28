@@ -1135,20 +1135,49 @@ function bindJalaliDate(){
    e.preventDefault();e.stopPropagation();
    const existing=document.getElementById('dueDatePickerPopover');if(existing){existing.remove();return}
    const pop=document.createElement('div');pop.id='dueDatePickerPopover';
-   Object.assign(pop.style,{position:'fixed',zIndex:'2147483647',padding:'12px',borderRadius:'12px',border:'1px solid var(--border,#ccc)',background:'var(--card,#fff)',boxShadow:'0 10px 30px rgba(0,0,0,.25)',display:'grid',gap:'8px',minWidth:'230px',color:'var(--text,#222)'});
-   const label=document.createElement('label');label.textContent='انتخاب تاریخ';label.style.fontWeight='700';
-   const picker=document.createElement('input');picker.type='date';picker.value=$('#dueDate').value||todayISO();
-   Object.assign(picker.style,{width:'100%',minHeight:'40px',padding:'6px',boxSizing:'border-box',fontSize:'15px',color:'#222',background:'#fff',border:'1px solid #bbb',borderRadius:'8px'});
+   Object.assign(pop.style,{position:'fixed',zIndex:'2147483647',padding:'12px',borderRadius:'14px',border:'1px solid var(--border,#ccc)',background:'var(--surface2,#fff)',boxShadow:'0 12px 36px rgba(0,0,0,.32)',display:'grid',gap:'10px',width:'min(290px,calc(100vw - 24px))',boxSizing:'border-box',color:'var(--text,#222)',direction:'rtl'});
+   const top=document.createElement('div');Object.assign(top.style,{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'8px'});
+   const prev=document.createElement('button');prev.type='button';prev.textContent='‹';
+   const title=document.createElement('strong');title.style.cssText='font-size:14px;text-align:center;flex:1';
+   const next=document.createElement('button');next.type='button';next.textContent='›';
+   [prev,next].forEach(btn=>Object.assign(btn.style,{width:'32px',height:'32px',borderRadius:'8px',border:'1px solid var(--border,#ccc)',background:'transparent',color:'inherit',cursor:'pointer',fontSize:'22px',lineHeight:'1'}));
+   top.append(prev,title,next);
+   const grid=document.createElement('div');Object.assign(grid.style,{display:'grid',gridTemplateColumns:'repeat(7,minmax(0,1fr))',gap:'3px',textAlign:'center'});
+   const footer=document.createElement('div');Object.assign(footer.style,{display:'flex',justifyContent:'space-between',gap:'8px'});
+   const todayBtn=document.createElement('button');todayBtn.type='button';todayBtn.textContent='امروز';
    const close=document.createElement('button');close.type='button';close.textContent='بستن';
-   Object.assign(close.style,{minHeight:'36px',borderRadius:'8px',border:'1px solid var(--border,#ccc)',cursor:'pointer'});
-   pop.append(label,picker,close);$('#followModal').appendChild(pop);
-   const rect=open.getBoundingClientRect();pop.style.top=Math.min(rect.bottom+6,window.innerHeight-170)+'px';pop.style.left=Math.max(8,Math.min(rect.left,window.innerWidth-260))+'px';
-   picker.addEventListener('change',()=>{if(picker.value){setJalaliDate(picker.value);pop.remove()}});
-   close.addEventListener('click',()=>pop.remove());
+   [todayBtn,close].forEach(btn=>Object.assign(btn.style,{minHeight:'32px',padding:'4px 10px',borderRadius:'8px',border:'1px solid var(--border,#ccc)',background:'transparent',color:'inherit',cursor:'pointer'}));
+   footer.append(todayBtn,close);pop.append(top,grid,footer);$('#followModal').appendChild(pop);
+   const currentISO=$('#dueDate').value||todayISO();const parts=currentISO.split('-').map(Number);const startJ=jalali(parts[0],parts[1],parts[2]);
+   let viewYear=startJ[0],viewMonth=startJ[1];
+   const monthNames=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+   const weekNames=['ش','ی','د','س','چ','پ','ج'];
+   const isLeap=y=>{const x=gregorianFromJalali(y,1,1),n=gregorianFromJalali(y+1,1,1);return !!(x&&n&&Math.round((new Date(n+'T12:00:00')-new Date(x+'T12:00:00'))/86400000)===366)};
+   const monthLength=(y,mo)=>mo<=6?31:mo<=11?30:(isLeap(y)?30:29);
    const outside=ev=>{if(!pop.contains(ev.target)&&ev.target!==open){pop.remove();document.removeEventListener('pointerdown',outside,true)}};
-   document.addEventListener('pointerdown',outside,true);
-   picker.focus();
- };
+   const pick=iso=>{setJalaliDate(iso);pop.remove();document.removeEventListener('pointerdown',outside,true)};
+   const render=()=>{
+     title.textContent=monthNames[viewMonth-1]+' '+faDigits(String(viewYear));
+     grid.replaceChildren();
+     weekNames.forEach(w=>{const cell=document.createElement('div');cell.textContent=w;Object.assign(cell.style,{fontSize:'11px',fontWeight:'700',padding:'5px 0',color:'var(--muted,#777)'});grid.appendChild(cell)});
+     const first=gregorianFromJalali(viewYear,viewMonth,1);const weekday=(new Date(first+'T12:00:00').getDay()+1)%7;
+     for(let n=0;n<weekday;n++){const blank=document.createElement('div');blank.style.height='31px';grid.appendChild(blank)}
+     const raw=normalizeJalaliInput($('#dueDateJalali').value).split('/').map(Number);
+     for(let day=1;day<=monthLength(viewYear,viewMonth);day++){
+       const btn=document.createElement('button');btn.type='button';btn.textContent=faDigits(String(day));
+       const selected=raw[0]===viewYear&&raw[1]===viewMonth&&raw[2]===day;
+       Object.assign(btn.style,{height:'31px',minWidth:'0',padding:'0',borderRadius:'8px',border:'1px solid transparent',background:selected?'var(--purple,#7c3aed)':'transparent',color:selected?'#fff':'inherit',cursor:'pointer',fontSize:'12px'});
+       btn.addEventListener('click',()=>{const iso=gregorianFromJalali(viewYear,viewMonth,day);if(iso)pick(iso)});
+       grid.appendChild(btn);
+     }
+   };
+   prev.addEventListener('click',()=>{viewMonth--;if(viewMonth<1){viewMonth=12;viewYear--}render()});
+   next.addEventListener('click',()=>{viewMonth++;if(viewMonth>12){viewMonth=1;viewYear++}render()});
+   todayBtn.addEventListener('click',()=>pick(todayISO()));
+   close.addEventListener('click',()=>{pop.remove();document.removeEventListener('pointerdown',outside,true)});
+   const rect=open.getBoundingClientRect();pop.style.top=Math.max(8,Math.min(rect.bottom+6,window.innerHeight-340))+'px';pop.style.left=Math.max(8,Math.min(rect.left,window.innerWidth-310))+'px';
+   document.addEventListener('pointerdown',outside,true);render();
+ };;
 }
 function syncFilterJalali(which){
  const input=$('#'+which+'DateJalali'), hidden=$('#'+which+'Date'); if(!input||!hidden)return;
