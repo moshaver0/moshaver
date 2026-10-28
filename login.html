@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#09070f">
 <meta name="description" content="ورود به سامانه مشاور">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <title>ورود | مشاور</title>
 
 <style>
@@ -522,6 +524,31 @@ label{font-size:10px;color:var(--muted)}
 }
 .toast.show{opacity:1;transform:none}
 
+/* Floating success confirmation after a successful login */
+.login-success-float{
+  position:fixed;z-index:999;top:20px;left:50%;
+  display:flex;align-items:center;gap:13px;
+  width:min(390px,calc(100vw - 28px));padding:14px 17px;
+  border:1px solid rgba(110,231,183,.28);border-radius:20px;
+  color:var(--text);background:var(--surface2);
+  -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  box-shadow:0 22px 65px rgba(0,0,0,.25),0 0 35px rgba(16,185,129,.10);
+  opacity:0;transform:translate(-50%,-24px) scale(.96);
+  pointer-events:none;transition:opacity .28s var(--ease),transform .38s var(--ease);
+}
+.login-success-float.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.login-success-check{
+  flex:0 0 45px;width:45px;height:45px;border-radius:15px;
+  display:grid;place-items:center;color:#fff;
+  background:linear-gradient(145deg,#34d399,#059669);
+  box-shadow:0 8px 22px rgba(16,185,129,.25);
+}
+.login-success-check svg{width:25px;height:25px;overflow:visible}
+.login-success-check path{fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:drawSuccess .38s .06s ease-out forwards}
+.login-success-copy strong{display:block;font-size:12px;font-weight:900;color:var(--success)}
+.login-success-copy span{display:block;margin-top:3px;font-size:9px;color:var(--muted)}
+@keyframes drawSuccess{to{stroke-dashoffset:0}}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes cross{to{transform:rotate(360deg) scale(1.08)}}
 @keyframes float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(7px,-12px,0)}}
@@ -728,6 +755,15 @@ label{font-size:10px;color:var(--muted)}
 </main>
 
 <div class="toast" id="toast"></div>
+<div class="login-success-float" id="loginSuccessFloat" role="status" aria-live="polite" aria-hidden="true">
+  <span class="login-success-check" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7.5"/></svg>
+  </span>
+  <span class="login-success-copy">
+    <strong>ورود موفق بود</strong>
+    <span>خوش آمدید؛ پنل شما در حال آماده‌سازی است.</span>
+  </span>
+</div>
 
 <script>
 (function(){
@@ -749,6 +785,7 @@ window.MOSHAVER_API_BASE =
   const forgot = document.getElementById("forgot");
   const toast = document.getElementById("toast");
   const visual = document.getElementById("visual");
+  const loginSuccessFloat = document.getElementById("loginSuccessFloat");
 
   function setTheme(theme){
     root.setAttribute("data-theme", theme);
@@ -805,6 +842,15 @@ window.MOSHAVER_API_BASE =
     successMessage.textContent = message;
     successMessage.classList.add("show");
     errorMessage.classList.remove("show");
+  }
+
+  function showLoginSuccess(){
+    loginSuccessFloat.classList.add("show");
+    loginSuccessFloat.setAttribute("aria-hidden", "false");
+  }
+
+  if(new URLSearchParams(window.location.search).get("reason") === "session-expired"){
+    showError("مدت ورود شما به پایان رسیده است؛ برای امنیت، دوباره وارد شوید.");
   }
 
   function validate(){
@@ -997,9 +1043,12 @@ async function loginRequest(payload) {
 
       localStorage.setItem("moshaver_access_token", String(authData.accessToken));
       localStorage.setItem("moshaver_user", JSON.stringify(savedUser));
+      const sessionStartedAt = Date.now();
       localStorage.setItem("moshaver_session", JSON.stringify({
         loggedIn: true,
-        savedAt: Date.now()
+        savedAt: sessionStartedAt,
+        expiresAt: sessionStartedAt + (8 * 60 * 60 * 1000),
+        expiresIn: 28800
       }));
 
       sessionStorage.setItem("moshaver-access-token", String(authData.accessToken));
@@ -1008,8 +1057,8 @@ async function loginRequest(payload) {
       }
       sessionStorage.setItem("moshaver-user", JSON.stringify(savedUser));
 
-      showSuccess("ورود با موفقیت انجام شد. در حال انتقال...");
-      await new Promise(resolve => setTimeout(resolve, 450));
+      showLoginSuccess();
+      await new Promise(resolve => setTimeout(resolve, 360));
       redirectByRole(user.role);
 
     }catch(error){
