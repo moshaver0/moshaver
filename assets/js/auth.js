@@ -8,6 +8,71 @@ console.error("MOSHAVER_CONFIG is not loaded.");
 return;
 }
 
+const SESSION_TTL_MS = 8 * 60 * 60 * 1000;
+const SESSION_CACHE_KEYS = [
+  "moshaver:dashboard-view-cache:v1", "moshaver:prefetch:v1",
+  "moshaver:clients-cache:v1", "moshaver:appointments-cache:v1",
+  "moshaver:followups-cache:v1", "moshaver:notes-cache:v1",
+  "moshaver:reports-cache:v1"
+];
+
+function isProtectedPage() {
+  const path = window.location.pathname;
+  return path.indexOf("/consultant/") >= 0 ||
+    path.indexOf("/manager/") >= 0 ||
+    path.indexOf("/super-admin/") >= 0;
+}
+
+function redirectToLogin() {
+  const loginUrl = new URL("../login.html", window.location.href);
+  loginUrl.searchParams.set("reason", "session-expired");
+  window.location.replace(loginUrl.href);
+}
+
+function enforceSessionExpiry() {
+  if (!isProtectedPage()) return true;
+
+  const token = localStorage.getItem(config.TOKEN_KEY) ||
+    sessionStorage.getItem("moshaver-access-token");
+  if (!token) {
+    redirectToLogin();
+    return false;
+  }
+
+  let session = null;
+  try {
+    session = JSON.parse(localStorage.getItem(config.SESSION_KEY) || "null");
+  } catch (_) {}
+
+  let startedAt = Number(session && session.savedAt);
+  if (!Number.isFinite(startedAt) || startedAt <= 0) {
+    // Migrate an older active session once without unexpectedly logging users out.
+    startedAt = Date.now();
+    session = Object.assign({}, session || {}, {
+      loggedIn: true,
+      savedAt: startedAt,
+      expiresAt: startedAt + SESSION_TTL_MS
+    });
+    try { localStorage.setItem(config.SESSION_KEY, JSON.stringify(session)); } catch (_) {}
+  }
+
+  const expiresAt = Number(session && session.expiresAt) || (startedAt + SESSION_TTL_MS);
+  if (Date.now() >= expiresAt || Date.now() - startedAt >= SESSION_TTL_MS) {
+    localStorage.removeItem(config.SESSION_KEY);
+    localStorage.removeItem(config.USER_KEY);
+    localStorage.removeItem(config.TOKEN_KEY);
+    sessionStorage.removeItem("moshaver-access-token");
+    sessionStorage.removeItem("moshaver-user");
+    SESSION_CACHE_KEYS.forEach(function(key) {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    });
+    redirectToLogin();
+    return false;
+  }
+  return true;
+}
+
 const AUTH_ERROR_CODES = new Set([
 "UNAUTHORIZED",
 "AUTH_REQUIRED",
@@ -175,10 +240,12 @@ saveSession(response) {
     this.saveUser(data.user);
   }
 
+  const savedAt = Date.now();
   const session = {
     loggedIn: true,
-    expiresIn: data?.expiresIn || null,
-    savedAt: Date.now()
+    expiresIn: data?.expiresIn || 28800,
+    savedAt,
+    expiresAt: savedAt + SESSION_TTL_MS
   };
 
   localStorage.setItem(
@@ -200,6 +267,8 @@ clearSession() {
   localStorage.removeItem(config.SESSION_KEY);
   localStorage.removeItem(config.USER_KEY);
   localStorage.removeItem(config.TOKEN_KEY);
+  sessionStorage.removeItem("moshaver-access-token");
+  sessionStorage.removeItem("moshaver-user");
 },
 
 async request(payload) {
@@ -242,5 +311,17 @@ async request(payload) {
 };
 
 window.MOSHAVER_AUTH = Auth;
+
+// Enforce a fixed 8-hour login lifetime on protected pages, including tabs
+// left open in the background or restored after the computer wakes.
+if (isProtectedPage()) {
+  enforceSessionExpiry();
+  window.setInterval(enforceSessionExpiry, 15000);
+  window.addEventListener("focus", enforceSessionExpiry);
+  window.addEventListener("pageshow", enforceSessionExpiry);
+  document.addEventListener("visibilitychange", function() {
+    if (!document.hidden) enforceSessionExpiry();
+  });
+}
 
 })(window);
