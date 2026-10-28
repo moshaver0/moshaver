@@ -457,9 +457,12 @@ html[data-theme=light] .command-metrics>div{background:rgba(255,255,255,.66)}
 html[data-theme=light] .followup-page .modal{background:rgba(255,255,255,.05)!important;backdrop-filter:blur(7px)!important;-webkit-backdrop-filter:blur(7px)!important}
 .followup-page .modal::before,.followup-page .modal::after,.followup-page .modal>.modal-box::before,.followup-page .modal>.modal-box::after{content:none!important;display:none!important}
 .followup-page .modal>.modal-box{box-shadow:0 28px 80px rgba(0,0,0,.30),0 0 55px rgba(124,58,237,.10)!important}
-.followup-page .due-date-field{display:grid!important;grid-template-columns:minmax(0,1fr) 34px 44px!important;gap:7px!important;align-items:center!important}
-.followup-page .due-date-field .input{min-width:0!important}
-.followup-page .due-date-spin{position:relative!important;inset:auto!important;left:auto!important;top:auto!important;bottom:auto!important;width:34px!important;height:44px!important;display:grid!important;grid-template-rows:1fr 1fr!important;overflow:hidden!important;border:1px solid var(--border)!important;border-radius:12px!important;background:var(--surface3)!important;box-shadow:inset 0 0 14px rgba(168,85,247,.04)!important}
+.followup-page .due-date-field{display:grid!important;grid-template-columns:minmax(0,1fr) 32px 42px!important;gap:8px!important;align-items:center!important}
+.followup-page .due-date-field .input{min-width:0!important;width:100%!important;box-sizing:border-box!important;direction:ltr!important;text-align:center!important;font-variant-numeric:tabular-nums!important}
+.followup-page .due-date-field .due-date-spin{position:static!important;inset:auto!important;width:32px!important;height:44px!important;min-width:32px!important;max-width:32px!important;display:grid!important;grid-template-rows:minmax(0,1fr) minmax(0,1fr)!important;grid-template-columns:1fr!important;align-self:center!important;overflow:hidden!important;border:1px solid var(--border)!important;border-radius:10px!important;background:var(--surface3)!important;box-sizing:border-box!important}
+.followup-page .due-date-field .due-date-spin button{position:static!important;display:flex!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-height:none!important;padding:0!important;margin:0!important;flex:none!important;transform:none!important;border:0!important;border-bottom:1px solid var(--border)!important;line-height:1!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;box-sizing:border-box!important}
+.followup-page .due-date-field .due-date-spin button:last-child{border-bottom:0!important}
+.followup-page .due-date-field .date-picker-btn{position:static!important;width:42px!important;min-width:42px!important;max-width:42px!important;height:44px!important;min-height:44px!important;box-sizing:border-box!important}
 .followup-page .due-date-spin button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;padding:0!important;margin:0!important;flex:initial!important;align-self:stretch!important;line-height:1!important;overflow:hidden!important;border:0!important;border-bottom:1px solid var(--border)!important;background:transparent!important;color:var(--muted)!important;font-size:10px!important;cursor:pointer!important;transition:background .18s ease,color .18s ease!important}
 .followup-page .due-date-spin button:last-child{border-bottom:0!important}
 .followup-page .due-date-spin button:hover{color:var(--purple3)!important;background:rgba(168,85,247,.10)!important}
@@ -1046,25 +1049,24 @@ function shiftDueDate(step){
 }
 function bindJalaliDate(){
  const input=$('#dueDateJalali');if(!input)return;
- // Accept English or Persian keyboard digits, but display Persian digits as the user types.
+ // Keep the field editable with either keyboard layout; normalize digits without moving date parts.
  input.addEventListener('input',()=>{
-   const start=input.selectionStart, before=input.value;
-   input.value=faDigits(enDigits(before).replace(/[^0-9\\/\\-]/g,''));
-   if(start!==null)input.setSelectionRange(Math.min(input.value.length,start),Math.min(input.value.length,start));
+   const pos=input.selectionStart;
+   const normalized=enDigits(input.value).replace(/[^0-9\/-]/g,'');
+   input.value=faDigits(normalized);
+   if(pos!==null)input.setSelectionRange(Math.min(pos,input.value.length),Math.min(pos,input.value.length));
    syncJalaliDate();
  });
  input.addEventListener('blur',()=>{if(!syncJalaliDate()&&input.value.trim()==='')setJalaliDate(todayISO())});
- // Up/down arrows change one day; Shift + up/down changes one week.
  input.addEventListener('keydown',e=>{
    if(e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;
    e.preventDefault();e.stopPropagation();
    shiftDueDate((e.key==='ArrowUp'?1:-1)*(e.shiftKey?7:1));
  });
  $$('[data-due-date-step]').forEach(btn=>{
-   btn.addEventListener('pointerdown',e=>{e.preventDefault();});
+   btn.addEventListener('pointerdown',e=>{e.preventDefault()});
    btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();shiftDueDate(Number(btn.dataset.dueDateStep))});
  });
- // Use the browser date chooser as a fallback; convert its selected date back to the Jalali field.
  const open=$('#openDatePicker');
  if(open)open.onclick=()=>{
    const picker=document.createElement('input');picker.type='date';picker.value=$('#dueDate').value||todayISO();
