@@ -597,8 +597,23 @@ wire();readReportsCache();renderAll();load().then(()=>renderAll()).catch(e=>{con
     var p=getParts(now),newKey=key(p);
     if(newKey!==todayKey){todayKey=newKey;viewDate=new Date(now.getFullYear(),now.getMonth(),now.getDate());renderCalendar()}
   }
-  document.getElementById("sidebarCalendarPrev").addEventListener("click",function(){viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth(),viewDate.getDate()-20);renderCalendar()});
-  document.getElementById("sidebarCalendarNext").addEventListener("click",function(){viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth(),viewDate.getDate()+40);renderCalendar()});
+  function shiftPersianMonth(direction){
+    var p=getParts(viewDate),first=new Date(viewDate.getFullYear(),viewDate.getMonth(),viewDate.getDate());
+    for(var back=0;back<40;back++){
+      var candidate=new Date(first.getFullYear(),first.getMonth(),first.getDate()-back),cp=getParts(candidate);
+      if(cp.year===p.year&&cp.month===p.month&&cp.day===1){first=candidate;break}
+    }
+    if(direction<0){viewDate=new Date(first.getFullYear(),first.getMonth(),first.getDate()-1)}
+    else{
+      for(var ahead=1;ahead<=32;ahead++){
+        var next=new Date(first.getFullYear(),first.getMonth(),first.getDate()+ahead),np=getParts(next);
+        if(np.year!==p.year||np.month!==p.month){viewDate=next;break}
+      }
+    }
+    renderCalendar();
+  }
+  document.getElementById("sidebarCalendarPrev").addEventListener("click",function(){shiftPersianMonth(-1)});
+  document.getElementById("sidebarCalendarNext").addEventListener("click",function(){shiftPersianMonth(1)});
   todayKey=key(getParts(today));
   tick();
   renderCalendar();
