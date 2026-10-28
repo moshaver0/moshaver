@@ -1031,9 +1031,39 @@ function gregorianFromJalali(jy,jm,jd){
 function normalizeJalaliInput(v){return String(v||'').replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))).replace(/-/g,'/').trim()}
 function syncJalaliDate(){const raw=normalizeJalaliInput($('#dueDateJalali').value);const m=raw.match(/^(13|14)\d{2}\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);if(!m){$('#dueDate').value='';return false}const iso=gregorianFromJalali(Number(m[0].slice(0,4)),Number(m[1]),Number(m[2]));if(!iso){$('#dueDate').value='';return false}$('#dueDate').value=iso;$('#dueDateJalali').value=faDigits(`${m[0].slice(0,4)}/${String(Number(m[1])).padStart(2,'0')}/${String(Number(m[2])).padStart(2,'0')}`);return true}
 function setJalaliDate(iso){$('#dueDate').value=iso||'';$('#dueDateJalali').value=iso?jalaliDate(iso).replace(/—/g,''):''}
-function shiftDueDate(step){const hidden=$('#dueDate'),input=$('#dueDateJalali');if(!hidden||!input)return;syncJalaliDate();const base=hidden.value||todayISO();const d=new Date(base+'T12:00:00');if(Number.isNaN(d.getTime()))return;d.setDate(d.getDate()+Number(step||0));const iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;setJalaliDate(iso)}
-function bindJalaliDate(){const input=$('#dueDateJalali');if(!input)return;input.addEventListener('input',()=>{input.value=input.value.replace(/[^0-9۰-۹٠-٩\/\-]/g,'');syncJalaliDate()});input.addEventListener('blur',syncJalaliDate);$$('[data-due-date-step]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();shiftDueDate(Number(btn.dataset.dueDateStep))}));$('#openDatePicker').onclick=()=>{const picker=document.createElement('input');picker.type='date';picker.value=$('#dueDate').value||todayISO();picker.style.position='fixed';picker.style.opacity='0';picker.style.pointerEvents='none';document.body.appendChild(picker);picker.onchange=()=>{setJalaliDate(picker.value);picker.remove()};picker.click();setTimeout(()=>{if(document.body.contains(picker))picker.remove()},1500)}}
-
+function shiftDueDate(step){
+ const hidden=$('#dueDate'),input=$('#dueDateJalali');if(!hidden||!input)return;
+ const valid=syncJalaliDate();
+ const base=(valid&&hidden.value)||hidden.value||todayISO();
+ const d=new Date(base+'T12:00:00');if(Number.isNaN(d.getTime()))return;
+ d.setDate(d.getDate()+Number(step||0));
+ const iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+ setJalaliDate(iso);input.dispatchEvent(new Event('change',{bubbles:true}));
+}
+function bindJalaliDate(){
+ const input=$('#dueDateJalali');if(!input)return;
+ input.addEventListener('input',()=>{input.value=input.value.replace(/[^0-9۰-۹٠-٩\\/\\-]/g,'');syncJalaliDate()});
+ input.addEventListener('blur',()=>{if(!syncJalaliDate()&&input.value.trim()===''){setJalaliDate(todayISO())}});
+ // Arrow keys change the date directly; Shift + arrows moves by one week.
+ input.addEventListener('keydown',e=>{
+   if(e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;
+   e.preventDefault();e.stopPropagation();
+   shiftDueDate((e.key==='ArrowUp'?1:-1)*(e.shiftKey?7:1));
+ });
+ $$('[data-due-date-step]').forEach(btn=>{
+   // Avoid blur validation clearing the date before the spinner click runs.
+   btn.addEventListener('pointerdown',e=>e.preventDefault());
+   btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();shiftDueDate(Number(btn.dataset.dueDateStep))});
+ });
+ const open=$('#openDatePicker');
+ if(open)open.onclick=()=>{
+   const picker=document.createElement('input');picker.type='date';picker.value=$('#dueDate').value||todayISO();
+   picker.style.position='fixed';picker.style.opacity='0';picker.style.pointerEvents='none';
+   document.body.appendChild(picker);
+   picker.onchange=()=>{if(picker.value)setJalaliDate(picker.value);picker.remove()};
+   picker.click();setTimeout(()=>{if(document.body.contains(picker))picker.remove()},1500);
+ };
+}
 function syncFilterJalali(which){
  const input=$('#'+which+'DateJalali'), hidden=$('#'+which+'Date'); if(!input||!hidden)return;
  const raw=normalizeJalaliInput(input.value); const m=raw.match(/^(13|14)\d{2}\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);
