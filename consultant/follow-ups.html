@@ -1033,28 +1033,32 @@ function syncJalaliDate(){const raw=normalizeJalaliInput($('#dueDateJalali').val
 function setJalaliDate(iso){$('#dueDate').value=iso||'';$('#dueDateJalali').value=iso?jalaliDate(iso).replace(/—/g,''):''}
 function shiftDueDate(step){
  const hidden=$('#dueDate'),input=$('#dueDateJalali');if(!hidden||!input)return;
- const valid=syncJalaliDate();
- const base=(valid&&hidden.value)||hidden.value||todayISO();
+ // Parse the visible Jalali value directly so validation cannot clear the date before stepping.
+ const raw=normalizeJalaliInput(input.value);
+ const m=raw.match(/^(13|14)\d{2}\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);
+ let base='';
+ if(m)base=gregorianFromJalali(Number(m[0].slice(0,4)),Number(m[1]),Number(m[2]))||'';
+ if(!base)base=hidden.value||todayISO();
  const d=new Date(base+'T12:00:00');if(Number.isNaN(d.getTime()))return;
  d.setDate(d.getDate()+Number(step||0));
  const iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
- setJalaliDate(iso);input.dispatchEvent(new Event('change',{bubbles:true}));
+ setJalaliDate(iso);
 }
 function bindJalaliDate(){
  const input=$('#dueDateJalali');if(!input)return;
  input.addEventListener('input',()=>{input.value=input.value.replace(/[^0-9۰-۹٠-٩\\/\\-]/g,'');syncJalaliDate()});
- input.addEventListener('blur',()=>{if(!syncJalaliDate()&&input.value.trim()===''){setJalaliDate(todayISO())}});
- // Arrow keys change the date directly; Shift + arrows moves by one week.
+ input.addEventListener('blur',()=>{if(!syncJalaliDate()&&input.value.trim()==='')setJalaliDate(todayISO())});
+ // Up/down arrows change one day; Shift + up/down changes one week.
  input.addEventListener('keydown',e=>{
    if(e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;
    e.preventDefault();e.stopPropagation();
    shiftDueDate((e.key==='ArrowUp'?1:-1)*(e.shiftKey?7:1));
  });
  $$('[data-due-date-step]').forEach(btn=>{
-   // Avoid blur validation clearing the date before the spinner click runs.
-   btn.addEventListener('pointerdown',e=>e.preventDefault());
+   btn.addEventListener('pointerdown',e=>{e.preventDefault();});
    btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();shiftDueDate(Number(btn.dataset.dueDateStep))});
  });
+ // Use the browser date chooser as a fallback; convert its selected date back to the Jalali field.
  const open=$('#openDatePicker');
  if(open)open.onclick=()=>{
    const picker=document.createElement('input');picker.type='date';picker.value=$('#dueDate').value||todayISO();
