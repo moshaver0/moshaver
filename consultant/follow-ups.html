@@ -1069,7 +1069,31 @@ function openDetail(id){const x=follows.find(a=>String(a.id)===String(id));if(!x
 function changeStatus(id,status){const x=follows.find(a=>String(a.id)===String(id));if(!x)return;x.status=status;x.updatedAt=new Date().toISOString();save(STORAGE,follows);openDetail(id);applyFilters();renderKpis();initNotifications();showToast('وضعیت به‌روزرسانی شد',statusLabel(status))}
 function saveDetail(){const x=follows.find(a=>String(a.id)===String(selectedId));if(!x)return;x.result=$('#detailResultInput').value.trim();x.nextAction=$('#detailNextInput').value.trim();x.updatedAt=new Date().toISOString();save(STORAGE,follows);closeModal('#detailModal');applyFilters();showToast('نتیجه ذخیره شد','نتیجه و اقدام بعدی ثبت شد.')}
 function requestDelete(id){const x=follows.find(a=>String(a.id)===String(id));if(!x)return;deleteId=id;$('#deleteTitle').textContent=`${clientName(x.clientId)} — ${x.title}`;$('#deleteModal').classList.add('open')}
-function confirmDelete(){const x=follows.find(a=>String(a.id)===String(deleteId));if(!x)return;x.isDeleted=true;x.updatedAt=new Date().toISOString();save(STORAGE,follows);closeModal('#deleteModal');applyFilters();renderKpis();showToast('پیگیری حذف شد','پرونده تاریخی حفظ شد و از فهرست فعال خارج شد.');deleteId=null}
+async function confirmDelete(){
+ const id=String(deleteId||'');
+ const x=follows.find(a=>String(a.id)===id);
+ if(!x)return;
+ const btn=$('#confirmDelete');
+ if(btn){btn.disabled=true;btn.textContent='در حال حذف…'}
+ try{
+  if(!window.MOSHAVER_API||!window.MOSHAVER_API.followUps)throw new Error('اتصال به سرور در دسترس نیست');
+  // Delete on the server first. Only update the browser list after the API confirms success.
+  await window.MOSHAVER_API.followUps.remove(id);
+  follows=follows.filter(a=>String(a.id)!==id);
+  remoteFollows.delete(id);
+  writeFollowCache(follows);
+  closeModal('#deleteModal');
+  applyFilters();
+  renderKpis();
+  showToast('حذف از سرور انجام شد','پیگیری از شیت منبع حذف شد.');
+  deleteId=null;
+ }catch(e){
+  console.error('Follow-up delete failed:',e);
+  showToast('حذف از شیت ناموفق بود',e.message||'خطای اتصال به سرور');
+ }finally{
+  if(btn){btn.disabled=false;btn.textContent='تأیید حذف'}
+ }
+}
 function kpiFilter(k){$('#searchInput').value='';$('#statusFilter').value='';$('#priorityFilter').value='';$('#typeFilter').value='';$('#fromDate').value='';$('#toDate').value='';$('#fromDateJalali').value='';$('#toDateJalali').value='';const a=activeFollows();if(k==='today')filtered=a.filter(dueToday);else if(k==='overdue')filtered=a.filter(overdue);else if(k==='urgent')filtered=a.filter(urgent);else if(k==='completed')filtered=a.filter(x=>x.status==='COMPLETED');else filtered=a;page=1;renderList();document.querySelector('#listPanel').scrollIntoView({behavior:'smooth',block:'start'})}
 function exportCsv(){const rows=[['ردیف','مراجع','نوع','عنوان','تاریخ','ساعت','وضعیت','اولویت','نتیجه','اقدام بعدی']];activeFollows().forEach((x,i)=>rows.push([i+1,clientName(x.clientId),typeLabel(x.type),x.title,jalaliDate(x.dueDate),x.dueTime,statusLabel(x.status),priorityLabel(x.priority),x.result||'',x.nextAction||'']));const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='moshaver-follow-ups.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);showToast('خروجی آماده شد','فایل CSV پیگیری‌ها ساخته شد.')}
 function reminderView(){const a=activeFollows().filter(x=>dateDiff(x.dueDate)<=1&&!['COMPLETED','CANCELLED'].includes(x.status));filtered=a;page=1;renderList();$('#listPanel').scrollIntoView({behavior:'smooth',block:'start'})}
