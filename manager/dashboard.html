@@ -7,34 +7,46 @@
 <script>
 /* Protect manager panel and enforce the same fixed 8-hour session lifetime. */
 (function () {
-  try {
-    var token = localStorage.getItem("moshaver_access_token") ||
-      sessionStorage.getItem("moshaver-access-token");
-    var session = JSON.parse(localStorage.getItem("moshaver_session") || "null");
-    var startedAt = Number(session && session.savedAt);
-    var ttl = 8 * 60 * 60 * 1000;
+  var ttl = 8 * 60 * 60 * 1000;
+  function checkSession() {
+    try {
+      var token = localStorage.getItem("moshaver_access_token") ||
+        sessionStorage.getItem("moshaver-access-token");
+      if (!token) {
+        window.location.replace("../login.html");
+        return false;
+      }
 
-    if (!token) {
-      var next = location.pathname.replace(/^\\/m?/, "");
-      window.location.replace("../login.html?next=" + encodeURIComponent(next));
-      return;
-    }
+      var session = JSON.parse(localStorage.getItem("moshaver_session") || "null");
+      var startedAt = Number(session && session.savedAt);
+      if (!Number.isFinite(startedAt) || startedAt <= 0) {
+        startedAt = Date.now();
+        session = Object.assign({}, session || {}, {
+          loggedIn: true, savedAt: startedAt, expiresAt: startedAt + ttl
+        });
+        localStorage.setItem("moshaver_session", JSON.stringify(session));
+      }
 
-    if (!Number.isFinite(startedAt) || startedAt <= 0) {
-      startedAt = Date.now();
-      session = Object.assign({}, session || {}, { loggedIn: true, savedAt: startedAt, expiresAt: startedAt + ttl });
-      localStorage.setItem("moshaver_session", JSON.stringify(session));
+      var expiresAt = Number(session && session.expiresAt) || (startedAt + ttl);
+      if (Date.now() - startedAt >= ttl || Date.now() >= expiresAt) {
+        ["moshaver_access_token", "moshaver_user", "moshaver_session"].forEach(function (key) {
+          localStorage.removeItem(key);
+        });
+        sessionStorage.removeItem("moshaver-access-token");
+        sessionStorage.removeItem("moshaver-user");
+        window.location.replace("../login.html?reason=session-expired");
+        return false;
+      }
+      return true;
+    } catch (error) {
+      window.location.replace("../login.html");
+      return false;
     }
-
-    if (Date.now() - startedAt >= ttl || (Number(session.expiresAt) > 0 && Date.now() >= Number(session.expiresAt))) {
-      ["moshaver_access_token", "moshaver_user", "moshaver_session"].forEach(function (key) { localStorage.removeItem(key); });
-      sessionStorage.removeItem("moshaver-access-token");
-      sessionStorage.removeItem("moshaver-user");
-      window.location.replace("../login.html?reason=session-expired");
-    }
-  } catch (e) {
-    window.location.replace("../login.html");
   }
+  checkSession();
+  window.setInterval(checkSession, 15000);
+  window.addEventListener("focus", checkSession);
+  window.addEventListener("pageshow", checkSession);
 })();
 </script>
 </head>
