@@ -16,7 +16,7 @@ body{scrollbar-gutter:stable}
 ::-webkit-scrollbar-track{background:rgba(255,255,255,.025);border-radius:99px}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(168,85,247,.82),rgba(34,211,238,.58));border:2px solid transparent;background-clip:padding-box;border-radius:99px}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#c084fc,#22d3ee);border:2px solid transparent;background-clip:padding-box}
-.sidebar{direction:ltr;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.65) transparent}.sidebar>*{direction:rtl}
+.sidebar{direction:ltr;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(168,85,247,.65) transparent}.sidebar::-webkit-scrollbar{width:6px}.sidebar::-webkit-scrollbar-track{background:transparent;margin:12px 0}.sidebar::-webkit-scrollbar-thumb{border-radius:99px;background:linear-gradient(180deg,#a855f7,#22d3ee);border:1px solid rgba(255,255,255,.12)}.sidebar::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#c084fc,#67e8f9)}.sidebar>*{direction:rtl}
 .sidebar>.sidebar-label+.nav{direction:rtl;overflow-y:auto;overflow-x:hidden;max-height:calc(100vh - 330px);padding-left:2px;scrollbar-width:thin}
 .sidebar>.sidebar-label+.nav::-webkit-scrollbar{width:5px}
 .sidebar>.sidebar-label+.nav::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--purple),var(--cyan));border:0}
@@ -266,7 +266,7 @@ html[data-theme=light] .notes-delete-box p{color:#67566e}
 }
 
 /* Live Persian calendar + local clock in the consultant sidebar */
-.sidebar-clock{position:relative;isolation:isolate;overflow:hidden;margin:18px 0 17px;padding:13px 12px 11px;border:1px solid rgba(167,139,250,.23);border-radius:19px;background:radial-gradient(ellipse at 95% 0%,rgba(139,92,246,.20),transparent 56%),linear-gradient(145deg,rgba(124,58,237,.085),rgba(15,23,42,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 8px 24px rgba(0,0,0,.07)}
+.sidebar-clock{display:block!important;flex:0 0 auto;position:relative;isolation:isolate;overflow:hidden;margin:18px 0 17px;padding:13px 12px 11px;border:1px solid rgba(167,139,250,.23);border-radius:19px;background:radial-gradient(ellipse at 95% 0%,rgba(139,92,246,.20),transparent 56%),linear-gradient(145deg,rgba(124,58,237,.085),rgba(15,23,42,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 8px 24px rgba(0,0,0,.07)}
 .sidebar-clock:before{content:"";position:absolute;z-index:-1;width:110px;height:110px;left:-54px;bottom:-65px;border-radius:50%;border:1px solid rgba(167,139,250,.12);box-shadow:0 0 0 12px rgba(167,139,250,.025),0 0 0 24px rgba(167,139,250,.02)}
 .sidebar-clock-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .sidebar-clock-live{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:20px;background:rgba(16,185,129,.11);color:#6ee7b7;font-size:9px;font-weight:850}
