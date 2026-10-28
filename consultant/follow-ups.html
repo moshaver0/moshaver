@@ -588,6 +588,38 @@ html[data-theme=light] body > .modal > .modal-box{
   .mobile-nav a span,.mobile-nav button span{font-size:8px!important}
 }
 
+/* Live Persian calendar + local clock in the consultant sidebar */
+.sidebar-clock{position:relative;isolation:isolate;overflow:hidden;margin:18px 0 17px;padding:13px 12px 11px;border:1px solid rgba(167,139,250,.23);border-radius:19px;background:radial-gradient(ellipse at 95% 0%,rgba(139,92,246,.20),transparent 56%),linear-gradient(145deg,rgba(124,58,237,.085),rgba(15,23,42,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 8px 24px rgba(0,0,0,.07)}
+.sidebar-clock:before{content:"";position:absolute;z-index:-1;width:110px;height:110px;left:-54px;bottom:-65px;border-radius:50%;border:1px solid rgba(167,139,250,.12);box-shadow:0 0 0 12px rgba(167,139,250,.025),0 0 0 24px rgba(167,139,250,.02)}
+.sidebar-clock-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sidebar-clock-live{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:20px;background:rgba(16,185,129,.11);color:#6ee7b7;font-size:9px;font-weight:850}
+.sidebar-clock-live i,.sidebar-clock-pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 9px rgba(52,211,153,.8);animation:sidebarClockPulse 2s infinite}
+.sidebar-clock-caption{font-size:9px;color:var(--muted,#a69ab8)}
+.sidebar-clock-time{margin:9px 0 2px;text-align:center;font-family:"Vazirmatn","Inter",Tahoma,sans-serif;font-size:29px;font-weight:900;letter-spacing:1.1px;line-height:1.3;font-variant-numeric:tabular-nums;background:linear-gradient(100deg,#c4b5fd,#f0abfc 48%,#a5f3fc);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 22px rgba(167,139,250,.08)}
+.sidebar-clock-date{text-align:center;display:flex;flex-direction:column;gap:3px}
+.sidebar-clock-dayname{font-size:12px;font-weight:900;color:var(--text,#f8f5ff)}
+.sidebar-clock-full-date{font-size:10px;color:var(--muted,#a69ab8);font-variant-numeric:tabular-nums}
+.sidebar-calendar{margin-top:12px;padding-top:10px;border-top:1px solid rgba(167,139,250,.14)}
+.sidebar-calendar-head{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px}
+.sidebar-calendar-head strong{font-size:10px;font-weight:850;color:var(--text,#f8f5ff);text-align:center}
+.sidebar-calendar-head button{width:23px;height:23px;flex:0 0 23px;border:1px solid rgba(167,139,250,.16);border-radius:8px;background:rgba(139,92,246,.09);color:var(--text,#f8f5ff);font-size:17px;line-height:1;cursor:pointer;transition:transform .2s,background .2s}
+.sidebar-calendar-head button:hover{background:rgba(139,92,246,.24);transform:scale(1.06)}
+.sidebar-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;text-align:center}
+.sidebar-calendar-weekdays{margin-bottom:4px}
+.sidebar-calendar-weekdays span{font-size:9px;font-weight:800;color:var(--muted,#a69ab8);padding:3px 0}
+.sidebar-calendar-day{display:grid;place-items:center;min-width:0;aspect-ratio:1;border-radius:8px;font-size:10px;color:var(--text,#eee7f8);font-variant-numeric:tabular-nums}
+.sidebar-calendar-day.is-today{color:#fff;background:linear-gradient(145deg,#8b5cf6,#6d28d9);font-weight:950;box-shadow:0 3px 10px rgba(124,58,237,.30);outline:1px solid rgba(221,214,254,.35)}
+.sidebar-calendar-day.is-weekend:not(.is-today){color:#f0abfc}
+.sidebar-calendar-day.is-outside{visibility:hidden}
+.sidebar-clock-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding-top:9px;border-top:1px solid rgba(167,139,250,.12);font-size:8px;color:var(--muted,#a69ab8)}
+.sidebar-clock-pulse{width:5px;height:5px;animation:none}
+html[data-theme="light"] .sidebar-clock{background:radial-gradient(ellipse at 95% 0%,rgba(139,92,246,.12),transparent 56%),linear-gradient(145deg,rgba(124,58,237,.045),rgba(255,255,255,.8));border-color:rgba(124,58,237,.17);box-shadow:inset 0 1px 0 #fff,0 8px 24px rgba(67,42,91,.045)}
+html[data-theme="light"] .sidebar-clock-time{background-image:linear-gradient(100deg,#7c3aed,#a21caf 48%,#0e7490)}
+html[data-theme="light"] .sidebar-calendar-day.is-weekend:not(.is-today){color:#9333a6}
+@keyframes sidebarClockPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.35)}50%{opacity:.72;box-shadow:0 0 0 4px rgba(52,211,153,0)}}
+@media(max-width:1040px){.sidebar-clock{margin:14px 0 15px}}
+@media(prefers-reduced-motion:reduce){.sidebar-clock-live i{animation:none}}
+
 </style><script>
 /* MOSHAVER: require an existing login before displaying panel pages */
 (function () {
@@ -734,6 +766,29 @@ html[data-theme=light] body > .modal > .modal-box{
        </span>
 </a>
 </nav>
+<section class="sidebar-clock" aria-label="ساعت و تقویم زنده">
+  <div class="sidebar-clock-top">
+    <span class="sidebar-clock-live"><i></i> آنلاین</span>
+    <span class="sidebar-clock-caption">زمان محلی شما</span>
+  </div>
+  <div class="sidebar-clock-time" id="sidebarClockTime" dir="ltr">--:--:--</div>
+  <div class="sidebar-clock-date">
+    <span class="sidebar-clock-dayname" id="sidebarClockWeekday">در حال تنظیم تقویم</span>
+    <span class="sidebar-clock-full-date" id="sidebarClockFullDate">—</span>
+  </div>
+  <div class="sidebar-calendar">
+    <div class="sidebar-calendar-head">
+      <button type="button" id="sidebarCalendarPrev" aria-label="ماه قبل">‹</button>
+      <strong id="sidebarCalendarMonth">تقویم شمسی</strong>
+      <button type="button" id="sidebarCalendarNext" aria-label="ماه بعد">›</button>
+    </div>
+    <div class="sidebar-calendar-grid sidebar-calendar-weekdays" aria-hidden="true">
+      <span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span>
+    </div>
+    <div class="sidebar-calendar-grid" id="sidebarCalendarDays"></div>
+  </div>
+  <div class="sidebar-clock-foot"><span class="sidebar-clock-pulse"></span> تقویم شمسی · به‌روزرسانی زنده</div>
+</section>
 <div class="sidebar-bottom">
 <div class="profile-mini">
 <div class="avatar" id="sidebarAvatar">
@@ -979,4 +1034,78 @@ function initNotifications(){const a=activeFollows().filter(x=>overdue(x)||dueTo
 async function init(){readFollowCache();initUser();initTheme();wire();bindJalaliDate();renderKpis();initNotifications();applyFilters();await loadData();renderKpis();initNotifications();applyFilters();}
 init().catch(e=>{console.error(e);showToast('خطا','صفحه به‌درستی بارگذاری نشد.')});
 })();
-</script></div></body></html>
+</script></div><script>
+/* Sidebar live clock and Persian calendar */
+(function initSidebarClock(){
+  var timeEl=document.getElementById("sidebarClockTime");
+  var weekdayEl=document.getElementById("sidebarClockWeekday");
+  var dateEl=document.getElementById("sidebarClockFullDate");
+  var monthEl=document.getElementById("sidebarCalendarMonth");
+  var daysEl=document.getElementById("sidebarCalendarDays");
+  if(!timeEl||!weekdayEl||!dateEl||!monthEl||!daysEl)return;
+
+  var persianLocale="fa-IR-u-ca-persian";
+  var monthFormatter=new Intl.DateTimeFormat(persianLocale,{month:"long",year:"numeric"});
+  var partsFormatter=new Intl.DateTimeFormat(persianLocale,{year:"numeric",month:"numeric",day:"numeric"});
+  var weekdayFormatter=new Intl.DateTimeFormat(persianLocale,{weekday:"long"});
+  var dateFormatter=new Intl.DateTimeFormat(persianLocale,{day:"numeric",month:"long",year:"numeric"});
+  var timeFormatter=new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"});
+  var today=new Date();
+  var viewDate=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+  var todayKey="";
+  function getParts(date){
+    var out={};
+    partsFormatter.formatToParts(date).forEach(function(p){if(p.type==="year"||p.type==="month"||p.type==="day")out[p.type]=Number(p.value.replace(/[۰-۹]/g,function(d){return "۰۱۲۳۴۵۶۷۸۹".indexOf(d)}).replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d)}));});
+    return out;
+  }
+  function key(p){return p.year+"-"+p.month+"-"+p.day}
+  function renderCalendar(){
+    var currentParts=getParts(viewDate);
+    monthEl.textContent=monthFormatter.format(viewDate);
+    daysEl.innerHTML="";
+    var first=new Date(viewDate.getFullYear(),viewDate.getMonth(),viewDate.getDate());
+    var found=false;
+    for(var back=0;back<40;back++){
+      var candidate=new Date(first.getFullYear(),first.getMonth(),first.getDate()-back);
+      var p=getParts(candidate);
+      if(p.year===currentParts.year&&p.month===currentParts.month&&p.day===1){first=candidate;found=true;break}
+    }
+    if(!found)return;
+    var firstOffset=(first.getDay()+1)%7; // Persian calendar starts on Saturday
+    var daysInMonth=0;
+    for(var n=0;n<32;n++){
+      var candidateDay=new Date(first.getFullYear(),first.getMonth(),first.getDate()+n);
+      var p=getParts(candidateDay);
+      if(p.year!==currentParts.year||p.month!==currentParts.month)break;
+      daysInMonth++;
+    }
+    for(var slot=0;slot<firstOffset;slot++){
+      var blank=document.createElement("span");blank.className="sidebar-calendar-day is-outside";blank.setAttribute("aria-hidden","true");daysEl.appendChild(blank);
+    }
+    for(var day=1;day<=daysInMonth;day++){
+      var d=new Date(first.getFullYear(),first.getMonth(),first.getDate()+day-1);
+      var p=getParts(d),el=document.createElement("span");
+      el.className="sidebar-calendar-day"+(key(p)===todayKey?" is-today":"")+(d.getDay()===5?" is-weekend":"");
+      el.textContent=new Intl.NumberFormat("fa-IR",{useGrouping:false}).format(day);
+      if(key(p)===todayKey){el.setAttribute("aria-current","date");el.setAttribute("aria-label","امروز، "+dateFormatter.format(d))}
+      daysEl.appendChild(el);
+    }
+    while(daysEl.children.length%7!==0){var pad=document.createElement("span");pad.className="sidebar-calendar-day is-outside";pad.setAttribute("aria-hidden","true");daysEl.appendChild(pad)}
+  }
+  function tick(){
+    var now=new Date();
+    timeEl.textContent=timeFormatter.format(now);
+    weekdayEl.textContent=weekdayFormatter.format(now);
+    dateEl.textContent=dateFormatter.format(now);
+    var p=getParts(now),newKey=key(p);
+    if(newKey!==todayKey){todayKey=newKey;viewDate=new Date(now.getFullYear(),now.getMonth(),now.getDate());renderCalendar()}
+  }
+  document.getElementById("sidebarCalendarPrev").addEventListener("click",function(){viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth(),viewDate.getDate()-20);renderCalendar()});
+  document.getElementById("sidebarCalendarNext").addEventListener("click",function(){viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth(),viewDate.getDate()+40);renderCalendar()});
+  todayKey=key(getParts(today));
+  tick();
+  renderCalendar();
+  window.setInterval(tick,1000);
+})();
+</script>
+</body></html>
