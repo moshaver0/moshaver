@@ -680,7 +680,7 @@ html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
 /* FINAL OVERRIDE — Follow-up modal Jalali date controls.
    Older appended styles positioned the spinner and calendar absolutely, causing overlap.
    Keep all three controls in one grid row. */
-.followup-page #followModal .due-date-field{
+body #followModal .due-date-field{
   position:relative!important;
   display:grid!important;
   grid-template-columns:minmax(0,1fr) 34px 42px!important;
@@ -690,7 +690,7 @@ html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
   width:100%!important;
   box-sizing:border-box!important;
 }
-.followup-page #followModal .due-date-field > #dueDateJalali{
+body #followModal .due-date-field > #dueDateJalali{
   position:static!important;
   grid-column:1!important;grid-row:1!important;
   display:block!important;width:100%!important;min-width:0!important;max-width:none!important;
@@ -698,7 +698,7 @@ html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
   padding-left:10px!important;padding-right:10px!important;
   direction:ltr!important;text-align:center!important;
 }
-.followup-page #followModal .due-date-field > .due-date-spin{
+body #followModal .due-date-field > .due-date-spin{
   position:static!important;grid-column:2!important;grid-row:1!important;
   inset:auto!important;transform:none!important;float:none!important;
   display:grid!important;grid-template-columns:1fr!important;grid-template-rows:1fr 1fr!important;
@@ -707,7 +707,7 @@ html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
   margin:0!important;padding:0!important;box-sizing:border-box!important;
   overflow:hidden!important;align-self:stretch!important;z-index:1!important;
 }
-.followup-page #followModal .due-date-field > .due-date-spin > button{
+body #followModal .due-date-field > .due-date-spin > button{
   position:static!important;inset:auto!important;transform:none!important;float:none!important;
   display:flex!important;width:100%!important;min-width:0!important;max-width:none!important;
   height:100%!important;min-height:0!important;max-height:none!important;
@@ -716,8 +716,8 @@ html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
   border:0!important;border-bottom:1px solid var(--border)!important;
   line-height:1!important;overflow:hidden!important;
 }
-.followup-page #followModal .due-date-field > .due-date-spin > button:last-child{border-bottom:0!important}
-.followup-page #followModal .due-date-field > #openDatePicker{
+body #followModal .due-date-field > .due-date-spin > button:last-child{border-bottom:0!important}
+body #followModal .due-date-field > #openDatePicker{
   position:static!important;grid-column:3!important;grid-row:1!important;
   inset:auto!important;transform:none!important;float:none!important;
   display:flex!important;align-items:center!important;justify-content:center!important;
@@ -726,9 +726,9 @@ html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
   margin:0!important;padding:0!important;box-sizing:border-box!important;z-index:1!important;
 }
 @media(max-width:480px){
- .followup-page #followModal .due-date-field{grid-template-columns:minmax(0,1fr) 32px 38px!important;gap:6px!important}
- .followup-page #followModal .due-date-field > .due-date-spin{width:32px!important;min-width:32px!important;max-width:32px!important}
- .followup-page #followModal .due-date-field > #openDatePicker{width:38px!important;min-width:38px!important;max-width:38px!important}
+ body #followModal .due-date-field{grid-template-columns:minmax(0,1fr) 32px 38px!important;gap:6px!important}
+ body #followModal .due-date-field > .due-date-spin{width:32px!important;min-width:32px!important;max-width:32px!important}
+ body #followModal .due-date-field > #openDatePicker{width:38px!important;min-width:38px!important;max-width:38px!important}
 }
 
 </style><script>
