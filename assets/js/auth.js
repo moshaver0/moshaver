@@ -310,12 +310,49 @@ async request(payload) {
 
 };
 
+function showWelcomeToast() {
+  if (sessionStorage.getItem("moshaver-login-success") !== "1") return;
+  sessionStorage.removeItem("moshaver-login-success");
+
+  if (!document.getElementById("moshaverWelcomeToastStyle")) {
+    const style = document.createElement("style");
+    style.id = "moshaverWelcomeToastStyle";
+    style.textContent = `
+      .moshaver-welcome-toast{position:fixed;z-index:100000;top:18px;left:50%;width:min(390px,calc(100vw - 28px));display:flex;align-items:center;gap:13px;padding:14px 17px;border:1px solid rgba(110,231,183,.28);border-radius:20px;background:rgba(22,14,37,.96);color:#fbf9ff;box-shadow:0 22px 65px rgba(0,0,0,.28),0 0 35px rgba(16,185,129,.10);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);opacity:0;transform:translate(-50%,-22px) scale(.96);transition:opacity .28s ease,transform .36s cubic-bezier(.2,.8,.2,1);pointer-events:none;font-family:Vazirmatn,Tahoma,sans-serif}
+      .moshaver-welcome-toast.is-visible{opacity:1;transform:translate(-50%,0) scale(1)}
+      .moshaver-welcome-check{flex:0 0 45px;width:45px;height:45px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#34d399,#059669);color:#fff;box-shadow:0 8px 22px rgba(16,185,129,.25)}
+      .moshaver-welcome-check svg{width:25px;height:25px}
+      .moshaver-welcome-check path{fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:moshaverWelcomeTick .38s .06s ease-out forwards}
+      .moshaver-welcome-copy strong{display:block;font-size:12px;font-weight:900;color:#6ee7b7}
+      .moshaver-welcome-copy span{display:block;margin-top:3px;font-size:9px;color:#d6cde3}
+      html[data-theme="light"] .moshaver-welcome-toast{background:rgba(255,255,255,.97);color:#21162c;box-shadow:0 22px 65px rgba(63,39,89,.18)}
+      html[data-theme="light"] .moshaver-welcome-copy span{color:#675873}
+      @keyframes moshaverWelcomeTick{to{stroke-dashoffset:0}}
+      @media(prefers-reduced-motion:reduce){.moshaver-welcome-toast,.moshaver-welcome-check path{animation:none!important;transition:none!important}.moshaver-welcome-check path{stroke-dashoffset:0}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  const toast = document.createElement("div");
+  toast.className = "moshaver-welcome-toast";
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+  toast.innerHTML = '<span class="moshaver-welcome-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7.5"/></svg></span><span class="moshaver-welcome-copy"><strong>ورود موفق بود</strong><span>خوش آمدید؛ پنل شما آماده است.</span></span>';
+  document.body.appendChild(toast);
+  window.requestAnimationFrame(function() { toast.classList.add("is-visible"); });
+  window.setTimeout(function() {
+    toast.classList.remove("is-visible");
+    window.setTimeout(function() { toast.remove(); }, 400);
+  }, 2600);
+}
+
 window.MOSHAVER_AUTH = Auth;
 
 // Enforce a fixed 8-hour login lifetime on protected pages, including tabs
 // left open in the background or restored after the computer wakes.
 if (isProtectedPage()) {
-  enforceSessionExpiry();
+  const validSession = enforceSessionExpiry();
+  if (validSession) showWelcomeToast();
   window.setInterval(enforceSessionExpiry, 15000);
   window.addEventListener("focus", enforceSessionExpiry);
   window.addEventListener("pageshow", enforceSessionExpiry);
