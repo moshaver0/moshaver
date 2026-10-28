@@ -460,7 +460,7 @@ html[data-theme=light] .followup-page .modal{background:rgba(255,255,255,.05)!im
 .followup-page .due-date-field{display:grid!important;grid-template-columns:minmax(0,1fr) 34px 44px!important;gap:7px!important;align-items:center!important}
 .followup-page .due-date-field .input{min-width:0!important}
 .followup-page .due-date-spin{position:relative!important;inset:auto!important;left:auto!important;top:auto!important;bottom:auto!important;width:34px!important;height:44px!important;display:grid!important;grid-template-rows:1fr 1fr!important;overflow:hidden!important;border:1px solid var(--border)!important;border-radius:12px!important;background:var(--surface3)!important;box-shadow:inset 0 0 14px rgba(168,85,247,.04)!important}
-.followup-page .due-date-spin button{border:0!important;border-bottom:1px solid var(--border)!important;background:transparent!important;color:var(--muted)!important;font-size:10px!important;line-height:1!important;cursor:pointer!important;transition:.18s ease!important}
+.followup-page .due-date-spin button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;padding:0!important;margin:0!important;flex:initial!important;align-self:stretch!important;line-height:1!important;overflow:hidden!important;border:0!important;border-bottom:1px solid var(--border)!important;background:transparent!important;color:var(--muted)!important;font-size:10px!important;cursor:pointer!important;transition:background .18s ease,color .18s ease!important}
 .followup-page .due-date-spin button:last-child{border-bottom:0!important}
 .followup-page .due-date-spin button:hover{color:var(--purple3)!important;background:rgba(168,85,247,.10)!important}
 .followup-page .date-picker-btn{width:44px!important;height:44px!important}
@@ -1033,11 +1033,11 @@ function syncJalaliDate(){const raw=normalizeJalaliInput($('#dueDateJalali').val
 function setJalaliDate(iso){$('#dueDate').value=iso||'';$('#dueDateJalali').value=iso?jalaliDate(iso).replace(/—/g,''):''}
 function shiftDueDate(step){
  const hidden=$('#dueDate'),input=$('#dueDateJalali');if(!hidden||!input)return;
- // Parse the visible Jalali value directly so validation cannot clear the date before stepping.
+ // Read the Jalali year/month/day in the correct order; arrows always move by days.
  const raw=normalizeJalaliInput(input.value);
  const m=raw.match(/^(13|14)\d{2}\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);
  let base='';
- if(m)base=gregorianFromJalali(Number(m[0].slice(0,4)),Number(m[1]),Number(m[2]))||'';
+ if(m)base=gregorianFromJalali(Number(raw.split('/')[0]),Number(raw.split('/')[1]),Number(raw.split('/')[2]))||'';
  if(!base)base=hidden.value||todayISO();
  const d=new Date(base+'T12:00:00');if(Number.isNaN(d.getTime()))return;
  d.setDate(d.getDate()+Number(step||0));
@@ -1046,7 +1046,13 @@ function shiftDueDate(step){
 }
 function bindJalaliDate(){
  const input=$('#dueDateJalali');if(!input)return;
- input.addEventListener('input',()=>{input.value=input.value.replace(/[^0-9۰-۹٠-٩\\/\\-]/g,'');syncJalaliDate()});
+ // Accept English or Persian keyboard digits, but display Persian digits as the user types.
+ input.addEventListener('input',()=>{
+   const start=input.selectionStart, before=input.value;
+   input.value=faDigits(enDigits(before).replace(/[^0-9\\/\\-]/g,''));
+   if(start!==null)input.setSelectionRange(Math.min(input.value.length,start),Math.min(input.value.length,start));
+   syncJalaliDate();
+ });
  input.addEventListener('blur',()=>{if(!syncJalaliDate()&&input.value.trim()==='')setJalaliDate(todayISO())});
  // Up/down arrows change one day; Shift + up/down changes one week.
  input.addEventListener('keydown',e=>{
