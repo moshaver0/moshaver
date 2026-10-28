@@ -1059,6 +1059,7 @@ async function loginRequest(payload) {
 
       showLoginSuccess();
       await new Promise(resolve => setTimeout(resolve, 360));
+      sessionStorage.setItem("moshaver-login-success", "1");
       redirectByRole(user.role);
 
     }catch(error){
