@@ -297,6 +297,59 @@ html[data-theme="light"] .sidebar-calendar-day.is-weekend:not(.is-today){color:#
 @media(max-width:1040px){.sidebar-clock{margin:14px 0 15px}}
 @media(prefers-reduced-motion:reduce){.sidebar-clock-live i{animation:none}}
 
+
+/* Polished sidebar scroll for the live calendar */
+.sidebar{
+  direction:ltr;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(168,85,247,.78) rgba(167,139,250,.07);
+  scroll-behavior:smooth;
+  overscroll-behavior:contain;
+}
+.sidebar>*{direction:rtl}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-track{
+  margin:14px 0;
+  border-radius:99px;
+  background:linear-gradient(180deg,rgba(167,139,250,.025),rgba(34,211,238,.045));
+}
+.sidebar::-webkit-scrollbar-thumb{
+  min-height:44px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:99px;
+  background:linear-gradient(180deg,#a78bfa 0%,#8b5cf6 46%,#22d3ee 100%);
+  box-shadow:0 0 10px rgba(139,92,246,.28);
+}
+.sidebar::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,#c4b5fd 0%,#a78bfa 46%,#67e8f9 100%);
+  box-shadow:0 0 14px rgba(139,92,246,.42);
+}
+html[data-theme="light"] .sidebar{
+  scrollbar-color:rgba(124,58,237,.58) rgba(124,58,237,.055);
+}
+html[data-theme="light"] .sidebar::-webkit-scrollbar-thumb{
+  border-color:rgba(124,58,237,.16);
+  background:linear-gradient(180deg,#a78bfa,#8b5cf6 52%,#0891b2);
+}
+.sidebar-clock{scroll-margin-block:12px}
+.sidebar-calendar-day{
+  transition:background .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.sidebar-calendar-day:not(.is-outside):not(.is-today):hover{
+  background:rgba(167,139,250,.16);
+  color:var(--text,#f8f5ff);
+  transform:translateY(-1px);
+}
+@media(max-width:1040px){
+  .sidebar{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+}
+@media(prefers-reduced-motion:reduce){
+  .sidebar{scroll-behavior:auto}
+  .sidebar-calendar-day{transition:none}
+}
+
 </style><script>
 /* MOSHAVER: require an existing login before displaying panel pages */
 (function () {
