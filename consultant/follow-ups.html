@@ -458,7 +458,7 @@ html[data-theme=light] .followup-page .modal{background:rgba(255,255,255,.05)!im
 .followup-page .modal::before,.followup-page .modal::after,.followup-page .modal>.modal-box::before,.followup-page .modal>.modal-box::after{content:none!important;display:none!important}
 .followup-page .modal>.modal-box{box-shadow:0 28px 80px rgba(0,0,0,.30),0 0 55px rgba(124,58,237,.10)!important}
 .followup-page .due-date-field{display:grid!important;grid-template-columns:minmax(0,1fr) 32px 42px!important;gap:8px!important;align-items:center!important}
-.followup-page .due-date-field .input{min-width:0!important;width:100%!important;box-sizing:border-box!important;direction:ltr!important;text-align:center!important;font-variant-numeric:tabular-nums!important}
+.followup-page .due-date-field .input{min-width:0!important;width:100%!important;box-sizing:border-box!important;direction:ltr!important;unicode-bidi:isolate-override!important;text-align:center!important;font-variant-numeric:tabular-nums!important}
 .followup-page .due-date-field .due-date-spin{position:static!important;inset:auto!important;width:32px!important;height:44px!important;min-width:32px!important;max-width:32px!important;display:grid!important;grid-template-rows:minmax(0,1fr) minmax(0,1fr)!important;grid-template-columns:1fr!important;align-self:center!important;overflow:hidden!important;border:1px solid var(--border)!important;border-radius:10px!important;background:var(--surface3)!important;box-sizing:border-box!important}
 .followup-page .due-date-field .due-date-spin button{position:static!important;display:flex!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-height:none!important;padding:0!important;margin:0!important;flex:none!important;transform:none!important;border:0!important;border-bottom:1px solid var(--border)!important;line-height:1!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;box-sizing:border-box!important}
 .followup-page .due-date-field .due-date-spin button:last-child{border-bottom:0!important}
@@ -1090,17 +1090,25 @@ function normalizeJalaliInput(v){return String(v||'').replace(/[۰-۹]/g,d=>Stri
 function syncJalaliDate(){const raw=normalizeJalaliInput($('#dueDateJalali').value);const m=raw.match(/^((?:13|14)\d{2})\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);if(!m){$('#dueDate').value='';return false}const year=Number(m[1]),month=Number(m[2]),day=Number(m[3]);const iso=gregorianFromJalali(year,month,day);if(!iso){$('#dueDate').value='';return false}$('#dueDate').value=iso;$('#dueDateJalali').value=faDigits(`${year}/${String(month).padStart(2,'0')}/${String(day).padStart(2,'0')}`);return true}
 function setJalaliDate(iso){$('#dueDate').value=iso||'';$('#dueDateJalali').value=iso?jalaliDate(iso).replace(/—/g,''):''}
 function shiftDueDate(step){
- const hidden=$('#dueDate'),input=$('#dueDateJalali');if(!hidden||!input)return;
- // Read the Jalali year/month/day in the correct order; arrows always move by days.
+ const input=$('#dueDateJalali');if(!input)return;
  const raw=normalizeJalaliInput(input.value);
- const m=raw.match(/^(13|14)\d{2}\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);
- let base='';
- if(m)base=gregorianFromJalali(Number(raw.split('/')[0]),Number(raw.split('/')[1]),Number(raw.split('/')[2]))||'';
- if(!base)base=hidden.value||todayISO();
- const d=new Date(base+'T12:00:00');if(Number.isNaN(d.getTime()))return;
- d.setDate(d.getDate()+Number(step||0));
- const iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
- setJalaliDate(iso);
+ const m=raw.match(/^((?:13|14)\d{2})\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12]\d|3[01])$/);
+ let year,month,day;
+ if(m){year=Number(m[1]);month=Number(m[2]);day=Number(m[3])}
+ else {
+   const current=jalaliDate($('#dueDate').value||todayISO()).replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).split('/');
+   year=Number(current[0]);month=Number(current[1]);day=Number(current[2]);
+ }
+ const direction=Math.sign(Number(step)||0);if(!direction)return;
+ const leapYear=y=>{
+   const first=gregorianFromJalali(y,1,1),next=gregorianFromJalali(y+1,1,1);
+   return !!(first&&next&&Math.round((new Date(next+'T12:00:00')-new Date(first+'T12:00:00'))/86400000)===366);
+ };
+ const daysInMonth=(y,mo)=>mo<=6?31:mo<=11?30:(leapYear(y)?30:29);
+ if(direction>0){day++;if(day>daysInMonth(year,month)){day=1;month++;if(month>12){month=1;year++}}}
+ else {day--;if(day<1){month--;if(month<1){month=12;year--}day=daysInMonth(year,month)}}
+ const iso=gregorianFromJalali(year,month,day);
+ if(iso){$('#dueDate').value=iso;input.value=faDigits(String(year)+'/'+String(month).padStart(2,'0')+'/'+String(day).padStart(2,'0'))}
 }
 function bindJalaliDate(){
  const input=$('#dueDateJalali');if(!input)return;
@@ -1127,13 +1135,13 @@ function bindJalaliDate(){
    e.preventDefault();e.stopPropagation();
    const existing=document.getElementById('dueDatePickerPopover');if(existing){existing.remove();return}
    const pop=document.createElement('div');pop.id='dueDatePickerPopover';
-   Object.assign(pop.style,{position:'fixed',zIndex:'99999',padding:'12px',borderRadius:'12px',border:'1px solid var(--border,#ccc)',background:'var(--card,#fff)',boxShadow:'0 10px 30px rgba(0,0,0,.25)',display:'grid',gap:'8px',minWidth:'230px',color:'var(--text,#222)'});
+   Object.assign(pop.style,{position:'fixed',zIndex:'2147483647',padding:'12px',borderRadius:'12px',border:'1px solid var(--border,#ccc)',background:'var(--card,#fff)',boxShadow:'0 10px 30px rgba(0,0,0,.25)',display:'grid',gap:'8px',minWidth:'230px',color:'var(--text,#222)'});
    const label=document.createElement('label');label.textContent='انتخاب تاریخ';label.style.fontWeight='700';
    const picker=document.createElement('input');picker.type='date';picker.value=$('#dueDate').value||todayISO();
    Object.assign(picker.style,{width:'100%',minHeight:'40px',padding:'6px',boxSizing:'border-box',fontSize:'15px',color:'#222',background:'#fff',border:'1px solid #bbb',borderRadius:'8px'});
    const close=document.createElement('button');close.type='button';close.textContent='بستن';
    Object.assign(close.style,{minHeight:'36px',borderRadius:'8px',border:'1px solid var(--border,#ccc)',cursor:'pointer'});
-   pop.append(label,picker,close);document.body.appendChild(pop);
+   pop.append(label,picker,close);$('#followModal').appendChild(pop);
    const rect=open.getBoundingClientRect();pop.style.top=Math.min(rect.bottom+6,window.innerHeight-170)+'px';pop.style.left=Math.max(8,Math.min(rect.left,window.innerWidth-260))+'px';
    picker.addEventListener('change',()=>{if(picker.value){setJalaliDate(picker.value);pop.remove()}});
    close.addEventListener('click',()=>pop.remove());
