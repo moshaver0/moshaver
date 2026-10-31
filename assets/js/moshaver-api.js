@@ -156,7 +156,8 @@
       check: () => call("connectionCheck")
     },
     files: {
-      uploadClient: payload => call("clientFileUpload", input(payload || {}))
+      uploadClient: payload => call("clientFileUpload", input(payload || {})),
+      deleteClient: payload => call("clientFileDelete", input(payload || {}))
     }
   };
   window.MOSHAVER_API = api;
