@@ -2145,7 +2145,7 @@ function seedClients(){const t=jalaliStr(new Date());clients=[['سارا','مح�
 
 function normalizeJalaliDateValue(value){
  const raw=String(value??'').trim(); if(!raw)return '';
- const m=raw.match(/^(13\d{2}|14\d{2})[-/](\d{1,2})[-/](\d{1,2})/);
+ const m=raw.match(/^(13\d{2}|14\d{2})[-\/](\d{1,2})[-\/](\d{1,2})/);
  if(m)return m[1]+'/'+pad(Number(m[2]))+'/'+pad(Number(m[3]));
  const d=new Date(raw); if(!Number.isNaN(d.getTime())){try{return new Intl.DateTimeFormat('en-US-u-ca-persian',{timeZone:'Asia/Tehran',year:'numeric',month:'2-digit',day:'2-digit'}).format(d).replace(/(\d+)\/(\d+)\/(\d+)/,(x,mm,dd,yy)=>yy+'/'+mm+'/'+dd)}catch(e){}}
  return raw.split('T')[0].replace(/-/g,'/');
