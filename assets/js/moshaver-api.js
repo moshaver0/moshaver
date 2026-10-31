@@ -157,7 +157,8 @@
     },
     files: {
       uploadClient: payload => call("clientFileUpload", input(payload || {})),
-      deleteClient: payload => call("clientFileDelete", input(payload || {}))
+      deleteClient: payload => call("clientFileDelete", input(payload || {})),
+      readClient: payload => call("clientFileRead", input(payload || {}))
     }
   };
   window.MOSHAVER_API = api;
