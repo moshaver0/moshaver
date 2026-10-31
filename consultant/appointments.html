@@ -2183,8 +2183,19 @@ function financeTotals(){
   const records=financeRecords();
   const now=jalaliStr(new Date()).slice(0,7);
   const today=jalaliStr(new Date());
-  const monthRecords=records.filter(r=>r.date.startsWith(now));
-  return {today:records.filter(r=>r.date===today).reduce((s,r)=>s+Number(r.amount||0),0),month:monthRecords.reduce((s,r)=>s+Number(r.amount||0),0),commission:monthRecords.reduce((s,r)=>s+Number(r.commission||0),0),completed:monthRecords.length};
+  // Finance rows may contain a Jalali date, a hyphenated date, or an ISO
+  // timestamp (for example 1405-08-07T20:34:16.000Z). Normalize all of
+  // them to the same Jalali YYYY/MM/DD key before comparing.
+  const financeDateKey=value=>normalizeJalaliDateValue(value);
+  const datedRecords=records.map(r=>({...r,_financeDateKey:financeDateKey(r.date)}));
+  const monthRecords=datedRecords.filter(r=>r._financeDateKey.slice(0,7)===now);
+  const todayRecords=datedRecords.filter(r=>r._financeDateKey===today);
+  return {
+    today:todayRecords.reduce((s,r)=>s+Number(r.amount||0),0),
+    month:monthRecords.reduce((s,r)=>s+Number(r.amount||0),0),
+    commission:monthRecords.reduce((s,r)=>s+Number(r.commission||0),0),
+    completed:monthRecords.length
+  };
 }
 
 function renderFinance(){
