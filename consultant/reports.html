@@ -609,7 +609,32 @@ async function exportExcel(){
  make('پیگیری‌ها',[['title','عنوان',x=>x.title||x.subject||x.description],['client','مراجع',x=>clientName(x.clientId||x.clientID)],['date','موعد',reportDate],['status','وضعیت',x=>x.status]],followups);
  make('مالی',[['client','مراجع',x=>clientName(x.clientId||x.clientID)],['date','تاریخ',reportDate],['amount','مبلغ',x=>amountOf(x)],['commission','کمیسیون',x=>commissionOf(x)],['method','روش پرداخت',x=>x.paymentMethod||x.method],['note','توضیحات',x=>x.note||x.description]],finance);
  
- const html='<html><head><meta charset="utf-8"></head><body>'+sections.map((sec,i)=>'<h2>'+sec[0]+'</h2><table border="1"><tr>'+sec[1][0].map(v=>'<th>'+escapeHtml(v)+'</th>').join('')+'</tr>'+sec[1].slice(1).map(row=>'<tr>'+row.map(v=>'<td>'+escapeHtml(v)+'</td>').join('')+'</tr>').join('')+'</table>').join('<br>')+'</body></html>';
+ const html='<html><head><meta charset="utf-8"></head><body>'+sections.map((sec,i)=>'<h2>'+sec[0]+'</h2><table border="1"><tr>'+sec[1][0].map(v=>'<th>'+escapeHtml(v)+'</th>').join('')+'</tr>'+sec[1].slice(1).map(row=>'<tr>'+row.map(v=>'<td>'+escapeHtml(v)+'</td>').join('')+'</tr>').join('')+'</table>').join('<br>')+'
+<script>
+/* Load the signed-in consultant identity from the authenticated profile API. */
+(function(){
+  function roleLabel(role){return role==="MANAGER"?"مدیر کلینیک":role==="SUPER_ADMIN"?"مدیریت سامانه":role==="CONSULTANT"?"مشاور کلینیک":role||"مشاور کلینیک";}
+  function apply(user){
+    if(!user)return;
+    var name=[user.firstName,user.lastName].filter(Boolean).join(" ").trim()||user.username||"مشاور";
+    var nameNode=document.getElementById("userName");
+    var roleNode=document.getElementById("userRole");
+    if(nameNode)nameNode.textContent=name;
+    if(roleNode)roleNode.textContent=roleLabel(user.role);
+    try{
+      var old=JSON.parse(localStorage.getItem("moshaver_user")||"{}")||{};
+      localStorage.setItem("moshaver_user",JSON.stringify(Object.assign({},old,user)));
+    }catch(_){}
+  }
+  if(window.MOSHAVER_API&&window.MOSHAVER_AUTH&&window.MOSHAVER_AUTH.isLoggedIn()){
+    window.MOSHAVER_API.me().then(function(result){apply(result&&result.user?result.user:result);}).catch(function(error){console.warn("Profile identity refresh failed",error);});
+  }else{
+    try{apply(JSON.parse(localStorage.getItem("moshaver_user")||"null"));}catch(_){}
+  }
+})();
+</script>
+
+</body></html>';
  const blob=new Blob(['\uFEFF',html],{type:'application/vnd.ms-excel;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-complete-report.xls';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
 }
 /* 10 — EVENTS */
