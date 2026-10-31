@@ -440,14 +440,14 @@ function jalaliToday(){try{return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{
 function jalaliFromDate(date){try{return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date).replace(/-/g,'/')}catch(e){return ''}}
 function displayJalaliDate(value){
  const raw=String(value??'').trim();if(!raw)return '—';
- const m=raw.match(/^(13\\d{2}|14\\d{2})[-/](\\d{1,2})[-/](\\d{1,2})/);
+ const m=raw.match(/^(13\d{2}|14\d{2})[-/](\d{1,2})[-/](\d{1,2})/);
  if(m)return faNum(m[1]+'/'+String(m[2]).padStart(2,'0')+'/'+String(m[3]).padStart(2,'0'));
  const d=new Date(raw);if(!Number.isNaN(d.getTime())){try{return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{timeZone:'Asia/Tehran',year:'numeric',month:'2-digit',day:'2-digit'}).format(d).replace(/-/g,'/')}catch(e){}}
  return faNum(raw.split('T')[0].replace(/-/g,'/'));
 }
 function displayClock(value){
  const raw=String(value??'').trim();if(!raw)return '';
- if(/^\\d{1,2}:\\d{2}/.test(raw))return faNum(raw.slice(0,5));
+ if(/^\d{1,2}:\d{2}/.test(raw))return faNum(raw.slice(0,5));
  const d=new Date(raw);if(!Number.isNaN(d.getTime())){try{return new Intl.DateTimeFormat('fa-IR',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d)}catch(e){}}
  return '';
 }
