@@ -159,6 +159,8 @@ html[data-theme="light"] .toast{background:#fff;color:#24172f;border-color:var(-
       if(dataUrl.length>1900000)throw new Error("حجم عکس پس از فشرده‌سازی هنوز زیاد است.");
       showPhoto(dataUrl);button.textContent="در حال ذخیره…";
       const result=await api.uploadMyProfilePhoto({fileName:"profile-"+Date.now()+(mime==="image/png"?".png":".jpg"),mimeType:mime,data:dataUrl});
+      const activeUser=JSON.parse(localStorage.getItem("moshaver_user")||"null")||{};
+      try{sessionStorage.setItem("moshaver_profile_photo:"+String(activeUser.userId||activeUser.username||""),dataUrl);}catch(_){}
       toast("عکس پروفایل با موفقیت ذخیره شد.","success");
     }catch(error){console.error(error);toast("بارگذاری عکس انجام نشد: "+(error.message||"خطای اتصال"),"error");}
     finally{button.disabled=false;button.textContent="📷 انتخاب عکس";event.target.value="";}
