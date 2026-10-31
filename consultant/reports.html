@@ -592,8 +592,9 @@ function buildReportPrint(){
  root.innerHTML='<h1>گزارش جامع مشاور</h1><div class="print-meta">تاریخ تهیه: '+escapeHtml(new Date().toLocaleString('fa-IR'))+' · گزارش یکپارچه از اطلاعات پنل</div><div class="print-kpis">'+[['تعداد مراجعین',clients.length],['کل نوبت‌ها',m.totalA],['خدمات انجام‌شده',m.completed],['پیگیری‌های امروز',m.todayFU.length],['درآمد ثبت‌شده',money(m.totalIncome)+' تومان'],['مجموع کمیسیون',money(m.totalComm)+' تومان']].map(x=>'<div class="print-kpi">'+x[0]+'<b>'+fa(x[1])+'</b></div>').join('')+'</div><section class="print-section"><h2>۱. فهرست مراجعین ('+fa(clients.length)+')</h2>'+reportTable(clientHeaders,clients)+'</section><section class="print-section"><h2>۲. نوبت‌ها و خدمات ('+fa(appointments.length)+')</h2>'+reportTable(apptHeaders,apptRows)+'</section><section class="print-section"><h2>۳. پیگیری‌ها ('+fa(followups.length)+')</h2>'+reportTable(followHeaders,followups)+'</section><section class="print-section"><h2>۴. گزارش مالی ('+fa(finance.length)+')</h2>'+reportTable(financeHeaders,financeRows)+'</section><section class="print-section"><h2>۵. فعالیت‌های ثبت‌شده ('+fa(activity.length)+')</h2>'+reportTable(activityHeaders,activity)+'</section><div class="print-footer">این گزارش به‌صورت خودکار از داده‌های در دسترس پنل مشاور تهیه شده است.</div>';
  if(!root.isConnected)document.body.appendChild(root);return root;
 }
-function printFullReport(){buildReportPrint();setTimeout(()=>window.print(),80)}
-function exportExcel(){
+async function printFullReport(){await load();renderAll();buildReportPrint();setTimeout(()=>window.print(),120)}
+async function exportExcel(){
+ await load();renderAll();
  const sections=[['خلاصه گزارش',[['شاخص','مقدار'],['مراجعین',clients.length],['نوبت‌ها',appointments.length],['خدمات موفق',compute().completed],['پیگیری‌ها',followups.length],['درآمد',compute().totalIncome],['کمیسیون',compute().totalComm]]]];
  const make=(title,headers,rows)=>sections.push([title,[headers.map(h=>h[1]),...rows.map(x=>headers.map(h=>String(h[2](x)??'')))]]);
  make('مراجعین',[['name','نام مراجع',x=>((x.firstName||x.name||'')+' '+(x.lastName||'')).trim()||x.fullName],['phone','تلفن',x=>x.phone||x.mobile||x.phoneNumber],['status','وضعیت',x=>x.status],['created','تاریخ ثبت',reportDate]],clients);
