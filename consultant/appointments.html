@@ -2408,7 +2408,32 @@ function exportExcel(){
   const rows=[['ردیف','مراجع','موبایل','تاریخ شمسی','ساعت','خدمات','نوع جلسه','وضعیت','یادآوری','مبلغ','پورسانت']];
   filtered().forEach((a,i)=>{const c=clientById(a.clientId)||{};rows.push([i+1,`${c.firstName||''} ${c.lastName||''}`,c.mobile||'',a.date,a.time,a.service,a.mode,statusLabel(a.status),a.reminder?'فعال':'خاموش',a.amount||'',a.commission||''])});
   const table='<table dir="rtl" border="1"><thead><tr>'+rows[0].map(x=>`<th>${esc(x)}</th>`).join('')+'</tr></thead><tbody>'+rows.slice(1).map(r=>'<tr>'+r.map(x=>`<td>${esc(x)}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
-  const blob=new Blob(['\ufeff',`<html><meta charset="utf-8"><body>${table}</body></html>`],{type:'application/vnd.ms-excel;charset=utf-8'});
+  const blob=new Blob(['\ufeff',`<html><meta charset="utf-8"><body>${table}
+<script>
+/* Load the signed-in consultant identity from the authenticated profile API. */
+(function(){
+  function roleLabel(role){return role==="MANAGER"?"مدیر کلینیک":role==="SUPER_ADMIN"?"مدیریت سامانه":role==="CONSULTANT"?"مشاور کلینیک":role||"مشاور کلینیک";}
+  function apply(user){
+    if(!user)return;
+    var name=[user.firstName,user.lastName].filter(Boolean).join(" ").trim()||user.username||"مشاور";
+    var nameNode=document.getElementById("userName");
+    var roleNode=document.getElementById("userRole");
+    if(nameNode)nameNode.textContent=name;
+    if(roleNode)roleNode.textContent=roleLabel(user.role);
+    try{
+      var old=JSON.parse(localStorage.getItem("moshaver_user")||"{}")||{};
+      localStorage.setItem("moshaver_user",JSON.stringify(Object.assign({},old,user)));
+    }catch(_){}
+  }
+  if(window.MOSHAVER_API&&window.MOSHAVER_AUTH&&window.MOSHAVER_AUTH.isLoggedIn()){
+    window.MOSHAVER_API.me().then(function(result){apply(result&&result.user?result.user:result);}).catch(function(error){console.warn("Profile identity refresh failed",error);});
+  }else{
+    try{apply(JSON.parse(localStorage.getItem("moshaver_user")||"null"));}catch(_){}
+  }
+})();
+</script>
+
+</body></html>`],{type:'application/vnd.ms-excel;charset=utf-8'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moshaver-appointments.xls';a.click();URL.revokeObjectURL(url);
 }
 
