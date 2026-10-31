@@ -109,6 +109,8 @@
     request: call,
     me: () => call("me"),
     updateMyProfile: record => call("meUpdate", input(record)),
+    uploadMyProfilePhoto: record => call("mePhotoUpload", input(record)),
+    readMyProfilePhoto: () => call("mePhotoRead"),
     dashboard: () => call("dashboard"),
     clients: {
       list: async filters => items(await call("clientsList", filters || {})).map(clientFromApi),
