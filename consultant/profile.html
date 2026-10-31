@@ -124,6 +124,18 @@ html[data-theme="light"] .toast{background:#fff;color:#24172f;border-color:var(-
     try {
       const data=await api.me();
       fill(data);
+      const user=data?.user||{};
+      const photoCacheKey="moshaver_profile_photo:"+String(user.userId||user.id||user.username||"");
+      let restoredPhoto="";
+      try{restoredPhoto=sessionStorage.getItem(photoCacheKey)||"";}catch(_){}
+      if(user.profilePhotoFileId){
+        try{
+          const photo=await api.readMyProfilePhoto();
+          if(photo&&photo.dataUrl){restoredPhoto=photo.dataUrl;try{sessionStorage.setItem(photoCacheKey,restoredPhoto);}catch(_){}}
+        }catch(photoError){console.warn("Profile photo restore failed:",photoError);}
+      }
+      if(restoredPhoto)showPhoto(restoredPhoto);
+      else if(!user.profilePhotoFileId)showPhoto("");
       if(showMessage)toast("اطلاعات حساب از سرور بارگذاری شد","success");
     } catch(error) {
       console.error(error);
