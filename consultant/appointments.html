@@ -2176,6 +2176,20 @@ function attendanceRate(){const done=appointments.filter(a=>['completed','no-sho
 
 function log(message,id){activity.unshift({id:uid('ACT'),type:'appointment',message,appointmentId:id,at:new Date().toISOString()})}
 
+function financeDisplayDate(value){
+  const raw=String(value??'').trim();
+  if(!raw)return '—';
+  const dateKey=normalizeJalaliDateValue(raw);
+  const match=dateKey.match(/^(13\\d{2}|14\\d{2})[\\/-](\\d{1,2})[\\/-](\\d{1,2})$/);
+  if(!match)return raw.split('T')[0].replace(/-/g,'/');
+  const date=match[1]+'/'+pad(Number(match[2]))+'/'+pad(Number(match[3]));
+  const timestamp=new Date(raw);
+  if(!Number.isNaN(timestamp.getTime()) && /T|Z|\\d{2}:\\d{2}/.test(raw)){
+    const time=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(timestamp);
+    return faNum(date)+' · '+faNum(time);
+  }
+  return faNum(date);
+}
 function financeRecords(){return finance} function saveFinance(records){finance=records||[];if(!window.MOSHAVER_API||!window.MOSHAVER_AUTH||!window.MOSHAVER_AUTH.isLoggedIn())return Promise.resolve();const desired=finance.map(x=>({...x}));financeSaveQueue=financeSaveQueue.then(async()=>{const next=new Map(desired.map(x=>[String(x.id),x]));for(const item of desired){const id=String(item.id);const prior=remoteFinance.get(id);if(!prior)await window.MOSHAVER_API.finance.create(item);else if(prior!==JSON.stringify(item))await window.MOSHAVER_API.finance.update(item)}for(const [id] of remoteFinance){if(!next.has(id))await window.MOSHAVER_API.finance.remove(id)}remoteFinance=new Map(desired.map(x=>[String(x.id),JSON.stringify(x)]))}).catch(e=>{console.error(e);toast('ذخیره اطلاعات مالی در سرور ناموفق بود',e.message||'خطای اتصال',false)});return financeSaveQueue}
 function money(v){return faNum(Number(v||0).toLocaleString('en-US'))}
 
@@ -2205,7 +2219,7 @@ function renderFinance(){
   $('#financeCommissionValue').textContent=money(t.commission);
   $('#financeCompletedValue').textContent=faNum(t.completed);
   const records=financeRecords().slice().sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))).slice(0,5);
-  $('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${faNum(r.date)} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-edit="${r.id}" title="ویرایش تراکنش">✎</button><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
+  $('#financeList').innerHTML=records.length?records.map(r=>`<div class="finance-mini"><div><strong>${esc(r.clientName)}</strong><small>${esc(financeDisplayDate(r.date))} · ${esc(r.payment||'—')}</small></div><b>${money(r.amount)}</b><button type="button" data-finance-edit="${r.id}" title="ویرایش تراکنش">✎</button><button type="button" data-finance-delete="${r.id}" title="حذف تراکنش">🗑</button></div>`).join(''):'<div class="empty show"><strong>هنوز تراکنش مالی ثبت نشده است.</strong><span>با ثبت نهایی خدمات، مبلغ و پورسانت اینجا ثبت می‌شود.</span></div>';
 }
 // =========================================================
 // 04. DASHBOARD / KPI RENDERING
